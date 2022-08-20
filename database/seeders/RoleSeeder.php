@@ -60,6 +60,13 @@ class RoleSeeder extends Seeder
             'theme.type.updated',
             'theme.type.getPaginate',
             'theme.type.get',
+
+            'estate.type.index',
+            'estate.type.create',
+            'estate.type.delete',
+            'estate.type.updated',
+            'estate.type.getPaginate',
+            'estate.type.get',
             ]
         );
     }

@@ -59,6 +59,13 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'theme.type.getPaginate']);
         Permission::create(['name' => 'theme.type.get']);
 
+        Permission::create(['name' => 'estate.type.index']);
+        Permission::create(['name' => 'estate.type.create']);
+        Permission::create(['name' => 'estate.type.delete']);
+        Permission::create(['name' => 'estate.type.updated']);
+        Permission::create(['name' => 'estate.type.getPaginate']);
+        Permission::create(['name' => 'estate.type.get']);
+
 
     }
 }

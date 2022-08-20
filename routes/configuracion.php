@@ -74,5 +74,33 @@ Route::group(
                     ->middleware('permission:theme.type.getPaginate');
             }
         );
+
+        Route::group(
+            [
+            'prefix'     => 'estate-type',
+            'middleware'  => 'auth'
+            ], function () {
+
+                Route::get('', [App\Http\Controllers\Configuracion\EstateType\IndexController::class, 'index'])
+                    ->name('estate.type.index')
+                    ->middleware('permission:estate.type.index');
+
+                Route::post('create', [App\Http\Controllers\Configuracion\EstateType\CreateController::class, 'create'])
+                    ->name('estate.type.create')
+                    ->middleware('permission:estate.type.create');
+
+                Route::delete('delete/{id}', [App\Http\Controllers\Configuracion\EstateType\DeleteController::class, 'destroy'])
+                    ->name('estate.type.delete')
+                    ->middleware('permission:estate.type.delete');
+
+                Route::put('{id}', [App\Http\Controllers\Configuracion\EstateType\UpdatedController::class, 'updated'])
+                    ->name('estate.type.updated')
+                    ->middleware('permission:estate.type.updated');
+
+                Route::get('get', [App\Http\Controllers\Configuracion\EstateType\IndexController::class, 'get'])
+                    ->name('estate.type.get')
+                    ->middleware('permission:estate.type.getPaginate');
+            }
+        );
     }
 );
