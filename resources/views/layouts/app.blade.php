@@ -146,6 +146,9 @@
                                 @can('room.type.index')
                                     <a class="dropdown-item" href="{{ route('room.type.index') }}">Tipo Habitacion</a>
                                 @endcan
+                                @can('theme.type.index')
+                                    <a class="dropdown-item" href="{{ route('theme.type.index') }}">Tipo Tematica</a>
+                                @endcan
                             </div>
                         </li>
                     @endcan

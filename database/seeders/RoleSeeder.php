@@ -46,11 +46,20 @@ class RoleSeeder extends Seeder
             'users.getPaginate',
 
             'configuracion',
+
             'room.type.index',
             'room.type.create',
             'room.type.delete',
             'room.type.updated',
             'room.type.getPaginate',
+            'room.type.get',
+
+            'theme.type.index',
+            'theme.type.create',
+            'theme.type.delete',
+            'theme.type.updated',
+            'theme.type.getPaginate',
+            'theme.type.get',
             ]
         );
     }

@@ -46,5 +46,33 @@ Route::group(
                     ->middleware('permission:room.type.getPaginate');
             }
         );
+
+        Route::group(
+            [
+            'prefix'     => 'theme-type',
+            'middleware'  => 'auth'
+            ], function () {
+
+                Route::get('', [App\Http\Controllers\Configuracion\ThemeType\IndexController::class, 'index'])
+                    ->name('theme.type.index')
+                    ->middleware('permission:theme.type.index');
+
+                Route::post('create', [App\Http\Controllers\Configuracion\ThemeType\CreateController::class, 'create'])
+                    ->name('theme.type.create')
+                    ->middleware('permission:theme.type.create');
+
+                Route::delete('delete/{id}', [App\Http\Controllers\Configuracion\ThemeType\DeleteController::class, 'destroy'])
+                    ->name('theme.type.delete')
+                    ->middleware('permission:theme.type.delete');
+
+                Route::put('{id}', [App\Http\Controllers\Configuracion\ThemeType\UpdatedController::class, 'updated'])
+                    ->name('theme.type.updated')
+                    ->middleware('permission:theme.type.updated');
+
+                Route::get('get', [App\Http\Controllers\Configuracion\ThemeType\IndexController::class, 'get'])
+                    ->name('theme.type.get')
+                    ->middleware('permission:theme.type.getPaginate');
+            }
+        );
     }
 );
