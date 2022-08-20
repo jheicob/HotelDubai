@@ -29,6 +29,7 @@ Vue.component('password', require('./Views/Password/Password').default);
 Vue.component('roomtype', require('./Views/RoomType/RoomType').default);
 Vue.component('themetype', require('./Views/ThemeType/ThemeType').default);
 Vue.component('estatetype', require('./Views/EstateType/EstateType').default);
+Vue.component('partialrates', require('./Views/PartialRates/PartialRates').default);
 
 
 /**

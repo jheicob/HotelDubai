@@ -66,6 +66,13 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'estate.type.getPaginate']);
         Permission::create(['name' => 'estate.type.get']);
 
+        Permission::create(['name' => 'partial.rates.index']);
+        Permission::create(['name' => 'partial.rates.create']);
+        Permission::create(['name' => 'partial.rates.delete']);
+        Permission::create(['name' => 'partial.rates.updated']);
+        Permission::create(['name' => 'partial.rates.getPaginate']);
+        Permission::create(['name' => 'partial.rates.get']);
+
 
     }
 }

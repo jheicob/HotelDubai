@@ -152,6 +152,9 @@
                                 @can('estate.type.index')
                                     <a class="dropdown-item" href="{{ route('estate.type.index') }}">Tipo inmueble</a>
                                 @endcan
+                                @can('partial.rates.index')
+                                    <a class="dropdown-item" href="{{ route('partial.rates.index') }}">Tarifas Parciales</a>
+                                @endcan
 
                             </div>
                         </li>

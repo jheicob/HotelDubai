@@ -102,5 +102,33 @@ Route::group(
                     ->middleware('permission:estate.type.getPaginate');
             }
         );
+
+        Route::group(
+            [
+            'prefix'     => 'partial-rates',
+            'middleware'  => 'auth'
+            ], function () {
+
+                Route::get('', [App\Http\Controllers\Configuracion\PartialRates\IndexController::class, 'index'])
+                    ->name('partial.rates.index')
+                    ->middleware('permission:partial.rates.index');
+
+                Route::post('create', [App\Http\Controllers\Configuracion\PartialRates\CreateController::class, 'create'])
+                    ->name('partial.rates.create')
+                    ->middleware('permission:partial.rates.create');
+
+                Route::delete('delete/{id}', [App\Http\Controllers\Configuracion\PartialRates\DeleteController::class, 'destroy'])
+                    ->name('partial.rates.delete')
+                    ->middleware('permission:partial.rates.delete');
+
+                Route::put('{id}', [App\Http\Controllers\Configuracion\PartialRates\UpdatedController::class, 'updated'])
+                    ->name('partial.rates.updated')
+                    ->middleware('permission:partial.rates.updated');
+
+                Route::get('get', [App\Http\Controllers\Configuracion\PartialRates\IndexController::class, 'get'])
+                    ->name('partial.rates.get')
+                    ->middleware('permission:partial.rates.getPaginate');
+            }
+        );
     }
 );

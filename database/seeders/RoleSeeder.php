@@ -67,6 +67,13 @@ class RoleSeeder extends Seeder
             'estate.type.updated',
             'estate.type.getPaginate',
             'estate.type.get',
+
+            'partial.rates.index',
+            'partial.rates.create',
+            'partial.rates.delete',
+            'partial.rates.updated',
+            'partial.rates.getPaginate',
+            'partial.rates.get',
             ]
         );
     }
