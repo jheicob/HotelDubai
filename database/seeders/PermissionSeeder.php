@@ -41,8 +41,16 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'users.updated']);
         Permission::create(['name' => 'users.getPaginate']);
 
-        
+         //configuracion
 
-        
+        Permission::create(['name' => 'configuracion']);
+
+        Permission::create(['name' => 'room.type.index']);
+        Permission::create(['name' => 'room.type.create']);
+        Permission::create(['name' => 'room.type.delete']);
+        Permission::create(['name' => 'room.type.updated']);
+        Permission::create(['name' => 'room.type.getPaginate']);
+
+
     }
 }

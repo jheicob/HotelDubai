@@ -26,6 +26,7 @@ Vue.component('users', require('./Views/Users/Users').default);
 Vue.component('logs', require('./Views/Logs/Logs').default);
 Vue.component('profile', require('./Views/Profile/Profile').default);
 Vue.component('password', require('./Views/Password/Password').default);
+Vue.component('roomtype', require('./Views/RoomType/RoomType').default);
 
 
 /**

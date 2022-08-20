@@ -15,13 +15,16 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $Admin= Role::create([
-            'name' => 'Admin', 
-        ]);
+        $Admin= Role::create(
+            [
+            'name' => 'Admin',
+            ]
+        );
 
         $user = User::find(1);
         $user->assignRole('Admin');
-        $Admin->givePermissionTo([
+        $Admin->givePermissionTo(
+            [
             'seguridad',
             'permissions.index',
             'permissions.create',
@@ -35,12 +38,20 @@ class RoleSeeder extends Seeder
             'roles.getPaginate',
             'logs.index',
             'logs.getPaginate',
-            
+
             'users.index',
             'users.create',
             'users.delete',
             'users.updated',
-            'users.getPaginate'   
-        ]);
+            'users.getPaginate',
+
+            'configuracion',
+            'room.type.index',
+            'room.type.create',
+            'room.type.delete',
+            'room.type.updated',
+            'room.type.getPaginate',
+            ]
+        );
     }
 }

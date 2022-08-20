@@ -53,8 +53,8 @@ class RouteServiceProvider extends ServiceProvider
                     ->group(base_path('routes/select.php'));
 
                 Route::middleware('web')
-                     ->namespace($this->namespace)
-                     ->group(base_path('routes/permission.php'));
+                    ->namespace($this->namespace)
+                    ->group(base_path('routes/permission.php'));
 
                 Route::middleware('web')
                     ->namespace($this->namespace)
@@ -71,6 +71,10 @@ class RouteServiceProvider extends ServiceProvider
                 Route::middleware('web')
                     ->namespace($this->namespace)
                     ->group(base_path('routes/profile.php'));
+
+                Route::middleware('web')
+                    ->namespace($this->namespace)
+                    ->group(base_path('routes/configuracion.php'));
 
             }
         );
