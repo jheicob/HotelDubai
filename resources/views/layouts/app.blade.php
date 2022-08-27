@@ -155,6 +155,9 @@
                                 @can('partial.rates.index')
                                     <a class="dropdown-item" href="{{ route('partial.rates.index') }}">Tarifas Parciales</a>
                                 @endcan
+                                @can('room.status.index')
+                                    <a class="dropdown-item" href="{{ route('room.status.index') }}">Estado Habitaciones</a>
+                                @endcan
 
                             </div>
                         </li>

@@ -74,6 +74,13 @@ class RoleSeeder extends Seeder
             'partial.rates.updated',
             'partial.rates.getPaginate',
             'partial.rates.get',
+
+            'room.status.index',
+            'room.status.create',
+            'room.status.delete',
+            'room.status.updated',
+            'room.status.getPaginate',
+            'room.status.get',
             ]
         );
     }

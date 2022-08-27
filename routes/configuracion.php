@@ -130,5 +130,33 @@ Route::group(
                     ->middleware('permission:partial.rates.getPaginate');
             }
         );
+
+        Route::group(
+            [
+            'prefix'     => 'room-status',
+            'middleware'  => 'auth'
+            ], function () {
+
+                Route::get('', [App\Http\Controllers\Configuracion\RoomStatus\IndexController::class, 'index'])
+                    ->name('room.status.index')
+                    ->middleware('permission:room.status.index');
+
+                Route::post('create', [App\Http\Controllers\Configuracion\RoomStatus\CreateController::class, 'create'])
+                    ->name('room.status.create')
+                    ->middleware('permission:room.status.create');
+
+                Route::delete('delete/{id}', [App\Http\Controllers\Configuracion\RoomStatus\DeleteController::class, 'destroy'])
+                    ->name('room.status.delete')
+                    ->middleware('permission:room.status.delete');
+
+                Route::put('{id}', [App\Http\Controllers\Configuracion\RoomStatus\UpdatedController::class, 'updated'])
+                    ->name('room.status.updated')
+                    ->middleware('permission:room.status.updated');
+
+                Route::get('get', [App\Http\Controllers\Configuracion\RoomStatus\IndexController::class, 'get'])
+                    ->name('room.status.get')
+                    ->middleware('permission:room.status.getPaginate');
+            }
+        );
     }
 );
