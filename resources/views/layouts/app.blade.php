@@ -146,6 +146,10 @@
                             @can('partial.cost.index')
                                 <a class="dropdown-item" href="{{ route('partial.cost.index') }}">Costo Por Parciales</a>
                             @endcan
+                            @can('partial.templates.index')
+                                <a class="dropdown-item" href="{{ route('partial.templates.index') }}">Plantillas Parciales</a>
+                            @endcan
+
                         </div>
                     </li>
                 @endcan

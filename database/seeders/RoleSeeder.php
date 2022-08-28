@@ -89,6 +89,13 @@ class RoleSeeder extends Seeder
             'partial.cost.updated',
             'partial.cost.getPaginate',
             'partial.cost.get',
+
+            'partial.templates.index',
+            'partial.templates.create',
+            'partial.templates.delete',
+            'partial.templates.updated',
+            'partial.templates.getPaginate',
+            'partial.templates.get',
             ]
         );
     }

@@ -47,5 +47,33 @@ Route::group(
             }
         );
 
+        Route::group(
+            [
+            'prefix'     => 'partial-templates',
+            'middleware'  => 'auth'
+            ], function () {
+
+                Route::get('', [App\Http\Controllers\Tarifas\PartialTemplate\IndexController::class, 'index'])
+                    ->name('partial.templates.index')
+                    ->middleware('permission:partial.templates.index');
+
+                Route::post('create', [App\Http\Controllers\Tarifas\PartialTemplate\CreateController::class, 'create'])
+                    ->name('partial.templates.create')
+                    ->middleware('permission:partial.templates.create');
+
+                Route::delete('delete/{id}', [App\Http\Controllers\Tarifas\PartialTemplate\DeleteController::class, 'destroy'])
+                    ->name('partial.templates.delete')
+                    ->middleware('permission:partial.templates.delete');
+
+                Route::put('{id}', [App\Http\Controllers\Tarifas\PartialTemplate\UpdatedController::class, 'updated'])
+                    ->name('partial.templates.updated')
+                    ->middleware('permission:partial.templates.updated');
+
+                Route::get('get', [App\Http\Controllers\Tarifas\PartialTemplate\IndexController::class, 'get'])
+                    ->name('partial.templates.get')
+                    ->middleware('permission:partial.templates.getPaginate');
+            }
+        );
+
     }
 );
