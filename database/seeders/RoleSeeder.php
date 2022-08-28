@@ -81,6 +81,14 @@ class RoleSeeder extends Seeder
             'room.status.updated',
             'room.status.getPaginate',
             'room.status.get',
+
+            'tarifas',
+            'partial.cost.index',
+            'partial.cost.create',
+            'partial.cost.delete',
+            'partial.cost.updated',
+            'partial.cost.getPaginate',
+            'partial.cost.get',
             ]
         );
     }

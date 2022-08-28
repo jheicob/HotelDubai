@@ -80,6 +80,17 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'room.status.getPaginate']);
         Permission::create(['name' => 'room.status.get']);
 
+        //tarifas
+
+        Permission::create(['name' => 'tarifas']);
+
+        Permission::create(['name' => 'partial.cost.index']);
+        Permission::create(['name' => 'partial.cost.create']);
+        Permission::create(['name' => 'partial.cost.delete']);
+        Permission::create(['name' => 'partial.cost.updated']);
+        Permission::create(['name' => 'partial.cost.getPaginate']);
+        Permission::create(['name' => 'partial.cost.get']);
+
 
     }
 }

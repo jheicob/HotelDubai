@@ -31,6 +31,7 @@ Vue.component('themetype', require('./Views/ThemeType/ThemeType').default);
 Vue.component('estatetype', require('./Views/EstateType/EstateType').default);
 Vue.component('partialrates', require('./Views/PartialRates/PartialRates').default);
 Vue.component('roomstatus', require('./Views/RoomStatus/RoomStatus').default);
+Vue.component('partialcost', require('./Views/PartialCost/PartialCost').default);
 
 
 /**

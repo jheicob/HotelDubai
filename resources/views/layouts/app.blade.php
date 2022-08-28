@@ -134,6 +134,22 @@
                         </li>
                     @endcan
 
+                    @can('tarifas')
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-percent"></i>
+                            <span>Tarifas</span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                            <h6 class="dropdown-header">Tarifas:</h6>
+                            @can('partial.cost.index')
+                                <a class="dropdown-item" href="{{ route('partial.cost.index') }}">Costo Por Parciales</a>
+                            @endcan
+                        </div>
+                    </li>
+                @endcan
+
                     @can('configuracion')
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"

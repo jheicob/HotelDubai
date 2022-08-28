@@ -19,7 +19,7 @@ class UserResource extends JsonResource
             'attributes' => [
                 'name'      => $this->resource->name,
                 'email'     => $this->resource->email,
-                'deleted_at'     => $this->resource->deleted_at 
+                'deleted_at'     => $this->resource->deleted_at
             ],
             'relationships' => [
                 'roles' => $this->whenLoaded('roles', function() {

@@ -16,7 +16,7 @@
               class="modal-title title-page text-secondary"
               id="exampleModalLabel"
             >
-              Crear Tarifa Parcial
+              Crear Costo Parciales
             </h5>
             <a
               type="button"
@@ -28,26 +28,41 @@
             </a>
           </div>
           <div class="modal-body">
-            <label for="name" class="form-label">Nombre</label>
+            <label for="name" class="form-label">Tipo Habitacion</label>
+
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              v-model="form.room_type_id"
+            >
+              <option selected value="">Seleccione Tipo Habitacion</option>
+              <option v-for="keep in roomType" :key="keep.id" :value="keep.id">
+                {{ keep.attributes.name }}
+              </option>
+            </select>
+
+            <label for="name" class="form-label">Parcial</label>
+
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              v-model="form.partial_rates_id"
+            >
+              <option selected value="">Seleccione Parcial</option>
+              <option v-for="keep in patials" :key="keep.id" :value="keep.id">
+                {{ keep.attributes.name }}
+              </option>
+            </select>
+
+            <label for="name" class="form-label">Tarifa</label>
 
             <input
-              type="name"
+              type="number"
               id="name"
               class="form-control form-control-user mb-3"
               autofocus
               name="name"
-              v-model="form.name"
-            />
-
-            <label for="name" class="form-label">Descripcion</label>
-
-            <input
-              type="name"
-              id="name"
-              class="form-control form-control-user mb-3"
-              autofocus
-              name="name"
-              v-model="form.description"
+              v-model="form.rate"
             />
           </div>
           <div class="modal-footer">
@@ -64,7 +79,7 @@
               class="btn btn-primary text-white btn-icon-split mb-4"
             >
               <span class="text font-montserrat font-weight-bold"
-                >Crear Tarifa Parcial</span
+                >Crear Costo Parciales</span
               >
             </a>
           </div>
@@ -77,18 +92,23 @@
 <script>
 import axios from "axios";
 export default {
-  name: "ThemeTypeCreate",
+  name: "PartialCostCreate",
   components: {},
 
-  created() {},
+  created() {
+    this.getPartial();
+    this.getRoomType();
+  },
   data() {
     return {
       form: this.getClearFormObject(),
+      patials: [],
+      roomType: [],
     };
   },
   methods: {
     createPermission: function () {
-      var url = "/configuracion/partial-rates/create";
+      var url = "/tarifas/partial-cost/create";
       axios
         .post(url, this.form)
         .then((response) => {
@@ -101,9 +121,30 @@ export default {
     },
     getClearFormObject() {
       return {
-        name: null,
-        description: null,
+        room_type_id: "",
+        partial_rates_id: "",
+        rate: null,
       };
+    },
+
+    getPartial: function () {
+      var urlKeeps = "/configuracion/partial-rates/get";
+      axios
+        .get(urlKeeps)
+        .then((response) => {
+          this.patials = response.data.data;
+        })
+        .catch((err) => {});
+    },
+
+    getRoomType: function () {
+      var urlKeeps = "/configuracion/room-type/get";
+      axios
+        .get(urlKeeps)
+        .then((response) => {
+          this.roomType = response.data.data;
+        })
+        .catch((err) => {});
     },
   },
 };
