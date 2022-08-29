@@ -110,6 +110,13 @@ class RoleSeeder extends Seeder
             'system.time.updated',
             'system.time.getPaginate',
             'system.time.get',
+
+            'shift.system.index',
+            'shift.system.create',
+            'shift.system.delete',
+            'shift.system.updated',
+            'shift.system.getPaginate',
+            'shift.system.get',
             ]
         );
     }

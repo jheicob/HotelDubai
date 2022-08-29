@@ -214,5 +214,33 @@ Route::group(
                     ->middleware('permission:system.time.getPaginate');
             }
         );
+
+        Route::group(
+            [
+            'prefix'     => 'shift-system',
+            'middleware'  => 'auth'
+            ], function () {
+
+                Route::get('', [App\Http\Controllers\Configuracion\ShiftSystem\IndexController::class, 'index'])
+                    ->name('shift.system.index')
+                    ->middleware('permission:shift.system.index');
+
+                Route::post('create', [App\Http\Controllers\Configuracion\ShiftSystem\CreateController::class, 'create'])
+                    ->name('shift.system.create')
+                    ->middleware('permission:shift.system.create');
+
+                Route::delete('delete/{id}', [App\Http\Controllers\Configuracion\ShiftSystem\DeleteController::class, 'destroy'])
+                    ->name('shift.system.delete')
+                    ->middleware('permission:shift.system.delete');
+
+                Route::put('{id}', [App\Http\Controllers\Configuracion\ShiftSystem\UpdatedController::class, 'updated'])
+                    ->name('shift.system.updated')
+                    ->middleware('permission:shift.system.updated');
+
+                Route::get('get', [App\Http\Controllers\Configuracion\ShiftSystem\IndexController::class, 'get'])
+                    ->name('shift.system.get')
+                    ->middleware('permission:shift.system.getPaginate');
+            }
+        );
     }
 );

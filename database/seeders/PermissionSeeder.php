@@ -94,6 +94,13 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'system.time.getPaginate']);
         Permission::create(['name' => 'system.time.get']);
 
+        Permission::create(['name' => 'shift.system.index']);
+        Permission::create(['name' => 'shift.system.create']);
+        Permission::create(['name' => 'shift.system.delete']);
+        Permission::create(['name' => 'shift.system.updated']);
+        Permission::create(['name' => 'shift.system.getPaginate']);
+        Permission::create(['name' => 'shift.system.get']);
+
         //tarifas
 
         Permission::create(['name' => 'tarifas']);

@@ -184,6 +184,9 @@
                                 @can('system.time.index')
                                     <a class="dropdown-item" href="{{ route('system.time.index') }}">Horas Sistema</a>
                                 @endcan
+                                @can('shift.system.index')
+                                    <a class="dropdown-item" href="{{ route('shift.system.index') }}">Turnos Sistema</a>
+                                @endcan
 
                             </div>
                         </li>
