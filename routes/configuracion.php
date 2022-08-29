@@ -186,5 +186,33 @@ Route::group(
                     ->middleware('permission:day.week.getPaginate');
             }
         );
+
+        Route::group(
+            [
+            'prefix'     => 'system-time',
+            'middleware'  => 'auth'
+            ], function () {
+
+                Route::get('', [App\Http\Controllers\Configuracion\SystemTime\IndexController::class, 'index'])
+                    ->name('system.time.index')
+                    ->middleware('permission:system.time.index');
+
+                Route::post('create', [App\Http\Controllers\Configuracion\SystemTime\CreateController::class, 'create'])
+                    ->name('system.time.create')
+                    ->middleware('permission:system.time.create');
+
+                Route::delete('delete/{id}', [App\Http\Controllers\Configuracion\SystemTime\DeleteController::class, 'destroy'])
+                    ->name('system.time.delete')
+                    ->middleware('permission:system.time.delete');
+
+                Route::put('{id}', [App\Http\Controllers\Configuracion\SystemTime\UpdatedController::class, 'updated'])
+                    ->name('system.time.updated')
+                    ->middleware('permission:system.time.updated');
+
+                Route::get('get', [App\Http\Controllers\Configuracion\SystemTime\IndexController::class, 'get'])
+                    ->name('system.time.get')
+                    ->middleware('permission:system.time.getPaginate');
+            }
+        );
     }
 );
