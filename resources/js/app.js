@@ -33,6 +33,7 @@ Vue.component('partialrates', require('./Views/PartialRates/PartialRates').defau
 Vue.component('roomstatus', require('./Views/RoomStatus/RoomStatus').default);
 Vue.component('partialcost', require('./Views/PartialCost/PartialCost').default);
 Vue.component('partialtemplate', require('./Views/PartialTemplate/PartialTemplate').default);
+Vue.component('dayweek', require('./Views/DayWeek/DayWeek').default);
 
 
 /**

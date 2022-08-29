@@ -178,6 +178,12 @@
                                 @can('room.status.index')
                                     <a class="dropdown-item" href="{{ route('room.status.index') }}">Estado Habitaciones</a>
                                 @endcan
+                                @can('day.week.index')
+                                    <a class="dropdown-item" href="{{ route('day.week.index') }}">Dia Semana</a>
+                                @endcan
+                                @can('system.time.index')
+                                    <a class="dropdown-item" href="{{ route('system.time.index') }}">Horas Sistema</a>
+                                @endcan
 
                             </div>
                         </li>

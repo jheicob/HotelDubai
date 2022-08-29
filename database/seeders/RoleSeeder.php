@@ -96,6 +96,20 @@ class RoleSeeder extends Seeder
             'partial.templates.updated',
             'partial.templates.getPaginate',
             'partial.templates.get',
+
+            'day.week.index',
+            'day.week.create',
+            'day.week.delete',
+            'day.week.updated',
+            'day.week.getPaginate',
+            'day.week.get',
+
+            'system.time.index',
+            'system.time.create',
+            'system.time.delete',
+            'system.time.updated',
+            'system.time.getPaginate',
+            'system.time.get',
             ]
         );
     }

@@ -80,6 +80,20 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'room.status.getPaginate']);
         Permission::create(['name' => 'room.status.get']);
 
+        Permission::create(['name' => 'day.week.index']);
+        Permission::create(['name' => 'day.week.create']);
+        Permission::create(['name' => 'day.week.delete']);
+        Permission::create(['name' => 'day.week.updated']);
+        Permission::create(['name' => 'day.week.getPaginate']);
+        Permission::create(['name' => 'day.week.get']);
+
+        Permission::create(['name' => 'system.time.index']);
+        Permission::create(['name' => 'system.time.create']);
+        Permission::create(['name' => 'system.time.delete']);
+        Permission::create(['name' => 'system.time.updated']);
+        Permission::create(['name' => 'system.time.getPaginate']);
+        Permission::create(['name' => 'system.time.get']);
+
         //tarifas
 
         Permission::create(['name' => 'tarifas']);
@@ -97,8 +111,6 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'partial.templates.updated']);
         Permission::create(['name' => 'partial.templates.getPaginate']);
         Permission::create(['name' => 'partial.templates.get']);
-
-
 
 
     }

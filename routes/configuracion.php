@@ -158,5 +158,33 @@ Route::group(
                     ->middleware('permission:room.status.getPaginate');
             }
         );
+
+        Route::group(
+            [
+            'prefix'     => 'day-week',
+            'middleware'  => 'auth'
+            ], function () {
+
+                Route::get('', [App\Http\Controllers\Configuracion\DayWeek\IndexController::class, 'index'])
+                    ->name('day.week.index')
+                    ->middleware('permission:day.week.index');
+
+                Route::post('create', [App\Http\Controllers\Configuracion\DayWeek\CreateController::class, 'create'])
+                    ->name('day.week.create')
+                    ->middleware('permission:day.week.create');
+
+                Route::delete('delete/{id}', [App\Http\Controllers\Configuracion\DayWeek\DeleteController::class, 'destroy'])
+                    ->name('day.week.delete')
+                    ->middleware('permission:day.week.delete');
+
+                Route::put('{id}', [App\Http\Controllers\Configuracion\DayWeek\UpdatedController::class, 'updated'])
+                    ->name('day.week.updated')
+                    ->middleware('permission:day.week.updated');
+
+                Route::get('get', [App\Http\Controllers\Configuracion\DayWeek\IndexController::class, 'get'])
+                    ->name('day.week.get')
+                    ->middleware('permission:day.week.getPaginate');
+            }
+        );
     }
 );
