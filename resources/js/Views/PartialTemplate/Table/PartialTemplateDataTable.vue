@@ -39,8 +39,10 @@
               <tr>
                 <th>ID</th>
                 <th>Tipo Habitacion</th>
-                <th>Parcial</th>
-                <th>Tarifa</th>
+                <th>Dia</th>
+                <th>Hora</th>
+                <th>Turno</th>
+                <th>Parcial Minimo</th>
                 <th>Accion</th>
               </tr>
             </thead>
@@ -48,8 +50,10 @@
               <tr>
                 <th>ID</th>
                 <th>Tipo Habitacion</th>
-                <th>Parcial</th>
-                <th>Tarifa</th>
+                <th>Dia</th>
+                <th>Hora</th>
+                <th>Turno</th>
+                <th>Parcial Minimo</th>
                 <th>Accion</th>
               </tr>
             </tfoot>
@@ -57,8 +61,10 @@
               <tr v-for="keep in keeps" :key="keep.id">
                 <td>{{ keep.id }}</td>
                 <td>{{ keep.relationships.roomType.attributes.name }}</td>
+                <td>{{ keep.relationships.dayWeek.attributes.name }}</td>
+                <td>{{ keep.relationships.systemTime.attributes.name }}</td>
+                <td>{{ keep.relationships.shiftSystem.attributes.name }}</td>
                 <td>{{ keep.relationships.partialRate.attributes.name }}</td>
-                <td>{{ keep.attributes.rate }}</td>
                 <td>
                   <i
                     v-on:click.prevent="UpdatedPermission(keep)"
@@ -129,7 +135,7 @@ export default {
   },
   methods: {
     getKeeps: function () {
-      var urlKeeps = "/tarifas/partial-cost/get";
+      var urlKeeps = "/tarifas/partial-templates/get";
       axios
         .get(urlKeeps)
         .then((response) => {
@@ -144,7 +150,7 @@ export default {
         .catch((err) => {});
     },
     deletePermission: function (keep) {
-      var url = "/tarifas/partial-cost/delete/" + keep.id;
+      var url = "/tarifas/partial-templates/delete/" + keep.id;
       axios.delete(url).then((response) => {
         this.getKeeps();
       });

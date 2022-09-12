@@ -16,7 +16,7 @@ class CreateController extends Controller
         try {
             DB::beginTransaction();
 
-            $this->createEstateType($request);
+            $this->createPartialTemplate($request);
 
             DB::commit();
 
@@ -45,13 +45,18 @@ class CreateController extends Controller
         }
     }
 
-    protected function createEstateType($request)
+    protected function createPartialTemplate($request)
     {
         $PartialTemplate                   = new PartialTemplate();
         $PartialTemplate->room_type_id     = $request->room_type_id;
+        $PartialTemplate->day_week_id      = $request->day_week_id;
+        $PartialTemplate->system_time_id   = $request->system_time_id;
+        $PartialTemplate->shift_system_id  = $request->shift_system_id;
         $PartialTemplate->partial_rates_id = $request->partial_rates_id;
-        $PartialTemplate->rate             = $request->rate;
         $PartialTemplate->save();
         return $PartialTemplate->id;
     }
 }
+
+
+

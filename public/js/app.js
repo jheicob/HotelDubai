@@ -4326,6 +4326,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PartialCostCreate",
@@ -4333,19 +4364,25 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.getPartial();
     this.getRoomType();
+    this.getDayWeek();
+    this.getSystemTime();
+    this.getShiftSystem();
   },
   data: function data() {
     return {
       form: this.getClearFormObject(),
       patials: [],
-      roomType: []
+      roomType: [],
+      dayWeek: [],
+      systemTime: [],
+      ShiftSystem: []
     };
   },
   methods: {
     createPermission: function createPermission() {
       var _this = this;
 
-      var url = "/tarifas/partial-cost/create";
+      var url = "/tarifas/partial-templates/create";
       axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, this.form).then(function (response) {
         _this.errors = [];
 
@@ -4359,8 +4396,10 @@ __webpack_require__.r(__webpack_exports__);
     getClearFormObject: function getClearFormObject() {
       return {
         room_type_id: "",
-        partial_rates_id: "",
-        rate: null
+        day_week_id: "",
+        system_time_id: "",
+        shift_system_id: "",
+        partial_rates_id: ""
       };
     },
     getPartial: function getPartial() {
@@ -4377,6 +4416,30 @@ __webpack_require__.r(__webpack_exports__);
       var urlKeeps = "/configuracion/room-type/get";
       axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
         _this3.roomType = response.data.data;
+      })["catch"](function (err) {});
+    },
+    getDayWeek: function getDayWeek() {
+      var _this4 = this;
+
+      var urlKeeps = "/configuracion/day-week/get";
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+        _this4.dayWeek = response.data.data;
+      })["catch"](function (err) {});
+    },
+    getSystemTime: function getSystemTime() {
+      var _this5 = this;
+
+      var urlKeeps = "/configuracion/system-time/get";
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+        _this5.systemTime = response.data.data;
+      })["catch"](function (err) {});
+    },
+    getShiftSystem: function getShiftSystem() {
+      var _this6 = this;
+
+      var urlKeeps = "/configuracion/shift-system/get";
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+        _this6.ShiftSystem = response.data.data;
       })["catch"](function (err) {});
     }
   }
@@ -4488,6 +4551,37 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ThemeTypeUpdate",
@@ -4497,14 +4591,17 @@ __webpack_require__.r(__webpack_exports__);
     return {
       form: this.getClearFormObject(),
       patials: [],
-      roomType: []
+      roomType: [],
+      dayWeek: [],
+      systemTime: [],
+      ShiftSystem: []
     };
   },
   methods: {
     createPermission: function createPermission() {
       var _this = this;
 
-      var url = "/tarifas/partial-cost/" + this.form.id;
+      var url = "/tarifas/partial-templates/" + this.form.id;
       axios__WEBPACK_IMPORTED_MODULE_0___default().put(url, this.form).then(function (response) {
         _this.errors = [];
 
@@ -4516,12 +4613,17 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {});
     },
     UpdateGetPermission: function UpdateGetPermission(permission) {
-      this.form.rate = permission.attributes.rate;
-      this.form.partial_rates_id = permission.relationships.roomType.id;
-      this.form.room_type_id = permission.relationships.partialRate.id;
+      this.form.partial_rates_id = permission.relationships.partialRate.id;
+      this.form.room_type_id = permission.relationships.roomType.id;
+      this.form.day_week_id = permission.relationships.dayWeek.id;
+      this.form.system_time_id = permission.relationships.systemTime.id;
+      this.form.shift_system_id = permission.relationships.shiftSystem.id;
       this.form.id = permission.id;
       this.getPartial();
       this.getRoomType();
+      this.getDayWeek();
+      this.getSystemTime();
+      this.getShiftSystem();
     },
     getPartial: function getPartial() {
       var _this2 = this;
@@ -4539,11 +4641,37 @@ __webpack_require__.r(__webpack_exports__);
         _this3.roomType = response.data.data;
       })["catch"](function (err) {});
     },
+    getDayWeek: function getDayWeek() {
+      var _this4 = this;
+
+      var urlKeeps = "/configuracion/day-week/get";
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+        _this4.dayWeek = response.data.data;
+      })["catch"](function (err) {});
+    },
+    getSystemTime: function getSystemTime() {
+      var _this5 = this;
+
+      var urlKeeps = "/configuracion/system-time/get";
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+        _this5.systemTime = response.data.data;
+      })["catch"](function (err) {});
+    },
+    getShiftSystem: function getShiftSystem() {
+      var _this6 = this;
+
+      var urlKeeps = "/configuracion/shift-system/get";
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+        _this6.ShiftSystem = response.data.data;
+      })["catch"](function (err) {});
+    },
     getClearFormObject: function getClearFormObject() {
       return {
         room_type_id: "",
-        partial_rates_id: "",
-        rate: null
+        day_week_id: "",
+        system_time_id: "",
+        shift_system_id: "",
+        partial_rates_id: ""
       };
     }
   }
@@ -4710,6 +4838,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -4745,7 +4879,7 @@ __webpack_require__.r(__webpack_exports__);
     getKeeps: function getKeeps() {
       var _this = this;
 
-      var urlKeeps = "/tarifas/partial-cost/get";
+      var urlKeeps = "/tarifas/partial-templates/get";
       axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
         _this.keeps = response.data.data;
         $("#dataTable").DataTable().destroy();
@@ -4759,7 +4893,7 @@ __webpack_require__.r(__webpack_exports__);
     deletePermission: function deletePermission(keep) {
       var _this2 = this;
 
-      var url = "/tarifas/partial-cost/delete/" + keep.id;
+      var url = "/tarifas/partial-templates/delete/" + keep.id;
       axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](url).then(function (response) {
         _this2.getKeeps();
       });
@@ -32660,7 +32794,190 @@ var render = function () {
                 _c(
                   "label",
                   { staticClass: "form-label", attrs: { for: "name" } },
-                  [_vm._v("Parcial")]
+                  [_vm._v("Dia")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.day_week_id,
+                        expression: "form.day_week_id",
+                      },
+                    ],
+                    staticClass: "form-select",
+                    attrs: { "aria-label": "Default select example" },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "day_week_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", value: "" } }, [
+                      _vm._v("Seleccione Dia"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.dayWeek, function (keep) {
+                      return _c(
+                        "option",
+                        { key: keep.id, domProps: { value: keep.id } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(keep.attributes.name) +
+                              "\n            "
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "name" } },
+                  [_vm._v("Hora")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.system_time_id,
+                        expression: "form.system_time_id",
+                      },
+                    ],
+                    staticClass: "form-select",
+                    attrs: { "aria-label": "Default select example" },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "system_time_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", value: "" } }, [
+                      _vm._v("Seleccione Hora"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.systemTime, function (keep) {
+                      return _c(
+                        "option",
+                        { key: keep.id, domProps: { value: keep.id } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(keep.attributes.name) +
+                              "\n            "
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "name" } },
+                  [_vm._v("Turno")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.shift_system_id,
+                        expression: "form.shift_system_id",
+                      },
+                    ],
+                    staticClass: "form-select",
+                    attrs: { "aria-label": "Default select example" },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "shift_system_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", value: "" } }, [
+                      _vm._v("Seleccione Turno"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.ShiftSystem, function (keep) {
+                      return _c(
+                        "option",
+                        { key: keep.id, domProps: { value: keep.id } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(keep.attributes.name) +
+                              "\n            "
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "name" } },
+                  [_vm._v("Parcial Minimo")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -32717,39 +33034,6 @@ var render = function () {
                   ],
                   2
                 ),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  { staticClass: "form-label", attrs: { for: "name" } },
-                  [_vm._v("Tarifa")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.rate,
-                      expression: "form.rate",
-                    },
-                  ],
-                  staticClass: "form-control form-control-user mb-3",
-                  attrs: {
-                    type: "number",
-                    id: "name",
-                    autofocus: "",
-                    name: "name",
-                  },
-                  domProps: { value: _vm.form.rate },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.form, "rate", $event.target.value)
-                    },
-                  },
-                }),
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
@@ -32771,7 +33055,7 @@ var render = function () {
                     _c(
                       "span",
                       { staticClass: "text font-montserrat font-weight-bold" },
-                      [_vm._v("Crear Costo Parciales")]
+                      [_vm._v("Crear plantilla Partcial")]
                     ),
                   ]
                 ),
@@ -32795,7 +33079,7 @@ var staticRenderFns = [
           staticClass: "modal-title title-page text-secondary",
           attrs: { id: "exampleModalLabel" },
         },
-        [_vm._v("\n            Crear Costo Parciales\n          ")]
+        [_vm._v("\n            Crear plantilla Partcial\n          ")]
       ),
       _vm._v(" "),
       _c(
@@ -32938,7 +33222,190 @@ var render = function () {
                 _c(
                   "label",
                   { staticClass: "form-label", attrs: { for: "name" } },
-                  [_vm._v("Parcial")]
+                  [_vm._v("Dia")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.day_week_id,
+                        expression: "form.day_week_id",
+                      },
+                    ],
+                    staticClass: "form-select",
+                    attrs: { "aria-label": "Default select example" },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "day_week_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", value: "" } }, [
+                      _vm._v("Seleccione Dia"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.dayWeek, function (keep) {
+                      return _c(
+                        "option",
+                        { key: keep.id, domProps: { value: keep.id } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(keep.attributes.name) +
+                              "\n            "
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "name" } },
+                  [_vm._v("Hora")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.system_time_id,
+                        expression: "form.system_time_id",
+                      },
+                    ],
+                    staticClass: "form-select",
+                    attrs: { "aria-label": "Default select example" },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "system_time_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", value: "" } }, [
+                      _vm._v("Seleccione Hora"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.systemTime, function (keep) {
+                      return _c(
+                        "option",
+                        { key: keep.id, domProps: { value: keep.id } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(keep.attributes.name) +
+                              "\n            "
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "name" } },
+                  [_vm._v("Turno")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.shift_system_id,
+                        expression: "form.shift_system_id",
+                      },
+                    ],
+                    staticClass: "form-select",
+                    attrs: { "aria-label": "Default select example" },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "shift_system_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", value: "" } }, [
+                      _vm._v("Seleccione Turno"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.ShiftSystem, function (keep) {
+                      return _c(
+                        "option",
+                        { key: keep.id, domProps: { value: keep.id } },
+                        [
+                          _vm._v(
+                            "\n              " +
+                              _vm._s(keep.attributes.name) +
+                              "\n            "
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "name" } },
+                  [_vm._v("Parcial Minimo")]
                 ),
                 _vm._v(" "),
                 _c(
@@ -32995,39 +33462,6 @@ var render = function () {
                   ],
                   2
                 ),
-                _vm._v(" "),
-                _c(
-                  "label",
-                  { staticClass: "form-label", attrs: { for: "name" } },
-                  [_vm._v("Tarifa")]
-                ),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.form.rate,
-                      expression: "form.rate",
-                    },
-                  ],
-                  staticClass: "form-control form-control-user mb-3",
-                  attrs: {
-                    type: "number",
-                    id: "name",
-                    autofocus: "",
-                    name: "name",
-                  },
-                  domProps: { value: _vm.form.rate },
-                  on: {
-                    input: function ($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.form, "rate", $event.target.value)
-                    },
-                  },
-                }),
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "modal-footer" }, [
@@ -33236,11 +33670,27 @@ var render = function () {
                       _vm._v(" "),
                       _c("td", [
                         _vm._v(
-                          _vm._s(keep.relationships.partialRate.attributes.name)
+                          _vm._s(keep.relationships.dayWeek.attributes.name)
                         ),
                       ]),
                       _vm._v(" "),
-                      _c("td", [_vm._v(_vm._s(keep.attributes.rate))]),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(keep.relationships.systemTime.attributes.name)
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(keep.relationships.shiftSystem.attributes.name)
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(keep.relationships.partialRate.attributes.name)
+                        ),
+                      ]),
                       _vm._v(" "),
                       _c("td", [
                         _vm.updated
@@ -33330,9 +33780,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Tipo Habitacion")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Parcial")]),
+        _c("th", [_vm._v("Dia")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tarifa")]),
+        _c("th", [_vm._v("Hora")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Turno")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Parcial Minimo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Accion")]),
       ]),
@@ -33348,9 +33802,13 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Tipo Habitacion")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Parcial")]),
+        _c("th", [_vm._v("Dia")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Tarifa")]),
+        _c("th", [_vm._v("Hora")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Turno")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Parcial Minimo")]),
         _vm._v(" "),
         _c("th", [_vm._v("Accion")]),
       ]),

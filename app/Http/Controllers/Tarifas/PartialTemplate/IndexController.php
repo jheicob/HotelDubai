@@ -18,7 +18,7 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $permissions = PartialTemplate::with(['roomType','partialRate'])->withTrashed()->get();
+            $permissions = PartialTemplate::with(['roomType','partialRate','dayWeek','systemTime','shiftSystem','partialRate'])->withTrashed()->get();
 
             return PartialTemplateResource::collection($permissions);
         } catch (ValidationException $ex) {

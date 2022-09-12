@@ -16,7 +16,7 @@
               class="modal-title title-page text-secondary"
               id="exampleModalLabel"
             >
-              Crear Costo Parciales
+              Crear plantilla Partcial
             </h5>
             <a
               type="button"
@@ -29,7 +29,6 @@
           </div>
           <div class="modal-body">
             <label for="name" class="form-label">Tipo Habitacion</label>
-
             <select
               class="form-select"
               aria-label="Default select example"
@@ -41,8 +40,51 @@
               </option>
             </select>
 
-            <label for="name" class="form-label">Parcial</label>
+            <label for="name" class="form-label">Dia</label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              v-model="form.day_week_id"
+            >
+              <option selected value="">Seleccione Dia</option>
+              <option v-for="keep in dayWeek" :key="keep.id" :value="keep.id">
+                {{ keep.attributes.name }}
+              </option>
+            </select>
 
+            <label for="name" class="form-label">Hora</label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              v-model="form.system_time_id"
+            >
+              <option selected value="">Seleccione Hora</option>
+              <option
+                v-for="keep in systemTime"
+                :key="keep.id"
+                :value="keep.id"
+              >
+                {{ keep.attributes.name }}
+              </option>
+            </select>
+
+            <label for="name" class="form-label">Turno</label>
+            <select
+              class="form-select"
+              aria-label="Default select example"
+              v-model="form.shift_system_id"
+            >
+              <option selected value="">Seleccione Turno</option>
+              <option
+                v-for="keep in ShiftSystem"
+                :key="keep.id"
+                :value="keep.id"
+              >
+                {{ keep.attributes.name }}
+              </option>
+            </select>
+
+            <label for="name" class="form-label">Parcial Minimo</label>
             <select
               class="form-select"
               aria-label="Default select example"
@@ -53,17 +95,6 @@
                 {{ keep.attributes.name }}
               </option>
             </select>
-
-            <label for="name" class="form-label">Tarifa</label>
-
-            <input
-              type="number"
-              id="name"
-              class="form-control form-control-user mb-3"
-              autofocus
-              name="name"
-              v-model="form.rate"
-            />
           </div>
           <div class="modal-footer">
             <a
@@ -79,7 +110,7 @@
               class="btn btn-primary text-white btn-icon-split mb-4"
             >
               <span class="text font-montserrat font-weight-bold"
-                >Crear Costo Parciales</span
+                >Crear plantilla Partcial</span
               >
             </a>
           </div>
@@ -98,17 +129,23 @@ export default {
   created() {
     this.getPartial();
     this.getRoomType();
+    this.getDayWeek();
+    this.getSystemTime();
+    this.getShiftSystem();
   },
   data() {
     return {
       form: this.getClearFormObject(),
       patials: [],
       roomType: [],
+      dayWeek: [],
+      systemTime: [],
+      ShiftSystem: [],
     };
   },
   methods: {
     createPermission: function () {
-      var url = "/tarifas/partial-cost/create";
+      var url = "/tarifas/partial-templates/create";
       axios
         .post(url, this.form)
         .then((response) => {
@@ -122,8 +159,10 @@ export default {
     getClearFormObject() {
       return {
         room_type_id: "",
+        day_week_id: "",
+        system_time_id: "",
+        shift_system_id: "",
         partial_rates_id: "",
-        rate: null,
       };
     },
 
@@ -146,6 +185,35 @@ export default {
         })
         .catch((err) => {});
     },
+
+    getDayWeek: function () {
+      var urlKeeps = "/configuracion/day-week/get";
+      axios
+        .get(urlKeeps)
+        .then((response) => {
+          this.dayWeek = response.data.data;
+        })
+        .catch((err) => {});
+    },
+    getSystemTime: function () {
+      var urlKeeps = "/configuracion/system-time/get";
+      axios
+        .get(urlKeeps)
+        .then((response) => {
+          this.systemTime = response.data.data;
+        })
+        .catch((err) => {});
+    },
+    getShiftSystem: function () {
+      var urlKeeps = "/configuracion/shift-system/get";
+      axios
+        .get(urlKeeps)
+        .then((response) => {
+          this.ShiftSystem = response.data.data;
+        })
+        .catch((err) => {});
+    },
   },
 };
 </script>
+
