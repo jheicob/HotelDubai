@@ -119,6 +119,13 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'partial.templates.getPaginate']);
         Permission::create(['name' => 'partial.templates.get']);
 
+        Permission::create(['name' => 'date.templates.index']);
+        Permission::create(['name' => 'date.templates.create']);
+        Permission::create(['name' => 'date.templates.delete']);
+        Permission::create(['name' => 'date.templates.updated']);
+        Permission::create(['name' => 'date.templates.getPaginate']);
+        Permission::create(['name' => 'date.templates.get']);
+
 
     }
 }

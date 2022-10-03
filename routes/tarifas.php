@@ -75,5 +75,33 @@ Route::group(
             }
         );
 
+        Route::group(
+            [
+            'prefix'     => 'date-templates',
+            'middleware'  => 'auth'
+            ], function () {
+
+                Route::get('', [App\Http\Controllers\Tarifas\DateTemplate\IndexController::class, 'index'])
+                    ->name('date.templates.index')
+                    ->middleware('permission:date.templates.index');
+
+                Route::post('create', [App\Http\Controllers\Tarifas\DateTemplate\CreateController::class, 'create'])
+                    ->name('date.templates.create')
+                    ->middleware('permission:date.templates.create');
+
+                Route::delete('delete/{id}', [App\Http\Controllers\Tarifas\DateTemplate\DeleteController::class, 'destroy'])
+                    ->name('date.templates.delete')
+                    ->middleware('permission:date.templates.delete');
+
+                Route::put('{id}', [App\Http\Controllers\Tarifas\DateTemplate\UpdatedController::class, 'updated'])
+                    ->name('date.templates.updated')
+                    ->middleware('permission:date.templates.updated');
+
+                Route::get('get', [App\Http\Controllers\Tarifas\DateTemplate\IndexController::class, 'get'])
+                    ->name('date.templates.get')
+                    ->middleware('permission:date.templates.getPaginate');
+            }
+        );
+
     }
 );
