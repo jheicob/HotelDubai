@@ -1,4 +1,12 @@
 <?php
+
+/**
+ * Created by PhpStorm.
+ * User: zippyttech
+ * Date: 06/08/18
+ * Time: 03:11 PM
+ */
+
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
@@ -12,7 +20,7 @@ class GenerateCrud extends Command
      *
      * @var string
      */
-    protected $signature = 'generate:crud {name} {package?}';
+    protected $signature = 'generator:crud {name} {package?}';
 
     /**
      * The console command description.
@@ -41,48 +49,43 @@ class GenerateCrud extends Command
         $name = $this->argument('name');
         $package = $this->argument('package') ?? $name;
 
-        $this->model($name, $package);
-        $this->Resource($name,$package);
-        $this->formRequest($name,$package);
         $this->controllers($name, $package);
+        $this->model($name, $package);
 
         $this->getBr($name);
-
-        $this->updateRouter($name,$package);
-    }
-
-    protected function updateRouter($name,$package){
         $separator = '\\';
         $name_controller = "\App\Http\Controllers\\" . $package . $separator . $name . "Controller::class";
+
+
         File::append(base_path('routes/api.php'),
             "
-            Route::group(\n
-            [\n
-            'prefix'     => '{$name}',\n
-            'middleware'  => 'auth'\n
-            ], function () {\n
-            \n
-                Route::get('', [App\Http\Controllers\{$package}\IndexController::class, 'index'])\n
-                    ->name('{$name}.index')\n
-                    ->middleware('permission:{$name}.index');\n
-            \n
-                Route::post('create', [App\Http\Controllers\{$package}\CreateController::class, 'create'])\n
-                    ->name('{$name}.create')\n
-                    ->middleware('permission:{$name}.create');\n
-            \n
-                Route::delete('delete/{id}', [App\Http\Controllers\{$package}\DeleteController::class, 'destroy'])\n
-                    ->name('{$name}.delete')\n
-                    ->middleware('permission:{$name}.delete');\n
-            \n
-                Route::put('{id}', [App\Http\Controllers\{$package}\UpdatedController::class, 'updated'])\n
-                    ->name('{$name}.updated')\n
-                    ->middleware('permission:{$name}.updated');\n
-            \n
-                Route::get('get', [App\Http\Controllers\{$package}\IndexController::class, 'get'])\n
-                    ->name('{$name}.get')\n
-                    ->middleware('permission:{$name}.getPaginate');\n
-            }\n
-        );\n
+            Route::group(
+            [
+            'prefix'     => '$name',
+            'middleware'  => 'auth'
+            ], function () {
+
+                Route::get('', [App\Http\Controllers\$package\IndexController::class, 'index'])
+                    ->name('$name.index')
+                    ->middleware('permission:$name.index');
+
+                Route::post('create', [App\Http\Controllers\$package\CreateController::class, 'create'])
+                    ->name('$name.create')
+                    ->middleware('permission:$name.create');
+
+                Route::delete('delete/{id}', [App\Http\Controllers\$package\DeleteController::class, 'destroy'])
+                    ->name('$name.delete')
+                    ->middleware('permission:$name.delete');
+
+                Route::put('{id}', [App\Http\Controllers\$package\UpdatedController::class, 'updated'])
+                    ->name('$name.updated')
+                    ->middleware('permission:$name.updated');
+
+                Route::get('get', [App\Http\Controllers\$package\IndexController::class, 'get'])
+                    ->name('$name.get')
+                    ->middleware('permission:$name.getPaginate');
+            }
+        );
         "
         );
     }
@@ -106,8 +109,8 @@ class GenerateCrud extends Command
             'Create',
             'Delete'
         ];
-        mkdir((app()->basePath() . "/app/Http/Controllers/{$package}"));
 
+            mkdir((app()->basePath() . "/app/Http/Controllers/{$package}"));
         foreach($controllers as $controller){
 
             $controllerTemplate = str_replace(
@@ -148,7 +151,7 @@ class GenerateCrud extends Command
         );
         mkdir((app()->basePath() . "/app/Http/Resources/{$package}"));
 
-        file_put_contents((app()->basePath() . "/app/Http/Resources/{$package}/{$name}Resource.php"), $requestTemplate);
+        file_put_contents((app()->basePath() . "/app/Http/Resources/{$package}/{$name}Resources.php"), $requestTemplate);
     }
 
     protected function formRequest($name, $package)
@@ -158,6 +161,7 @@ class GenerateCrud extends Command
             'Update',
         ];
         mkdir((app()->basePath() . "/app/Http/Requests/{$package}"));
+
         foreach($files as $file){
 
             $requestTemplate = str_replace(
@@ -175,6 +179,7 @@ class GenerateCrud extends Command
                 ],
                 $this->getStub($file.'Request')
             );
+
             file_put_contents((app()->basePath() . "/app/Http/Requests/{$package}/{$file}Request.php"), $requestTemplate);
         }
     }
