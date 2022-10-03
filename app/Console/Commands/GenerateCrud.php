@@ -51,6 +51,9 @@ class GenerateCrud extends Command
 
         $this->controllers($name, $package);
         $this->model($name, $package);
+        $this->formRequest($name,$package);
+        $this->Resource($name,$package);
+
 
         $this->getBr($name);
         $separator = '\\';
@@ -65,23 +68,23 @@ class GenerateCrud extends Command
             'middleware'  => 'auth'
             ], function () {
 
-                Route::get('', [App\Http\Controllers\$package\IndexController::class, 'index'])
+                Route::get('', [App\Http\Controllers\\$package\IndexController::class, 'index'])
                     ->name('$name.index')
                     ->middleware('permission:$name.index');
 
-                Route::post('create', [App\Http\Controllers\$package\CreateController::class, 'create'])
+                Route::post('create', [App\Http\Controllers\\$package\CreateController::class, 'create'])
                     ->name('$name.create')
                     ->middleware('permission:$name.create');
 
-                Route::delete('delete/{id}', [App\Http\Controllers\$package\DeleteController::class, 'destroy'])
+                Route::delete('delete/{id}', [App\Http\Controllers\\$package\DeleteController::class, 'destroy'])
                     ->name('$name.delete')
                     ->middleware('permission:$name.delete');
 
-                Route::put('{id}', [App\Http\Controllers\$package\UpdatedController::class, 'updated'])
+                Route::put('{id}', [App\Http\Controllers\\$package\UpdateController::class, 'updated'])
                     ->name('$name.updated')
                     ->middleware('permission:$name.updated');
 
-                Route::get('get', [App\Http\Controllers\$package\IndexController::class, 'get'])
+                Route::get('get', [App\Http\Controllers\\$package\IndexController::class, 'get'])
                     ->name('$name.get')
                     ->middleware('permission:$name.getPaginate');
             }

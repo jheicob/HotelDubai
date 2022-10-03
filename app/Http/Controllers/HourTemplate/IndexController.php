@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\{{package}};
+namespace App\Http\Controllers\HourTemplate;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\{{modelName}};
-use App\Http\Resources\{{package}}\{{modelName}}Resource;
+use App\Models\HourTemplate;
+use App\Http\Resources\HourTemplate\HourTemplateResource;
 
 class IndexController extends Controller
 {
@@ -18,9 +18,9 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            ${{modelNameSingularLowerCase}} = {{modelName}}::withTrashed()->get();
+            $hourtemplate = HourTemplate::withTrashed()->get();
 
-            return {{modelName}}Resource::collection(${{modelNameSingularLowerCase}});
+            return HourTemplateResource::collection($hourtemplate);
         } catch (\Exception $e) {
             return custom_response_exception($e,__('errors.server.title'),500);
         }

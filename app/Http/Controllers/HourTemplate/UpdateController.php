@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\{{package}};
+namespace App\Http\Controllers\HourTemplate;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\{{package}}\UpdateRequest;
+use App\Http\Requests\HourTemplate\UpdateRequest;
 use Illuminate\Support\Facades\DB;
-use App\Models\{{modelName}};
+use App\Models\HourTemplate;
 
 class UpdateController extends Controller
 {
 
-    public function updated(UpdateRequest $request, {{modelName}} ${{modelNameSingularLowerCase}})
+    public function updated(UpdateRequest $request, HourTemplate $hourtemplate)
     {
         try {
             DB::beginTransaction();
 
-            ${{modelNameSingularLowerCase}}->update($request->all());
+            $hourtemplate->update($request->all());
 
             DB::commit();
 

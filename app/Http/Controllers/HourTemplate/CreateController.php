@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\{{package}};
+namespace App\Http\Controllers\HourTemplate;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\{{package}}\CreateRequest;
+use App\Http\Requests\HourTemplate\CreateRequest;
 use Illuminate\Support\Facades\DB;
-use App\Models\{{modelName}};
+use App\Models\HourTemplate;
 class CreateController extends Controller
 {
 
@@ -15,7 +15,7 @@ class CreateController extends Controller
         try {
             DB::beginTransaction();
 
-            ${{modelNameSingularLowerCase}} = {{modelName}}::create($request->all());
+            $hourtemplate = HourTemplate::create($request->all());
 
             DB::commit();
 
