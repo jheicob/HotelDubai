@@ -20,7 +20,7 @@ class GenerateCrud extends Command
      *
      * @var string
      */
-    protected $signature = 'generator:crud {name} {package?}';
+    protected $signature = 'generate:crud {name} {package?}';
 
     /**
      * The console command description.
