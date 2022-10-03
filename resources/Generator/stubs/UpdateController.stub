@@ -1,0 +1,30 @@
+<?php
+
+namespace App\Http\Controllers\{{package}};
+
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\{{package}}\UpdateRequest;
+use App\Models\{{modelName}};
+
+class UpdateController extends Controller
+{
+
+    public function create(UpdateRequest $request, {{modelName}} ${{modelNameSingularLowerCase}})
+    {
+        try {
+            DB::beginTransaction();
+
+            ${{modelNameSingularLowerCase}}::update($request->all());
+
+            DB::commit();
+
+            return custom_response_sucessfull('updated successfull');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return custom_response_exception($e,__('errors.server.title'),500);
+        }
+    }
+
+}
