@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Tarifas\DateTemplate;
 
 use App\Http\Controllers\Controller;
-use App\Models\PartialCost;
+use App\Http\Requests\Tarifas\DateTemplate\UpdateRequest;
+use App\Models\DateTemplate;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\DB;
@@ -12,37 +13,19 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UpdatedController extends Controller
 {
-    public function updated(Request $request,PartialCost $id)
+    public function updated(UpdateRequest $request,DateTemplate $id)
     {
         try {
             DB::beginTransaction();
-
             $id->update($request->all());
 
             DB::commit();
 
-            return response()->json(Response::HTTP_OK);
+            return custom_response_sucessfull('updated successfull');
 
-        } catch (ValidationException $ex) {
-            return response()->json(
-                [
-                'data' => [
-                    'title'  => $ex->getMessage(),
-                    'errors' => collect($ex->errors())->flatten()
-                ]
-                ], Response::HTTP_UNPROCESSABLE_ENTITY
-            );
-        } catch (\Exception $ex) {
+        } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(
-                [
-                'data' => [
-                    'code'        => $ex->getCode(),
-                    'title'       => __('errors.server.title'),
-                    'description' => __('errors.server.description'),
-                ]
-                ], Response::HTTP_INTERNAL_SERVER_ERROR
-            );
+            return custom_response_exception($e,__('errors.server.title'),500);
         }
     }
 }

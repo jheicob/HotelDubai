@@ -5,7 +5,7 @@ namespace App\Http\Requests\Tarifas\DateTemplate;
 use App\Traits\CustomResponseFormRequestTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateControllerRequest extends FormRequest
+class CreateRequest extends FormRequest
 {
     use CustomResponseFormRequestTrait;
 
@@ -27,7 +27,9 @@ class CreateControllerRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'room_type_id' => 'required|exists:room_types,id',
+            'date'         => 'required|date_format:m-d',
+            'rate'         => 'required|numeric',
         ];
     }
 }

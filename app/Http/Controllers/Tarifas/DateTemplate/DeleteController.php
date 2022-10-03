@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tarifas\DateTemplate;
 
 use App\Http\Controllers\Controller;
+use App\Models\DateTemplate;
 use App\Models\PartialCost;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -14,39 +15,25 @@ class DeleteController extends Controller
     {
         try {
             DB::beginTransaction();
+            $dateTemplate = DateTemplate::where('id', $id)->withTrashed()->first();
 
-            $PartialCost = PartialCost::where('id', $id)->withTrashed()->first();
+            if(!$dateTemplate){
+                return custom_response_error(422,'error-validation','Model no exist',422);
+            }
 
-            if (!$PartialCost->deleted_at) {
-                $PartialCost->delete();
+            if (!$dateTemplate->deleted_at) {
+                $dateTemplate->delete();
             } else {
-                $PartialCost->restore();
+                $dateTemplate->restore();
             }
 
             DB::commit();
 
-            return response()->json(Response::HTTP_OK);
+            return custom_response_sucessfull('deleted successfull');
 
-        } catch (ValidationException $ex) {
-            return response()->json(
-                [
-                'data' => [
-                    'title'  => $ex->getMessage(),
-                    'errors' => collect($ex->errors())->flatten()
-                ]
-                ], Response::HTTP_UNPROCESSABLE_ENTITY
-            );
-        } catch (\Exception $ex) {
+        } catch (\Exception $e) {
             DB::rollBack();
-            return response()->json(
-                [
-                'data' => [
-                    'code'        => $ex->getCode(),
-                    'title'       => __('errors.server.title'),
-                    'description' => $ex->getMessage(),
-                ]
-                ], Response::HTTP_INTERNAL_SERVER_ERROR
-            );
+            return custom_response_exception($e,__('errors.server.title'),500);
         }
     }
 }
