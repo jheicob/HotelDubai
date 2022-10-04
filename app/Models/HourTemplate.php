@@ -11,12 +11,16 @@ class HourTemplate extends Model
     use HasFactory, SoftDeletes;
     protected $fillable = [
         'room_type_id',
+        'shift_system_id',
         'rate',
         'hour'
     ];
 
-
     public function roomType(){
         return $this->belongsTo(RoomType::class);
+    }
+
+    public function shiftSystem(){
+        return $this->belongsTo(ShiftSystem::class);
     }
 }

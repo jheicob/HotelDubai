@@ -12,14 +12,13 @@ class IndexController extends Controller
 {
     public function index()
     {
-        //return view('DateTemplate.index');
-        return ['view'];
+        return view('Tarifas.HourTemplate.index');
     }
 
     public function get()
     {
         try {
-            $hourtemplate = HourTemplate::with(['roomType'])->withTrashed()->get();
+            $hourtemplate = HourTemplate::with(['roomType','shiftSystem'])->withTrashed()->get();
 
             return HourTemplateResource::collection($hourtemplate);
         } catch (\Exception $e) {

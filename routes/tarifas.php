@@ -110,7 +110,7 @@ Route::group(
         /** routes para HourTemplate **/
         Route::group(
             [
-                'prefix'     => 'HourTemplate',
+                'prefix'     => 'hour-templates',
                 'middleware'  => 'auth'
             ],
             function () {

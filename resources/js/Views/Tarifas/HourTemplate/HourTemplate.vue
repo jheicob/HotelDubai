@@ -11,10 +11,10 @@
 </template>
 
 <script>
-import PermissionsDataTable from "./Table/PartialTemplateDataTable.vue";
+import PermissionsDataTable from "./Table/HourTemplateDataTable.vue";
 
 export default {
-  name: "PartialTemplate",
+  name: "HourTemplate",
   components: {
     PermissionsDataTable,
   },

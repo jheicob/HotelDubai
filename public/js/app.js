@@ -8567,6 +8567,704 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Table_HourTemplateDataTable_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Table/HourTemplateDataTable.vue */ "./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "HourTemplate",
+  components: {
+    PermissionsDataTable: _Table_HourTemplateDataTable_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: {
+    create: {
+      type: Number,
+      "default": 0
+    },
+    deletet: {
+      type: Number,
+      "default": 0
+    },
+    updated: {
+      type: Number,
+      "default": 0
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "PartialCostCreate",
+  components: {},
+  created: function created() {
+    this.getRoomType();
+    this.getShiftSystem();
+  },
+  data: function data() {
+    return {
+      form: this.getClearFormObject(),
+      hour: "0",
+      minute: "0",
+      patials: [],
+      roomType: [],
+      dayWeek: [],
+      systemTime: [],
+      ShiftSystem: []
+    };
+  },
+  methods: {
+    validHour: function validHour(event) {
+      console.log("hour", this.hour);
+
+      if (this.hour < 0 || this.hour > 12) {
+        event.target.value = this.hour = 12;
+        event.preventDefault();
+      }
+    },
+    validMinute: function validMinute(event) {
+      console.log("minte", this.minute);
+
+      if (this.minute < 0 || this.minute >= 60) {
+        event.target.value = this.minute = 59;
+        event.preventDefault();
+      }
+    },
+    formatSetHour: function formatSetHour() {
+      return "".concat(this.hour, ":").concat(this.minute);
+    },
+    createPermission: function createPermission() {
+      var _this = this;
+
+      var url = "/tarifas/hour-templates/create";
+      this.form.hour = this.formatSetHour();
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, this.form).then(function (response) {
+        _this.errors = [];
+        _this.form = _this.getClearFormObject();
+        $("#exampleModal").modal("hide");
+
+        _this.$emit("GetCreatedPermission");
+      })["catch"](function (error) {});
+    },
+    getClearFormObject: function getClearFormObject() {
+      return {
+        room_type_id: "",
+        hour: "00:00",
+        rate: "",
+        shift_system_id: "1"
+      };
+    },
+    getRoomType: function getRoomType() {
+      var _this2 = this;
+
+      var urlKeeps = "/configuracion/room-type/get";
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+        _this2.roomType = response.data.data;
+      })["catch"](function (err) {});
+    },
+    getShiftSystem: function getShiftSystem() {
+      var _this3 = this;
+
+      var urlKeeps = "/configuracion/shift-system/get";
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+        _this3.ShiftSystem = response.data.data;
+      })["catch"](function (err) {});
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "UpdateHourTemplate",
+  components: {},
+  created: function created() {},
+  data: function data() {
+    return {
+      form: this.getClearFormObject(),
+      hour: "0",
+      minute: "0",
+      patials: [],
+      roomType: [],
+      dayWeek: [],
+      systemTime: [],
+      ShiftSystem: []
+    };
+  },
+  methods: {
+    validHour: function validHour(event) {
+      console.log("hour", this.hour);
+
+      if (this.hour < 0 || this.hour > 12) {
+        event.target.value = this.hour = 12;
+        event.preventDefault();
+      }
+    },
+    validMinute: function validMinute(event) {
+      console.log("minte", this.minute);
+
+      if (this.minute < 0 || this.minute >= 60) {
+        event.target.value = this.minute = 59;
+        event.preventDefault();
+      }
+    },
+    formatGetHour: function formatGetHour(hour) {
+      var _hour$split = hour.split(":");
+
+      var _hour$split2 = _slicedToArray(_hour$split, 2);
+
+      this.hour = _hour$split2[0];
+      this.minute = _hour$split2[1];
+    },
+    formatSetHour: function formatSetHour() {
+      return "".concat(this.hour, ":").concat(this.minute);
+    },
+    createPermission: function createPermission() {
+      var _this = this;
+
+      var url = "/tarifas/hour-templates/" + this.form.id;
+      this.form.hour = this.formatSetHour();
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put(url, this.form).then(function (response) {
+        _this.errors = [];
+
+        _this.getClearFormObject();
+
+        $("#exampleModal2").modal("hide");
+
+        _this.$emit("GetCreatedPermission");
+      })["catch"](function (error) {});
+    },
+    UpdateGetPermission: function UpdateGetPermission(permission) {
+      this.form.id = permission.id;
+      this.form.room_type_id = permission.relationships.roomType.id;
+      this.form.shift_system_id = permission.relationships.shiftSystem.id;
+      this.form.hour = permission.attributes.hour;
+      this.form.rate = permission.attributes.rate;
+      this.getRoomType();
+      this.formatGetHour(this.form.hour);
+      this.getShiftSystem();
+    },
+    getRoomType: function getRoomType() {
+      var _this2 = this;
+
+      var urlKeeps = "/configuracion/room-type/get";
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+        _this2.roomType = response.data.data;
+      })["catch"](function (err) {});
+    },
+    getShiftSystem: function getShiftSystem() {
+      var _this3 = this;
+
+      var urlKeeps = "/configuracion/shift-system/get";
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+        _this3.ShiftSystem = response.data.data;
+      })["catch"](function (err) {});
+    },
+    getClearFormObject: function getClearFormObject() {
+      return {
+        room_type_id: "",
+        hour: "00:00",
+        rate: "",
+        shift_system_id: "1"
+      };
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Modals_CreateHourTemplate_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Modals/CreateHourTemplate.vue */ "./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue");
+/* harmony import */ var _Modals_UpdateHourTemplate_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Modals/UpdateHourTemplate.vue */ "./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "PartialTemplateDataTable",
+  components: {
+    CreatePermission: _Modals_CreateHourTemplate_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    UpdatePermission: _Modals_UpdateHourTemplate_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  props: {
+    create: {
+      type: Number,
+      "default": 0
+    },
+    deletet: {
+      type: Number,
+      "default": 0
+    },
+    updated: {
+      type: Number,
+      "default": 0
+    }
+  },
+  created: function created() {
+    this.getKeeps();
+  },
+  data: function data() {
+    return {
+      keeps: []
+    };
+  },
+  methods: {
+    getKeeps: function getKeeps() {
+      var _this = this;
+
+      var urlKeeps = "/tarifas/hour-templates/get";
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+        _this.keeps = response.data.data;
+        $("#dataTable").DataTable().destroy();
+
+        _this.$nextTick(function () {
+          $("#dataTable").DataTable({// DataTable options here...
+          });
+        });
+      })["catch"](function (err) {});
+    },
+    deletePermission: function deletePermission(keep) {
+      var _this2 = this;
+
+      var url = "/tarifas/hour-templates/delete/" + keep.id;
+      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](url).then(function (response) {
+        _this2.getKeeps();
+      });
+    },
+    CreatePermission: function CreatePermission() {
+      $("#exampleModal").modal("show");
+    },
+    UpdatedPermission: function UpdatedPermission(permission) {
+      this.$refs.componente.UpdateGetPermission(permission);
+      $("#exampleModal2").modal("show");
+    },
+    GetCreatedPermission: function GetCreatedPermission() {
+      this.getKeeps();
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/ThemeType/Modals/CreateThemeType.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/ThemeType/Modals/CreateThemeType.vue?vue&type=script&lang=js& ***!
@@ -9809,6 +10507,7 @@ Vue.component('dayweek', (__webpack_require__(/*! ./Views/DayWeek/DayWeek */ "./
 Vue.component('systemtime', (__webpack_require__(/*! ./Views/SystemTime/SystemTime */ "./resources/js/Views/SystemTime/SystemTime.vue")["default"]));
 Vue.component('shiftsystem', (__webpack_require__(/*! ./Views/ShiftSystem/ShiftSystem */ "./resources/js/Views/ShiftSystem/ShiftSystem.vue")["default"]));
 Vue.component('datetemplate', (__webpack_require__(/*! ./Views/Tarifas/DateTemplate/DateTemplate.vue */ "./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue")["default"]));
+Vue.component('hour-template', (__webpack_require__(/*! ./Views/Tarifas/HourTemplate/HourTemplate.vue */ "./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue")["default"]));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -28291,6 +28990,162 @@ component.options.__file = "resources/js/Views/Tarifas/DateTemplate/Table/DateTe
 
 /***/ }),
 
+/***/ "./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _HourTemplate_vue_vue_type_template_id_24feac25___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HourTemplate.vue?vue&type=template&id=24feac25& */ "./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=template&id=24feac25&");
+/* harmony import */ var _HourTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HourTemplate.vue?vue&type=script&lang=js& */ "./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _HourTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _HourTemplate_vue_vue_type_template_id_24feac25___WEBPACK_IMPORTED_MODULE_0__.render,
+  _HourTemplate_vue_vue_type_template_id_24feac25___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CreateHourTemplate_vue_vue_type_template_id_ffec4328___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateHourTemplate.vue?vue&type=template&id=ffec4328& */ "./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=template&id=ffec4328&");
+/* harmony import */ var _CreateHourTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateHourTemplate.vue?vue&type=script&lang=js& */ "./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CreateHourTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CreateHourTemplate_vue_vue_type_template_id_ffec4328___WEBPACK_IMPORTED_MODULE_0__.render,
+  _CreateHourTemplate_vue_vue_type_template_id_ffec4328___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _UpdateHourTemplate_vue_vue_type_template_id_16c5878e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateHourTemplate.vue?vue&type=template&id=16c5878e& */ "./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=template&id=16c5878e&");
+/* harmony import */ var _UpdateHourTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateHourTemplate.vue?vue&type=script&lang=js& */ "./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _UpdateHourTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UpdateHourTemplate_vue_vue_type_template_id_16c5878e___WEBPACK_IMPORTED_MODULE_0__.render,
+  _UpdateHourTemplate_vue_vue_type_template_id_16c5878e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _HourTemplateDataTable_vue_vue_type_template_id_67b7a3ee___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HourTemplateDataTable.vue?vue&type=template&id=67b7a3ee& */ "./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=template&id=67b7a3ee&");
+/* harmony import */ var _HourTemplateDataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HourTemplateDataTable.vue?vue&type=script&lang=js& */ "./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _HourTemplateDataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _HourTemplateDataTable_vue_vue_type_template_id_67b7a3ee___WEBPACK_IMPORTED_MODULE_0__.render,
+  _HourTemplateDataTable_vue_vue_type_template_id_67b7a3ee___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Views/ThemeType/Modals/CreateThemeType.vue":
 /*!*****************************************************************!*\
   !*** ./resources/js/Views/ThemeType/Modals/CreateThemeType.vue ***!
@@ -29480,6 +30335,70 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HourTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./HourTemplate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HourTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHourTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CreateHourTemplate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHourTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateHourTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UpdateHourTemplate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateHourTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HourTemplateDataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./HourTemplateDataTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_HourTemplateDataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/Views/ThemeType/Modals/CreateThemeType.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************!*\
   !*** ./resources/js/Views/ThemeType/Modals/CreateThemeType.vue?vue&type=script&lang=js& ***!
@@ -30582,6 +31501,74 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DateTemplateDataTable_vue_vue_type_template_id_a1d117a4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DateTemplateDataTable_vue_vue_type_template_id_a1d117a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DateTemplateDataTable.vue?vue&type=template&id=a1d117a4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=template&id=a1d117a4&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=template&id=24feac25&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=template&id=24feac25& ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HourTemplate_vue_vue_type_template_id_24feac25___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HourTemplate_vue_vue_type_template_id_24feac25___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HourTemplate_vue_vue_type_template_id_24feac25___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./HourTemplate.vue?vue&type=template&id=24feac25& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=template&id=24feac25&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=template&id=ffec4328&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=template&id=ffec4328& ***!
+  \**************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHourTemplate_vue_vue_type_template_id_ffec4328___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHourTemplate_vue_vue_type_template_id_ffec4328___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateHourTemplate_vue_vue_type_template_id_ffec4328___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CreateHourTemplate.vue?vue&type=template&id=ffec4328& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=template&id=ffec4328&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=template&id=16c5878e&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=template&id=16c5878e& ***!
+  \**************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateHourTemplate_vue_vue_type_template_id_16c5878e___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateHourTemplate_vue_vue_type_template_id_16c5878e___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateHourTemplate_vue_vue_type_template_id_16c5878e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UpdateHourTemplate.vue?vue&type=template&id=16c5878e& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=template&id=16c5878e&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=template&id=67b7a3ee&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=template&id=67b7a3ee& ***!
+  \****************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HourTemplateDataTable_vue_vue_type_template_id_67b7a3ee___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HourTemplateDataTable_vue_vue_type_template_id_67b7a3ee___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_HourTemplateDataTable_vue_vue_type_template_id_67b7a3ee___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./HourTemplateDataTable.vue?vue&type=template&id=67b7a3ee& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=template&id=67b7a3ee&");
 
 
 /***/ }),
@@ -39336,6 +40323,933 @@ var staticRenderFns = [
         _c("th", [_vm._v("Tipo Habitacion")]),
         _vm._v(" "),
         _c("th", [_vm._v("Fecha")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tarifa")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Accion")]),
+      ]),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=template&id=24feac25&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=template&id=24feac25& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c(
+      "div",
+      { staticClass: "col-md-12" },
+      [
+        _c("permissions-data-table", {
+          attrs: {
+            create: _vm.create,
+            deletet: _vm.deletet,
+            updated: _vm.updated,
+          },
+        }),
+      ],
+      1
+    ),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=template&id=ffec4328&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=template&id=ffec4328& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("form", [
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "exampleModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true",
+        },
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "name" } },
+                  [_vm._v("Tipo Habitacion")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.room_type_id,
+                        expression: "form.room_type_id",
+                      },
+                    ],
+                    staticClass: "form-select",
+                    attrs: { "aria-label": "Default select example" },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "room_type_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", value: "" } }, [
+                      _vm._v("Seleccione Tipo Habitacion"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.roomType, function (keep) {
+                      return _c(
+                        "option",
+                        { key: keep.id, domProps: { value: keep.id } },
+                        [
+                          _vm._v(
+                            "\n\t\t\t\t\t\t\t" +
+                              _vm._s(keep.attributes.name) +
+                              "\n\t\t\t\t\t\t"
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "hour" } },
+                  [_vm._v("Hora")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-inline text-center" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.hour,
+                        expression: "hour",
+                      },
+                    ],
+                    staticClass: "form-control col-2",
+                    attrs: {
+                      name: "hour",
+                      type: "number",
+                      min: "00",
+                      max: "12",
+                    },
+                    domProps: { value: _vm.hour },
+                    on: {
+                      keypress: _vm.validHour,
+                      blur: _vm.validHour,
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.hour = $event.target.value
+                      },
+                    },
+                  }),
+                  _vm._v("\n\t\t\t\t\t\t:\n\t\t\t\t\t\t"),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.minute,
+                        expression: "minute",
+                      },
+                    ],
+                    staticClass: "form-control col-2",
+                    attrs: {
+                      name: "minute",
+                      type: "number",
+                      min: "00",
+                      max: "59",
+                    },
+                    domProps: { value: _vm.minute },
+                    on: {
+                      keydown: _vm.validMinute,
+                      blur: _vm.validMinute,
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.minute = $event.target.value
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.shift_system_id,
+                          expression: "form.shift_system_id",
+                        },
+                      ],
+                      staticClass: "form-select col-2",
+                      attrs: { "aria-label": "Default select example" },
+                      on: {
+                        change: function ($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function (o) {
+                              return o.selected
+                            })
+                            .map(function (o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.form,
+                            "shift_system_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                      },
+                    },
+                    [
+                      _c("option", { attrs: { selected: "", value: "" } }, [
+                        _vm._v("Seleccione..."),
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.ShiftSystem, function (keep) {
+                        return _c(
+                          "option",
+                          { key: keep.id, domProps: { value: keep.id } },
+                          [
+                            _vm._v(
+                              "\n\t\t\t\t\t\t\t\t" +
+                                _vm._s(keep.attributes.name) +
+                                "\n\t\t\t\t\t\t\t"
+                            ),
+                          ]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "rate" } },
+                  [_vm._v("Tarifa")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.rate,
+                      expression: "form.rate",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "rate", type: "number" },
+                  domProps: { value: _vm.form.rate },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "rate", $event.target.value)
+                    },
+                  },
+                }),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "btn btn-primary text-white btn-icon-split mb-4",
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.createPermission()
+                      },
+                    },
+                  },
+                  [
+                    _c(
+                      "span",
+                      { staticClass: "text font-montserrat font-weight-bold" },
+                      [_vm._v("Crear plantilla de Hora")]
+                    ),
+                  ]
+                ),
+              ]),
+            ]),
+          ]
+        ),
+      ]
+    ),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header py-2" }, [
+      _c(
+        "h5",
+        {
+          staticClass: "modal-title title-page text-secondary",
+          attrs: { id: "exampleModalLabel" },
+        },
+        [_vm._v("\n\t\t\t\t\t\tCrear plantilla de Hora\n\t\t\t\t\t")]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close",
+          },
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-danger text-white btn-icon-split mb-4",
+        attrs: { "data-dismiss": "modal" },
+      },
+      [
+        _c("span", { staticClass: "text font-montserrat font-weight-bold" }, [
+          _vm._v("Cancelar"),
+        ]),
+      ]
+    )
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=template&id=16c5878e&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=template&id=16c5878e& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("form", [
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "exampleModal2",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true",
+        },
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "name" } },
+                  [_vm._v("Tipo Habitacion")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.room_type_id,
+                        expression: "form.room_type_id",
+                      },
+                    ],
+                    staticClass: "form-select",
+                    attrs: { "aria-label": "Default select example" },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "room_type_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", value: "" } }, [
+                      _vm._v("Seleccione Tipo Habitacion"),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.roomType, function (keep) {
+                      return _c(
+                        "option",
+                        { key: keep.id, domProps: { value: keep.id } },
+                        [
+                          _vm._v(
+                            "\n\t\t\t\t\t\t\t" +
+                              _vm._s(keep.attributes.name) +
+                              "\n\t\t\t\t\t\t"
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "hour" } },
+                  [_vm._v("Hora")]
+                ),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-inline text-center" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.hour,
+                        expression: "hour",
+                      },
+                    ],
+                    staticClass: "form-control col-2",
+                    attrs: {
+                      name: "hour",
+                      type: "number",
+                      min: "00",
+                      max: "12",
+                    },
+                    domProps: { value: _vm.hour },
+                    on: {
+                      keypress: _vm.validHour,
+                      blur: _vm.validHour,
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.hour = $event.target.value
+                      },
+                    },
+                  }),
+                  _vm._v("\n\t\t\t\t\t\t:\n\t\t\t\t\t\t"),
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.minute,
+                        expression: "minute",
+                      },
+                    ],
+                    staticClass: "form-control col-2",
+                    attrs: {
+                      name: "minute",
+                      type: "number",
+                      min: "00",
+                      max: "59",
+                    },
+                    domProps: { value: _vm.minute },
+                    on: {
+                      keydown: _vm.validMinute,
+                      blur: _vm.validMinute,
+                      input: function ($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.minute = $event.target.value
+                      },
+                    },
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "select",
+                    {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.form.shift_system_id,
+                          expression: "form.shift_system_id",
+                        },
+                      ],
+                      staticClass: "form-select col-2",
+                      attrs: { "aria-label": "Default select example" },
+                      on: {
+                        change: function ($event) {
+                          var $$selectedVal = Array.prototype.filter
+                            .call($event.target.options, function (o) {
+                              return o.selected
+                            })
+                            .map(function (o) {
+                              var val = "_value" in o ? o._value : o.value
+                              return val
+                            })
+                          _vm.$set(
+                            _vm.form,
+                            "shift_system_id",
+                            $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          )
+                        },
+                      },
+                    },
+                    [
+                      _c("option", { attrs: { selected: "", value: "" } }, [
+                        _vm._v("Seleccione..."),
+                      ]),
+                      _vm._v(" "),
+                      _vm._l(_vm.ShiftSystem, function (keep) {
+                        return _c(
+                          "option",
+                          { key: keep.id, domProps: { value: keep.id } },
+                          [
+                            _vm._v(
+                              "\n\t\t\t\t\t\t\t\t" +
+                                _vm._s(keep.attributes.name) +
+                                "\n\t\t\t\t\t\t\t"
+                            ),
+                          ]
+                        )
+                      }),
+                    ],
+                    2
+                  ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "rate" } },
+                  [_vm._v("Tarifa")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.rate,
+                      expression: "form.rate",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { name: "rate", type: "number" },
+                  domProps: { value: _vm.form.rate },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "rate", $event.target.value)
+                    },
+                  },
+                }),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "btn btn-primary text-white btn-icon-split mb-4",
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.createPermission()
+                      },
+                    },
+                  },
+                  [
+                    _c(
+                      "span",
+                      { staticClass: "text font-montserrat font-weight-bold" },
+                      [_vm._v("Modificar Plantilla de Hora")]
+                    ),
+                  ]
+                ),
+              ]),
+            ]),
+          ]
+        ),
+      ]
+    ),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header py-2" }, [
+      _c(
+        "h5",
+        {
+          staticClass: "modal-title title-page text-secondary",
+          attrs: { id: "exampleModalLabel" },
+        },
+        [_vm._v("\n\t\t\t\t\t\tModificar Plantilla de Hora\n\t\t\t\t\t")]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close",
+          },
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-danger text-white btn-icon-split mb-4",
+        attrs: { "data-dismiss": "modal" },
+      },
+      [
+        _c("span", { staticClass: "text font-montserrat font-weight-bold" }, [
+          _vm._v("Cancelar"),
+        ]),
+      ]
+    )
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=template&id=67b7a3ee&":
+/*!*******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=template&id=67b7a3ee& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "row justify-content-center" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "card mb-3" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "table-responsive" }, [
+            _c("div", { staticClass: "col text-right" }, [
+              _vm.create
+                ? _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-primary text-white btn-icon-split mb-4",
+                      attrs: { "data-toggle": "modal" },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.CreatePermission()
+                        },
+                      },
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-check" }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "text font-montserrat font-weight-bold",
+                        },
+                        [_vm._v("Crear Plantilla de Hora")]
+                      ),
+                    ]
+                  )
+                : _vm._e(),
+            ]),
+            _vm._v(" "),
+            _c(
+              "table",
+              {
+                staticClass: "table table-bordered",
+                attrs: { id: "dataTable", width: "100%", cellspacing: "0" },
+              },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.keeps, function (keep) {
+                    return _c("tr", { key: keep.id }, [
+                      _c("td", [_vm._v(_vm._s(keep.id))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(
+                              keep.relationships.roomType.attributes.name
+                            ) +
+                            "\n                            "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(keep.attributes.hour) +
+                            "\n                            "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(keep.attributes.rate) +
+                            "\n                            "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm.updated
+                          ? _c("i", {
+                              staticClass:
+                                "ico fas fa-edit fa-lg text-secondary",
+                              staticStyle: { cursor: "pointer" },
+                              attrs: { title: "Borrar" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.UpdatedPermission(keep)
+                                },
+                              },
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.deletet
+                          ? _c("i", {
+                              class: keep.attributes.deleted_at
+                                ? "ico fas fa-trash-restore-alt fa-lg text-secondary"
+                                : "ico fas fa-trash fa-lg text-secondary",
+                              staticStyle: { cursor: "pointer" },
+                              attrs: { title: "Borrar" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.deletePermission(keep)
+                                },
+                              },
+                            })
+                          : _vm._e(),
+                      ]),
+                    ])
+                  }),
+                  0
+                ),
+              ]
+            ),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("create-permission", {
+        on: { GetCreatedPermission: _vm.GetCreatedPermission },
+      }),
+      _vm._v(" "),
+      _c("update-permission", {
+        ref: "componente",
+        on: { GetCreatedPermission: _vm.GetCreatedPermission },
+      }),
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ol", { staticClass: "breadcrumb" }, [
+      _c("li", { staticClass: "breadcrumb-item" }, [
+        _c("a", { attrs: { href: "#" } }, [_vm._v("Dashboard")]),
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "breadcrumb-item active" }, [
+        _vm._v("Plantilla de Horas"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("i", { staticClass: "fas fa-table" }),
+      _vm._v("\n            Data Plantilla de Horas\n        "),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tipo Habitacion")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Hora")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tarifa")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Accion")]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tfoot", [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tipo Habitacion")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Hora")]),
         _vm._v(" "),
         _c("th", [_vm._v("Tarifa")]),
         _vm._v(" "),

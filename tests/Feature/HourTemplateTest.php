@@ -188,6 +188,7 @@ class HourTemplateTest extends TestCase
             'hour'         => '10:30',
             'rate'         => '-30'
         ]);
+
         HourTemplate::create([
             'room_type_id' => $roomType[1]->id,
             'hour'         => '08:30',
