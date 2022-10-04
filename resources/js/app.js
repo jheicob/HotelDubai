@@ -36,8 +36,7 @@ Vue.component('partialtemplate', require('./Views/PartialTemplate/PartialTemplat
 Vue.component('dayweek', require('./Views/DayWeek/DayWeek').default);
 Vue.component('systemtime', require('./Views/SystemTime/SystemTime').default);
 Vue.component('shiftsystem', require('./Views/ShiftSystem/ShiftSystem').default);
-
-
+Vue.component('datetemplate', require('./Views/Tarifas/DateTemplate/DateTemplate.vue').default);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

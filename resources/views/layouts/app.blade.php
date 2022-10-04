@@ -149,6 +149,12 @@
                             @can('partial.templates.index')
                                 <a class="dropdown-item" href="{{ route('partial.templates.index') }}">Plantillas Parciales</a>
                             @endcan
+                            @can('date.templates.index')
+                                <a class="dropdown-item" href="{{ route('date.templates.index') }}">Plantillas Fechas</a>
+                            @endcan
+                            @can('hour.templates.index')
+                                <a class="dropdown-item" href="{{ route('hour.templates.index') }}">Plantillas Horas</a>
+                            @endcan
 
                         </div>
                     </li>

@@ -7998,6 +7998,575 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _Table_DateTemplateDataTable_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Table/DateTemplateDataTable.vue */ "./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "DateTemplate",
+  components: {
+    PermissionsDataTable: _Table_DateTemplateDataTable_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  props: {
+    create: {
+      type: Number,
+      "default": 0
+    },
+    deletet: {
+      type: Number,
+      "default": 0
+    },
+    updated: {
+      type: Number,
+      "default": 0
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper */ "./resources/js/Views/Tarifas/DateTemplate/Modals/helper.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "CreateDateTemplate",
+  components: {},
+  mounted: function mounted() {
+    this.getRoomType();
+  },
+  data: function data() {
+    return {
+      form: this.getClearFormObject(),
+      patials: [],
+      roomType: [],
+      dayWeek: [],
+      systemTime: [],
+      ShiftSystem: []
+    };
+  },
+  methods: {
+    createPermission: function createPermission() {
+      var _this = this;
+
+      var url = "/tarifas/date-templates/create";
+      this.form.date = (0,_helper__WEBPACK_IMPORTED_MODULE_1__.dateFormat)(this.form.date);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, this.form).then(function (response) {
+        _this.errors = [];
+
+        _this.getClearFormObject();
+
+        $("#exampleModal").modal("hide");
+
+        _this.$emit("GetCreatedPermission");
+      })["catch"](function (error) {});
+    },
+    getClearFormObject: function getClearFormObject() {
+      return {
+        room_type_id: "",
+        rate: "",
+        date: ""
+      };
+    },
+    getRoomType: function getRoomType() {
+      var _this2 = this;
+
+      var urlKeeps = "/configuracion/room-type/get";
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+        _this2.roomType = response.data.data;
+      })["catch"](function (err) {});
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper */ "./resources/js/Views/Tarifas/DateTemplate/Modals/helper.js");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "UpdateDateTemplate",
+  components: {},
+  mounted: function mounted() {
+    this.getRoomType();
+  },
+  data: function data() {
+    return {
+      form: {
+        id: '',
+        room_type_id: "",
+        rate: "",
+        date: ""
+      },
+      patials: [],
+      roomType: [],
+      dayWeek: [],
+      systemTime: [],
+      ShiftSystem: []
+    };
+  },
+  methods: {
+    createPermission: function createPermission() {
+      var _this = this;
+
+      var url = "/tarifas/date-templates/" + this.form.id;
+      this.form.date = (0,_helper__WEBPACK_IMPORTED_MODULE_1__.dateFormat)(this.form.date);
+      axios__WEBPACK_IMPORTED_MODULE_0___default().put(url, this.form).then(function (response) {
+        _this.errors = [];
+
+        _this.getClearFormObject();
+
+        $("#exampleModal2").modal("hide");
+
+        _this.$emit("GetCreatedPermission");
+      })["catch"](function (error) {});
+    },
+    getClearFormObject: function getClearFormObject() {
+      this.form = {
+        id: '',
+        room_type_id: '',
+        date: '',
+        rate: ''
+      };
+    },
+    UpdateGetPermission: function UpdateGetPermission(permission) {
+      this.getRoomType();
+      this.form = {
+        id: permission.id,
+        room_type_id: permission.relationships.roomType.id,
+        date: (0,_helper__WEBPACK_IMPORTED_MODULE_1__.getDateFormat)(permission.attributes.date),
+        rate: permission.attributes.rate
+      };
+    },
+    getRoomType: function getRoomType() {
+      var _this2 = this;
+
+      var urlKeeps = "/configuracion/room-type/get";
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+        _this2.roomType = response.data.data;
+      })["catch"](function (err) {});
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Modals_CreateDateTemplate_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Modals/CreateDateTemplate.vue */ "./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue");
+/* harmony import */ var _Modals_UpdateDateTemplate_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Modals/UpdateDateTemplate.vue */ "./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "DateTemplateDataTable",
+  components: {
+    CreatePermission: _Modals_CreateDateTemplate_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    UpdatePermission: _Modals_UpdateDateTemplate_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  props: {
+    create: {
+      type: Number,
+      "default": 0
+    },
+    deletet: {
+      type: Number,
+      "default": 0
+    },
+    updated: {
+      type: Number,
+      "default": 0
+    }
+  },
+  created: function created() {
+    this.getKeeps();
+  },
+  data: function data() {
+    return {
+      keeps: []
+    };
+  },
+  methods: {
+    getKeeps: function getKeeps() {
+      var _this = this;
+
+      var urlKeeps = "/tarifas/date-templates/get";
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+        _this.keeps = response.data.data;
+        $("#dataTable").DataTable().destroy();
+
+        _this.$nextTick(function () {
+          $("#dataTable").DataTable({// DataTable options here...
+          });
+        });
+      })["catch"](function (err) {});
+    },
+    deletePermission: function deletePermission(keep) {
+      var _this2 = this;
+
+      var url = "/tarifas/date-templates/delete/" + keep.id;
+      axios__WEBPACK_IMPORTED_MODULE_0___default()["delete"](url).then(function (response) {
+        _this2.getKeeps();
+      });
+    },
+    CreatePermission: function CreatePermission() {
+      $("#exampleModal").modal("show");
+    },
+    UpdatedPermission: function UpdatedPermission(permission) {
+      this.$refs.componente.UpdateGetPermission(permission);
+      $("#exampleModal2").modal("show");
+    },
+    GetCreatedPermission: function GetCreatedPermission() {
+      this.getKeeps();
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/ThemeType/Modals/CreateThemeType.vue?vue&type=script&lang=js&":
 /*!**********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/ThemeType/Modals/CreateThemeType.vue?vue&type=script&lang=js& ***!
@@ -9153,6 +9722,52 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Views/Tarifas/DateTemplate/Modals/helper.js":
+/*!******************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/DateTemplate/Modals/helper.js ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "dateFormat": () => (/* binding */ dateFormat),
+/* harmony export */   "getDateFormat": () => (/* binding */ getDateFormat)
+/* harmony export */ });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var dateFormat = function dateFormat(fecha) {
+  console.log(fecha);
+  var date = new Date(fecha);
+  var month = date.getMonth() < 10 ? "0".concat(date.getMonth()) : date.getMonth();
+  var day = date.getDate() < 10 ? "0".concat(date.getDate()) : date.getDate();
+  return "".concat(day, "/").concat(month);
+};
+
+var getDateFormat = function getDateFormat(fecha) {
+  var _fecha$split = fecha.split('/'),
+      _fecha$split2 = _slicedToArray(_fecha$split, 2),
+      day = _fecha$split2[0],
+      month = _fecha$split2[1];
+
+  var year = new Date().getFullYear();
+  return "".concat(year, "-").concat(month, "-").concat(day);
+};
+
+
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -9193,6 +9808,7 @@ Vue.component('partialtemplate', (__webpack_require__(/*! ./Views/PartialTemplat
 Vue.component('dayweek', (__webpack_require__(/*! ./Views/DayWeek/DayWeek */ "./resources/js/Views/DayWeek/DayWeek.vue")["default"]));
 Vue.component('systemtime', (__webpack_require__(/*! ./Views/SystemTime/SystemTime */ "./resources/js/Views/SystemTime/SystemTime.vue")["default"]));
 Vue.component('shiftsystem', (__webpack_require__(/*! ./Views/ShiftSystem/ShiftSystem */ "./resources/js/Views/ShiftSystem/ShiftSystem.vue")["default"]));
+Vue.component('datetemplate', (__webpack_require__(/*! ./Views/Tarifas/DateTemplate/DateTemplate.vue */ "./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue")["default"]));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -20165,7 +20781,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.i(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_toastr_build_toastr_css__WEBPACK_IMPORTED_MODULE_1__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -20192,7 +20808,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.i(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_toastr_build_toastr_css__WEBPACK_IMPORTED_MODULE_1__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -20219,7 +20835,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.i(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_multiselect_dist_vue_multiselect_min_css__WEBPACK_IMPORTED_MODULE_1__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -20249,7 +20865,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_
 ___CSS_LOADER_EXPORT___.i(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_toastr_build_toastr_css__WEBPACK_IMPORTED_MODULE_1__["default"]);
 ___CSS_LOADER_EXPORT___.i(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_multiselect_dist_vue_multiselect_min_css__WEBPACK_IMPORTED_MODULE_2__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -20279,7 +20895,7 @@ var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_
 ___CSS_LOADER_EXPORT___.i(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_toastr_build_toastr_css__WEBPACK_IMPORTED_MODULE_1__["default"]);
 ___CSS_LOADER_EXPORT___.i(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_multiselect_dist_vue_multiselect_min_css__WEBPACK_IMPORTED_MODULE_2__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -20306,7 +20922,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_laravel_mix_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.i(_node_modules_laravel_mix_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_sweetalert2_dist_sweetalert2_css__WEBPACK_IMPORTED_MODULE_1__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -27519,6 +28135,162 @@ component.options.__file = "resources/js/Views/SystemTime/Table/SystemTimeDataTa
 
 /***/ }),
 
+/***/ "./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _DateTemplate_vue_vue_type_template_id_d7abf736___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DateTemplate.vue?vue&type=template&id=d7abf736& */ "./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=template&id=d7abf736&");
+/* harmony import */ var _DateTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DateTemplate.vue?vue&type=script&lang=js& */ "./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DateTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DateTemplate_vue_vue_type_template_id_d7abf736___WEBPACK_IMPORTED_MODULE_0__.render,
+  _DateTemplate_vue_vue_type_template_id_d7abf736___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CreateDateTemplate_vue_vue_type_template_id_92886900___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateDateTemplate.vue?vue&type=template&id=92886900& */ "./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=template&id=92886900&");
+/* harmony import */ var _CreateDateTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateDateTemplate.vue?vue&type=script&lang=js& */ "./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _CreateDateTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _CreateDateTemplate_vue_vue_type_template_id_92886900___WEBPACK_IMPORTED_MODULE_0__.render,
+  _CreateDateTemplate_vue_vue_type_template_id_92886900___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue ***!
+  \*******************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _UpdateDateTemplate_vue_vue_type_template_id_2b4f294d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateDateTemplate.vue?vue&type=template&id=2b4f294d& */ "./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=template&id=2b4f294d&");
+/* harmony import */ var _UpdateDateTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateDateTemplate.vue?vue&type=script&lang=js& */ "./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _UpdateDateTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _UpdateDateTemplate_vue_vue_type_template_id_2b4f294d___WEBPACK_IMPORTED_MODULE_0__.render,
+  _UpdateDateTemplate_vue_vue_type_template_id_2b4f294d___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _DateTemplateDataTable_vue_vue_type_template_id_a1d117a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DateTemplateDataTable.vue?vue&type=template&id=a1d117a4& */ "./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=template&id=a1d117a4&");
+/* harmony import */ var _DateTemplateDataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DateTemplateDataTable.vue?vue&type=script&lang=js& */ "./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _DateTemplateDataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _DateTemplateDataTable_vue_vue_type_template_id_a1d117a4___WEBPACK_IMPORTED_MODULE_0__.render,
+  _DateTemplateDataTable_vue_vue_type_template_id_a1d117a4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/Views/ThemeType/Modals/CreateThemeType.vue":
 /*!*****************************************************************!*\
   !*** ./resources/js/Views/ThemeType/Modals/CreateThemeType.vue ***!
@@ -28644,6 +29416,70 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DateTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DateTemplate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DateTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateDateTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CreateDateTemplate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateDateTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateDateTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UpdateDateTemplate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateDateTemplate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DateTemplateDataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DateTemplateDataTable.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_DateTemplateDataTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
 /***/ "./resources/js/Views/ThemeType/Modals/CreateThemeType.vue?vue&type=script&lang=js&":
 /*!******************************************************************************************!*\
   !*** ./resources/js/Views/ThemeType/Modals/CreateThemeType.vue?vue&type=script&lang=js& ***!
@@ -29678,6 +30514,74 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SystemTimeDataTable_vue_vue_type_template_id_6a7e4f13___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SystemTimeDataTable_vue_vue_type_template_id_6a7e4f13___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./SystemTimeDataTable.vue?vue&type=template&id=6a7e4f13& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/SystemTime/Table/SystemTimeDataTable.vue?vue&type=template&id=6a7e4f13&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=template&id=d7abf736&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=template&id=d7abf736& ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DateTemplate_vue_vue_type_template_id_d7abf736___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DateTemplate_vue_vue_type_template_id_d7abf736___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DateTemplate_vue_vue_type_template_id_d7abf736___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DateTemplate.vue?vue&type=template&id=d7abf736& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=template&id=d7abf736&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=template&id=92886900&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=template&id=92886900& ***!
+  \**************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateDateTemplate_vue_vue_type_template_id_92886900___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateDateTemplate_vue_vue_type_template_id_92886900___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CreateDateTemplate_vue_vue_type_template_id_92886900___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CreateDateTemplate.vue?vue&type=template&id=92886900& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=template&id=92886900&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=template&id=2b4f294d&":
+/*!**************************************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=template&id=2b4f294d& ***!
+  \**************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateDateTemplate_vue_vue_type_template_id_2b4f294d___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateDateTemplate_vue_vue_type_template_id_2b4f294d___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_UpdateDateTemplate_vue_vue_type_template_id_2b4f294d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./UpdateDateTemplate.vue?vue&type=template&id=2b4f294d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=template&id=2b4f294d&");
+
+
+/***/ }),
+
+/***/ "./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=template&id=a1d117a4&":
+/*!****************************************************************************************************************!*\
+  !*** ./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=template&id=a1d117a4& ***!
+  \****************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DateTemplateDataTable_vue_vue_type_template_id_a1d117a4___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DateTemplateDataTable_vue_vue_type_template_id_a1d117a4___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_DateTemplateDataTable_vue_vue_type_template_id_a1d117a4___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./DateTemplateDataTable.vue?vue&type=template&id=a1d117a4& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=template&id=a1d117a4&");
 
 
 /***/ }),
@@ -37693,6 +38597,747 @@ var staticRenderFns = [
         _c("th", [_vm._v("Nombre")]),
         _vm._v(" "),
         _c("th", [_vm._v("Descripcion")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Accion")]),
+      ]),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=template&id=d7abf736&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=template&id=d7abf736& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row justify-content-center" }, [
+    _c(
+      "div",
+      { staticClass: "col-md-12" },
+      [
+        _c("permissions-data-table", {
+          attrs: {
+            create: _vm.create,
+            deletet: _vm.deletet,
+            updated: _vm.updated,
+          },
+        }),
+      ],
+      1
+    ),
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=template&id=92886900&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=template&id=92886900& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("form", [
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "exampleModal",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true",
+        },
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "name" } },
+                  [_vm._v("Tipo Habitacion")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.room_type_id,
+                        expression: "form.room_type_id",
+                      },
+                    ],
+                    staticClass: "form-select",
+                    attrs: { "aria-label": "Default select example" },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "room_type_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", value: "" } }, [
+                      _vm._v(
+                        "\n                            Seleccione Tipo Habitacion\n                        "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.roomType, function (keep) {
+                      return _c(
+                        "option",
+                        { key: keep.id, domProps: { value: keep.id } },
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(keep.attributes.name) +
+                              "\n                        "
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "date" } },
+                  [_vm._v("Fecha")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.date,
+                      expression: "form.date",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "date", name: "date" },
+                  domProps: { value: _vm.form.date },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "date", $event.target.value)
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "name" } },
+                  [_vm._v("Tarifa")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.rate,
+                      expression: "form.rate",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "number", name: "rate" },
+                  domProps: { value: _vm.form.rate },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "rate", $event.target.value)
+                    },
+                  },
+                }),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "btn btn-primary text-white btn-icon-split mb-4",
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.createPermission()
+                      },
+                    },
+                  },
+                  [
+                    _c(
+                      "span",
+                      { staticClass: "text font-montserrat font-weight-bold" },
+                      [_vm._v("Crear plantilla de Fecha")]
+                    ),
+                  ]
+                ),
+              ]),
+            ]),
+          ]
+        ),
+      ]
+    ),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header py-2" }, [
+      _c(
+        "h5",
+        {
+          staticClass: "modal-title title-page text-secondary",
+          attrs: { id: "exampleModalLabel" },
+        },
+        [
+          _vm._v(
+            "\n                        Crear plantilla de Fecha\n                    "
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close",
+          },
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-danger text-white btn-icon-split mb-4",
+        attrs: { "data-dismiss": "modal" },
+      },
+      [
+        _c("span", { staticClass: "text font-montserrat font-weight-bold" }, [
+          _vm._v("Cancelar"),
+        ]),
+      ]
+    )
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=template&id=2b4f294d&":
+/*!*****************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=template&id=2b4f294d& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("form", [
+    _c(
+      "div",
+      {
+        staticClass: "modal fade",
+        attrs: {
+          id: "exampleModal2",
+          tabindex: "-1",
+          role: "dialog",
+          "aria-labelledby": "exampleModalLabel",
+          "aria-hidden": "true",
+        },
+      },
+      [
+        _c(
+          "div",
+          { staticClass: "modal-dialog", attrs: { role: "document" } },
+          [
+            _c("div", { staticClass: "modal-content" }, [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-body" }, [
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "name" } },
+                  [_vm._v("Tipo Habitacion")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "select",
+                  {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.form.room_type_id,
+                        expression: "form.room_type_id",
+                      },
+                    ],
+                    staticClass: "form-select",
+                    attrs: { "aria-label": "Default select example" },
+                    on: {
+                      change: function ($event) {
+                        var $$selectedVal = Array.prototype.filter
+                          .call($event.target.options, function (o) {
+                            return o.selected
+                          })
+                          .map(function (o) {
+                            var val = "_value" in o ? o._value : o.value
+                            return val
+                          })
+                        _vm.$set(
+                          _vm.form,
+                          "room_type_id",
+                          $event.target.multiple
+                            ? $$selectedVal
+                            : $$selectedVal[0]
+                        )
+                      },
+                    },
+                  },
+                  [
+                    _c("option", { attrs: { selected: "", value: "" } }, [
+                      _vm._v(
+                        "\n                            Seleccione Tipo Habitacion\n                        "
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _vm._l(_vm.roomType, function (keep) {
+                      return _c(
+                        "option",
+                        { key: keep.id, domProps: { value: keep.id } },
+                        [
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(keep.attributes.name) +
+                              "\n                        "
+                          ),
+                        ]
+                      )
+                    }),
+                  ],
+                  2
+                ),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "date" } },
+                  [_vm._v("Fecha")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.date,
+                      expression: "form.date",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "date", name: "date" },
+                  domProps: { value: _vm.form.date },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "date", $event.target.value)
+                    },
+                  },
+                }),
+                _vm._v(" "),
+                _c(
+                  "label",
+                  { staticClass: "form-label", attrs: { for: "number" } },
+                  [_vm._v("Tarifa")]
+                ),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.rate,
+                      expression: "form.rate",
+                    },
+                  ],
+                  staticClass: "form-control",
+                  attrs: { type: "number", name: "rate" },
+                  domProps: { value: _vm.form.rate },
+                  on: {
+                    input: function ($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "rate", $event.target.value)
+                    },
+                  },
+                }),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "modal-footer" }, [
+                _vm._m(1),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass:
+                      "btn btn-primary text-white btn-icon-split mb-4",
+                    on: {
+                      click: function ($event) {
+                        $event.preventDefault()
+                        return _vm.createPermission()
+                      },
+                    },
+                  },
+                  [
+                    _c(
+                      "span",
+                      { staticClass: "text font-montserrat font-weight-bold" },
+                      [_vm._v("Modificar Plantilla de Fecha")]
+                    ),
+                  ]
+                ),
+              ]),
+            ]),
+          ]
+        ),
+      ]
+    ),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "modal-header py-2" }, [
+      _c(
+        "h5",
+        {
+          staticClass: "modal-title title-page text-secondary",
+          attrs: { id: "exampleModalLabel" },
+        },
+        [
+          _vm._v(
+            "\n                        Modificar Plantilla de Fecha\n                    "
+          ),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "a",
+        {
+          staticClass: "close",
+          attrs: {
+            type: "button",
+            "data-dismiss": "modal",
+            "aria-label": "Close",
+          },
+        },
+        [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
+      ),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        staticClass: "btn btn-danger text-white btn-icon-split mb-4",
+        attrs: { "data-dismiss": "modal" },
+      },
+      [
+        _c("span", { staticClass: "text font-montserrat font-weight-bold" }, [
+          _vm._v("Cancelar"),
+        ]),
+      ]
+    )
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=template&id=a1d117a4&":
+/*!*******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=template&id=a1d117a4& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "row justify-content-center" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c("div", { staticClass: "card mb-3" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c("div", { staticClass: "card-body" }, [
+          _c("div", { staticClass: "table-responsive" }, [
+            _c("div", { staticClass: "col text-right" }, [
+              _vm.create
+                ? _c(
+                    "a",
+                    {
+                      staticClass:
+                        "btn btn-primary text-white btn-icon-split mb-4",
+                      attrs: { "data-toggle": "modal" },
+                      on: {
+                        click: function ($event) {
+                          $event.preventDefault()
+                          return _vm.CreatePermission()
+                        },
+                      },
+                    },
+                    [
+                      _c("i", { staticClass: "fas fa-check" }),
+                      _vm._v(" "),
+                      _c(
+                        "span",
+                        {
+                          staticClass: "text font-montserrat font-weight-bold",
+                        },
+                        [_vm._v("Crear Plantilla Fechas")]
+                      ),
+                    ]
+                  )
+                : _vm._e(),
+            ]),
+            _vm._v(" "),
+            _c(
+              "table",
+              {
+                staticClass: "table table-bordered",
+                attrs: { id: "dataTable", width: "100%", cellspacing: "0" },
+              },
+              [
+                _vm._m(2),
+                _vm._v(" "),
+                _vm._m(3),
+                _vm._v(" "),
+                _c(
+                  "tbody",
+                  _vm._l(_vm.keeps, function (keep) {
+                    return _c("tr", { key: keep.id }, [
+                      _c("td", [_vm._v(_vm._s(keep.id))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          "\n                                " +
+                            _vm._s(
+                              keep.relationships.roomType.attributes.name
+                            ) +
+                            "\n                            "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(keep.attributes.date))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(keep.attributes.rate))]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm.updated
+                          ? _c("i", {
+                              staticClass:
+                                "ico fas fa-edit fa-lg text-secondary",
+                              staticStyle: { cursor: "pointer" },
+                              attrs: { title: "Borrar" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.UpdatedPermission(keep)
+                                },
+                              },
+                            })
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _vm.deletet
+                          ? _c("i", {
+                              class: keep.attributes.deleted_at
+                                ? "ico fas fa-trash-restore-alt fa-lg text-secondary"
+                                : "ico fas fa-trash fa-lg text-secondary",
+                              staticStyle: { cursor: "pointer" },
+                              attrs: { title: "Borrar" },
+                              on: {
+                                click: function ($event) {
+                                  $event.preventDefault()
+                                  return _vm.deletePermission(keep)
+                                },
+                              },
+                            })
+                          : _vm._e(),
+                      ]),
+                    ])
+                  }),
+                  0
+                ),
+              ]
+            ),
+          ]),
+        ]),
+      ]),
+      _vm._v(" "),
+      _c("create-permission", {
+        on: { GetCreatedPermission: _vm.GetCreatedPermission },
+      }),
+      _vm._v(" "),
+      _c("update-permission", {
+        ref: "componente",
+        on: { GetCreatedPermission: _vm.GetCreatedPermission },
+      }),
+    ],
+    1
+  )
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("ol", { staticClass: "breadcrumb" }, [
+      _c("li", { staticClass: "breadcrumb-item" }, [
+        _c("a", { attrs: { href: "#" } }, [_vm._v("Dashboard")]),
+      ]),
+      _vm._v(" "),
+      _c("li", { staticClass: "breadcrumb-item active" }, [
+        _vm._v("Plantilla Fechas"),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("i", { staticClass: "fas fa-table" }),
+      _vm._v("\n            Data Plantilla Fechas\n        "),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tipo Habitacion")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Fecha")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tarifa")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Accion")]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("tfoot", [
+      _c("tr", [
+        _c("th", [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tipo Habitacion")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Fecha")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Tarifa")]),
         _vm._v(" "),
         _c("th", [_vm._v("Accion")]),
       ]),

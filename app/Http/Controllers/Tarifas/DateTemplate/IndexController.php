@@ -14,7 +14,7 @@ class IndexController extends Controller
 {
     public function index()
     {
-        return view('DateTemplate.index');
+        return view('Tarifas.DateTemplate.index');
     }
 
     public function get()

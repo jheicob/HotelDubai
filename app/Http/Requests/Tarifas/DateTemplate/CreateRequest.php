@@ -28,7 +28,7 @@ class CreateRequest extends FormRequest
     {
         return [
             'room_type_id' => 'required|exists:room_types,id',
-            'date'         => 'required|date_format:m-d',
+            'date'         => 'required|date_format:d/m',
             'rate'         => 'required|numeric',
         ];
     }
