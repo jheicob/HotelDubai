@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\HourTemplate;
+namespace App\Http\Controllers\Tarifas\HourTemplate;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Tarifas\HourTemplate\HourTemplateResource;
+
 use App\Models\HourTemplate;
-use App\Http\Resources\HourTemplate\HourTemplateResource;
 
 class IndexController extends Controller
 {
@@ -18,7 +19,7 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $hourtemplate = HourTemplate::withTrashed()->get();
+            $hourtemplate = HourTemplate::with(['roomType'])->withTrashed()->get();
 
             return HourTemplateResource::collection($hourtemplate);
         } catch (\Exception $e) {

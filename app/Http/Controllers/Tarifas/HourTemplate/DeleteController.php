@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\HourTemplate;
+namespace App\Http\Controllers\Tarifas\HourTemplate;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\HourTemplate;
+use Illuminate\Support\Facades\DB;
 
 class DeleteController extends Controller
 {

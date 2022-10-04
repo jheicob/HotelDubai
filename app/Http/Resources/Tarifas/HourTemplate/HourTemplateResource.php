@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Resources\HourTemplate;
+namespace App\Http\Resources\Tarifas\HourTemplate;
 
+use App\Http\Resources\RoomTypeResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class HourTemplateResource extends JsonResource
@@ -17,16 +18,12 @@ class HourTemplateResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'attributes' => [
-                /*
-                  'attribute'           => $this->resource->attribute,
-                */
+                'hour'           => $this->resource->hour,
+                'rate'           => $this->resource->rate,
+                'deleted_at'     => $this->resource->deleted_at,
             ],
             'relationships' => [
-                /*
-                    'relation' => $this->whenLoaded('relation', function() {
-                        return relationResource::make($this->resource->relation);
-                    }),
-                */
+                'roomType'    => $this->whenLoaded('roomType', fn() => RoomTypeResource::make($this->resource->roomType)),
             ],
         ];
     }

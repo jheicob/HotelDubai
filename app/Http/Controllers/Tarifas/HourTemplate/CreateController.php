@@ -1,26 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\HourTemplate;
+namespace App\Http\Controllers\Tarifas\HourTemplate;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\HourTemplate\UpdateRequest;
+use App\Http\Requests\Tarifas\HourTemplate\CreateRequest;
 use Illuminate\Support\Facades\DB;
 use App\Models\HourTemplate;
-
-class UpdateController extends Controller
+class CreateController extends Controller
 {
 
-    public function updated(UpdateRequest $request, HourTemplate $hourtemplate)
+    public function create(CreateRequest $request)
     {
         try {
             DB::beginTransaction();
 
-            $hourtemplate->update($request->all());
+            $hourtemplate = HourTemplate::create($request->all());
 
             DB::commit();
 
-            return custom_response_sucessfull('updated successfull');
+            return custom_response_sucessfull('created successfull',201);
 
         } catch (\Exception $e) {
             DB::rollBack();

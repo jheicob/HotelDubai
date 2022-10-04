@@ -1,12 +1,5 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: zippyttech
- * Date: 06/08/18
- * Time: 03:11 PM
- */
-
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
@@ -30,6 +23,10 @@ class GenerateCrud extends Command
     protected $description = 'Generador de modelo con Repositorio, controller y servicio';
 
     /**
+     * path of folder
+     */
+    protected $path;
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -48,17 +45,16 @@ class GenerateCrud extends Command
     {
         $name = $this->argument('name');
         $package = $this->argument('package') ?? $name;
-
+        self::formatPath($name,$package);
+        $this->Resource($name,$package);
         $this->controllers($name, $package);
         $this->model($name, $package);
         $this->formRequest($name,$package);
-        $this->Resource($name,$package);
 
 
         $this->getBr($name);
         $separator = '\\';
-        $name_controller = "\App\Http\Controllers\\" . $package . $separator . $name . "Controller::class";
-
+        $package = str_replace('/','\\',$package);
 
         File::append(base_path('routes/api.php'),
             "
@@ -76,11 +72,11 @@ class GenerateCrud extends Command
                     ->name('$name.create')
                     ->middleware('permission:$name.create');
 
-                Route::delete('delete/{id}', [App\Http\Controllers\\$package\DeleteController::class, 'destroy'])
+                Route::delete('delete/\{{$name}\}', [App\Http\Controllers\\$package\DeleteController::class, 'destroy'])
                     ->name('$name.delete')
                     ->middleware('permission:$name.delete');
 
-                Route::put('{id}', [App\Http\Controllers\\$package\UpdateController::class, 'updated'])
+                Route::put('\{{$name}\}', [App\Http\Controllers\\$package\UpdateController::class, 'updated'])
                     ->name('$name.updated')
                     ->middleware('permission:$name.updated');
 
@@ -112,6 +108,7 @@ class GenerateCrud extends Command
             'Create',
             'Delete'
         ];
+        $path = str_replace('/','\\',$package);
 
             mkdir((app()->basePath() . "/app/Http/Controllers/{$package}"));
         foreach($controllers as $controller){
@@ -127,7 +124,7 @@ class GenerateCrud extends Command
                     $name,
                     strtolower(Str::plural($name)),
                     strtolower($name),
-                    $package
+                    $path
                 ],
                 $this->getStub($controller.'Controller')
             );
@@ -137,6 +134,9 @@ class GenerateCrud extends Command
     }
 
     protected function Resource($name,$package){
+
+        $path = str_replace('/','\\',$package);
+
         $requestTemplate = str_replace(
             [
                 '{{modelName}}',
@@ -148,17 +148,20 @@ class GenerateCrud extends Command
                 $name,
                 strtolower(Str::plural($name)),
                 strtolower($name),
-                $package
+                $path
             ],
             $this->getStub('Resource')
         );
-        mkdir((app()->basePath() . "/app/Http/Resources/{$package}"));
 
-        file_put_contents((app()->basePath() . "/app/Http/Resources/{$package}/{$name}Resources.php"), $requestTemplate);
+        mkdir((app()->basePath() . "/app/Http/Resources/".$package));
+
+        file_put_contents((app()->basePath() . "/app/Http/Resources/{$package}/{$name}Resource.php"), $requestTemplate);
     }
 
     protected function formRequest($name, $package)
     {
+        $path = str_replace('/','\\',$package);
+
         $files = [
             'Create',
             'Update',
@@ -178,7 +181,7 @@ class GenerateCrud extends Command
                     $name,
                     strtolower(Str::plural($name)),
                     strtolower($name),
-                    $package
+                    $path
                 ],
                 $this->getStub($file.'Request')
             );
@@ -198,6 +201,11 @@ class GenerateCrud extends Command
     {
         File::append(base_path('routes/api.php'), " \n");
         File::append(base_path('routes/api.php'), "/** routes para ${name} **/ \n");
-        File::append(base_path('routes/api.php'), " \n");
+    }
+
+    private function formatPath($name,$package){
+        $path = str_replace('/','\\',$package);
+        $path = str_replace($name,'',$path);
+        $this->path = rtrim($path,'\\');
     }
 }

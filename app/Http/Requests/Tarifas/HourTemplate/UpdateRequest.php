@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\HourTemplate;
+namespace App\Http\Requests\Tarifas\HourTemplate;
 
 use App\Traits\CustomResponseFormRequestTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateRequest extends FormRequest
+class UpdateRequest extends FormRequest
 {
     use CustomResponseFormRequestTrait;
 
@@ -27,7 +27,9 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'room_type_id' => 'required|exists:room_types,id',
+            'hour'         => 'required|regex:/[\d]{2}:[\d]{2}/',
+            'rate'         => 'required|numeric',
         ];
     }
 }

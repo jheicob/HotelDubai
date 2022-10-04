@@ -15,15 +15,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(
     [
-    'prefix'     => 'tarifas',
-    'middleware'  => 'auth'
-    ], function () {
+        'prefix'     => 'tarifas',
+        'middleware'  => 'auth'
+    ],
+    function () {
 
         Route::group(
             [
-            'prefix'     => 'partial-cost',
-            'middleware'  => 'auth'
-            ], function () {
+                'prefix'     => 'partial-cost',
+                'middleware'  => 'auth'
+            ],
+            function () {
 
                 Route::get('', [App\Http\Controllers\Tarifas\PartialCost\IndexController::class, 'index'])
                     ->name('partial.cost.index')
@@ -49,9 +51,10 @@ Route::group(
 
         Route::group(
             [
-            'prefix'     => 'partial-templates',
-            'middleware'  => 'auth'
-            ], function () {
+                'prefix'     => 'partial-templates',
+                'middleware'  => 'auth'
+            ],
+            function () {
 
                 Route::get('', [App\Http\Controllers\Tarifas\PartialTemplate\IndexController::class, 'index'])
                     ->name('partial.templates.index')
@@ -77,9 +80,10 @@ Route::group(
 
         Route::group(
             [
-            'prefix'     => 'date-templates',
-            'middleware'  => 'auth'
-            ], function () {
+                'prefix'     => 'date-templates',
+                'middleware'  => 'auth'
+            ],
+            function () {
 
                 Route::get('', [App\Http\Controllers\Tarifas\DateTemplate\IndexController::class, 'index'])
                     ->name('date.templates.index')
@@ -103,5 +107,34 @@ Route::group(
             }
         );
 
+        /** routes para HourTemplate **/
+        Route::group(
+            [
+                'prefix'     => 'HourTemplate',
+                'middleware'  => 'auth'
+            ],
+            function () {
+
+                Route::get('', [App\Http\Controllers\Tarifas\HourTemplate\IndexController::class, 'index'])
+                    ->name('hour.templates.index')
+                    ->middleware('permission:hour.templates.index');
+
+                Route::post('create', [App\Http\Controllers\Tarifas\HourTemplate\CreateController::class, 'create'])
+                    ->name('hour.templates.create')
+                    ->middleware('permission:hour.templates.create');
+
+                Route::delete('delete/{id}', [App\Http\Controllers\Tarifas\HourTemplate\DeleteController::class, 'destroy'])
+                    ->name('hour.templates.delete')
+                    ->middleware('permission:hour.templates.delete');
+
+                Route::put('{id}', [App\Http\Controllers\Tarifas\HourTemplate\UpdateController::class, 'updated'])
+                    ->name('hour.templates.updated')
+                    ->middleware('permission:hour.templates.updated');
+
+                Route::get('get', [App\Http\Controllers\Tarifas\HourTemplate\IndexController::class, 'get'])
+                    ->name('hour.templates.get')
+                    ->middleware('permission:hour.templates.getPaginate');
+            }
+        );
     }
 );
