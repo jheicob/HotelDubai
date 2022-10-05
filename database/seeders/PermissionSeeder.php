@@ -126,6 +126,18 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'date.templates.getPaginate']);
         Permission::create(['name' => 'date.templates.get']);
 
+        Permission::create(['name' => 'hour.templates.index']);
+        Permission::create(['name' => 'hour.templates.create']);
+        Permission::create(['name' => 'hour.templates.delete']);
+        Permission::create(['name' => 'hour.templates.updated']);
+        Permission::create(['name' => 'hour.templates.getPaginate']);
+        Permission::create(['name' => 'hour.templates.get']);
 
+        Permission::create(['name' => 'room.index']);
+        Permission::create(['name' => 'room.create']);
+        Permission::create(['name' => 'room.delete']);
+        Permission::create(['name' => 'room.updated']);
+        Permission::create(['name' => 'room.getPaginate']);
+        Permission::create(['name' => 'room.get']);
     }
 }
