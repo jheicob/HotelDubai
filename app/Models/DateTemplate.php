@@ -12,8 +12,14 @@ class DateTemplate extends Model
         HasFactory,
         SoftDeletes
     ;
+    use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
+        'room_type_id',
+        'date',
+        'rate'
+    ];
+    protected $auditInclude = [
         'room_type_id',
         'date',
         'rate'

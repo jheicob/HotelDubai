@@ -113,7 +113,7 @@
                         </li>
                     @endcan
 
-                    @can('room')
+                    @can('room.index')
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('room.index') }}">
                             <i class="fas fa-tags"></i>

@@ -9,8 +9,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Room extends Model
 {
     use SoftDeletes;
+    use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
+        'room_status_id',
+        'room_type_id',
+        'partial_rate_id',
+        'theme_type_id',
+        'description',
+        'rate'
+    ];
+
+    protected $auditInclude = [
         'room_status_id',
         'room_type_id',
         'partial_rate_id',

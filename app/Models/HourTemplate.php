@@ -9,7 +9,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class HourTemplate extends Model
 {
     use HasFactory, SoftDeletes;
+    use \OwenIt\Auditing\Auditable;
+
     protected $fillable = [
+        'room_type_id',
+        'shift_system_id',
+        'rate',
+        'hour'
+    ];
+
+    protected $auditInclude = [
         'room_type_id',
         'shift_system_id',
         'rate',
