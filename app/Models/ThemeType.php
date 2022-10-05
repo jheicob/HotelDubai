@@ -22,4 +22,14 @@ class ThemeType extends Authenticatable implements Auditable
         'description',
         'name',
     ];
+
+    /**
+     * Get all of the rooms for the ThemeType
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
 }

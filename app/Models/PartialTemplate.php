@@ -52,4 +52,14 @@ class PartialTemplate extends Authenticatable implements Auditable
     {
         return $this->belongsTo(PartialRates::class, 'partial_rates_id');
     }
+
+    /**
+     * Get all of the rooms for the PartialTemplate
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function rooms()
+    {
+        return $this->hasMany(Room::class);
+    }
 }
