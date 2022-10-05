@@ -17,9 +17,11 @@ class CreateRoomsTable extends Migration
             $table->id();
 
             $table->bigInteger('room_status_id')->unsigned();
-            $table->foreignId('partial_template_id');
+            $table->foreignId('room_type_id');
             $table->foreignId('theme_type_id');
+            $table->foreignId('partial_rate_id');
             $table->string('description');
+            $table->float('rate');
 
             $table->foreign('room_status_id')
                 ->on('room_statuses')

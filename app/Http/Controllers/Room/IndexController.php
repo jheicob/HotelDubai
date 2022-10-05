@@ -12,8 +12,7 @@ class IndexController extends Controller
 {
     public function index()
     {
-        //return view('DateTemplate.index');
-        return ['view'];
+        return view('Room.index');
     }
 
     public function get()
@@ -21,8 +20,9 @@ class IndexController extends Controller
         try {
             $room = Room::with([
                 'roomStatus',
-                'partialTemplate',
-                'themeType'
+                'themeType',
+                'partialRate',
+                'roomType'
                 ])->withTrashed()->get();
 
             return RoomResource::collection($room);

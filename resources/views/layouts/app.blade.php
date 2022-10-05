@@ -112,6 +112,15 @@
                             </a>
                         </li>
                     @endcan
+
+                    @can('room')
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('room.index') }}">
+                            <i class="fas fa-tags"></i>
+                            <span>Habitaciones</span>
+                        </a>
+                    </li>
+                    @endcan
                     @can('seguridad')
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"

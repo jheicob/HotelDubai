@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(
     [
-    'prefix'     => 'Room',
+    'prefix'     => 'room',
     'middleware'  => 'auth'
     ], function () {
 

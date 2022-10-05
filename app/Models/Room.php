@@ -12,11 +12,16 @@ class Room extends Model
 
     protected $fillable = [
         'room_status_id',
-        'partial_template_id',
+        'room_type_id',
+        'partial_rate_id',
         'theme_type_id',
         'description',
+        'rate'
     ];
 
+    public function partialRate(){
+        return $this->belongsTo(PartialRates::class);
+    }
     public function roomStatus(){
         return $this->belongsTo(RoomStatus::class);
     }
@@ -26,9 +31,9 @@ class Room extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function partialTemplate()
+    public function roomType()
     {
-        return $this->belongsTo(PartialTemplate::class);
+        return $this->belongsTo(RoomType::class);
     }
 
     /**
