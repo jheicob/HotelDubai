@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\{{package}};
+namespace App\Http\Controllers\Tarifas\DayTemplate;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\{{package}}\UpdateRequest;
+use App\Http\Requests\Tarifas\DayTemplate\UpdateRequest;
 use Illuminate\Support\Facades\DB;
-use App\Models\{{modelName}};
+use App\Models\DayTemplate;
 
 class UpdateController extends Controller
 {
 
-    public function updated(UpdateRequest $request, {{modelName}} ${{modelNameSingularLowerCase}})
+    public function updated(UpdateRequest $request, DayTemplate $daytemplate)
     {
         try {
             DB::beginTransaction();
 
-            ${{modelNameSingularLowerCase}}->update($request->all());
+            $daytemplate->update($request->all());
 
             DB::commit();
 

@@ -8,5 +8,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class {{modelName}} extends Model
 {
+    use SoftDeletes;
+    use \OwenIt\Auditing\Auditable;
+
     protected $guarded = ['id'];
+
+    protected $auditInclude = [
+        // fields
+    ];
 }

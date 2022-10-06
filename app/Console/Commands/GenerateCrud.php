@@ -72,11 +72,11 @@ class GenerateCrud extends Command
                     ->name('$name.create')
                     ->middleware('permission:$name.create');
 
-                Route::delete('delete/\{{$name}\}', [App\Http\Controllers\\$package\DeleteController::class, 'destroy'])
+                Route::delete('delete/{{$name}}', [App\Http\Controllers\\$package\DeleteController::class, 'destroy'])
                     ->name('$name.delete')
                     ->middleware('permission:$name.delete');
 
-                Route::put('\{{$name}\}', [App\Http\Controllers\\$package\UpdateController::class, 'updated'])
+                Route::put('{{$name}}', [App\Http\Controllers\\$package\UpdateController::class, 'updated'])
                     ->name('$name.updated')
                     ->middleware('permission:$name.updated');
 

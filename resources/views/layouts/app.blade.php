@@ -161,6 +161,9 @@
                             @can('date.templates.index')
                                 <a class="dropdown-item" href="{{ route('date.templates.index') }}">Plantillas Fechas</a>
                             @endcan
+                            @can('day.templates.index')
+                                <a class="dropdown-item" href="{{ route('day.templates.index') }}">Plantillas Días</a>
+                            @endcan
                             @can('hour.templates.index')
                                 <a class="dropdown-item" href="{{ route('hour.templates.index') }}">Plantillas Horas</a>
                             @endcan

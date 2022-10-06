@@ -136,5 +136,37 @@ Route::group(
                     ->middleware('permission:hour.templates.getPaginate');
             }
         );
+
+
+        /** routes para DayTemplate **/
+
+        Route::group(
+            [
+                'prefix'     => 'day-templates',
+                'middleware'  => 'auth'
+            ],
+            function () {
+
+                Route::get('', [App\Http\Controllers\Tarifas\DayTemplate\IndexController::class, 'index'])
+                    ->name('day.templates.index')
+                    ->middleware('permission:day.templates.index');
+
+                Route::post('create', [App\Http\Controllers\Tarifas\DayTemplate\CreateController::class, 'create'])
+                    ->name('day.templates.create')
+                    ->middleware('permission:day.templates.create');
+
+                Route::delete('delete/{daytemplate}', [App\Http\Controllers\Tarifas\DayTemplate\DeleteController::class, 'destroy'])
+                    ->name('day.templates.delete')
+                    ->middleware('permission:day.templates.delete');
+
+                Route::put('{daytemplate}', [App\Http\Controllers\Tarifas\DayTemplate\UpdateController::class, 'updated'])
+                    ->name('day.templates.updated')
+                    ->middleware('permission:day.templates.updated');
+
+                Route::get('get', [App\Http\Controllers\Tarifas\DayTemplate\IndexController::class, 'get'])
+                    ->name('day.templates.get')
+                    ->middleware('permission:day.templates.getPaginate');
+            }
+        );
     }
 );
