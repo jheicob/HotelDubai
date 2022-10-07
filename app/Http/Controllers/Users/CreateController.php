@@ -21,7 +21,7 @@ class CreateController extends Controller
 
             DB::commit();
 
-            return response()->json(Response::HTTP_OK);
+            return response()->json(['status'=>200],Response::HTTP_OK);
 
         } catch (ValidationException $ex) {
             return response()->json([
