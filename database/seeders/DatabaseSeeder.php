@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\RoomStatus;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,8 +14,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UserSeeder::class);
-        $this->call(PermissionSeeder::class);
-        $this->call(RoleSeeder::class);
+        $this->call([
+            UserSeeder::class,
+            PermissionSeeder::class,
+            RoleSeeder::class,
+            //------------
+            DayWeekSeeder::class,
+            PartialRateSeeder::class,
+            RoomStatuseSeeder::class,
+            RoomTypeSeeder::class,
+            ShiftSystemSeeder::class,
+            ShiftTimeSeeder::class,
+            ThemeTypeSeeder::class
+        ]);
     }
 }
