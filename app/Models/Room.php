@@ -14,7 +14,6 @@ class Room extends Model implements Auditable
 
     protected $fillable = [
         'room_status_id',
-        'room_type_id',
         'partial_rate_id',
         'theme_type_id',
         'description',
@@ -23,7 +22,6 @@ class Room extends Model implements Auditable
 
     protected $auditInclude = [
         'room_status_id',
-        'room_type_id',
         'partial_rate_id',
         'theme_type_id',
         'description',
