@@ -28,6 +28,15 @@
 						</a>
 					</div>
 					<div class="modal-body">
+						<label for="description" class="form-label"
+							>Número de Habitación</label
+						>
+						<input
+							type="text"
+							name="description"
+							v-model="form.name"
+							class="form-control"
+						/>
 						<label for="description" class="form-label">Descripción</label>
 						<input
 							type="text"
@@ -72,7 +81,7 @@
 								{{ keep.attributes.name }}
 							</option>
 						</select>
-						<label for="name" class="form-label"
+						<!-- <label for="name" class="form-label"
 							>Temática de la Habitación</label
 						>
 						<select
@@ -90,7 +99,7 @@
 							>
 								{{ keep.attributes.name }}
 							</option>
-						</select>
+						</select> -->
 						<label for="name" class="form-label"
 							>Estado de la Habitación</label
 						>
@@ -142,7 +151,7 @@
 		name: "CreateDateTemplate",
 		components: {},
 		mounted() {
-			this.getRoomType();
+			// this.getRoomType();
 			this.getPartialRate();
 			this.getThemeType();
 			this.getRoomStatus();

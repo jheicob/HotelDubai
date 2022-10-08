@@ -105,6 +105,4 @@
 	const role_store = RoleStore();
 </script>
 <style src="vue-multiselect/dist/vue-multiselect.css"></style>
-<style>
-	@import "~toastr/build/toastr.css";
-</style>
+<style src="toastr/build/toastr.css"></style>

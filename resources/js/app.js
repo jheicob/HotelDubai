@@ -5,6 +5,7 @@
  */
 //require('./bootstrap');
 import './bootstrap'
+
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
 import Room from './Views/Room/Room.vue';

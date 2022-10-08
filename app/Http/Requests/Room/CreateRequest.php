@@ -28,10 +28,9 @@ class CreateRequest extends FormRequest
     {
         return [
             'room_status_id' => 'required|exists:room_statuses,id',
-            'room_type_id' => 'required|exists:room_types,id',
-            'theme_type_id' => 'required|exists:theme_types,id',
+            'partial_cost_id' => 'required|exists:partial_costs,id',
             'description' => 'required|string',
-            'rate'      => 'required|numeric'
+            'name'      => 'required|string'
         ];
     }
 }

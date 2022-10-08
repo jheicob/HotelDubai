@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -9,49 +10,34 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Room extends Model implements Auditable
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
     use \OwenIt\Auditing\Auditable;
 
+    // fields to save massive
     protected $fillable = [
         'room_status_id',
-        'partial_rate_id',
-        'theme_type_id',
+        'partial_cost_id',
         'description',
-        'rate'
+        'name'
     ];
 
+    // fields to audit
     protected $auditInclude = [
         'room_status_id',
-        'partial_rate_id',
-        'theme_type_id',
+        'partial_cost_id',
         'description',
-        'rate'
+        'name'
+
     ];
 
-    public function partialRate(){
-        return $this->belongsTo(PartialRates::class);
-    }
     public function roomStatus(){
         return $this->belongsTo(RoomStatus::class);
     }
 
-    /**
-     * Get the partialTemplate that owns the Room
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function roomType()
-    {
-        return $this->belongsTo(RoomType::class);
-    }
 
-    /**
-     * Get the themeType that owns the Room
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function themeType()
+    // get the partialCost that belongs to this room
+    public function partialCost()
     {
-        return $this->belongsTo(ThemeType::class);
+        return $this->belongsTo(PartialCost::class);
     }
 }

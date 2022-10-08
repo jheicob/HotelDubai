@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -32,5 +33,16 @@ class PartialCost extends Authenticatable implements Auditable
     public function partialRate()
     {
         return $this->belongsTo(PartialRates::class, 'partial_rates_id');
+    }
+
+    // function for filter fields of model
+    public function scopeFilter(Builder $query, $request){
+        return $query
+                ->when($request->room_type_id,function(Builder $query,$room_type){
+                    return $query->where('room_type_id',$room_type);
+                })
+                ->when($request->partial_rate_id,function(Builder $query,$partial_rate){
+                    return $query->where('partial_rates_id',$partial_rate);
+                });
     }
 }

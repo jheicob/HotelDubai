@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Tarifas\PartialCost;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PartialCostResource;
 use App\Models\PartialCost;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
 
@@ -15,10 +16,13 @@ class IndexController extends Controller
         return view('PartialCost.index');
     }
 
-    public function get()
+    public function get(Request $request)
     {
         try {
-            $permissions = PartialCost::with(['roomType','partialRate'])->withTrashed()->get();
+            $permissions = PartialCost::with(['roomType','partialRate'])
+                            ->filter($request)
+                            ->withTrashed()
+                            ->get();
 
             return PartialCostResource::collection($permissions);
         } catch (ValidationException $ex) {

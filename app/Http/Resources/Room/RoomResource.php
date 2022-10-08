@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Room;
 
+use App\Http\Resources\PartialCostResource;
 use App\Http\Resources\PartialRateResource;
 use App\Http\Resources\PartialTemplateResource;
 use App\Http\Resources\RoomStatusResource;
@@ -22,7 +23,7 @@ class RoomResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'attributes' => [
-                'rate'       => $this->resource->rate,
+                'name'  => $this->resource->rate,
                 'description' => $this->resource->description,
                 'deleted_at'     => $this->resource->deleted_at,
 
@@ -31,17 +32,12 @@ class RoomResource extends JsonResource
                 'roomStatus' => $this->whenLoaded('roomStatus', function() {
                     return RoomStatusResource::make($this->resource->roomStatus);
                 }),
-                'roomType' => $this->whenLoaded('roomType', function() {
-                    return RoomTypeResource::make($this->resource->roomType);
-                }),
-                'themeType' => $this->whenLoaded('themeType', function() {
-                    return ThemeTypeResource::make($this->resource->themeType);
-                }),
-                'partialRate' => $this->whenLoaded('partialRate', function() {
-                    return PartialRateResource::make($this->resource->partialRate);
+                'partialCost' => $this->whenLoaded('partialCost', function() {
+                    return PartialCostResource::make($this->resource->partialCost);
                 }),
 
             ],
         ];
     }
+
 }

@@ -20,9 +20,7 @@ class IndexController extends Controller
         try {
             $room = Room::with([
                 'roomStatus',
-                'themeType',
-                'partialRate',
-                'roomType'
+                'partialCost.roomType'
                 ])->withTrashed()->get();
 
             return RoomResource::collection($room);

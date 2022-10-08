@@ -1,36 +1,36 @@
 <template>
-  <div class="row justify-content-center">
-    <div class="col-md-12">
-      <permissions-data-table
-        :create="create"
-        :deletet="deletet"
-        :updated="updated"
-      />
-    </div>
-  </div>
+	<div class="row justify-content-center">
+		<div class="col-md-12">
+			asd
+			<permissions-data-table
+				:create="create"
+				:deletet="deletet"
+				:updated="updated"
+			/>
+		</div>
+	</div>
 </template>
 
-<script>
-import PermissionsDataTable from "./Table/RoomTypeDataTable.vue";
+<script setup>
+	import PermissionsDataTable from "./Table/RoomTypeDataTable.vue";
+	import { HelperStore } from "../../HelperStore";
 
-export default {
-  name: "RoomType",
-  components: {
-    PermissionsDataTable,
-  },
-  props: {
-    create: {
-      type: Number,
-      default: 0,
-    },
-    deletet: {
-      type: Number,
-      default: 0,
-    },
-    updated: {
-      type: Number,
-      default: 0,
-    },
-  },
-};
+	const useHelper = HelperStore();
+
+	const props = defineProps({
+		create: {
+			type: Boolean,
+			default: false,
+		},
+		deletet: {
+			type: Boolean,
+			default: false,
+		},
+		updated: {
+			type: Boolean,
+			default: false,
+		},
+	});
+
+	useHelper.permiss = props;
 </script>

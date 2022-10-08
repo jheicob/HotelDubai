@@ -41,7 +41,6 @@
 								<th>Descripción</th>
 								<th>Tarifa</th>
 								<th>Parcial Mínimo</th>
-								<th>Tipo Habitacion</th>
 								<th>Temática de Habitación</th>
 								<th>Estado</th>
 								<th>Accion</th>
@@ -53,7 +52,6 @@
 								<th>Descripción</th>
 								<th>Tarifa</th>
 								<th>Parcial Mínimo</th>
-								<th>Tipo Habitacion</th>
 								<th>Temática de Habitación</th>
 								<th>Estado</th>
 								<th>Accion</th>
@@ -71,9 +69,7 @@
 								<td>
 									{{ keep.relationships.partialRate.attributes.name }}
 								</td>
-								<td>
-									{{ keep.relationships.roomType.attributes.name }}
-								</td>
+
 								<td>
 									{{ keep.relationships.themeType.attributes.name }}
 								</td>

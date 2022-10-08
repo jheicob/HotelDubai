@@ -21,4 +21,14 @@ class RoomType extends Authenticatable implements Auditable
         'description',
         'name',
     ];
+
+    /**
+     * Get all of the partialCost for the RoomType
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function partialCost()
+    {
+        return $this->hasMany(PartialCost::class);
+    }
 }

@@ -15,7 +15,7 @@ class DayWeekFactory extends Factory
     {
         return [
             'description' => $this->faker->text(),
-            'name'  => $this->faker->word(),
+            'name'  => $this->faker->unique()->word(),
         ];
     }
 }

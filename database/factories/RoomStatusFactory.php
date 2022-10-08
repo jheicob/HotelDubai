@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class RoomTypeFactory extends Factory
+class RoomStatusFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -15,7 +15,8 @@ class RoomTypeFactory extends Factory
     {
         return [
             'description' => $this->faker->text(),
-            'name'  => $this->faker->unique()->word(),
+            'name' => $this->faker->unique()->word()
+
         ];
     }
 }

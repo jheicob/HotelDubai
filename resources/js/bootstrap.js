@@ -3,7 +3,6 @@ import _ from 'lodash'
 
 try {
     // import 'bootstrap'
-
     // require('bootstrap');
 } catch (e) {}
 

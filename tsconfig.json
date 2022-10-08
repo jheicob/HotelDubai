@@ -19,5 +19,5 @@
         "resource/js/**/*.tsx",
         "resource/js/**/*.vue"
     ],
-    "references": [{ "path": "./tsconfig.node.json" }]
+    // "references": [{ "path": "./tsconfig.node.json" }]
   }

@@ -9,16 +9,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
+    <!-- Styles -->
+    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    <script src="{{ mix('js/app.js') }}" defer></script>
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
 
     <!-- Page level plugin CSS-->
@@ -26,6 +27,7 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/admin/sb-admin.css') }}" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
@@ -184,9 +186,9 @@
                                 @can('room.type.index')
                                     <a class="dropdown-item" href="{{ route('room.type.index') }}">Tipo Habitacion</a>
                                 @endcan
-                                @can('theme.type.index')
+                                {{-- @can('theme.type.index')
                                     <a class="dropdown-item" href="{{ route('theme.type.index') }}">Tipo Tematica</a>
-                                @endcan
+                                @endcan --}}
                                 @can('estate.type.index')
                                     <a class="dropdown-item" href="{{ route('estate.type.index') }}">Tipo inmueble</a>
                                 @endcan

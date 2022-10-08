@@ -115,7 +115,4 @@
 		store.getKeeps();
 	});
 </script>
-
-<style>
-	@import "~sweetalert2/dist/sweetalert2.css";
-</style>
+<style src="sweetalert2/dist/sweetalert2.css"></style>
