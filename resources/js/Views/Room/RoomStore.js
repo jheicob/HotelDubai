@@ -27,7 +27,11 @@ export const RoomStore = defineStore('roomStore',() => {
     }
 
     const setForm = (item) => {
+        room_type_id.value = item.relationships.partialCost.relationships.roomType.id
+        getPartialCost()
+
         return {
+            id: item.id,
             name: item.attributes.name,
             description: item.attributes.description,
             rate: item.relationships.partialCost.attributes.rate,
@@ -48,9 +52,13 @@ export const RoomStore = defineStore('roomStore',() => {
 
     const getPartialCost = () => {
         partialCost.value = [];
+        useHelper.form.partial_cost_id = ''
+        let params = {
+            room_type_id : room_type_id.value
+        }
         var urlKeeps = "/tarifas/partial-cost/get";
         axios
-            .get(urlKeeps)
+            .get(urlKeeps,{params})
             .then((response) => {
                 partialCost.value = response.data.data;
             })

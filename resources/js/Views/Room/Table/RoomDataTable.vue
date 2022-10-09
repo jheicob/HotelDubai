@@ -42,7 +42,7 @@
 								<th>Descripción</th>
 								<th>Tarifa</th>
 								<th>Parcial Mínimo</th>
-								<!-- <th>Temática de Habitación</th> -->
+								<th>Tipo de Habitación</th>
 								<th>Estado</th>
 								<th>Accion</th>
 							</tr>
@@ -54,7 +54,7 @@
 								<th>Descripción</th>
 								<th>Tarifa</th>
 								<th>Parcial Mínimo</th>
-								<!-- <th>Temática de Habitación</th> -->
+								<th>Tipo de Habitación</th>
 								<th>Estado</th>
 								<th>Accion</th>
 							</tr>
@@ -77,17 +77,23 @@
 											.partialRate.attributes.name
 									}}
 								</td>
-								<!--
+
 								<td>
-									{{ keep.relationships.themeType.attributes.name }}
-								</td> -->
+									{{
+										keep.relationships.partialCost.relationships
+											.roomType.attributes.name
+									}}
+								</td>
 								<td>
 									{{ keep.relationships.roomStatus.attributes.name }}
 								</td>
 								<td>
 									<i
-										v-on:click.prevent="
-											ShowUpdateModal(keep, useStore.setForm)
+										@click="
+											useHelper.ShowUpdatedModal(
+												keep,
+												useStore.setForm
+											)
 										"
 										v-if="permiss.updated"
 										class="ico fas fa-edit fa-lg text-secondary"

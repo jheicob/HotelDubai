@@ -22208,10 +22208,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&lang=js":
-/*!***********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&lang=js ***!
-  \***********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&setup=true&lang=js":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&setup=true&lang=js ***!
+  \**********************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -22219,99 +22219,71 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _helper__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helper */ "./resources/js/Views/Room/Modals/helper.js");
+/* harmony import */ var _HelperStore__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/HelperStore */ "./resources/js/HelperStore.js");
+/* harmony import */ var _RoomStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../RoomStore */ "./resources/js/Views/Room/RoomStore.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var pinia__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! pinia */ "./node_modules/pinia/dist/pinia.mjs");
+
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "UpdateDateTemplate",
-  components: {},
-  mounted: function mounted() {
-    this.getRoomType();
-  },
-  data: function data() {
-    return {
-      form: {
-        id: "",
-        room_type_id: "",
-        rate: "",
-        date: ""
-      },
-      roomType: [],
-      partialRates: [],
-      themeTypes: [],
-      roomStatus: []
+  __name: 'UpdateRoom',
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    var useHelper = (0,_HelperStore__WEBPACK_IMPORTED_MODULE_0__.HelperStore)();
+    var useStore = (0,_RoomStore__WEBPACK_IMPORTED_MODULE_1__.RoomStore)();
+    var getRoomType = useStore.getRoomType,
+        getRoomStatus = useStore.getRoomStatus,
+        getPartialCost = useStore.getPartialCost,
+        formatForm = useStore.formatForm;
+
+    var _storeToRefs = (0,pinia__WEBPACK_IMPORTED_MODULE_3__.storeToRefs)(useStore),
+        roomStatus = _storeToRefs.roomStatus,
+        roomType = _storeToRefs.roomType,
+        partialCost = _storeToRefs.partialCost,
+        room_type_id = _storeToRefs.room_type_id,
+        getRate = _storeToRefs.getRate;
+
+    var putItem = useHelper.putItem,
+        clearForm = useHelper.clearForm;
+
+    var _storeToRefs2 = (0,pinia__WEBPACK_IMPORTED_MODULE_3__.storeToRefs)(useHelper),
+        form = _storeToRefs2.form,
+        desactiveButton = _storeToRefs2.desactiveButton;
+
+    (0,vue__WEBPACK_IMPORTED_MODULE_2__.onMounted)(function () {
+      getPartialCost();
+      getRoomType();
+      getRoomStatus();
+    });
+    var __returned__ = {
+      useHelper: useHelper,
+      useStore: useStore,
+      getRoomType: getRoomType,
+      getRoomStatus: getRoomStatus,
+      getPartialCost: getPartialCost,
+      formatForm: formatForm,
+      roomStatus: roomStatus,
+      roomType: roomType,
+      partialCost: partialCost,
+      room_type_id: room_type_id,
+      getRate: getRate,
+      putItem: putItem,
+      clearForm: clearForm,
+      form: form,
+      desactiveButton: desactiveButton,
+      HelperStore: _HelperStore__WEBPACK_IMPORTED_MODULE_0__.HelperStore,
+      RoomStore: _RoomStore__WEBPACK_IMPORTED_MODULE_1__.RoomStore,
+      onMounted: vue__WEBPACK_IMPORTED_MODULE_2__.onMounted,
+      storeToRefs: pinia__WEBPACK_IMPORTED_MODULE_3__.storeToRefs
     };
-  },
-  methods: {
-    createPermission: function createPermission() {
-      var _this = this;
-
-      var url = "/room/" + this.form.id;
-      axios__WEBPACK_IMPORTED_MODULE_0___default().put(url, this.form).then(function (response) {
-        _this.errors = [];
-        _this.form = _this.getClearFormObject();
-        $("#exampleModal2").modal("hide");
-
-        _this.$emit("GetCreatedPermission");
-      })["catch"](function (error) {});
-    },
-    getClearFormObject: function getClearFormObject() {
-      this.form = {
-        id: "",
-        room_type_id: "",
-        date: "",
-        rate: ""
-      };
-    },
-    UpdateGetPermission: function UpdateGetPermission(permission) {
-      this.getRoomType();
-      this.getPartialRate();
-      this.getThemeType();
-      this.getRoomStatus();
-      this.form = {
-        id: permission.id,
-        description: permission.attributes.description,
-        rate: permission.attributes.rate,
-        partial_rate_id: permission.relationships.partialRate.id,
-        room_type_id: permission.relationships.roomType.id,
-        theme_type_id: permission.relationships.themeType.id,
-        room_status_id: permission.relationships.roomStatus.id
-      };
-    },
-    getRoomType: function getRoomType() {
-      var _this2 = this;
-
-      var urlKeeps = "/configuracion/room-type/get";
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
-        _this2.roomType = response.data.data;
-      })["catch"](function (err) {});
-    },
-    getPartialRate: function getPartialRate() {
-      var _this3 = this;
-
-      var urlKeeps = "/configuracion/partial-rates/get";
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
-        _this3.partialRates = response.data.data;
-      })["catch"](function (err) {});
-    },
-    getThemeType: function getThemeType() {
-      var _this4 = this;
-
-      var urlKeeps = "/configuracion/theme-type/get";
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
-        _this4.themeTypes = response.data.data;
-      })["catch"](function (err) {});
-    },
-    getRoomStatus: function getRoomStatus() {
-      var _this5 = this;
-
-      var urlKeeps = "/configuracion/room-status/get";
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
-        _this5.roomStatus = response.data.data;
-      })["catch"](function (err) {});
-    }
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
   }
 });
 
@@ -28469,28 +28441,28 @@ var _hoisted_5 = {
 var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "description",
   "class": "form-label"
-}, "Descripción", -1
+}, "Número de Habitación", -1
 /* HOISTED */
 );
 
 var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "for": "rate",
+  "for": "description",
   "class": "form-label"
-}, "Tarifa", -1
+}, "Descripción", -1
 /* HOISTED */
 );
 
 var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "name",
   "class": "form-label"
-}, "Parcial Mínimo", -1
+}, "Tipo Habitacion", -1
 /* HOISTED */
 );
 
 var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   selected: "",
   value: ""
-}, "Seleccione Parcial Mínimo", -1
+}, "Seleccione Tipo Habitacion", -1
 /* HOISTED */
 );
 
@@ -28499,55 +28471,59 @@ var _hoisted_10 = ["value"];
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "name",
   "class": "form-label"
-}, "Tipo Habitacion", -1
+}, "Parcial Mínimo", -1
 /* HOISTED */
 );
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_12 = ["disabled"];
+
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   selected: "",
   value: ""
-}, "Seleccione Tipo Habitacion", -1
+}, "Seleccione Parcial Mínimo", -1
 /* HOISTED */
 );
 
-var _hoisted_13 = ["value"];
+var _hoisted_14 = ["value"];
 
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
-  "for": "name",
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  "for": "rate",
   "class": "form-label"
-}, "Temática de la Habitación", -1
+}, "Tarifa", -1
 /* HOISTED */
 );
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-  selected: "",
-  value: ""
-}, " Seleccione Temática de la Habitación ", -1
+var _hoisted_16 = {
+  "class": "form-inline"
+};
+
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  "class": "btn btn-success ml-3",
+  type: "button"
+}, " Personalizar ", -1
 /* HOISTED */
 );
 
-var _hoisted_16 = ["value"];
-
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "name",
   "class": "form-label"
 }, "Estado de la Habitación", -1
 /* HOISTED */
 );
 
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   selected: "",
   value: ""
 }, " Seleccione Estado de la Habitación ", -1
 /* HOISTED */
 );
 
-var _hoisted_19 = ["value"];
-var _hoisted_20 = {
+var _hoisted_20 = ["value"];
+var _hoisted_21 = {
   "class": "modal-footer"
 };
 
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   "class": "btn btn-danger text-white btn-icon-split mb-4",
   "data-dismiss": "modal"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
@@ -28556,39 +28532,44 @@ var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_23 = ["disabled"];
+
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "text font-montserrat font-weight-bold"
 }, "Modificar Habitación", -1
 /* HOISTED */
 );
 
-var _hoisted_23 = [_hoisted_22];
+var _hoisted_25 = [_hoisted_24];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     name: "description",
     "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
-      return $data.form.description = $event;
+      return $setup.form.name = $event;
     }),
     "class": "form-control"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.description]]), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
-    type: "number",
-    name: "date",
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.name]]), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    type: "text",
+    name: "description",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
-      return $data.form.rate = $event;
+      return $setup.form.description = $event;
     }),
     "class": "form-control"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.rate]]), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.description]]), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "form-select",
     "aria-label": "Default select example",
     "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
-      return $data.form.partial_rate_id = $event;
+      return $setup.room_type_id = $event;
+    }),
+    onChange: _cache[3] || (_cache[3] = function () {
+      return $setup.getPartialCost && $setup.getPartialCost.apply($setup, arguments);
     })
-  }, [_hoisted_9, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.partialRates, function (keep) {
+  }, [_hoisted_9, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.roomType, function (keep) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
       key: keep.id,
       value: keep.id
@@ -28597,65 +28578,62 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     , _hoisted_10);
   }), 128
   /* KEYED_FRAGMENT */
-  ))], 512
-  /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.partial_rate_id]]), _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-    "class": "form-select",
-    "aria-label": "Default select example",
-    "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
-      return $data.form.room_type_id = $event;
-    })
-  }, [_hoisted_12, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.roomType, function (keep) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
-      key: keep.id,
-      value: keep.id
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.attributes.name), 9
-    /* TEXT, PROPS */
-    , _hoisted_13);
-  }), 128
-  /* KEYED_FRAGMENT */
-  ))], 512
-  /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.room_type_id]]), _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  ))], 544
+  /* HYDRATE_EVENTS, NEED_PATCH */
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.room_type_id]]), _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "form-select",
     "aria-label": "Default select example",
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
-      return $data.form.theme_type_id = $event;
-    })
-  }, [_hoisted_15, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.themeTypes, function (keep) {
+      return $setup.form.partial_cost_id = $event;
+    }),
+    disabled: $setup.partialCost.length < 1
+  }, [_hoisted_13, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.partialCost, function (keep) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
       key: keep.id,
       value: keep.id
-    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.attributes.name), 9
+    }, " (" + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.relationships.partialRate.attributes.name) + ") $ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.attributes.rate), 9
     /* TEXT, PROPS */
-    , _hoisted_16);
+    , _hoisted_14);
   }), 128
   /* KEYED_FRAGMENT */
-  ))], 512
+  ))], 8
+  /* PROPS */
+  , _hoisted_12), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.form.partial_cost_id]]), _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+    disabled: "",
+    type: "number",
+    name: "date",
+    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+      return $setup.getRate = $event;
+    }),
+    "class": "form-control col-4"
+  }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.theme_type_id]]), _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.getRate]]), _hoisted_17]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <label for=\"name\" class=\"form-label\"\n\t\t\t\t\t\t\t>Temática de la Habitación</label\n\t\t\t\t\t\t>\n\t\t\t\t\t\t<select\n\t\t\t\t\t\t\tclass=\"form-select\"\n\t\t\t\t\t\t\taria-label=\"Default select example\"\n\t\t\t\t\t\t\tv-model=\"form.theme_type_id\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<option selected value=\"\">\n\t\t\t\t\t\t\t\tSeleccione Temática de la Habitación\n\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\tv-for=\"keep in themeTypes\"\n\t\t\t\t\t\t\t\t:key=\"keep.id\"\n\t\t\t\t\t\t\t\t:value=\"keep.id\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t{{ keep.attributes.name }}\n\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t</select> "), _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "form-select",
     "aria-label": "Default select example",
-    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
-      return $data.form.room_status_id = $event;
+    "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
+      return $setup.form.room_status_id = $event;
     })
-  }, [_hoisted_18, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.roomStatus, function (keep) {
+  }, [_hoisted_19, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.roomStatus, function (keep) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
       key: keep.id,
       value: keep.id
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.attributes.name), 9
     /* TEXT, PROPS */
-    , _hoisted_19);
+    , _hoisted_20);
   }), 128
   /* KEYED_FRAGMENT */
   ))], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.room_status_id]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
-    onClick: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
-      return $options.createPermission();
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.form.room_status_id]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    disabled: $setup.desactiveButton,
+    onClick: _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
+      return $setup.putItem($setup.formatForm);
     }, ["prevent"])),
     "class": "btn btn-primary text-white btn-icon-split mb-4"
-  }, _hoisted_23)])])])])]);
+  }, _hoisted_25, 8
+  /* PROPS */
+  , _hoisted_23)])])])])]);
 }
 
 /***/ }),
@@ -28756,11 +28734,11 @@ var _hoisted_11 = {
   cellspacing: "0"
 };
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "ID"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "N° Habitación"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Descripción"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tarifa"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Parcial Mínimo"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <th>Temática de Habitación</th> "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Estado"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Accion")])], -1
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "ID"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "N° Habitación"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Descripción"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tarifa"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Parcial Mínimo"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tipo de Habitación"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Estado"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Accion")])], -1
 /* HOISTED */
 );
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tfoot", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "ID"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "N° Habitación"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Descripción"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tarifa"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Parcial Mínimo"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <th>Temática de Habitación</th> "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Estado"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Accion")])], -1
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tfoot", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "ID"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "N° Habitación"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Descripción"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tarifa"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Parcial Mínimo"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tipo de Habitación"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Estado"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Accion")])], -1
 /* HOISTED */
 );
 
@@ -28787,13 +28765,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.relationships.partialCost.relationships.partialRate.attributes.name), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t{{ keep.relationships.themeType.attributes.name }}\n\t\t\t\t\t\t\t\t</td> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.relationships.roomStatus.attributes.name), 1
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.relationships.partialCost.relationships.roomType.attributes.name), 1
+    /* TEXT */
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.relationships.roomStatus.attributes.name), 1
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [$setup.permiss.updated ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("i", {
       key: 0,
-      onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
-        return $setup.ShowUpdateModal(keep, $setup.useStore.setForm);
-      }, ["prevent"]),
+      onClick: function onClick($event) {
+        return $setup.useHelper.ShowUpdatedModal(keep, $setup.useStore.setForm);
+      },
       "class": "ico fas fa-edit fa-lg text-secondary",
       style: {
         "cursor": "pointer"
@@ -32969,6 +32949,21 @@ var HelperStore = (0,pinia__WEBPACK_IMPORTED_MODULE_3__.defineStore)('HelperStor
     });
   };
 
+  var putItem = function putItem(callback) {
+    var idModal = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : "#exampleModal2";
+    desactiveButton.value = true;
+    var url_put = "/".concat(url.value, "/").concat(form.value.id);
+    axios.put(url_put, form.value).then(function (response) {
+      form.value = callback();
+      $(idModal).modal("hide");
+      getAll();
+    })["catch"](function (error) {
+      return getErrorRequest(error);
+    })["finally"](function () {
+      return desactiveButton.value = false;
+    });
+  };
+
   var clearForm = function clearForm(callback) {
     form.value = callback();
   };
@@ -33009,7 +33004,8 @@ var HelperStore = (0,pinia__WEBPACK_IMPORTED_MODULE_3__.defineStore)('HelperStor
     storeItem: storeItem,
     setForm: setForm,
     clearForm: clearForm,
-    errors: errors
+    errors: errors,
+    putItem: putItem
   };
 });
 
@@ -33056,52 +33052,6 @@ var RoleStore = (0,pinia__WEBPACK_IMPORTED_MODULE_2__.defineStore)('RoleStore', 
 
 /***/ }),
 
-/***/ "./resources/js/Views/Room/Modals/helper.js":
-/*!**************************************************!*\
-  !*** ./resources/js/Views/Room/Modals/helper.js ***!
-  \**************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "dateFormat": () => (/* binding */ dateFormat),
-/* harmony export */   "getDateFormat": () => (/* binding */ getDateFormat)
-/* harmony export */ });
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-var dateFormat = function dateFormat(fecha) {
-  console.log(fecha);
-  var date = new Date(fecha);
-  var month = date.getMonth() < 10 ? "0".concat(date.getMonth()) : date.getMonth();
-  var day = date.getDate() < 10 ? "0".concat(date.getDate()) : date.getDate();
-  return "".concat(day, "/").concat(month);
-};
-
-var getDateFormat = function getDateFormat(fecha) {
-  var _fecha$split = fecha.split('/'),
-      _fecha$split2 = _slicedToArray(_fecha$split, 2),
-      day = _fecha$split2[0],
-      month = _fecha$split2[1];
-
-  var year = new Date().getFullYear();
-  return "".concat(year, "-").concat(month, "-").concat(day);
-};
-
-
-
-/***/ }),
-
 /***/ "./resources/js/Views/Room/RoomStore.js":
 /*!**********************************************!*\
   !*** ./resources/js/Views/Room/RoomStore.js ***!
@@ -33142,7 +33092,10 @@ var RoomStore = (0,pinia__WEBPACK_IMPORTED_MODULE_3__.defineStore)('roomStore', 
   };
 
   var setForm = function setForm(item) {
+    room_type_id.value = item.relationships.partialCost.relationships.roomType.id;
+    getPartialCost();
     return {
+      id: item.id,
       name: item.attributes.name,
       description: item.attributes.description,
       rate: item.relationships.partialCost.attributes.rate,
@@ -33160,8 +33113,14 @@ var RoomStore = (0,pinia__WEBPACK_IMPORTED_MODULE_3__.defineStore)('roomStore', 
 
   var getPartialCost = function getPartialCost() {
     partialCost.value = [];
+    useHelper.form.partial_cost_id = '';
+    var params = {
+      room_type_id: room_type_id.value
+    };
     var urlKeeps = "/tarifas/partial-cost/get";
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps).then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default().get(urlKeeps, {
+      params: params
+    }).then(function (response) {
       partialCost.value = response.data.data;
     })["catch"](function (err) {});
   };
@@ -69777,13 +69736,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DayWeek_vue_vue_type_template_id_5a5dc2c2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DayWeek.vue?vue&type=template&id=5a5dc2c2 */ "./resources/js/Views/DayWeek/DayWeek.vue?vue&type=template&id=5a5dc2c2");
 /* harmony import */ var _DayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DayWeek.vue?vue&type=script&lang=js */ "./resources/js/Views/DayWeek/DayWeek.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayWeek_vue_vue_type_template_id_5a5dc2c2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/DayWeek.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayWeek_vue_vue_type_template_id_5a5dc2c2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/DayWeek.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69805,13 +69764,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateDayWeek_vue_vue_type_template_id_627dbee9__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateDayWeek.vue?vue&type=template&id=627dbee9 */ "./resources/js/Views/DayWeek/Modals/CreateDayWeek.vue?vue&type=template&id=627dbee9");
 /* harmony import */ var _CreateDayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateDayWeek.vue?vue&type=script&lang=js */ "./resources/js/Views/DayWeek/Modals/CreateDayWeek.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateDayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateDayWeek_vue_vue_type_template_id_627dbee9__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/Modals/CreateDayWeek.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateDayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateDayWeek_vue_vue_type_template_id_627dbee9__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/Modals/CreateDayWeek.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69833,13 +69792,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateDayWeek_vue_vue_type_template_id_1d1f9608__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateDayWeek.vue?vue&type=template&id=1d1f9608 */ "./resources/js/Views/DayWeek/Modals/UpdateDayWeek.vue?vue&type=template&id=1d1f9608");
 /* harmony import */ var _UpdateDayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateDayWeek.vue?vue&type=script&lang=js */ "./resources/js/Views/DayWeek/Modals/UpdateDayWeek.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateDayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateDayWeek_vue_vue_type_template_id_1d1f9608__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/Modals/UpdateDayWeek.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateDayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateDayWeek_vue_vue_type_template_id_1d1f9608__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/Modals/UpdateDayWeek.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69861,13 +69820,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DayWeekDataTable_vue_vue_type_template_id_13b7a113__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DayWeekDataTable.vue?vue&type=template&id=13b7a113 */ "./resources/js/Views/DayWeek/Table/DayWeekDataTable.vue?vue&type=template&id=13b7a113");
 /* harmony import */ var _DayWeekDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DayWeekDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/DayWeek/Table/DayWeekDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayWeekDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayWeekDataTable_vue_vue_type_template_id_13b7a113__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/Table/DayWeekDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayWeekDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayWeekDataTable_vue_vue_type_template_id_13b7a113__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/Table/DayWeekDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69889,13 +69848,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _EstateType_vue_vue_type_template_id_888a92c0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EstateType.vue?vue&type=template&id=888a92c0 */ "./resources/js/Views/EstateType/EstateType.vue?vue&type=template&id=888a92c0");
 /* harmony import */ var _EstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EstateType.vue?vue&type=script&lang=js */ "./resources/js/Views/EstateType/EstateType.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_EstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_EstateType_vue_vue_type_template_id_888a92c0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/EstateType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_EstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_EstateType_vue_vue_type_template_id_888a92c0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/EstateType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69917,13 +69876,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateEstateType_vue_vue_type_template_id_7e79b461__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateEstateType.vue?vue&type=template&id=7e79b461 */ "./resources/js/Views/EstateType/Modals/CreateEstateType.vue?vue&type=template&id=7e79b461");
 /* harmony import */ var _CreateEstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateEstateType.vue?vue&type=script&lang=js */ "./resources/js/Views/EstateType/Modals/CreateEstateType.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateEstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateEstateType_vue_vue_type_template_id_7e79b461__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/Modals/CreateEstateType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateEstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateEstateType_vue_vue_type_template_id_7e79b461__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/Modals/CreateEstateType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69945,13 +69904,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateEstateType_vue_vue_type_template_id_67f4216e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateEstateType.vue?vue&type=template&id=67f4216e */ "./resources/js/Views/EstateType/Modals/UpdateEstateType.vue?vue&type=template&id=67f4216e");
 /* harmony import */ var _UpdateEstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateEstateType.vue?vue&type=script&lang=js */ "./resources/js/Views/EstateType/Modals/UpdateEstateType.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateEstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateEstateType_vue_vue_type_template_id_67f4216e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/Modals/UpdateEstateType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateEstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateEstateType_vue_vue_type_template_id_67f4216e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/Modals/UpdateEstateType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69973,13 +69932,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _EstateTypeDataTable_vue_vue_type_template_id_beefbc5a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EstateTypeDataTable.vue?vue&type=template&id=beefbc5a */ "./resources/js/Views/EstateType/Table/EstateTypeDataTable.vue?vue&type=template&id=beefbc5a");
 /* harmony import */ var _EstateTypeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EstateTypeDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/EstateType/Table/EstateTypeDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_EstateTypeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_EstateTypeDataTable_vue_vue_type_template_id_beefbc5a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/Table/EstateTypeDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_EstateTypeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_EstateTypeDataTable_vue_vue_type_template_id_beefbc5a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/Table/EstateTypeDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70001,13 +69960,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Logs_vue_vue_type_template_id_9720b700__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Logs.vue?vue&type=template&id=9720b700 */ "./resources/js/Views/Logs/Logs.vue?vue&type=template&id=9720b700");
 /* harmony import */ var _Logs_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Logs.vue?vue&type=script&lang=js */ "./resources/js/Views/Logs/Logs.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Logs_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Logs_vue_vue_type_template_id_9720b700__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Logs/Logs.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Logs_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Logs_vue_vue_type_template_id_9720b700__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Logs/Logs.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70029,13 +69988,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _LogsDataTable_vue_vue_type_template_id_178f2873__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LogsDataTable.vue?vue&type=template&id=178f2873 */ "./resources/js/Views/Logs/Table/LogsDataTable.vue?vue&type=template&id=178f2873");
 /* harmony import */ var _LogsDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LogsDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/Logs/Table/LogsDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_LogsDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_LogsDataTable_vue_vue_type_template_id_178f2873__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Logs/Table/LogsDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_LogsDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_LogsDataTable_vue_vue_type_template_id_178f2873__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Logs/Table/LogsDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70057,13 +70016,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreatePartialCost_vue_vue_type_template_id_01027ca9__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreatePartialCost.vue?vue&type=template&id=01027ca9 */ "./resources/js/Views/PartialCost/Modals/CreatePartialCost.vue?vue&type=template&id=01027ca9");
 /* harmony import */ var _CreatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreatePartialCost.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialCost/Modals/CreatePartialCost.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePartialCost_vue_vue_type_template_id_01027ca9__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/Modals/CreatePartialCost.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePartialCost_vue_vue_type_template_id_01027ca9__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/Modals/CreatePartialCost.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70085,13 +70044,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdatePartialCost_vue_vue_type_template_id_46d5b13c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdatePartialCost.vue?vue&type=template&id=46d5b13c */ "./resources/js/Views/PartialCost/Modals/UpdatePartialCost.vue?vue&type=template&id=46d5b13c");
 /* harmony import */ var _UpdatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdatePartialCost.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialCost/Modals/UpdatePartialCost.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePartialCost_vue_vue_type_template_id_46d5b13c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/Modals/UpdatePartialCost.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePartialCost_vue_vue_type_template_id_46d5b13c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/Modals/UpdatePartialCost.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70113,13 +70072,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PartialCost_vue_vue_type_template_id_5060fcbe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartialCost.vue?vue&type=template&id=5060fcbe */ "./resources/js/Views/PartialCost/PartialCost.vue?vue&type=template&id=5060fcbe");
 /* harmony import */ var _PartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PartialCost.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialCost/PartialCost.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialCost_vue_vue_type_template_id_5060fcbe__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/PartialCost.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialCost_vue_vue_type_template_id_5060fcbe__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/PartialCost.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70141,13 +70100,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PartialCostDataTable_vue_vue_type_template_id_61aa9097__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartialCostDataTable.vue?vue&type=template&id=61aa9097 */ "./resources/js/Views/PartialCost/Table/PartialCostDataTable.vue?vue&type=template&id=61aa9097");
 /* harmony import */ var _PartialCostDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PartialCostDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialCost/Table/PartialCostDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialCostDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialCostDataTable_vue_vue_type_template_id_61aa9097__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/Table/PartialCostDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialCostDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialCostDataTable_vue_vue_type_template_id_61aa9097__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/Table/PartialCostDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70169,13 +70128,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreatePartialRates_vue_vue_type_template_id_b6664a8e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreatePartialRates.vue?vue&type=template&id=b6664a8e */ "./resources/js/Views/PartialRates/Modals/CreatePartialRates.vue?vue&type=template&id=b6664a8e");
 /* harmony import */ var _CreatePartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreatePartialRates.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialRates/Modals/CreatePartialRates.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePartialRates_vue_vue_type_template_id_b6664a8e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/Modals/CreatePartialRates.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePartialRates_vue_vue_type_template_id_b6664a8e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/Modals/CreatePartialRates.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70197,13 +70156,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdatePartialRates_vue_vue_type_template_id_19603886__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdatePartialRates.vue?vue&type=template&id=19603886 */ "./resources/js/Views/PartialRates/Modals/UpdatePartialRates.vue?vue&type=template&id=19603886");
 /* harmony import */ var _UpdatePartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdatePartialRates.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialRates/Modals/UpdatePartialRates.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePartialRates_vue_vue_type_template_id_19603886__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/Modals/UpdatePartialRates.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePartialRates_vue_vue_type_template_id_19603886__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/Modals/UpdatePartialRates.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70225,13 +70184,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PartialRates_vue_vue_type_template_id_5e28eb60__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartialRates.vue?vue&type=template&id=5e28eb60 */ "./resources/js/Views/PartialRates/PartialRates.vue?vue&type=template&id=5e28eb60");
 /* harmony import */ var _PartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PartialRates.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialRates/PartialRates.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialRates_vue_vue_type_template_id_5e28eb60__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/PartialRates.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialRates_vue_vue_type_template_id_5e28eb60__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/PartialRates.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70253,13 +70212,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PartialRatesDataTable_vue_vue_type_template_id_725fa853__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartialRatesDataTable.vue?vue&type=template&id=725fa853 */ "./resources/js/Views/PartialRates/Table/PartialRatesDataTable.vue?vue&type=template&id=725fa853");
 /* harmony import */ var _PartialRatesDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PartialRatesDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialRates/Table/PartialRatesDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialRatesDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialRatesDataTable_vue_vue_type_template_id_725fa853__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/Table/PartialRatesDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialRatesDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialRatesDataTable_vue_vue_type_template_id_725fa853__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/Table/PartialRatesDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70281,13 +70240,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreatePartialCost_vue_vue_type_template_id_4c93981c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreatePartialCost.vue?vue&type=template&id=4c93981c */ "./resources/js/Views/PartialTemplate/Modals/CreatePartialCost.vue?vue&type=template&id=4c93981c");
 /* harmony import */ var _CreatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreatePartialCost.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialTemplate/Modals/CreatePartialCost.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePartialCost_vue_vue_type_template_id_4c93981c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/Modals/CreatePartialCost.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePartialCost_vue_vue_type_template_id_4c93981c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/Modals/CreatePartialCost.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70309,13 +70268,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdatePartialCost_vue_vue_type_template_id_db3266a2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdatePartialCost.vue?vue&type=template&id=db3266a2 */ "./resources/js/Views/PartialTemplate/Modals/UpdatePartialCost.vue?vue&type=template&id=db3266a2");
 /* harmony import */ var _UpdatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdatePartialCost.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialTemplate/Modals/UpdatePartialCost.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePartialCost_vue_vue_type_template_id_db3266a2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/Modals/UpdatePartialCost.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePartialCost_vue_vue_type_template_id_db3266a2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/Modals/UpdatePartialCost.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70337,13 +70296,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PartialTemplate_vue_vue_type_template_id_12968d98__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartialTemplate.vue?vue&type=template&id=12968d98 */ "./resources/js/Views/PartialTemplate/PartialTemplate.vue?vue&type=template&id=12968d98");
 /* harmony import */ var _PartialTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PartialTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialTemplate/PartialTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialTemplate_vue_vue_type_template_id_12968d98__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/PartialTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialTemplate_vue_vue_type_template_id_12968d98__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/PartialTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70365,13 +70324,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PartialTemplateDataTable_vue_vue_type_template_id_4de5ab86__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartialTemplateDataTable.vue?vue&type=template&id=4de5ab86 */ "./resources/js/Views/PartialTemplate/Table/PartialTemplateDataTable.vue?vue&type=template&id=4de5ab86");
 /* harmony import */ var _PartialTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PartialTemplateDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialTemplate/Table/PartialTemplateDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialTemplateDataTable_vue_vue_type_template_id_4de5ab86__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/Table/PartialTemplateDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialTemplateDataTable_vue_vue_type_template_id_4de5ab86__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/Table/PartialTemplateDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70394,7 +70353,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Password_vue_vue_type_template_id_dc65b600__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Password.vue?vue&type=template&id=dc65b600 */ "./resources/js/Views/Password/Password.vue?vue&type=template&id=dc65b600");
 /* harmony import */ var _Password_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Password.vue?vue&type=script&lang=js */ "./resources/js/Views/Password/Password.vue?vue&type=script&lang=js");
 /* harmony import */ var toastr_build_toastr_css_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! toastr/build/toastr.css?vue&type=style&index=0&lang=css */ "./node_modules/toastr/build/toastr.css?vue&type=style&index=0&lang=css");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -70402,7 +70361,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Password_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Password_vue_vue_type_template_id_dc65b600__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Password/Password.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Password_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Password_vue_vue_type_template_id_dc65b600__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Password/Password.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70424,13 +70383,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreatePermission_vue_vue_type_template_id_2f11cefa__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreatePermission.vue?vue&type=template&id=2f11cefa */ "./resources/js/Views/Permissions/Modals/CreatePermission.vue?vue&type=template&id=2f11cefa");
 /* harmony import */ var _CreatePermission_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreatePermission.vue?vue&type=script&lang=js */ "./resources/js/Views/Permissions/Modals/CreatePermission.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePermission_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePermission_vue_vue_type_template_id_2f11cefa__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Modals/CreatePermission.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePermission_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePermission_vue_vue_type_template_id_2f11cefa__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Modals/CreatePermission.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70452,13 +70411,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdatePermission_vue_vue_type_template_id_188c3c07__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdatePermission.vue?vue&type=template&id=188c3c07 */ "./resources/js/Views/Permissions/Modals/UpdatePermission.vue?vue&type=template&id=188c3c07");
 /* harmony import */ var _UpdatePermission_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdatePermission.vue?vue&type=script&lang=js */ "./resources/js/Views/Permissions/Modals/UpdatePermission.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePermission_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePermission_vue_vue_type_template_id_188c3c07__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Modals/UpdatePermission.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePermission_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePermission_vue_vue_type_template_id_188c3c07__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Modals/UpdatePermission.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70480,13 +70439,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Permissions_vue_vue_type_template_id_6b4eb4ea__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Permissions.vue?vue&type=template&id=6b4eb4ea */ "./resources/js/Views/Permissions/Permissions.vue?vue&type=template&id=6b4eb4ea");
 /* harmony import */ var _Permissions_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Permissions.vue?vue&type=script&lang=js */ "./resources/js/Views/Permissions/Permissions.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Permissions_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Permissions_vue_vue_type_template_id_6b4eb4ea__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Permissions.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Permissions_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Permissions_vue_vue_type_template_id_6b4eb4ea__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Permissions.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70508,13 +70467,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PermissionsDataTable_vue_vue_type_template_id_2fdd7b2a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PermissionsDataTable.vue?vue&type=template&id=2fdd7b2a */ "./resources/js/Views/Permissions/Table/PermissionsDataTable.vue?vue&type=template&id=2fdd7b2a");
 /* harmony import */ var _PermissionsDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PermissionsDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/Permissions/Table/PermissionsDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PermissionsDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PermissionsDataTable_vue_vue_type_template_id_2fdd7b2a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Table/PermissionsDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PermissionsDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PermissionsDataTable_vue_vue_type_template_id_2fdd7b2a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Table/PermissionsDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70537,7 +70496,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Profile_vue_vue_type_template_id_78b430b4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Profile.vue?vue&type=template&id=78b430b4 */ "./resources/js/Views/Profile/Profile.vue?vue&type=template&id=78b430b4");
 /* harmony import */ var _Profile_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Profile.vue?vue&type=script&lang=js */ "./resources/js/Views/Profile/Profile.vue?vue&type=script&lang=js");
 /* harmony import */ var toastr_build_toastr_css_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! toastr/build/toastr.css?vue&type=style&index=0&lang=css */ "./node_modules/toastr/build/toastr.css?vue&type=style&index=0&lang=css");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -70545,7 +70504,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Profile_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Profile_vue_vue_type_template_id_78b430b4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Profile/Profile.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Profile_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Profile_vue_vue_type_template_id_78b430b4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Profile/Profile.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70567,13 +70526,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateRol_vue_vue_type_template_id_edf0da4a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateRol.vue?vue&type=template&id=edf0da4a */ "./resources/js/Views/Roles/Modals/CreateRol.vue?vue&type=template&id=edf0da4a");
 /* harmony import */ var _CreateRol_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateRol.vue?vue&type=script&lang=js */ "./resources/js/Views/Roles/Modals/CreateRol.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRol_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRol_vue_vue_type_template_id_edf0da4a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Modals/CreateRol.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRol_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRol_vue_vue_type_template_id_edf0da4a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Modals/CreateRol.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70596,7 +70555,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UpdateRol_vue_vue_type_template_id_ac13eb24__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateRol.vue?vue&type=template&id=ac13eb24 */ "./resources/js/Views/Roles/Modals/UpdateRol.vue?vue&type=template&id=ac13eb24");
 /* harmony import */ var _UpdateRol_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateRol.vue?vue&type=script&lang=js */ "./resources/js/Views/Roles/Modals/UpdateRol.vue?vue&type=script&lang=js");
 /* harmony import */ var vue_multiselect_dist_vue_multiselect_css_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.css?vue&type=style&index=0&lang=css */ "./node_modules/vue-multiselect/dist/vue-multiselect.css?vue&type=style&index=0&lang=css");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -70604,7 +70563,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_UpdateRol_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRol_vue_vue_type_template_id_ac13eb24__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Modals/UpdateRol.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_UpdateRol_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRol_vue_vue_type_template_id_ac13eb24__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Modals/UpdateRol.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70626,13 +70585,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Roles_vue_vue_type_template_id_23df7a48__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Roles.vue?vue&type=template&id=23df7a48 */ "./resources/js/Views/Roles/Roles.vue?vue&type=template&id=23df7a48");
 /* harmony import */ var _Roles_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Roles.vue?vue&type=script&lang=js */ "./resources/js/Views/Roles/Roles.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Roles_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Roles_vue_vue_type_template_id_23df7a48__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Roles.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Roles_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Roles_vue_vue_type_template_id_23df7a48__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Roles.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70654,13 +70613,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RolesDataTable_vue_vue_type_template_id_bca37f8e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RolesDataTable.vue?vue&type=template&id=bca37f8e */ "./resources/js/Views/Roles/Table/RolesDataTable.vue?vue&type=template&id=bca37f8e");
 /* harmony import */ var _RolesDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RolesDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/Roles/Table/RolesDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RolesDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RolesDataTable_vue_vue_type_template_id_bca37f8e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Table/RolesDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RolesDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RolesDataTable_vue_vue_type_template_id_bca37f8e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Table/RolesDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70682,13 +70641,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateRoom_vue_vue_type_template_id_621f5c0b__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateRoom.vue?vue&type=template&id=621f5c0b */ "./resources/js/Views/Room/Modals/CreateRoom.vue?vue&type=template&id=621f5c0b");
 /* harmony import */ var _CreateRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateRoom.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Room/Modals/CreateRoom.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRoom_vue_vue_type_template_id_621f5c0b__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Modals/CreateRoom.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRoom_vue_vue_type_template_id_621f5c0b__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Modals/CreateRoom.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70709,14 +70668,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _UpdateRoom_vue_vue_type_template_id_5effd6d8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateRoom.vue?vue&type=template&id=5effd6d8 */ "./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=template&id=5effd6d8");
-/* harmony import */ var _UpdateRoom_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateRoom.vue?vue&type=script&lang=js */ "./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _UpdateRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateRoom.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateRoom_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRoom_vue_vue_type_template_id_5effd6d8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Modals/UpdateRoom.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRoom_vue_vue_type_template_id_5effd6d8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Modals/UpdateRoom.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70738,13 +70697,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Room_vue_vue_type_template_id_94f00000__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Room.vue?vue&type=template&id=94f00000 */ "./resources/js/Views/Room/Room.vue?vue&type=template&id=94f00000");
 /* harmony import */ var _Room_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Room.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Room/Room.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Room_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Room_vue_vue_type_template_id_94f00000__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Room.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Room_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Room_vue_vue_type_template_id_94f00000__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Room.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70766,13 +70725,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RoomDataTable_vue_vue_type_template_id_19c1ebf3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomDataTable.vue?vue&type=template&id=19c1ebf3 */ "./resources/js/Views/Room/Table/RoomDataTable.vue?vue&type=template&id=19c1ebf3");
 /* harmony import */ var _RoomDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoomDataTable.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Room/Table/RoomDataTable.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomDataTable_vue_vue_type_template_id_19c1ebf3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Table/RoomDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomDataTable_vue_vue_type_template_id_19c1ebf3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Table/RoomDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70794,13 +70753,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateRoomStatus_vue_vue_type_template_id_006a006f__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateRoomStatus.vue?vue&type=template&id=006a006f */ "./resources/js/Views/RoomStatus/Modals/CreateRoomStatus.vue?vue&type=template&id=006a006f");
 /* harmony import */ var _CreateRoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateRoomStatus.vue?vue&type=script&lang=js */ "./resources/js/Views/RoomStatus/Modals/CreateRoomStatus.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRoomStatus_vue_vue_type_template_id_006a006f__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/Modals/CreateRoomStatus.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRoomStatus_vue_vue_type_template_id_006a006f__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/Modals/CreateRoomStatus.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70822,13 +70781,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateRoomStatus_vue_vue_type_template_id_2c372508__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateRoomStatus.vue?vue&type=template&id=2c372508 */ "./resources/js/Views/RoomStatus/Modals/UpdateRoomStatus.vue?vue&type=template&id=2c372508");
 /* harmony import */ var _UpdateRoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateRoomStatus.vue?vue&type=script&lang=js */ "./resources/js/Views/RoomStatus/Modals/UpdateRoomStatus.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateRoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRoomStatus_vue_vue_type_template_id_2c372508__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/Modals/UpdateRoomStatus.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateRoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRoomStatus_vue_vue_type_template_id_2c372508__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/Modals/UpdateRoomStatus.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70850,13 +70809,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RoomStatus_vue_vue_type_template_id_3edc2780__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomStatus.vue?vue&type=template&id=3edc2780 */ "./resources/js/Views/RoomStatus/RoomStatus.vue?vue&type=template&id=3edc2780");
 /* harmony import */ var _RoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoomStatus.vue?vue&type=script&lang=js */ "./resources/js/Views/RoomStatus/RoomStatus.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomStatus_vue_vue_type_template_id_3edc2780__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/RoomStatus.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomStatus_vue_vue_type_template_id_3edc2780__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/RoomStatus.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70878,13 +70837,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RoomStatusDataTable_vue_vue_type_template_id_fe90c21a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomStatusDataTable.vue?vue&type=template&id=fe90c21a */ "./resources/js/Views/RoomStatus/Table/RoomStatusDataTable.vue?vue&type=template&id=fe90c21a");
 /* harmony import */ var _RoomStatusDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoomStatusDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/RoomStatus/Table/RoomStatusDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomStatusDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomStatusDataTable_vue_vue_type_template_id_fe90c21a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/Table/RoomStatusDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomStatusDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomStatusDataTable_vue_vue_type_template_id_fe90c21a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/Table/RoomStatusDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70906,13 +70865,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateRoomType_vue_vue_type_template_id_34c506bf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateRoomType.vue?vue&type=template&id=34c506bf */ "./resources/js/Views/RoomType/Modals/CreateRoomType.vue?vue&type=template&id=34c506bf");
 /* harmony import */ var _CreateRoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateRoomType.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/RoomType/Modals/CreateRoomType.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRoomType_vue_vue_type_template_id_34c506bf__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/Modals/CreateRoomType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRoomType_vue_vue_type_template_id_34c506bf__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/Modals/CreateRoomType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70934,13 +70893,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateRoomType_vue_vue_type_template_id_f7bd59e8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateRoomType.vue?vue&type=template&id=f7bd59e8 */ "./resources/js/Views/RoomType/Modals/UpdateRoomType.vue?vue&type=template&id=f7bd59e8");
 /* harmony import */ var _UpdateRoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateRoomType.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/RoomType/Modals/UpdateRoomType.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateRoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRoomType_vue_vue_type_template_id_f7bd59e8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/Modals/UpdateRoomType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateRoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRoomType_vue_vue_type_template_id_f7bd59e8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/Modals/UpdateRoomType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70962,13 +70921,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RoomType_vue_vue_type_template_id_3d628240__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomType.vue?vue&type=template&id=3d628240 */ "./resources/js/Views/RoomType/RoomType.vue?vue&type=template&id=3d628240");
 /* harmony import */ var _RoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoomType.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/RoomType/RoomType.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomType_vue_vue_type_template_id_3d628240__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/RoomType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomType_vue_vue_type_template_id_3d628240__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/RoomType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70990,13 +70949,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RoomTypeDataTable_vue_vue_type_template_id_0f60feb3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomTypeDataTable.vue?vue&type=template&id=0f60feb3 */ "./resources/js/Views/RoomType/Table/RoomTypeDataTable.vue?vue&type=template&id=0f60feb3");
 /* harmony import */ var _RoomTypeDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoomTypeDataTable.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/RoomType/Table/RoomTypeDataTable.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomTypeDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomTypeDataTable_vue_vue_type_template_id_0f60feb3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/Table/RoomTypeDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomTypeDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomTypeDataTable_vue_vue_type_template_id_0f60feb3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/Table/RoomTypeDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71018,13 +70977,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateSystemTime_vue_vue_type_template_id_75ac68d8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateSystemTime.vue?vue&type=template&id=75ac68d8 */ "./resources/js/Views/ShiftSystem/Modals/CreateSystemTime.vue?vue&type=template&id=75ac68d8");
 /* harmony import */ var _CreateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateSystemTime.vue?vue&type=script&lang=js */ "./resources/js/Views/ShiftSystem/Modals/CreateSystemTime.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateSystemTime_vue_vue_type_template_id_75ac68d8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/Modals/CreateSystemTime.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateSystemTime_vue_vue_type_template_id_75ac68d8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/Modals/CreateSystemTime.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71046,13 +71005,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateSystemTime_vue_vue_type_template_id_a2b78ebe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateSystemTime.vue?vue&type=template&id=a2b78ebe */ "./resources/js/Views/ShiftSystem/Modals/UpdateSystemTime.vue?vue&type=template&id=a2b78ebe");
 /* harmony import */ var _UpdateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateSystemTime.vue?vue&type=script&lang=js */ "./resources/js/Views/ShiftSystem/Modals/UpdateSystemTime.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateSystemTime_vue_vue_type_template_id_a2b78ebe__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/Modals/UpdateSystemTime.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateSystemTime_vue_vue_type_template_id_a2b78ebe__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/Modals/UpdateSystemTime.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71074,13 +71033,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ShiftSystem_vue_vue_type_template_id_0babb3f8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShiftSystem.vue?vue&type=template&id=0babb3f8 */ "./resources/js/Views/ShiftSystem/ShiftSystem.vue?vue&type=template&id=0babb3f8");
 /* harmony import */ var _ShiftSystem_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ShiftSystem.vue?vue&type=script&lang=js */ "./resources/js/Views/ShiftSystem/ShiftSystem.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ShiftSystem_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ShiftSystem_vue_vue_type_template_id_0babb3f8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/ShiftSystem.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ShiftSystem_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ShiftSystem_vue_vue_type_template_id_0babb3f8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/ShiftSystem.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71102,13 +71061,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ShiftSystemDataTable_vue_vue_type_template_id_5651f75e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShiftSystemDataTable.vue?vue&type=template&id=5651f75e */ "./resources/js/Views/ShiftSystem/Table/ShiftSystemDataTable.vue?vue&type=template&id=5651f75e");
 /* harmony import */ var _ShiftSystemDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ShiftSystemDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/ShiftSystem/Table/ShiftSystemDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ShiftSystemDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ShiftSystemDataTable_vue_vue_type_template_id_5651f75e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/Table/ShiftSystemDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ShiftSystemDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ShiftSystemDataTable_vue_vue_type_template_id_5651f75e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/Table/ShiftSystemDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71130,13 +71089,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateSystemTime_vue_vue_type_template_id_72e17e4d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateSystemTime.vue?vue&type=template&id=72e17e4d */ "./resources/js/Views/SystemTime/Modals/CreateSystemTime.vue?vue&type=template&id=72e17e4d");
 /* harmony import */ var _CreateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateSystemTime.vue?vue&type=script&lang=js */ "./resources/js/Views/SystemTime/Modals/CreateSystemTime.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateSystemTime_vue_vue_type_template_id_72e17e4d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/Modals/CreateSystemTime.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateSystemTime_vue_vue_type_template_id_72e17e4d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/Modals/CreateSystemTime.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71158,13 +71117,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateSystemTime_vue_vue_type_template_id_5c5beb5a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateSystemTime.vue?vue&type=template&id=5c5beb5a */ "./resources/js/Views/SystemTime/Modals/UpdateSystemTime.vue?vue&type=template&id=5c5beb5a");
 /* harmony import */ var _UpdateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateSystemTime.vue?vue&type=script&lang=js */ "./resources/js/Views/SystemTime/Modals/UpdateSystemTime.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateSystemTime_vue_vue_type_template_id_5c5beb5a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/Modals/UpdateSystemTime.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateSystemTime_vue_vue_type_template_id_5c5beb5a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/Modals/UpdateSystemTime.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71186,13 +71145,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _SystemTime_vue_vue_type_template_id_6c22fe40__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SystemTime.vue?vue&type=template&id=6c22fe40 */ "./resources/js/Views/SystemTime/SystemTime.vue?vue&type=template&id=6c22fe40");
 /* harmony import */ var _SystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SystemTime.vue?vue&type=script&lang=js */ "./resources/js/Views/SystemTime/SystemTime.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_SystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_SystemTime_vue_vue_type_template_id_6c22fe40__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/SystemTime.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_SystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_SystemTime_vue_vue_type_template_id_6c22fe40__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/SystemTime.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71214,13 +71173,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _SystemTimeDataTable_vue_vue_type_template_id_6a7e4f13__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SystemTimeDataTable.vue?vue&type=template&id=6a7e4f13 */ "./resources/js/Views/SystemTime/Table/SystemTimeDataTable.vue?vue&type=template&id=6a7e4f13");
 /* harmony import */ var _SystemTimeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SystemTimeDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/SystemTime/Table/SystemTimeDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_SystemTimeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_SystemTimeDataTable_vue_vue_type_template_id_6a7e4f13__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/Table/SystemTimeDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_SystemTimeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_SystemTimeDataTable_vue_vue_type_template_id_6a7e4f13__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/Table/SystemTimeDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71242,13 +71201,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DateTemplate_vue_vue_type_template_id_d7abf736__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DateTemplate.vue?vue&type=template&id=d7abf736 */ "./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=template&id=d7abf736");
 /* harmony import */ var _DateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DateTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DateTemplate_vue_vue_type_template_id_d7abf736__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DateTemplate_vue_vue_type_template_id_d7abf736__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71270,13 +71229,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateDateTemplate_vue_vue_type_template_id_92886900__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateDateTemplate.vue?vue&type=template&id=92886900 */ "./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=template&id=92886900");
 /* harmony import */ var _CreateDateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateDateTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateDateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateDateTemplate_vue_vue_type_template_id_92886900__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateDateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateDateTemplate_vue_vue_type_template_id_92886900__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71298,13 +71257,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateDateTemplate_vue_vue_type_template_id_2b4f294d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateDateTemplate.vue?vue&type=template&id=2b4f294d */ "./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=template&id=2b4f294d");
 /* harmony import */ var _UpdateDateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateDateTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateDateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateDateTemplate_vue_vue_type_template_id_2b4f294d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateDateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateDateTemplate_vue_vue_type_template_id_2b4f294d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71326,13 +71285,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DateTemplateDataTable_vue_vue_type_template_id_a1d117a4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DateTemplateDataTable.vue?vue&type=template&id=a1d117a4 */ "./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=template&id=a1d117a4");
 /* harmony import */ var _DateTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DateTemplateDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DateTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DateTemplateDataTable_vue_vue_type_template_id_a1d117a4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DateTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DateTemplateDataTable_vue_vue_type_template_id_a1d117a4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71354,13 +71313,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DayTemplate_vue_vue_type_template_id_2574fdd3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DayTemplate.vue?vue&type=template&id=2574fdd3 */ "./resources/js/Views/Tarifas/DayTemplate/DayTemplate.vue?vue&type=template&id=2574fdd3");
 /* harmony import */ var _DayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DayTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DayTemplate/DayTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayTemplate_vue_vue_type_template_id_2574fdd3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/DayTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayTemplate_vue_vue_type_template_id_2574fdd3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/DayTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71382,13 +71341,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateDayTemplate_vue_vue_type_template_id_7688ef44__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateDayTemplate.vue?vue&type=template&id=7688ef44 */ "./resources/js/Views/Tarifas/DayTemplate/Modals/CreateDayTemplate.vue?vue&type=template&id=7688ef44");
 /* harmony import */ var _CreateDayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateDayTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DayTemplate/Modals/CreateDayTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateDayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateDayTemplate_vue_vue_type_template_id_7688ef44__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/Modals/CreateDayTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateDayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateDayTemplate_vue_vue_type_template_id_7688ef44__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/Modals/CreateDayTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71410,13 +71369,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateDayTemplate_vue_vue_type_template_id_8747b852__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateDayTemplate.vue?vue&type=template&id=8747b852 */ "./resources/js/Views/Tarifas/DayTemplate/Modals/UpdateDayTemplate.vue?vue&type=template&id=8747b852");
 /* harmony import */ var _UpdateDayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateDayTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DayTemplate/Modals/UpdateDayTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateDayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateDayTemplate_vue_vue_type_template_id_8747b852__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/Modals/UpdateDayTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateDayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateDayTemplate_vue_vue_type_template_id_8747b852__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/Modals/UpdateDayTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71438,13 +71397,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DayTemplateDataTable_vue_vue_type_template_id_29d4663c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DayTemplateDataTable.vue?vue&type=template&id=29d4663c */ "./resources/js/Views/Tarifas/DayTemplate/Table/DayTemplateDataTable.vue?vue&type=template&id=29d4663c");
 /* harmony import */ var _DayTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DayTemplateDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DayTemplate/Table/DayTemplateDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayTemplateDataTable_vue_vue_type_template_id_29d4663c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/Table/DayTemplateDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayTemplateDataTable_vue_vue_type_template_id_29d4663c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/Table/DayTemplateDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71466,13 +71425,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _HourTemplate_vue_vue_type_template_id_24feac25__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HourTemplate.vue?vue&type=template&id=24feac25 */ "./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=template&id=24feac25");
 /* harmony import */ var _HourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HourTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_HourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HourTemplate_vue_vue_type_template_id_24feac25__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_HourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HourTemplate_vue_vue_type_template_id_24feac25__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71494,13 +71453,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateHourTemplate_vue_vue_type_template_id_ffec4328__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateHourTemplate.vue?vue&type=template&id=ffec4328 */ "./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=template&id=ffec4328");
 /* harmony import */ var _CreateHourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateHourTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateHourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateHourTemplate_vue_vue_type_template_id_ffec4328__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateHourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateHourTemplate_vue_vue_type_template_id_ffec4328__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71522,13 +71481,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateHourTemplate_vue_vue_type_template_id_16c5878e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateHourTemplate.vue?vue&type=template&id=16c5878e */ "./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=template&id=16c5878e");
 /* harmony import */ var _UpdateHourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateHourTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateHourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateHourTemplate_vue_vue_type_template_id_16c5878e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateHourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateHourTemplate_vue_vue_type_template_id_16c5878e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71550,13 +71509,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _HourTemplateDataTable_vue_vue_type_template_id_67b7a3ee__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HourTemplateDataTable.vue?vue&type=template&id=67b7a3ee */ "./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=template&id=67b7a3ee");
 /* harmony import */ var _HourTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HourTemplateDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_HourTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HourTemplateDataTable_vue_vue_type_template_id_67b7a3ee__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_HourTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HourTemplateDataTable_vue_vue_type_template_id_67b7a3ee__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71578,13 +71537,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateThemeType_vue_vue_type_template_id_978ca8ee__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateThemeType.vue?vue&type=template&id=978ca8ee */ "./resources/js/Views/ThemeType/Modals/CreateThemeType.vue?vue&type=template&id=978ca8ee");
 /* harmony import */ var _CreateThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateThemeType.vue?vue&type=script&lang=js */ "./resources/js/Views/ThemeType/Modals/CreateThemeType.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateThemeType_vue_vue_type_template_id_978ca8ee__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/Modals/CreateThemeType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateThemeType_vue_vue_type_template_id_978ca8ee__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/Modals/CreateThemeType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71606,13 +71565,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateThemeType_vue_vue_type_template_id_5066e8dc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateThemeType.vue?vue&type=template&id=5066e8dc */ "./resources/js/Views/ThemeType/Modals/UpdateThemeType.vue?vue&type=template&id=5066e8dc");
 /* harmony import */ var _UpdateThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateThemeType.vue?vue&type=script&lang=js */ "./resources/js/Views/ThemeType/Modals/UpdateThemeType.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateThemeType_vue_vue_type_template_id_5066e8dc__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/Modals/UpdateThemeType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateThemeType_vue_vue_type_template_id_5066e8dc__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/Modals/UpdateThemeType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71634,13 +71593,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ThemeTypeDataTable_vue_vue_type_template_id_152e736d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ThemeTypeDataTable.vue?vue&type=template&id=152e736d */ "./resources/js/Views/ThemeType/Table/ThemeTypeDataTable.vue?vue&type=template&id=152e736d");
 /* harmony import */ var _ThemeTypeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ThemeTypeDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/ThemeType/Table/ThemeTypeDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ThemeTypeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ThemeTypeDataTable_vue_vue_type_template_id_152e736d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/Table/ThemeTypeDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ThemeTypeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ThemeTypeDataTable_vue_vue_type_template_id_152e736d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/Table/ThemeTypeDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71662,13 +71621,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ThemeType_vue_vue_type_template_id_26e71128__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ThemeType.vue?vue&type=template&id=26e71128 */ "./resources/js/Views/ThemeType/ThemeType.vue?vue&type=template&id=26e71128");
 /* harmony import */ var _ThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ThemeType.vue?vue&type=script&lang=js */ "./resources/js/Views/ThemeType/ThemeType.vue?vue&type=script&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ThemeType_vue_vue_type_template_id_26e71128__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/ThemeType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ThemeType_vue_vue_type_template_id_26e71128__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/ThemeType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71692,7 +71651,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CreateUser_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateUser.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Users/Modals/CreateUser.vue?vue&type=script&setup=true&lang=js");
 /* harmony import */ var vue_multiselect_dist_vue_multiselect_css_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.css?vue&type=style&index=0&lang=css */ "./node_modules/vue-multiselect/dist/vue-multiselect.css?vue&type=style&index=0&lang=css");
 /* harmony import */ var toastr_build_toastr_css_vue_type_style_index_1_lang_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! toastr/build/toastr.css?vue&type=style&index=1&lang=css */ "./node_modules/toastr/build/toastr.css?vue&type=style&index=1&lang=css");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -71701,7 +71660,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__["default"])(_CreateUser_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateUser_vue_vue_type_template_id_7ced7e7a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Modals/CreateUser.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__["default"])(_CreateUser_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateUser_vue_vue_type_template_id_7ced7e7a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Modals/CreateUser.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71725,7 +71684,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UpdateUser_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateUser.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Users/Modals/UpdateUser.vue?vue&type=script&setup=true&lang=js");
 /* harmony import */ var vue_multiselect_dist_vue_multiselect_css_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.css?vue&type=style&index=0&lang=css */ "./node_modules/vue-multiselect/dist/vue-multiselect.css?vue&type=style&index=0&lang=css");
 /* harmony import */ var toastr_build_toastr_css_vue_type_style_index_1_lang_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! toastr/build/toastr.css?vue&type=style&index=1&lang=css */ "./node_modules/toastr/build/toastr.css?vue&type=style&index=1&lang=css");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -71734,7 +71693,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__["default"])(_UpdateUser_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateUser_vue_vue_type_template_id_79cdf947__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Modals/UpdateUser.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__["default"])(_UpdateUser_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateUser_vue_vue_type_template_id_79cdf947__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Modals/UpdateUser.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71757,7 +71716,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UsersDataTable_vue_vue_type_template_id_dc42243a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UsersDataTable.vue?vue&type=template&id=dc42243a */ "./resources/js/Views/Users/Table/UsersDataTable.vue?vue&type=template&id=dc42243a");
 /* harmony import */ var _UsersDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UsersDataTable.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Users/Table/UsersDataTable.vue?vue&type=script&setup=true&lang=js");
 /* harmony import */ var sweetalert2_dist_sweetalert2_css_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.css?vue&type=style&index=0&lang=css */ "./node_modules/sweetalert2/dist/sweetalert2.css?vue&type=style&index=0&lang=css");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -71765,7 +71724,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_UsersDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UsersDataTable_vue_vue_type_template_id_dc42243a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Table/UsersDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_UsersDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UsersDataTable_vue_vue_type_template_id_dc42243a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Table/UsersDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71787,13 +71746,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Users_vue_vue_type_template_id_61bf4232__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Users.vue?vue&type=template&id=61bf4232 */ "./resources/js/Views/Users/Users.vue?vue&type=template&id=61bf4232");
 /* harmony import */ var _Users_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Users.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Users/Users.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Users_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Users_vue_vue_type_template_id_61bf4232__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Users.vue"]])
+const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Users_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Users_vue_vue_type_template_id_61bf4232__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Users.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -72330,18 +72289,18 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&lang=js":
-/*!*******************************************************************************!*\
-  !*** ./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&lang=js ***!
-  \*******************************************************************************/
+/***/ "./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&setup=true&lang=js":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&setup=true&lang=js ***!
+  \******************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_UpdateRoom_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_UpdateRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_UpdateRoom_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./UpdateRoom.vue?vue&type=script&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&lang=js");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_UpdateRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./UpdateRoom.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&setup=true&lang=js");
  
 
 /***/ }),
