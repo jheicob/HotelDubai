@@ -1,11 +1,8 @@
 <template>
 	<div class="row justify-content-center">
 		<div class="col-md-12">
-			asd
 			<permissions-data-table
-				:create="create"
-				:deletet="deletet"
-				:updated="updated"
+
 			/>
 		</div>
 	</div>

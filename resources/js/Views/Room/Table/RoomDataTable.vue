@@ -19,8 +19,8 @@
 					<div class="col text-right">
 						<a
 							data-toggle="modal"
-							v-on:click.prevent="CreatePermission()"
-							v-if="create"
+							v-on:click.prevent="ShowCreateModal()"
+							v-if="permiss.create"
 							class="btn btn-primary text-white btn-icon-split mb-4"
 						>
 							<i class="fas fa-check"></i>
@@ -38,10 +38,11 @@
 						<thead>
 							<tr>
 								<th>ID</th>
+								<th>N° Habitación</th>
 								<th>Descripción</th>
 								<th>Tarifa</th>
 								<th>Parcial Mínimo</th>
-								<th>Temática de Habitación</th>
+								<!-- <th>Temática de Habitación</th> -->
 								<th>Estado</th>
 								<th>Accion</th>
 							</tr>
@@ -49,45 +50,54 @@
 						<tfoot>
 							<tr>
 								<th>ID</th>
+								<th>N° Habitación</th>
 								<th>Descripción</th>
 								<th>Tarifa</th>
 								<th>Parcial Mínimo</th>
-								<th>Temática de Habitación</th>
+								<!-- <th>Temática de Habitación</th> -->
 								<th>Estado</th>
 								<th>Accion</th>
 							</tr>
 						</tfoot>
 						<tbody>
-							<tr v-for="keep in keeps" :key="keep.id">
+							<tr v-for="keep in all" :key="keep.id">
 								<td>{{ keep.id }}</td>
+								<td>
+									{{ keep.attributes.name }}
+								</td>
 								<td>
 									{{ keep.attributes.description }}
 								</td>
 								<td>
-									{{ keep.attributes.rate }}
+									{{ keep.relationships.partialCost.attributes.rate }}
 								</td>
 								<td>
-									{{ keep.relationships.partialRate.attributes.name }}
+									{{
+										keep.relationships.partialCost.relationships
+											.partialRate.attributes.name
+									}}
 								</td>
-
+								<!--
 								<td>
 									{{ keep.relationships.themeType.attributes.name }}
-								</td>
+								</td> -->
 								<td>
 									{{ keep.relationships.roomStatus.attributes.name }}
 								</td>
 								<td>
 									<i
-										v-on:click.prevent="UpdatedPermission(keep)"
-										v-if="updated"
+										v-on:click.prevent="
+											ShowUpdateModal(keep, useStore.setForm)
+										"
+										v-if="permiss.updated"
 										class="ico fas fa-edit fa-lg text-secondary"
 										style="cursor: pointer"
 										title="Borrar"
 									></i>
 
 									<i
-										v-on:click.prevent="deletePermission(keep)"
-										v-if="deletet"
+										v-on:click.prevent="deleteItem(keep)"
+										v-if="permiss.deletet"
 										:class="
 											keep.attributes.deleted_at
 												? 'ico fas fa-trash-restore-alt fa-lg text-secondary'
@@ -103,82 +113,25 @@
 				</div>
 			</div>
 		</div>
-		<create-permission @GetCreatedPermission="GetCreatedPermission" />
-		<update-permission
-			@GetCreatedPermission="GetCreatedPermission"
-			ref="componente"
-		/>
+		<create-permission />
+		<update-permission />
 	</div>
 </template>
 
-<script>
-	import axios from "axios";
+<script setup>
 	import CreatePermission from "../Modals/CreateRoom.vue";
 	import UpdatePermission from "../Modals/UpdateRoom.vue";
+	import { HelperStore } from "@/HelperStore";
+	import { RoomStore } from "../RoomStore";
+	import { storeToRefs } from "pinia";
+	import { onMounted } from "vue";
+	const useHelper = HelperStore();
+	const useStore = RoomStore();
 
-	export default {
-		name: "DateTemplateDataTable",
-		components: {
-			CreatePermission,
-			UpdatePermission,
-		},
-		props: {
-			create: {
-				type: Number,
-				default: 0,
-			},
-			deletet: {
-				type: Number,
-				default: 0,
-			},
-			updated: {
-				type: Number,
-				default: 0,
-			},
-		},
-		created() {
-			this.getKeeps();
-		},
-		data() {
-			return {
-				keeps: [],
-			};
-		},
-		methods: {
-			getKeeps: function () {
-				var urlKeeps = "/room/get";
-				axios
-					.get(urlKeeps)
-					.then((response) => {
-						this.keeps = response.data.data;
-						$("#dataTable").DataTable().destroy();
-						this.$nextTick(function () {
-							$("#dataTable").DataTable({
-								// DataTable options here...
-							});
-						});
-					})
-					.catch((err) => {});
-			},
-			deletePermission: function (keep) {
-				var url = "/room/delete/" + keep.id;
-				axios.delete(url).then((response) => {
-					this.getKeeps();
-				});
-			},
+	const { permiss, all } = storeToRefs(useHelper);
+	const { ShowCreateModal, ShowUpdateModal, deleteItem } = useHelper;
 
-			CreatePermission: function () {
-				$("#exampleModal").modal("show");
-			},
-
-			UpdatedPermission(permission) {
-				this.$refs.componente.UpdateGetPermission(permission);
-				$("#exampleModal2").modal("show");
-			},
-
-			GetCreatedPermission: function () {
-				this.getKeeps();
-			},
-		},
-	};
+	onMounted(() => {
+		useHelper.getAll();
+	});
 </script>

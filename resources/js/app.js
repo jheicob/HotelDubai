@@ -5,10 +5,8 @@
  */
 //require('./bootstrap');
 import './bootstrap'
-
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
-import Room from './Views/Room/Room.vue';
 import permissions from './Views/Permissions/Permissions.vue'
 import roles from './Views/Roles/Roles.vue'
 import users from './Views/Users/Users.vue'
@@ -26,6 +24,7 @@ import dayweek from './Views/DayWeek/DayWeek.vue'
 import systemtime from './Views/SystemTime/SystemTime.vue'
 import shiftsystem from './Views/ShiftSystem/ShiftSystem.vue'
 import datetemplate from './Views/Tarifas/DateTemplate/DateTemplate.vue'
+import Room from './Views/Room/Room.vue';
 import HourTemplate from './Views/Tarifas/HourTemplate/HourTemplate.vue'
 import DayTemplate from './Views/Tarifas/DayTemplate/DayTemplate.vue'
 const app = createApp({});
@@ -41,7 +40,7 @@ app.use(createPinia())
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-app.component('example-component', require('./components/ExampleComponent.vue'));
+// app.component('example-component', require('./components/ExampleComponent.vue'));
 app.component('permissions',permissions);
 app.component('roles',roles);
 app.component('users',users);

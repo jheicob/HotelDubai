@@ -44,33 +44,12 @@
 							v-model="form.description"
 							class="form-control"
 						/>
-						<label for="rate" class="form-label">Tarifa</label>
-						<input
-							type="number"
-							name="date"
-							v-model="form.rate"
-							class="form-control"
-						/>
-						<label for="name" class="form-label">Parcial Mínimo</label>
-						<select
-							class="form-select"
-							aria-label="Default select example"
-							v-model="form.partial_rate_id"
-						>
-							<option selected value="">Seleccione Parcial Mínimo</option>
-							<option
-								v-for="keep in partialRates"
-								:key="keep.id"
-								:value="keep.id"
-							>
-								{{ keep.attributes.name }}
-							</option>
-						</select>
 						<label for="name" class="form-label">Tipo Habitacion</label>
 						<select
 							class="form-select"
 							aria-label="Default select example"
-							v-model="form.room_type_id"
+							v-model="room_type_id"
+							@change="getPartialCost"
 						>
 							<option selected value="">Seleccione Tipo Habitacion</option>
 							<option
@@ -81,6 +60,37 @@
 								{{ keep.attributes.name }}
 							</option>
 						</select>
+						<label for="name" class="form-label">Parcial Mínimo</label>
+						<select
+							class="form-select"
+							aria-label="Default select example"
+							v-model="form.partial_cost_id"
+							:disabled="partialCost.length < 1"
+						>
+							<option selected value="">Seleccione Parcial Mínimo</option>
+							<option
+								v-for="keep in partialCost"
+								:key="keep.id"
+								:value="keep.id"
+							>
+								({{ keep.relationships.partialRate.attributes.name }}) $
+								{{ keep.attributes.rate }}
+							</option>
+						</select>
+						<label for="rate" class="form-label">Tarifa</label>
+						<div class="form-inline">
+							<input
+								disabled
+								type="number"
+								name="date"
+								v-model="getRate"
+								class="form-control col-4"
+							/>
+							<button class="btn btn-success ml-3" type="button">
+								Personalizar
+							</button>
+						</div>
+
 						<!-- <label for="name" class="form-label"
 							>Temática de la Habitación</label
 						>
@@ -129,14 +139,15 @@
 								>Cancelar</span
 							>
 						</a>
-						<a
-							v-on:click.prevent="createPermission()"
+						<button
+							:disabled="desactiveButton"
+							v-on:click.prevent="storeItem(formatForm)"
 							class="btn btn-primary text-white btn-icon-split mb-4"
 						>
 							<span class="text font-montserrat font-weight-bold"
 								>Crear Crear Habitación</span
 							>
-						</a>
+						</button>
 					</div>
 				</div>
 			</div>
@@ -144,87 +155,26 @@
 	</form>
 </template>
 
-<script>
-	import axios from "axios";
-	import { dateFormat } from "./helper";
-	export default {
-		name: "CreateDateTemplate",
-		components: {},
-		mounted() {
-			// this.getRoomType();
-			this.getPartialRate();
-			this.getThemeType();
-			this.getRoomStatus();
-		},
-		data() {
-			return {
-				form: this.getClearFormObject(),
-				roomType: [],
-				partialRates: [],
-				themeTypes: [],
-				roomStatus: [],
-			};
-		},
-		methods: {
-			createPermission() {
-				var url = "/room/create";
-				this.form.date = dateFormat(this.form.date);
-				axios
-					.post(url, this.form)
-					.then((response) => {
-						this.errors = [];
-						this.form = this.getClearFormObject();
-						$("#exampleModal").modal("hide");
-						this.$emit("GetCreatedPermission");
-					})
-					.catch((error) => {});
-			},
-			getClearFormObject() {
-				return {
-					description: "",
-					rate: "",
-					partial_rate_id: "",
-					room_type_id: "",
-					theme_type_id: "",
-					room_status_id: "",
-				};
-			},
-			getRoomType() {
-				var urlKeeps = "/configuracion/room-type/get";
-				axios
-					.get(urlKeeps)
-					.then((response) => {
-						this.roomType = response.data.data;
-					})
-					.catch((err) => {});
-			},
-			getPartialRate() {
-				var urlKeeps = "/configuracion/partial-rates/get";
-				axios
-					.get(urlKeeps)
-					.then((response) => {
-						this.partialRates = response.data.data;
-					})
-					.catch((err) => {});
-			},
-			getThemeType() {
-				var urlKeeps = "/configuracion/theme-type/get";
-				axios
-					.get(urlKeeps)
-					.then((response) => {
-						this.themeTypes = response.data.data;
-					})
-					.catch((err) => {});
-			},
-			getRoomStatus() {
-				var urlKeeps = "/configuracion/room-status/get";
-				axios
-					.get(urlKeeps)
-					.then((response) => {
-						this.roomStatus = response.data.data;
-					})
-					.catch((err) => {});
-			},
-		},
-	};
+<script setup>
+	import { HelperStore } from "@/HelperStore";
+	import { RoomStore } from "../RoomStore";
+	import { onMounted } from "vue";
+	import { storeToRefs } from "pinia";
+
+	const useHelper = HelperStore();
+	const useStore = RoomStore();
+
+	const { getRoomType, getRoomStatus, getPartialCost, formatForm } = useStore;
+	const { roomStatus, roomType, partialCost, room_type_id, getRate } = storeToRefs(
+		useStore
+	);
+
+	const { storeItem, clearForm } = useHelper;
+	const { form, desactiveButton } = storeToRefs(useHelper);
+
+	onMounted(() => {
+		clearForm(formatForm);
+		getRoomType();
+		getRoomStatus();
+	});
 </script>

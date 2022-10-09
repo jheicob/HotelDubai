@@ -29,6 +29,7 @@
         "pinia": "^2.0.22",
         "sweetalert2": "^11.3.6",
         "toastr": "^2.1.4",
+        "ts-loader": "^9.4.1",
         "typescript": "^4.8.4",
         "vue-multiselect": "^3.0.0-alpha.2"
     }

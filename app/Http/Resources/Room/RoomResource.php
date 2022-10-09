@@ -23,7 +23,7 @@ class RoomResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'attributes' => [
-                'name'  => $this->resource->rate,
+                'name'  => $this->resource->name,
                 'description' => $this->resource->description,
                 'deleted_at'     => $this->resource->deleted_at,
 
