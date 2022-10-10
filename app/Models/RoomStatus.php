@@ -15,12 +15,25 @@ class RoomStatus  extends Authenticatable implements Auditable
     protected $fillable = [
         'description',
         'name',
+        'color'
     ];
 
     protected $auditInclude = [
         'description',
         'name',
+        'color'
+
     ];
+
+
+
+    public function getColorAttribute($value){
+
+        if($value){
+            return json_decode($value);
+        }
+
+    }
 
     /**
      * Get all of the rooms for the RoomStatus

@@ -50,6 +50,7 @@ class CreateController extends Controller
         $RoomStatus              = new RoomStatus();
         $RoomStatus->name        = $request->name;
         $RoomStatus->description = $request->description;
+        $RoomStatus->color = json_encode($request->color);
         $RoomStatus->save();
         return $RoomStatus->id;
     }

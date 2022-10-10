@@ -15,7 +15,7 @@
 				Data Habitaciones
 			</div>
 			<div class="card-body">
-				<div class="table-responsive">
+				<div>
 					<div class="col text-right">
 						<a
 							data-toggle="modal"
@@ -29,7 +29,22 @@
 							>
 						</a>
 					</div>
-					<table
+					<div class="mb-2">
+						<ButtonComponent
+							:btnClass="['btn-primary', 'mx-1']"
+							v-for="(status, i) in useStore.roomStatus"
+							:key="i"
+							:text="status.attributes.name"
+						/>
+					</div>
+
+					<div class="row">
+						<div class="col-3" v-for="(item, i) in all" :key="i">
+							<RoomsGrid :item="item" />
+						</div>
+					</div>
+
+					<!-- <table
 						class="table table-bordered"
 						id="dataTable"
 						width="100%"
@@ -115,7 +130,7 @@
 								</td>
 							</tr>
 						</tbody>
-					</table>
+					</table> -->
 				</div>
 			</div>
 		</div>
@@ -128,6 +143,8 @@
 	import CreatePermission from "../Modals/CreateRoom.vue";
 	import UpdatePermission from "../Modals/UpdateRoom.vue";
 	import { HelperStore } from "@/HelperStore";
+	import ButtonComponent from "@/components/ButtonComponent.vue";
+	import RoomsGrid from "./RoomsGrid.vue";
 	import { RoomStore } from "../RoomStore";
 	import { storeToRefs } from "pinia";
 	import { onMounted } from "vue";
@@ -139,5 +156,9 @@
 
 	onMounted(() => {
 		useHelper.getAll();
+		useStore.getRoomStatus();
 	});
 </script>
+<style lang="scss">
+	// @import "~bootstrap/scss/bootstrap";
+</style>

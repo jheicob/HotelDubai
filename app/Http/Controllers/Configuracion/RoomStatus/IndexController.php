@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Configuracion\RoomStatus;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\RoomTypeResource;
+use App\Http\Resources\RoomStatusResource;
 use App\Models\RoomStatus;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
@@ -20,7 +20,7 @@ class IndexController extends Controller
         try {
             $permissions = RoomStatus::withTrashed()->get();
 
-            return RoomTypeResource::collection($permissions);
+            return RoomStatusResource::collection($permissions);
         } catch (ValidationException $ex) {
             return response()->json(
                 [

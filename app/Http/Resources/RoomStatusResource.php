@@ -19,6 +19,7 @@ class RoomStatusResource extends JsonResource
             'attributes' => [
                 'name' => $this->resource->name,
                 'description' => $this->resource->description,
+                'color' => $this->resource->color,
             ],
             'relationships' => [
                 /*

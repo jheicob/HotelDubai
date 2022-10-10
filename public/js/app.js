@@ -1,6 +1,616 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./node_modules/@mcistudio/vue-colorpicker/dist/colorpicker.es.js":
+/*!************************************************************************!*\
+  !*** ./node_modules/@mcistudio/vue-colorpicker/dist/colorpicker.es.js ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ ColorPicker)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+let Utils = {
+  hsb2rgb(hsb) {
+    var rgb = {};
+    var h = Math.round(hsb.h);
+    var s = Math.round(hsb.s * 255 / 100);
+    var v = Math.round(hsb.b * 255 / 100);
+    if (s == 0) {
+      rgb.r = rgb.g = rgb.b = v;
+    } else {
+      var t1 = v;
+      var t2 = (255 - s) * v / 255;
+      var t3 = (t1 - t2) * (h % 60) / 60;
+      if (h == 360)
+        h = 0;
+      if (h < 60) {
+        rgb.r = t1;
+        rgb.b = t2;
+        rgb.g = t2 + t3;
+      } else if (h < 120) {
+        rgb.g = t1;
+        rgb.b = t2;
+        rgb.r = t1 - t3;
+      } else if (h < 180) {
+        rgb.g = t1;
+        rgb.r = t2;
+        rgb.b = t2 + t3;
+      } else if (h < 240) {
+        rgb.b = t1;
+        rgb.r = t2;
+        rgb.g = t1 - t3;
+      } else if (h < 300) {
+        rgb.b = t1;
+        rgb.g = t2;
+        rgb.r = t2 + t3;
+      } else if (h < 360) {
+        rgb.r = t1;
+        rgb.g = t2;
+        rgb.b = t1 - t3;
+      } else {
+        rgb.r = 0;
+        rgb.g = 0;
+        rgb.b = 0;
+      }
+    }
+    return { r: Math.round(rgb.r), g: Math.round(rgb.g), b: Math.round(rgb.b), a: hsb.a };
+  },
+  hsba2rgba(hsba) {
+    const c = this.hsb2rgb(hsba);
+    return `rgba(${c.r},${c.g},${c.b},${c.a})`;
+  },
+  rgb2hex(rgb) {
+    var hex = [rgb.r.toString(16), rgb.g.toString(16), rgb.b.toString(16)];
+    hex.map(function(str, i) {
+      if (str.length == 1) {
+        hex[i] = "0" + str;
+      }
+    });
+    return hex.join("");
+  },
+  hex2rgb(hex) {
+    let h = parseInt(hex.indexOf("#") > -1 ? hex.substring(1) : hex, 16);
+    return { r: h >> 16, g: (h & 65280) >> 8, b: h & 255 };
+  },
+  hex2hsb(hex) {
+    const rgba = this.hex2rgb(hex);
+    rgba.a = 1;
+    return this.rgba2hsba(rgba);
+  },
+  rgba2hsba(rgba) {
+    var hsba = { h: 0, s: 0, b: 0, a: rgba.a };
+    var min = Math.min(rgba.r, rgba.g, rgba.b);
+    var max = Math.max(rgba.r, rgba.g, rgba.b);
+    var delta = max - min;
+    hsba.b = max;
+    hsba.s = max != 0 ? 255 * delta / max : 0;
+    if (hsba.s != 0) {
+      if (rgba.r == max)
+        hsba.h = (rgba.g - rgba.b) / delta;
+      else if (rgba.g == max)
+        hsba.h = 2 + (rgba.b - rgba.r) / delta;
+      else
+        hsba.h = 4 + (rgba.r - rgba.g) / delta;
+    } else
+      hsba.h = -1;
+    hsba.h *= 60;
+    if (hsba.h < 0)
+      hsba.h += 360;
+    hsba.s *= 100 / 255;
+    hsba.b *= 100 / 255;
+    return hsba;
+  }
+};
+var maskImgUrl = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAM0lEQVQ4EWM8cuTIfwY8wMbGhhGPNAMTPkli5EYNYBgEgYg3jkHRSCidjEbjYIhGimMBAKIWB2rXs92IAAAAAElFTkSuQmCC";
+var ColorPicker_vue_vue_type_style_index_0_scoped_true_lang = /* @__PURE__ */ (() => '.flex-row[data-v-4690211c]{display:flex;flex-direction:row;align-items:center}.flex-column[data-v-4690211c]{display:flex;flex-direction:column;align-items:center}.cbtn[data-v-4690211c]{border:1px solid #dcdfe6;background:#ffffff;border-radius:4px;width:40px;height:40px;padding:6px}.cbtn-inner[data-v-4690211c]{background:#dcdfe6;width:100%;height:100%}.panel[data-v-4690211c]{position:absolute;background:#fff;top:45px;width:240px;border:1px solid #dcdfe6;border-radius:6px;z-index:1000}.panel[data-v-4690211c]:before{content:"";display:block;position:absolute;top:-6px;left:10px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid #dcdfe6}.panel[data-v-4690211c]:after{content:"";display:block;position:absolute;top:-5px;left:10px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid #ffffff}.activeMode-wrapper[data-v-4690211c]{border-bottom:1px solid #dcdfe6;height:40px;display:flex;flex-direction:row;align-items:center;padding-left:12px}.btn-activeMode[data-v-4690211c]{border:1px solid #ff7d3a;margin-right:12px;border-radius:50%;width:14px;height:14px;cursor:pointer}.btn-activeMode.solid[data-v-4690211c]{background:#ffc9b6}.btn-activeMode.solid.gray[data-v-4690211c]{border:1px solid #7d7d7d;background:#e2e2e2}.btn-activeMode.linear[data-v-4690211c]{background:linear-gradient(180deg,#ffc9b6,#ff5011)}.btn-activeMode.linear.gray[data-v-4690211c]{border:1px solid #7d7d7d;background:linear-gradient(180deg,#ffffff,#999999)}.btn-activeMode.radial[data-v-4690211c]{background-image:radial-gradient(circle,#ffc9b6,#ff5011)}.btn-activeMode.radial.gray[data-v-4690211c]{border:1px solid #7d7d7d;background:radial-gradient(circle,#ffffff,#999999)}.palette-wrapper[data-v-4690211c]{margin:10px;height:140px;position:relative;border:1px solid #dcdfe6;border-radius:4px}.palette[data-v-4690211c]{position:absolute;overflow:hidden;inset:0px;border-radius:4px;background:rgb(255,0,0)}.palette .white[data-v-4690211c]{position:absolute;inset:0px;background:linear-gradient(to right,#fff,rgba(255,255,255,0))}.palette .black[data-v-4690211c]{position:absolute;inset:0px;background:linear-gradient(to top,#000,rgba(0,0,0,0))}.picker[data-v-4690211c]{position:absolute;width:14px;height:14px;top:-4px;left:-4px}.picker[data-v-4690211c]:before{content:"";top:3px;left:3px;position:absolute;width:6px;height:6px;display:block;background:rgba(255,255,255,0);box-shadow:0 0 0 1px #979797,0 0 0 3px #fff,0 0 0 4px #979797;border-radius:50%;cursor:default}.picker.on[data-v-4690211c]:before{box-shadow:0 0 0 1px #979797,0 0 0 3px #f50,0 0 0 4px #979797}.dropper[data-v-4690211c]{width:25px;height:30px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAyCAYAAAATIfj2AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAANKADAAQAAAABAAAAMgAAAADS/xijAAAEnklEQVRoBe2Yz0sVURTH73u+J/4WDX+kaIJmCGlKUrTqF4WbpD9Ac6H5A6KCiGwRBS6yVtnGH+DC2rU0F0KUtTSMRAPJDKmHpUiKPxea2vc7vivzHjPzrr6RnjAXxjtz59y553POueeepxBOcyzgWMCxgGOBA2QBVyTp2t3dnbi+vv4AOp336/U+ISGhpaqqalFVz4gB6ujoOLq1tfUGih/RK+9yuX56vd7LtbW1X/XjZvcRAeSHeQ8ls5KTk0VBQYGm78TEhFhYWBCA+g2o8ypQ/x1ID5OSkiKKi4tFVFSUBrS5uSlGRkbE/Pw8oX4i/IpDhZ9Hm7kPfzo7O/Px2dsIo5Povbg+ezye9rq6us9yOSsYyrjdblFSUiKGh4fpqdzl5WXur7tyvlHvNhoMdwyKNgJkBBa+gf4MrnJc17HhPwL0Ib8fCkbqQCgZghg7J8fNets9BIWbAfKYC2ZnZ4uMjAyGi5idnRU+n8+Dd4/a29vzAXgRIlnBYWamqOq4rUB6mKKiIpGZmbmjR1JSkqDyo6OjAlDVfKECs7GxIZgc/G1A3pj1toUcYE5LzwTDyMVTU1O1Tc8wUoWhAZjp0H4g07XIb5n1tnkIMEVcBJlIpKenm60nCFVWVibi4+N3spmRMD1DGGY4tF8I20tI20tGsvox2zwUFxf3mgsjE2mpFoD6dQLuGX4yNQe88D8YwJxrbGz8ZiQbPGYbUE1NzZ/o6OgLPARpVZ4fVlDBisjncGD4DdsPVtRjx5CeB5DFDnOf8BzhnlFp4cJwDbWVVLTxy/jLE9ZkWvyresoOGK5pOxDOmDZ45xr3SExMjDIU954/m1Gvt6p7hsL6tl006UfCuCcMpt8kTEVFhSgtLRWTk5NicXFRu5j9eMgaNcIzWfAAhkFOVFZWir6+vg9GslZjxl+3mmHyLhgmJydHk6TVe3t7xcrKinb2hNpTc3NzWkIB1F+cO6f0tZ/J0gHDtnjIDIYr0fJ5eXnKnoqNjRXcTzCEG1BueInHgXILew9ZwUgt+BuHIaS6p9LS0uTUMnmj2ocFpAIjFeE+QjrXHkOdU/CMnLY9QT4p9HsG2g0MqmzR39+vhRKSwotQh+/MzIymOuQ+KTAEiOwJaK8wWPk50nENf06bQU1PT4upqSlmw1XIPwvQVuFh10DhwDQ1Nd2iTjx8jaAIMzY2JtW+09DQ8F0+qPa7Stt2wOgV05dJrNJ5uLKhVLoPmFa9rOq9MpDdMFJBQq2trb3DcxbHEGrNCMsn8v1ueyWg/YKRyvb09BxaXV29As+MwTODcnwvfUgg/DOjFWn0nixnZAVgtJg+m+H9c7lnjGT3a8wSqKur6yx+0wzAci7WZpEOQyNZZjnAVMM7rvLy8gMBExIIAlqFqStFOCegRUKY6RWy9BAEv1B4fHxcP2fnPtJgqJglEFJoG64lAg0OBiafSIQhkGVSoAD+33YV++gVLm9hYaHgxR9hQ0NDWm0Gkf+SzaibUQsJxEl+qBeASpQfgedYEj/FIdgsxyKhVwKiooDKBRBrseO4fEjlL+vr6z/wndMcCzgWcCzgWMCxgGOBbQv8A9futsRv4eXoAAAAAElFTkSuQmCC) center center no-repeat;background-size:25px}.grad-wrapper[data-v-4690211c]{display:flex;flex-direction:row;justify-content:space-between;align-items:center;margin:10px 10px 0}.grad-wrapper .grad-bar[data-v-4690211c]{border:1px solid #aaaaaa;border-radius:8px;height:12px;width:150px;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAM0lEQVQ4EWM8cuTIfwY8wMbGhhGPNAMTPkli5EYNYBgEgYg3jkHRSCidjEbjYIhGimMBAKIWB2rXs92IAAAAAElFTkSuQmCC);background-size:auto 100%;display:absolute}.degree[data-v-4690211c]{border:1px solid #aaaaaa;border-radius:50%;width:20px;height:20px}.picker-deg[data-v-4690211c]{border:1px solid #aaaaaa;border-radius:5px;width:8px;height:8px;background:#cccccc}.huebar-wrapper[data-v-4690211c]{margin:10px;display:flex;flex-direction:row;justify-content:space-between;align-items:center}.huebar-wrapper .bar-wrapper[data-v-4690211c]{display:flex;flex-direction:column;justify-content:space-between;height:30px}.huebar-wrapper .hue-bar[data-v-4690211c],.huebar-wrapper .opacity-bar[data-v-4690211c]{border:1px solid #aaaaaa;border-radius:8px;width:150px;height:12px}.huebar-wrapper .hue-bar[data-v-4690211c]{background:linear-gradient(to right,#f00 0%,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,#f00 100%)}.huebar-wrapper .opacity-bar[data-v-4690211c]{background-image:linear-gradient(to right,rgba(255,255,255,0) 0%,rgb(255,255,255) 100%),url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAM0lEQVQ4EWM8cuTIfwY8wMbGhhGPNAMTPkli5EYNYBgEgYg3jkHRSCidjEbjYIhGimMBAKIWB2rXs92IAAAAAElFTkSuQmCC);background-size:auto 100%}.preview-wrapper[data-v-4690211c]{width:30px;height:30px;border-radius:50%;border:1px solid #aaaaaa;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAM0lEQVQ4EWM8cuTIfwY8wMbGhhGPNAMTPkli5EYNYBgEgYg3jkHRSCidjEbjYIhGimMBAKIWB2rXs92IAAAAAElFTkSuQmCC);background-size:50% 50%}.preview-color[data-v-4690211c]{width:28px;height:28px;border-radius:50%}\n')();
+var _export_sfc = (sfc, props) => {
+  const target = sfc.__vccOpts || sfc;
+  for (const [key, val] of props) {
+    target[key] = val;
+  }
+  return target;
+};
+const _withScopeId = (n) => ((0,vue__WEBPACK_IMPORTED_MODULE_0__.pushScopeId)("data-v-4690211c"), n = n(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.popScopeId)(), n);
+const _hoisted_1 = { onselectstart: "return false" };
+const _hoisted_2 = ["onContextmenu"];
+const _hoisted_3 = { class: "activeMode-wrapper" };
+const _hoisted_4 = ["onClick", "onMousedown"];
+const _hoisted_5 = ["onClick"];
+const _hoisted_6 = { style: { "font-size": "10px", "width": "36px", "padding-left": "8px" } };
+const _hoisted_7 = { class: "palette-wrapper" };
+const _hoisted_8 = ["onClick"];
+const _hoisted_9 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", { class: "white" }, null, -1));
+const _hoisted_10 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", { class: "black" }, null, -1));
+const _hoisted_11 = { class: "huebar-wrapper" };
+const _hoisted_12 = { class: "bar-wrapper" };
+const _hoisted_13 = ["onClick"];
+const _hoisted_14 = ["onClick"];
+const _hoisted_15 = ["onClick"];
+const _hoisted_16 = { class: "preview-wrapper" };
+const __default__ = { name: "vue3-colorpicker" };
+const _sfc_main = /* @__PURE__ */ Object.assign(__default__, {
+  props: {
+    mode: {
+      type: String,
+      required: false,
+      default: "solid"
+    },
+    degree: {
+      type: Number,
+      required: false,
+      default: 90
+    },
+    color: {
+      type: Object,
+      required: false,
+      default() {
+        return { r: 0, g: 0, b: 0, a: 1 };
+      }
+    },
+    gradients: {
+      type: Object,
+      required: false,
+      default() {
+        return [
+          { percent: 0, color: { r: 255, g: 255, b: 255, a: 1 } },
+          { percent: 100, color: { r: 0, g: 0, b: 0, a: 1 } }
+        ];
+      }
+    }
+  },
+  emits: ["colorChanged"],
+  setup(__props, { emit }) {
+    const props = __props;
+    const cbtnEl = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+    const panelEl = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+    const paletteEl = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+    const palettePickerEl = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+    const huePickerEl = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+    const opacityPickerEl = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+    const hueBarEl = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+    const opactiyBarEl = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+    const gradBarEl = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+    const degreeEl = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+    const degreePickerEl = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(null);
+    const isShowPanel = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
+    const activeGradPickerIndex = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(0);
+    const previewColor = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)("");
+    const previewBackground = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)("");
+    const gradPreviewColor = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)("");
+    const isDropperEnabled = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(true);
+    const paletteColor = (0,vue__WEBPACK_IMPORTED_MODULE_0__.reactive)(Utils.rgba2hsba(props.color));
+    const degree = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.degree);
+    const activeMode = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(props.mode);
+    let g = [];
+    const gradColors = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(g);
+    props.gradients.forEach((item, index) => {
+      g.push({ id: index, percent: item.percent, color: Utils.rgba2hsba(item.color) });
+    });
+    gradColors.value = g;
+    if (g.length > 0) {
+      gradColors.value[gradColors.value.length - 1].id;
+    }
+    let isDragging = false;
+    let paletteWidth = 216;
+    let paletteHeight = 138;
+    let barWidth = 150;
+    let gradMaxId = 0;
+    let eyeDropper = null;
+    if ("EyeDropper" in window) {
+      eyeDropper = new EyeDropper();
+    } else {
+      isDropperEnabled.value = false;
+      console.log("EyeDropper only supports Google Chrome version 95 and above");
+    }
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(() => {
+      changeMode(activeMode.value);
+      updateGradColor();
+      updatePreviews();
+    });
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(paletteColor, () => {
+      updateGradColor();
+      updatePreviews();
+    });
+    (0,vue__WEBPACK_IMPORTED_MODULE_0__.watch)(isShowPanel, () => {
+      if (isShowPanel.value) {
+        document.addEventListener("click", bindOutsideClick, true);
+        document.addEventListener("keyup", bindKeyUp, false);
+      } else {
+        document.removeEventListener("click", bindOutsideClick, true);
+        document.removeEventListener("keyup", bindKeyUp, false);
+      }
+    });
+    function changeMode(mode) {
+      activeMode.value = mode;
+      if (activeMode.value !== "solid") {
+        setGradPickerPos();
+        setDegreeHanderPos();
+        const c = gradColors.value[activeGradPickerIndex.value].color;
+        paletteColor.h = c.h;
+        paletteColor.s = c.s;
+        paletteColor.b = c.b;
+        paletteColor.a = c.a;
+      }
+      setPickerPos();
+      updateGradColor();
+      updatePreviews();
+    }
+    async function dropColor() {
+      if (!eyeDropper) {
+        console.log("EyeDropper only supports Chrome Version 95+");
+        return false;
+      }
+      eyeDropper.open().then((result) => {
+        const c = Utils.hex2hsb(result.sRGBHex);
+        paletteColor.h = c.h;
+        paletteColor.s = c.s;
+        paletteColor.b = c.b;
+        paletteColor.a = c.a;
+        setPickerPos();
+      }).catch((error) => {
+        console.log(error);
+      });
+    }
+    function bindContext() {
+      return false;
+    }
+    function bindKeyUp() {
+      var _a, _b, _c;
+      if (((_a = window == null ? void 0 : window.event) == null ? void 0 : _a.keyCode) == 27) {
+        isShowPanel.value = false;
+      } else if (((_b = window == null ? void 0 : window.event) == null ? void 0 : _b.keyCode) == 32 || ((_c = window == null ? void 0 : window.event) == null ? void 0 : _c.keyCode) == 8) {
+        delGradPicker();
+      }
+    }
+    function getElPos(el) {
+      let Box = el.getBoundingClientRect(), doc = el.ownerDocument, body = doc.body, html = doc.documentElement, clientTop = html.clientTop || body.clientTop || 0, clientLeft = html.clientLeft || body.clientLeft || 0, top = Box.top + (self.pageYOffset || html.scrollTop || body.scrollTop) - clientTop, left = Box.left + (self.pageXOffset || html.scrollLeft || body.scrollLeft) - clientLeft;
+      return { top, left };
+    }
+    function getMousePos() {
+      let x = 0, y = 0;
+      let e = window.event;
+      if (e.pageX) {
+        x = e.pageX;
+        y = e.pageY;
+      } else {
+        x = e.clientX + document.body.scrollLeft - document.body.clientLeft;
+        y = e.clientY + document.body.scrollTop - document.body.clientTop;
+      }
+      return { x, y };
+    }
+    function bindOutsideClick() {
+      if (isDragging) {
+        isDragging = false;
+        return false;
+      }
+      if (!isInObject(panelEl.value) && !isInObject(cbtnEl.value)) {
+        isShowPanel.value = false;
+      }
+      function isInObject(el) {
+        const elPos = getElPos(el);
+        const mousePos = getMousePos();
+        if (mousePos.x > elPos.left + el.offsetWidth || mousePos.x < elPos.left || mousePos.y > elPos.top + el.offsetHeight || mousePos.y < elPos.top) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    }
+    function bindDown(el, fnMove, index) {
+      document.addEventListener("mousemove", bindMove, false);
+      document.addEventListener("mouseup", bindUp, false);
+      function bindMove() {
+        isDragging = true;
+        fnMove(el, index);
+      }
+      function bindUp() {
+        document.removeEventListener("mousemove", bindMove);
+        document.removeEventListener("mouseup", bindUp);
+      }
+    }
+    function addGradPicker() {
+      if (gradColors.value.length < 10) {
+        const c = JSON.parse(JSON.stringify(gradColors.value[activeGradPickerIndex.value]));
+        c.id = gradMaxId++;
+        gradColors.value.push(c);
+        activeGradPickerIndex.value = gradColors.value.length - 1;
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.nextTick)(() => getGradPickerPos(gradBarEl.value.children[activeGradPickerIndex.value], activeGradPickerIndex.value));
+      }
+    }
+    function delGradPicker() {
+      if (gradColors.value.length > 2) {
+        gradColors.value.splice(activeGradPickerIndex.value, 1);
+        activeGradPickerIndex.value = gradColors.value.length - 1;
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.nextTick)(() => updatePreviews());
+      }
+    }
+    function getGradPickerPos(el, index) {
+      const elPos = getElPos(gradBarEl.value);
+      const mousePos = getMousePos();
+      let left = Math.max(-3, Math.min(barWidth - 12, mousePos.x - elPos.left - 6));
+      el.style.left = left + "px";
+      gradColors.value[index].percent = (left + 3) / (barWidth - 9) * 100;
+      activeGradPickerIndex.value = index;
+      const c = gradColors.value[index].color;
+      paletteColor.h = c.h;
+      paletteColor.s = c.s;
+      paletteColor.b = c.b;
+      paletteColor.a = c.a;
+      setPickerPos();
+      updateGradColor();
+      updatePreviews();
+    }
+    function setGradPickerPos() {
+      gradColors.value.forEach((item, index) => {
+        gradBarEl.value.children[index].style.left = (barWidth - 9) / 100 * item.percent - 3 + "px";
+      });
+    }
+    function updateGradColor() {
+      if (activeMode.value !== "solid") {
+        gradColors.value[activeGradPickerIndex.value].color.a = paletteColor.a;
+        gradColors.value[activeGradPickerIndex.value].color.h = paletteColor.h;
+        gradColors.value[activeGradPickerIndex.value].color.s = paletteColor.s;
+        gradColors.value[activeGradPickerIndex.value].color.b = paletteColor.b;
+      }
+    }
+    function updatePreviews() {
+      const c1 = Utils.hsb2rgb(paletteColor);
+      previewColor.value = `rgba(${c1.r}, ${c1.g}, ${c1.b}, ${c1.a})`;
+      previewBackground.value = previewColor.value;
+      let gradStr = "";
+      let gradStyleStr = "";
+      let g2 = [...gradColors.value];
+      let gradArr = [];
+      g2.sort((a, b) => {
+        return a.percent - b.percent;
+      });
+      g2.forEach((item) => {
+        gradStr += "," + Utils.hsba2rgba(item.color) + " " + item.percent + "%";
+        gradArr.push({ percent: item.percent, color: Utils.hsb2rgb(item.color) });
+      });
+      const emitVal = {};
+      emitVal.mode = activeMode.value;
+      switch (activeMode.value) {
+        case "solid":
+          emitVal.color = Utils.hsb2rgb(paletteColor);
+          emitVal.css = `background-color:${Utils.hsba2rgba(paletteColor)}`;
+          break;
+        case "linear":
+          gradPreviewColor.value = `linear-gradient(to right,${gradStr.slice(1)}),url('${maskImgUrl}')`;
+          previewBackground.value = `linear-gradient(${degree.value}deg${gradStr}),url('${maskImgUrl}')`;
+          gradStyleStr = `background-image:linear-gradient(${degree.value}deg${gradStr})`;
+          emitVal.degree = degree.value;
+          emitVal.color = gradArr;
+          emitVal.css = gradStyleStr;
+          break;
+        case "radial":
+          gradPreviewColor.value = `linear-gradient(to right,${gradStr.slice(1)}),url('${maskImgUrl}')`;
+          previewBackground.value = `radial-gradient(${gradStr.slice(1)}),url('${maskImgUrl}')`;
+          gradStyleStr = `background-image:radial-gradient(${gradStr.slice(1)})`;
+          emitVal.color = gradArr;
+          emitVal.css = gradStyleStr;
+          break;
+      }
+      emit("colorChanged", emitVal);
+    }
+    function getDegreePickerPos() {
+      const r = 10;
+      const bar_r = 4;
+      const elPos = getElPos(degreeEl.value);
+      const mousePos = getMousePos();
+      const rad = Math.atan2(elPos.top + r - mousePos.y, mousePos.x - elPos.left - r);
+      degreePickerEl.value.style.left = Math.cos(rad) * r + bar_r + 1 + "px";
+      degreePickerEl.value.style.top = -Math.sin(rad) * r + bar_r + 1 + "px";
+      let deg = 90 - Math.floor(rad * 180 / Math.PI);
+      if (deg < 0) {
+        deg += 360;
+      }
+      degree.value = deg;
+      updateGradColor();
+      updatePreviews();
+    }
+    function setDegreeHanderPos() {
+      const r = 10;
+      const bar_r = 4;
+      let deg = degree.value;
+      if (deg - 360 < 0) {
+        deg -= 360;
+      }
+      const rad = -(deg - 90) * (Math.PI / 180);
+      degreePickerEl.value.style.left = Math.cos(rad) * r + bar_r + 1 + "px";
+      degreePickerEl.value.style.top = -Math.sin(rad) * r + bar_r + 1 + "px";
+    }
+    function getPalettePickerPos() {
+      const elPos = getElPos(paletteEl.value);
+      const mousePos = getMousePos();
+      const left = Math.max(-6, Math.min(mousePos.x - elPos.left - 6, paletteWidth - 6));
+      const top = Math.max(-6, Math.min(mousePos.y - elPos.top - 6, paletteHeight - 6));
+      palettePickerEl.value.style.left = left + "px";
+      palettePickerEl.value.style.top = top + "px";
+      paletteColor.s = 100 * (left + 6) / paletteWidth;
+      paletteColor.b = 100 * (paletteHeight - top - 6) / paletteHeight;
+    }
+    function getHuePickerPos() {
+      const elPos = getElPos(hueBarEl.value);
+      const mousePos = getMousePos();
+      const left = Math.max(-3, Math.min(mousePos.x - elPos.left - 6, barWidth - 12));
+      huePickerEl.value.style.left = left + "px";
+      paletteColor.h = 360 * (left + 3) / (barWidth - 9);
+      const c = Utils.hsb2rgb({ h: paletteColor.h, s: 100, b: 100, a: paletteColor.a });
+      paletteEl.value.style.background = `rgb(${c.r},${c.g},${c.b},1)`;
+    }
+    function getOpacityPickerPos() {
+      const elPos = getElPos(opactiyBarEl.value);
+      const mousePos = getMousePos();
+      const left = Math.max(-3, Math.min(barWidth - 12, mousePos.x - elPos.left - 6));
+      opacityPickerEl.value.style.left = left + "px";
+      paletteColor.a = (left + 3) / (barWidth - 9);
+    }
+    function setPickerPos() {
+      const c = Utils.hsb2rgb({ h: paletteColor.h, s: 100, b: 100, a: paletteColor.a });
+      paletteEl.value.style.background = `rgb(${c.r},${c.g},${c.b},1)`;
+      palettePickerEl.value.style.left = paletteWidth / 100 * paletteColor.s - 6 + "px";
+      palettePickerEl.value.style.top = paletteHeight - paletteHeight / 100 * paletteColor.b - 6 + "px";
+      huePickerEl.value.style.left = (barWidth - 9) / 360 * paletteColor.h - 3 + "px";
+      opacityPickerEl.value.style.left = (barWidth - 9) * paletteColor.a - 3 + "px";
+    }
+    return (_ctx, _cache) => {
+      return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+          class: "cbtn",
+          onClick: _cache[0] || (_cache[0] = ($event) => isShowPanel.value = !isShowPanel.value),
+          ref_key: "cbtnEl",
+          ref: cbtnEl
+        }, [
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+            class: "cbtn-inner",
+            style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({ background: previewBackground.value })
+          }, null, 4)
+        ], 512),
+        (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+          class: "panel",
+          ref_key: "panelEl",
+          ref: panelEl,
+          onContextmenu: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(bindContext, ["prevent"])
+        }, [
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+              class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["btn-activeMode solid", activeMode.value === "solid" ? "" : "gray"]),
+              onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(($event) => changeMode("solid"), ["stop"]))
+            }, null, 2),
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+              class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["btn-activeMode linear", activeMode.value === "linear" ? "" : "gray"]),
+              onClick: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(($event) => changeMode("linear"), ["stop"]))
+            }, null, 2),
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+              class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["btn-activeMode radial", activeMode.value === "radial" ? "" : "gray"]),
+              onClick: _cache[3] || (_cache[3] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(($event) => changeMode("radial"), ["stop"]))
+            }, null, 2)
+          ]),
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+            class: "grad-wrapper",
+            style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)(activeMode.value === "solid" ? "display:none" : "")
+          }, [
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+              class: "grad-bar",
+              ref_key: "gradBarEl",
+              ref: gradBarEl,
+              style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({ backgroundImage: gradPreviewColor.value }),
+              onClick: _cache[4] || (_cache[4] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(($event) => addGradPicker(), ["stop"]))
+            }, [
+              ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(gradColors.value, (item, index) => {
+                return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+                  key: item.id,
+                  style: { "top": "-1px" },
+                  class: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["picker", index == activeGradPickerIndex.value ? "on" : ""]),
+                  onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(($event) => getGradPickerPos($event.target, index), ["stop"]),
+                  onMousedown: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(($event) => bindDown($event.target, getGradPickerPos, index), ["stop"])
+                }, null, 42, _hoisted_4);
+              }), 128))
+            ], 4),
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+              class: "flex-row",
+              style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)(activeMode.value === "linear" ? "" : "visibility:hidden")
+            }, [
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+                class: "degree",
+                ref_key: "degreeEl",
+                ref: degreeEl,
+                onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(getDegreePickerPos, ["stop"]),
+                onMousedown: _cache[6] || (_cache[6] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(($event) => bindDown($event, getDegreePickerPos), ["stop"]))
+              }, [
+                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+                  class: "picker-deg",
+                  ref_key: "degreePickerEl",
+                  ref: degreePickerEl,
+                  onMousedown: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(($event) => bindDown($event, getDegreePickerPos), ["stop"]))
+                }, null, 544)
+              ], 40, _hoisted_5),
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(degree.value) + "\xB0", 1)
+            ], 4)
+          ], 4),
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+              class: "palette",
+              ref_key: "paletteEl",
+              ref: paletteEl,
+              onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(getPalettePickerPos, ["stop"]),
+              onMousedown: _cache[8] || (_cache[8] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(($event) => bindDown($event, getPalettePickerPos), ["stop"]))
+            }, [
+              _hoisted_9,
+              _hoisted_10,
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+                class: "picker",
+                ref_key: "palettePickerEl",
+                ref: palettePickerEl,
+                onMousedown: _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(($event) => bindDown($event, getPalettePickerPos), ["stop"]))
+              }, null, 544)
+            ], 40, _hoisted_8)
+          ]),
+          (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+              class: "dropper",
+              onClick: dropColor,
+              style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)([{ "cursor": "pointer" }, isDropperEnabled.value ? "" : "opacity: 50%;cursor:default"])
+            }, null, 4),
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+                class: "hue-bar",
+                ref_key: "hueBarEl",
+                ref: hueBarEl,
+                onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(getHuePickerPos, ["stop"]),
+                onMousedown: _cache[10] || (_cache[10] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(($event) => bindDown($event, getHuePickerPos), ["stop"]))
+              }, [
+                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+                  class: "picker",
+                  ref_key: "huePickerEl",
+                  ref: huePickerEl,
+                  style: { "top": "-1px" },
+                  onMousedown: _cache[9] || (_cache[9] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(($event) => bindDown($event, getHuePickerPos), ["stop"]))
+                }, null, 544)
+              ], 40, _hoisted_13),
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+                class: "opacity-bar",
+                ref_key: "opactiyBarEl",
+                ref: opactiyBarEl,
+                onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(getOpacityPickerPos, ["stop"]),
+                onMousedown: _cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(($event) => bindDown($event, getOpacityPickerPos), ["stop"]))
+              }, [
+                (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+                  class: "picker",
+                  ref_key: "opacityPickerEl",
+                  ref: opacityPickerEl,
+                  style: { "top": "-1px" },
+                  onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(getOpacityPickerPos, ["stop"]),
+                  onMousedown: _cache[11] || (_cache[11] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(($event) => bindDown($event, getOpacityPickerPos), ["stop"]))
+                }, null, 40, _hoisted_15)
+              ], 40, _hoisted_14)
+            ]),
+            (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [
+              (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+                class: "preview-color",
+                style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({ background: previewColor.value })
+              }, null, 4)
+            ])
+          ])
+        ], 40, _hoisted_2), [
+          [vue__WEBPACK_IMPORTED_MODULE_0__.vShow, isShowPanel.value]
+        ])
+      ]);
+    };
+  }
+});
+var ColorPicker = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-4690211c"]]);
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@vue/compiler-core/dist/compiler-core.esm-bundler.js":
 /*!***************************************************************************!*\
   !*** ./node_modules/@vue/compiler-core/dist/compiler-core.esm-bundler.js ***!
@@ -22356,9 +22966,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Modals_CreateRoom_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Modals/CreateRoom.vue */ "./resources/js/Views/Room/Modals/CreateRoom.vue");
 /* harmony import */ var _Modals_UpdateRoom_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Modals/UpdateRoom.vue */ "./resources/js/Views/Room/Modals/UpdateRoom.vue");
 /* harmony import */ var _HelperStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/HelperStore */ "./resources/js/HelperStore.js");
-/* harmony import */ var _RoomStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../RoomStore */ "./resources/js/Views/Room/RoomStore.js");
-/* harmony import */ var pinia__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! pinia */ "./node_modules/pinia/dist/pinia.mjs");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _components_ButtonComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/ButtonComponent.vue */ "./resources/js/components/ButtonComponent.vue");
+/* harmony import */ var _RoomsGrid_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./RoomsGrid.vue */ "./resources/js/Views/Room/Table/RoomsGrid.vue");
+/* harmony import */ var _RoomStore__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../RoomStore */ "./resources/js/Views/Room/RoomStore.js");
+/* harmony import */ var pinia__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! pinia */ "./node_modules/pinia/dist/pinia.mjs");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
 
 
 
@@ -22371,17 +22985,18 @@ __webpack_require__.r(__webpack_exports__);
     var expose = _ref.expose;
     expose();
     var useHelper = (0,_HelperStore__WEBPACK_IMPORTED_MODULE_2__.HelperStore)();
-    var useStore = (0,_RoomStore__WEBPACK_IMPORTED_MODULE_3__.RoomStore)();
+    var useStore = (0,_RoomStore__WEBPACK_IMPORTED_MODULE_5__.RoomStore)();
 
-    var _storeToRefs = (0,pinia__WEBPACK_IMPORTED_MODULE_5__.storeToRefs)(useHelper),
+    var _storeToRefs = (0,pinia__WEBPACK_IMPORTED_MODULE_7__.storeToRefs)(useHelper),
         permiss = _storeToRefs.permiss,
         all = _storeToRefs.all;
 
     var ShowCreateModal = useHelper.ShowCreateModal,
         ShowUpdateModal = useHelper.ShowUpdateModal,
         deleteItem = useHelper.deleteItem;
-    (0,vue__WEBPACK_IMPORTED_MODULE_4__.onMounted)(function () {
+    (0,vue__WEBPACK_IMPORTED_MODULE_6__.onMounted)(function () {
       useHelper.getAll();
+      useStore.getRoomStatus();
     });
     var __returned__ = {
       useHelper: useHelper,
@@ -22394,9 +23009,82 @@ __webpack_require__.r(__webpack_exports__);
       CreatePermission: _Modals_CreateRoom_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
       UpdatePermission: _Modals_UpdateRoom_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
       HelperStore: _HelperStore__WEBPACK_IMPORTED_MODULE_2__.HelperStore,
-      RoomStore: _RoomStore__WEBPACK_IMPORTED_MODULE_3__.RoomStore,
-      storeToRefs: pinia__WEBPACK_IMPORTED_MODULE_5__.storeToRefs,
-      onMounted: vue__WEBPACK_IMPORTED_MODULE_4__.onMounted
+      ButtonComponent: _components_ButtonComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+      RoomsGrid: _RoomsGrid_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+      RoomStore: _RoomStore__WEBPACK_IMPORTED_MODULE_5__.RoomStore,
+      storeToRefs: pinia__WEBPACK_IMPORTED_MODULE_7__.storeToRefs,
+      onMounted: vue__WEBPACK_IMPORTED_MODULE_6__.onMounted
+    };
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Table/RoomsGrid.vue?vue&type=script&setup=true&lang=js":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Table/RoomsGrid.vue?vue&type=script&setup=true&lang=js ***!
+  \********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _components_CardComponent_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/CardComponent.vue */ "./resources/js/components/CardComponent.vue");
+/* harmony import */ var _HelperStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/HelperStore */ "./resources/js/HelperStore.js");
+/* harmony import */ var _RoomStore__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../RoomStore */ "./resources/js/Views/Room/RoomStore.js");
+
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  __name: 'RoomsGrid',
+  props: {
+    item: {
+      type: Object,
+      required: true
+    }
+  },
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    var props = __props;
+    var helper = (0,_HelperStore__WEBPACK_IMPORTED_MODULE_2__.HelperStore)();
+    var room = (0,_RoomStore__WEBPACK_IMPORTED_MODULE_3__.RoomStore)();
+
+    var updateItem = function updateItem() {
+      if (helper.permiss.updated) {
+        console.log(item);
+        helper.ShowUpdatedModal(item.value, room.setForm);
+      }
+    }; // props for the component
+
+
+    var _toRefs = (0,vue__WEBPACK_IMPORTED_MODULE_0__.toRefs)(props),
+        item = _toRefs.item; // const rate = pro.;
+    // let part =
+    // 	pro.item.relationships.partialCost.relationships.partialRate.attributes.name;
+
+
+    var __returned__ = {
+      helper: helper,
+      room: room,
+      updateItem: updateItem,
+      props: props,
+      item: item,
+      ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
+      computed: vue__WEBPACK_IMPORTED_MODULE_0__.computed,
+      toRefs: vue__WEBPACK_IMPORTED_MODULE_0__.toRefs,
+      CardComponent: _components_CardComponent_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+      HelperStore: _HelperStore__WEBPACK_IMPORTED_MODULE_2__.HelperStore,
+      RoomStore: _RoomStore__WEBPACK_IMPORTED_MODULE_3__.RoomStore
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -22419,24 +23107,36 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mcistudio_vue_colorpicker__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @mcistudio/vue-colorpicker */ "./node_modules/@mcistudio/vue-colorpicker/dist/colorpicker.es.js");
+/* harmony import */ var _mcistudio_vue_colorpicker_dist_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mcistudio/vue-colorpicker/dist/style.css */ "./node_modules/@mcistudio/vue-colorpicker/dist/style.css");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "RoomStatusCreate",
-  components: {},
+  components: {
+    ColorPicker: _mcistudio_vue_colorpicker__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
   created: function created() {},
   data: function data() {
     return {
-      form: this.getClearFormObject()
+      form: this.getClearFormObject(),
+      btnDisabled: false
     };
   },
   methods: {
+    getColor: function getColor(color) {
+      console.log(color);
+      this.form.color = color;
+    },
     createPermission: function createPermission() {
       var _this = this;
 
+      this.btnDisabled = true;
       var url = "/configuracion/room-status/create";
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post(url, this.form).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post(url, this.form).then(function (response) {
         _this.errors = [];
 
         _this.getClearFormObject();
@@ -22444,12 +23144,15 @@ __webpack_require__.r(__webpack_exports__);
         $("#exampleModal").modal("hide");
 
         _this.$emit("GetCreatedPermission");
-      })["catch"](function (error) {});
+      })["catch"](function (error) {})["finally"](function () {
+        return _this.btnDisabled = false;
+      });
     },
     getClearFormObject: function getClearFormObject() {
       return {
         name: null,
-        description: null
+        description: null,
+        color: null
       };
     }
   }
@@ -22470,20 +23173,26 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _mcistudio_vue_colorpicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @mcistudio/vue-colorpicker */ "./node_modules/@mcistudio/vue-colorpicker/dist/colorpicker.es.js");
+
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "RoomTypeUpdate",
-  components: {},
+  components: {
+    ColorPicker: _mcistudio_vue_colorpicker__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   created: function created() {},
   data: function data() {
     return {
-      form: this.getClearFormObject()
+      form: this.getClearFormObject(),
+      btnDisabled: false
     };
   },
   methods: {
     createPermission: function createPermission() {
       var _this = this;
 
+      this.btnDisabled = true;
       var url = "/configuracion/room-status/" + this.form.id;
       axios__WEBPACK_IMPORTED_MODULE_0___default().put(url, this.form).then(function (response) {
         _this.errors = [];
@@ -22493,19 +23202,27 @@ __webpack_require__.r(__webpack_exports__);
         $("#exampleModal2").modal("hide");
 
         _this.$emit("GetCreatedPermission");
-      })["catch"](function (error) {});
+      })["catch"](function (error) {})["finally"](function () {
+        return _this.btnDisabled = false;
+      });
     },
     UpdateGetPermission: function UpdateGetPermission(permission) {
       this.form.name = permission.attributes.name;
       this.form.description = permission.attributes.description;
+      this.form.color = permission.attributes.color;
       this.form.id = permission.id;
     },
     getClearFormObject: function getClearFormObject() {
       return {
         id: null,
         name: null,
-        description: null
+        description: null,
+        color: null
       };
+    },
+    getColor: function getColor(color) {
+      console.log(color);
+      this.form.color = color;
     }
   }
 });
@@ -24584,6 +25301,110 @@ __webpack_require__.r(__webpack_exports__);
       UserStore: _UserStore__WEBPACK_IMPORTED_MODULE_1__.UserStore,
       RoleStore: _Roles_RoleStore__WEBPACK_IMPORTED_MODULE_2__.RoleStore,
       onMounted: vue__WEBPACK_IMPORTED_MODULE_3__.onMounted
+    };
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/ButtonComponent.vue?vue&type=script&setup=true&lang=js":
+/*!********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/ButtonComponent.vue?vue&type=script&setup=true&lang=js ***!
+  \********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  __name: 'ButtonComponent',
+  props: {
+    text: {
+      type: String,
+      "default": "Button"
+    },
+    btnClass: {
+      type: String,
+      "default": "btn-primary"
+    },
+    disabled: {
+      type: Boolean,
+      "default": false
+    }
+  },
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    var props = __props;
+    var __returned__ = {
+      props: props,
+      ref: vue__WEBPACK_IMPORTED_MODULE_0__.ref,
+      toRefs: vue__WEBPACK_IMPORTED_MODULE_0__.toRefs
+    };
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CardComponent.vue?vue&type=script&setup=true&lang=js":
+/*!******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CardComponent.vue?vue&type=script&setup=true&lang=js ***!
+  \******************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  __name: 'CardComponent',
+  props: {
+    cardClass: {
+      type: Array
+    },
+    style: {
+      type: String,
+      "default": "max-width: 18rem"
+    },
+    footer: {
+      type: Boolean,
+      "default": false
+    },
+    titleClass: {
+      type: Array,
+      "default": []
+    },
+    bodyClass: {
+      type: Array,
+      "default": []
+    },
+    footerClass: {
+      type: Array,
+      "default": []
+    }
+  },
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    var props = __props; // props for the component
+
+    var __returned__ = {
+      props: props
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -28708,95 +29529,124 @@ var _hoisted_5 = {
   "class": "card-body"
 };
 var _hoisted_6 = {
-  "class": "table-responsive"
-};
-var _hoisted_7 = {
   "class": "col text-right"
 };
 
-var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "fas fa-check"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "text font-montserrat font-weight-bold"
 }, "Crear Habitacion", -1
 /* HOISTED */
 );
 
-var _hoisted_10 = [_hoisted_8, _hoisted_9];
-var _hoisted_11 = {
-  "class": "table table-bordered",
-  id: "dataTable",
-  width: "100%",
-  cellspacing: "0"
+var _hoisted_9 = [_hoisted_7, _hoisted_8];
+var _hoisted_10 = {
+  "class": "mb-2"
 };
-
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "ID"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "N° Habitación"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Descripción"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tarifa"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Parcial Mínimo"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tipo de Habitación"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Estado"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Accion")])], -1
-/* HOISTED */
-);
-
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tfoot", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "ID"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "N° Habitación"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Descripción"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tarifa"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Parcial Mínimo"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Tipo de Habitación"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Estado"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Accion")])], -1
-/* HOISTED */
-);
-
-var _hoisted_14 = ["onClick"];
-var _hoisted_15 = ["onClick"];
+var _hoisted_11 = {
+  "class": "row"
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Breadcrumbs"), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" DataTables Example "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [$setup.permiss.create ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Breadcrumbs"), _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" DataTables Example "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [$setup.permiss.create ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("a", {
     key: 0,
     "data-toggle": "modal",
     onClick: _cache[0] || (_cache[0] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $setup.ShowCreateModal();
     }, ["prevent"])),
     "class": "btn btn-primary text-white btn-icon-split mb-4"
-  }, _hoisted_10)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_11, [_hoisted_12, _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.all, function (keep) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
-      key: keep.id
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.id), 1
-    /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.attributes.name), 1
-    /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.attributes.description), 1
-    /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.relationships.partialCost.attributes.rate), 1
-    /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.relationships.partialCost.relationships.partialRate.attributes.name), 1
-    /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.relationships.partialCost.relationships.roomType.attributes.name), 1
-    /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.relationships.roomStatus.attributes.name), 1
-    /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [$setup.permiss.updated ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("i", {
-      key: 0,
-      onClick: function onClick($event) {
-        return $setup.useHelper.ShowUpdatedModal(keep, $setup.useStore.setForm);
-      },
-      "class": "ico fas fa-edit fa-lg text-secondary",
-      style: {
-        "cursor": "pointer"
-      },
-      title: "Borrar"
+  }, _hoisted_9)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.useStore.roomStatus, function (status, i) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ButtonComponent"], {
+      btnClass: ['btn-primary', 'mx-1'],
+      key: i,
+      text: status.attributes.name
     }, null, 8
     /* PROPS */
-    , _hoisted_14)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.permiss.deletet ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("i", {
-      key: 1,
-      onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
-        return $setup.deleteItem(keep);
-      }, ["prevent"]),
-      "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(keep.attributes.deleted_at ? 'ico fas fa-trash-restore-alt fa-lg text-secondary' : 'ico fas fa-trash fa-lg text-secondary'),
-      style: {
-        "cursor": "pointer"
-      },
-      title: "Borrar"
-    }, null, 10
-    /* CLASS, PROPS */
-    , _hoisted_15)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+    , ["text"]);
   }), 128
   /* KEYED_FRAGMENT */
-  ))])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["CreatePermission"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["UpdatePermission"])]);
+  ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.all, function (item, i) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      "class": "col-3",
+      key: i
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RoomsGrid"], {
+      item: item
+    }, null, 8
+    /* PROPS */
+    , ["item"])]);
+  }), 128
+  /* KEYED_FRAGMENT */
+  ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <table\n\t\t\t\t\t\tclass=\"table table-bordered\"\n\t\t\t\t\t\tid=\"dataTable\"\n\t\t\t\t\t\twidth=\"100%\"\n\t\t\t\t\t\tcellspacing=\"0\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<th>ID</th>\n\t\t\t\t\t\t\t\t<th>N° Habitación</th>\n\t\t\t\t\t\t\t\t<th>Descripción</th>\n\t\t\t\t\t\t\t\t<th>Tarifa</th>\n\t\t\t\t\t\t\t\t<th>Parcial Mínimo</th>\n\t\t\t\t\t\t\t\t<th>Tipo de Habitación</th>\n\t\t\t\t\t\t\t\t<th>Estado</th>\n\t\t\t\t\t\t\t\t<th>Accion</th>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t<tfoot>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<th>ID</th>\n\t\t\t\t\t\t\t\t<th>N° Habitación</th>\n\t\t\t\t\t\t\t\t<th>Descripción</th>\n\t\t\t\t\t\t\t\t<th>Tarifa</th>\n\t\t\t\t\t\t\t\t<th>Parcial Mínimo</th>\n\t\t\t\t\t\t\t\t<th>Tipo de Habitación</th>\n\t\t\t\t\t\t\t\t<th>Estado</th>\n\t\t\t\t\t\t\t\t<th>Accion</th>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</tfoot>\n\t\t\t\t\t\t<tbody>\n\t\t\t\t\t\t\t<tr v-for=\"keep in all\" :key=\"keep.id\">\n\t\t\t\t\t\t\t\t<td>{{ keep.id }}</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t{{ keep.attributes.name }}\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t{{ keep.attributes.description }}\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t{{ keep.relationships.partialCost.attributes.rate }}\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t{{\n\t\t\t\t\t\t\t\t\t\tkeep.relationships.partialCost.relationships\n\t\t\t\t\t\t\t\t\t\t\t.partialRate.attributes.name\n\t\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t\t</td>\n\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t{{\n\t\t\t\t\t\t\t\t\t\tkeep.relationships.partialCost.relationships\n\t\t\t\t\t\t\t\t\t\t\t.roomType.attributes.name\n\t\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t{{ keep.relationships.roomStatus.attributes.name }}\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t<i\n\t\t\t\t\t\t\t\t\t\t@click=\"\n\t\t\t\t\t\t\t\t\t\t\tuseHelper.ShowUpdatedModal(\n\t\t\t\t\t\t\t\t\t\t\t\tkeep,\n\t\t\t\t\t\t\t\t\t\t\t\tuseStore.setForm\n\t\t\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t\t\tv-if=\"permiss.updated\"\n\t\t\t\t\t\t\t\t\t\tclass=\"ico fas fa-edit fa-lg text-secondary\"\n\t\t\t\t\t\t\t\t\t\tstyle=\"cursor: pointer\"\n\t\t\t\t\t\t\t\t\t\ttitle=\"Borrar\"\n\t\t\t\t\t\t\t\t\t></i>\n\n\t\t\t\t\t\t\t\t\t<i\n\t\t\t\t\t\t\t\t\t\tv-on:click.prevent=\"deleteItem(keep)\"\n\t\t\t\t\t\t\t\t\t\tv-if=\"permiss.deletet\"\n\t\t\t\t\t\t\t\t\t\t:class=\"\n\t\t\t\t\t\t\t\t\t\t\tkeep.attributes.deleted_at\n\t\t\t\t\t\t\t\t\t\t\t\t? 'ico fas fa-trash-restore-alt fa-lg text-secondary'\n\t\t\t\t\t\t\t\t\t\t\t\t: 'ico fas fa-trash fa-lg text-secondary'\n\t\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t\t\tstyle=\"cursor: pointer\"\n\t\t\t\t\t\t\t\t\t\ttitle=\"Borrar\"\n\t\t\t\t\t\t\t\t\t></i>\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</tbody>\n\t\t\t\t\t</table> ")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["CreatePermission"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["UpdatePermission"])]);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Table/RoomsGrid.vue?vue&type=template&id=f59a55b0":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Table/RoomsGrid.vue?vue&type=template&id=f59a55b0 ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Detalles:", -1
+/* HOISTED */
+);
+
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Tipo Habitación:", -1
+/* HOISTED */
+);
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["CardComponent"], {
+    footer: "",
+    cardClass: [''],
+    bodyClass: ['fs-6'],
+    titleClass: ['text-center', 'fw-bold'],
+    footerClass: ['text-center', 'fw-bold'],
+    onDblclick: $setup.updateItem
+  }, {
+    title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.attributes.name) + " ", 1
+      /* TEXT */
+      ), _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)("$".concat($setup.item.relationships.partialCost.attributes.rate, " (").concat($setup.item.relationships.partialCost.relationships.partialRate.attributes.name, ")")), 1
+      /* TEXT */
+      )];
+    }),
+    body: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.attributes.description) + " ", 1
+      /* TEXT */
+      ), _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <b>Precio - Parcial:</b> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <br /> "), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.relationships.partialCost.relationships.roomType.attributes.name), 1
+      /* TEXT */
+      )];
+    }),
+    footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.relationships.roomStatus.attributes.name), 1
+      /* TEXT */
+      )];
+    }),
+    _: 1
+    /* STABLE */
+
+  });
 }
 
 /***/ }),
@@ -28864,11 +29714,18 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_8 = {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  form: "color",
+  "class": "form-label"
+}, "Color", -1
+/* HOISTED */
+);
+
+var _hoisted_9 = {
   "class": "modal-footer"
 };
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   "class": "btn btn-danger text-white btn-icon-split mb-4",
   "data-dismiss": "modal"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
@@ -28877,14 +29734,18 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_11 = ["disabled"];
+
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "text font-montserrat font-weight-bold"
 }, "Crear Tipo Habitacion", -1
 /* HOISTED */
 );
 
-var _hoisted_11 = [_hoisted_10];
+var _hoisted_13 = [_hoisted_12];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_ColorPicker = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ColorPicker");
+
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "name",
     id: "name",
@@ -28907,12 +29768,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.description]]), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ColorPicker, {
+    mode: "solid",
+    onColorChanged: $options.getColor
+  }, null, 8
+  /* PROPS */
+  , ["onColorChanged"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    disabled: $data.btnDisabled,
     onClick: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $options.createPermission();
     }, ["prevent"])),
     "class": "btn btn-primary text-white btn-icon-split mb-4"
-  }, _hoisted_11)])])])])]);
+  }, _hoisted_13, 8
+  /* PROPS */
+  , _hoisted_11)])])])])]);
 }
 
 /***/ }),
@@ -28980,11 +29849,18 @@ var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_8 = {
+var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+  form: "color",
+  "class": "form-label"
+}, "Color", -1
+/* HOISTED */
+);
+
+var _hoisted_9 = {
   "class": "modal-footer"
 };
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   "class": "btn btn-danger text-white btn-icon-split mb-4",
   "data-dismiss": "modal"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
@@ -28993,14 +29869,18 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_11 = ["disabled"];
+
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "text font-montserrat font-weight-bold"
 }, "Modificar Estado Habitacion", -1
 /* HOISTED */
 );
 
-var _hoisted_11 = [_hoisted_10];
+var _hoisted_13 = [_hoisted_12];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _component_ColorPicker = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("ColorPicker");
+
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "name",
     id: "name",
@@ -29023,12 +29903,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.description]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.form.description]]), _hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ColorPicker, {
+    mode: "solid",
+    onColorChanged: $options.getColor
+  }, null, 8
+  /* PROPS */
+  , ["onColorChanged"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    disabled: $data.btnDisabled,
     onClick: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $options.createPermission();
     }, ["prevent"])),
     "class": "btn btn-primary text-white btn-icon-split mb-4"
-  }, _hoisted_11)])])])])]);
+  }, _hoisted_13, 8
+  /* PROPS */
+  , _hoisted_11)])])])])]);
 }
 
 /***/ }),
@@ -29137,16 +30025,25 @@ var _hoisted_11 = {
   cellspacing: "0"
 };
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "ID"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Nombre"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Descripcion"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Accion")])], -1
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("thead", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "ID"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Nombre"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Descripcion"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Color"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Accion")])], -1
 /* HOISTED */
 );
 
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tfoot", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "ID"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Nombre"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Descripcion"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Accion")])], -1
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tfoot", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "ID"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Nombre"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Descripcion"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Color"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", null, "Accion")])], -1
 /* HOISTED */
 );
 
-var _hoisted_14 = ["onClick"];
-var _hoisted_15 = ["onClick"];
+var _hoisted_14 = {
+  "class": "p-3"
+};
+
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_16 = [_hoisted_15];
+var _hoisted_17 = ["onClick"];
+var _hoisted_18 = ["onClick"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_create_permission = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("create-permission");
 
@@ -29160,6 +30057,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, ["prevent"])),
     "class": "btn btn-primary text-white btn-icon-split mb-4"
   }, _hoisted_10)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", _hoisted_11, [_hoisted_12, _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tbody", null, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.keeps, function (keep) {
+    var _keep$attributes$colo, _keep$attributes$colo2;
+
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: keep.id
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.id), 1
@@ -29168,7 +30067,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     /* TEXT */
     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.attributes.description), 1
     /* TEXT */
-    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [$props.updated ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("i", {
+    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+      style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)((_keep$attributes$colo = (_keep$attributes$colo2 = keep.attributes.color) === null || _keep$attributes$colo2 === void 0 ? void 0 : _keep$attributes$colo2.css) !== null && _keep$attributes$colo !== void 0 ? _keep$attributes$colo : 'background-color:#ffffff')
+    }, _hoisted_16, 4
+    /* STYLE */
+    )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [$props.updated ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("i", {
       key: 0,
       onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
         return $options.UpdatedPermission(keep);
@@ -29180,7 +30083,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       title: "Borrar"
     }, null, 8
     /* PROPS */
-    , _hoisted_14)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.deletet ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("i", {
+    , _hoisted_17)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $props.deletet ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("i", {
       key: 1,
       onClick: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
         return $options.deletePermission(keep);
@@ -29192,7 +30095,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       title: "Borrar"
     }, null, 10
     /* CLASS, PROPS */
-    , _hoisted_15)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
+    , _hoisted_18)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]);
   }), 128
   /* KEYED_FRAGMENT */
   ))])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_create_permission, {
@@ -32870,6 +33773,73 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/ButtonComponent.vue?vue&type=template&id=c59fa660":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/ButtonComponent.vue?vue&type=template&id=c59fa660 ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+var _hoisted_1 = ["disabled"];
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", {
+    type: "button",
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["btn", $props.btnClass]),
+    disabled: $props.disabled
+  }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.text), 11
+  /* TEXT, CLASS, PROPS */
+  , _hoisted_1);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2":
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2 ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["card mb-3", $props.cardClass]),
+    style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)($props.style)
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["card-header", $props.titleClass])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "title", {}, function () {
+    return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Titulo")];
+  })], 2
+  /* CLASS */
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["card-body", $props.bodyClass])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "body", {}, function () {
+    return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Body")];
+  })], 2
+  /* CLASS */
+  ), $props.footer ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+    key: 0,
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["card-footer", $props.footerClass])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "footer")], 2
+  /* CLASS */
+  )) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 6
+  /* CLASS, STYLE */
+  );
+}
+
+/***/ }),
+
 /***/ "./resources/js/HelperStore.js":
 /*!*************************************!*\
   !*** ./resources/js/HelperStore.js ***!
@@ -35619,6 +36589,54 @@ function blitBuffer (src, dst, offset, length) {
 function isnan (val) {
   return val !== val // eslint-disable-line no-self-compare
 }
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Table/RoomDataTable.vue?vue&type=style&index=0&id=19c1ebf3&lang=scss":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Table/RoomDataTable.vue?vue&type=style&index=0&id=19c1ebf3&lang=scss ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/@mcistudio/vue-colorpicker/dist/style.css":
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/@mcistudio/vue-colorpicker/dist/style.css ***!
+  \************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, ".flex-row[data-v-4690211c]{display:flex;flex-direction:row;align-items:center}.flex-column[data-v-4690211c]{display:flex;flex-direction:column;align-items:center}.cbtn[data-v-4690211c]{border:1px solid #dcdfe6;background:#ffffff;border-radius:4px;width:40px;height:40px;padding:6px}.cbtn-inner[data-v-4690211c]{background:#dcdfe6;width:100%;height:100%}.panel[data-v-4690211c]{position:absolute;background:#fff;top:45px;width:240px;border:1px solid #dcdfe6;border-radius:6px;z-index:1000}.panel[data-v-4690211c]:before{content:\"\";display:block;position:absolute;top:-6px;left:10px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid #dcdfe6}.panel[data-v-4690211c]:after{content:\"\";display:block;position:absolute;top:-5px;left:10px;border-left:6px solid transparent;border-right:6px solid transparent;border-bottom:6px solid #ffffff}.activeMode-wrapper[data-v-4690211c]{border-bottom:1px solid #dcdfe6;height:40px;display:flex;flex-direction:row;align-items:center;padding-left:12px}.btn-activeMode[data-v-4690211c]{border:1px solid #ff7d3a;margin-right:12px;border-radius:50%;width:14px;height:14px;cursor:pointer}.btn-activeMode.solid[data-v-4690211c]{background:#ffc9b6}.btn-activeMode.solid.gray[data-v-4690211c]{border:1px solid #7d7d7d;background:#e2e2e2}.btn-activeMode.linear[data-v-4690211c]{background:linear-gradient(180deg,#ffc9b6,#ff5011)}.btn-activeMode.linear.gray[data-v-4690211c]{border:1px solid #7d7d7d;background:linear-gradient(180deg,#ffffff,#999999)}.btn-activeMode.radial[data-v-4690211c]{background-image:radial-gradient(circle,#ffc9b6,#ff5011)}.btn-activeMode.radial.gray[data-v-4690211c]{border:1px solid #7d7d7d;background:radial-gradient(circle,#ffffff,#999999)}.palette-wrapper[data-v-4690211c]{margin:10px;height:140px;position:relative;border:1px solid #dcdfe6;border-radius:4px}.palette[data-v-4690211c]{position:absolute;overflow:hidden;inset:0px;border-radius:4px;background:rgb(255,0,0)}.palette .white[data-v-4690211c]{position:absolute;inset:0px;background:linear-gradient(to right,#fff,rgba(255,255,255,0))}.palette .black[data-v-4690211c]{position:absolute;inset:0px;background:linear-gradient(to top,#000,rgba(0,0,0,0))}.picker[data-v-4690211c]{position:absolute;width:14px;height:14px;top:-4px;left:-4px}.picker[data-v-4690211c]:before{content:\"\";top:3px;left:3px;position:absolute;width:6px;height:6px;display:block;background:rgba(255,255,255,0);box-shadow:0 0 0 1px #979797,0 0 0 3px #fff,0 0 0 4px #979797;border-radius:50%;cursor:default}.picker.on[data-v-4690211c]:before{box-shadow:0 0 0 1px #979797,0 0 0 3px #f50,0 0 0 4px #979797}.dropper[data-v-4690211c]{width:25px;height:30px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAyCAYAAAATIfj2AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAANKADAAQAAAABAAAAMgAAAADS/xijAAAEnklEQVRoBe2Yz0sVURTH73u+J/4WDX+kaIJmCGlKUrTqF4WbpD9Ac6H5A6KCiGwRBS6yVtnGH+DC2rU0F0KUtTSMRAPJDKmHpUiKPxea2vc7vivzHjPzrr6RnjAXxjtz59y553POueeepxBOcyzgWMCxgGOBA2QBVyTp2t3dnbi+vv4AOp336/U+ISGhpaqqalFVz4gB6ujoOLq1tfUGih/RK+9yuX56vd7LtbW1X/XjZvcRAeSHeQ8ls5KTk0VBQYGm78TEhFhYWBCA+g2o8ypQ/x1ID5OSkiKKi4tFVFSUBrS5uSlGRkbE/Pw8oX4i/IpDhZ9Hm7kPfzo7O/Px2dsIo5Povbg+ezye9rq6us9yOSsYyrjdblFSUiKGh4fpqdzl5WXur7tyvlHvNhoMdwyKNgJkBBa+gf4MrnJc17HhPwL0Ib8fCkbqQCgZghg7J8fNets9BIWbAfKYC2ZnZ4uMjAyGi5idnRU+n8+Dd4/a29vzAXgRIlnBYWamqOq4rUB6mKKiIpGZmbmjR1JSkqDyo6OjAlDVfKECs7GxIZgc/G1A3pj1toUcYE5LzwTDyMVTU1O1Tc8wUoWhAZjp0H4g07XIb5n1tnkIMEVcBJlIpKenm60nCFVWVibi4+N3spmRMD1DGGY4tF8I20tI20tGsvox2zwUFxf3mgsjE2mpFoD6dQLuGX4yNQe88D8YwJxrbGz8ZiQbPGYbUE1NzZ/o6OgLPARpVZ4fVlDBisjncGD4DdsPVtRjx5CeB5DFDnOf8BzhnlFp4cJwDbWVVLTxy/jLE9ZkWvyresoOGK5pOxDOmDZ45xr3SExMjDIU954/m1Gvt6p7hsL6tl006UfCuCcMpt8kTEVFhSgtLRWTk5NicXFRu5j9eMgaNcIzWfAAhkFOVFZWir6+vg9GslZjxl+3mmHyLhgmJydHk6TVe3t7xcrKinb2hNpTc3NzWkIB1F+cO6f0tZ/J0gHDtnjIDIYr0fJ5eXnKnoqNjRXcTzCEG1BueInHgXILew9ZwUgt+BuHIaS6p9LS0uTUMnmj2ocFpAIjFeE+QjrXHkOdU/CMnLY9QT4p9HsG2g0MqmzR39+vhRKSwotQh+/MzIymOuQ+KTAEiOwJaK8wWPk50nENf06bQU1PT4upqSlmw1XIPwvQVuFh10DhwDQ1Nd2iTjx8jaAIMzY2JtW+09DQ8F0+qPa7Stt2wOgV05dJrNJ5uLKhVLoPmFa9rOq9MpDdMFJBQq2trb3DcxbHEGrNCMsn8v1ueyWg/YKRyvb09BxaXV29As+MwTODcnwvfUgg/DOjFWn0nixnZAVgtJg+m+H9c7lnjGT3a8wSqKur6yx+0wzAci7WZpEOQyNZZjnAVMM7rvLy8gMBExIIAlqFqStFOCegRUKY6RWy9BAEv1B4fHxcP2fnPtJgqJglEFJoG64lAg0OBiafSIQhkGVSoAD+33YV++gVLm9hYaHgxR9hQ0NDWm0Gkf+SzaibUQsJxEl+qBeASpQfgedYEj/FIdgsxyKhVwKiooDKBRBrseO4fEjlL+vr6z/wndMcCzgWcCzgWMCxgGOBbQv8A9futsRv4eXoAAAAAElFTkSuQmCC) center center no-repeat;background-size:25px}.grad-wrapper[data-v-4690211c]{display:flex;flex-direction:row;justify-content:space-between;align-items:center;margin:10px 10px 0}.grad-wrapper .grad-bar[data-v-4690211c]{border:1px solid #aaaaaa;border-radius:8px;height:12px;width:150px;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAM0lEQVQ4EWM8cuTIfwY8wMbGhhGPNAMTPkli5EYNYBgEgYg3jkHRSCidjEbjYIhGimMBAKIWB2rXs92IAAAAAElFTkSuQmCC);background-size:auto 100%;display:absolute}.degree[data-v-4690211c]{border:1px solid #aaaaaa;border-radius:50%;width:20px;height:20px}.picker-deg[data-v-4690211c]{border:1px solid #aaaaaa;border-radius:5px;width:8px;height:8px;background:#cccccc}.huebar-wrapper[data-v-4690211c]{margin:10px;display:flex;flex-direction:row;justify-content:space-between;align-items:center}.huebar-wrapper .bar-wrapper[data-v-4690211c]{display:flex;flex-direction:column;justify-content:space-between;height:30px}.huebar-wrapper .hue-bar[data-v-4690211c],.huebar-wrapper .opacity-bar[data-v-4690211c]{border:1px solid #aaaaaa;border-radius:8px;width:150px;height:12px}.huebar-wrapper .hue-bar[data-v-4690211c]{background:linear-gradient(to right,#f00 0%,#ff0 17%,#0f0 33%,#0ff 50%,#00f 67%,#f0f 83%,#f00 100%)}.huebar-wrapper .opacity-bar[data-v-4690211c]{background-image:linear-gradient(to right,rgba(255,255,255,0) 0%,rgb(255,255,255) 100%),url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAM0lEQVQ4EWM8cuTIfwY8wMbGhhGPNAMTPkli5EYNYBgEgYg3jkHRSCidjEbjYIhGimMBAKIWB2rXs92IAAAAAElFTkSuQmCC);background-size:auto 100%}.preview-wrapper[data-v-4690211c]{width:30px;height:30px;border-radius:50%;border:1px solid #aaaaaa;background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAEKADAAQAAAABAAAAEAAAAAA0VXHyAAAAM0lEQVQ4EWM8cuTIfwY8wMbGhhGPNAMTPkli5EYNYBgEgYg3jkHRSCidjEbjYIhGimMBAKIWB2rXs92IAAAAAElFTkSuQmCC);background-size:50% 50%}.preview-color[data-v-4690211c]{width:28px;height:28px;border-radius:50%}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
@@ -64570,6 +65588,66 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Table/RoomDataTable.vue?vue&type=style&index=0&id=19c1ebf3&lang=scss":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Table/RoomDataTable.vue?vue&type=style&index=0&id=19c1ebf3&lang=scss ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_RoomDataTable_vue_vue_type_style_index_0_id_19c1ebf3_lang_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./RoomDataTable.vue?vue&type=style&index=0&id=19c1ebf3&lang=scss */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Table/RoomDataTable.vue?vue&type=style&index=0&id=19c1ebf3&lang=scss");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_RoomDataTable_vue_vue_type_style_index_0_id_19c1ebf3_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_RoomDataTable_vue_vue_type_style_index_0_id_19c1ebf3_lang_scss__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
+/***/ "./node_modules/@mcistudio/vue-colorpicker/dist/style.css":
+/*!****************************************************************!*\
+  !*** ./node_modules/@mcistudio/vue-colorpicker/dist/style.css ***!
+  \****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _css_loader_dist_cjs_js_clonedRuleSet_9_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!../../../postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./style.css */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/@mcistudio/vue-colorpicker/dist/style.css");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_style_css__WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_postcss_loader_dist_cjs_js_clonedRuleSet_9_use_2_style_css__WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/toastr/build/toastr.css":
 /*!**********************************************!*\
   !*** ./node_modules/toastr/build/toastr.css ***!
@@ -69736,13 +70814,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DayWeek_vue_vue_type_template_id_5a5dc2c2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DayWeek.vue?vue&type=template&id=5a5dc2c2 */ "./resources/js/Views/DayWeek/DayWeek.vue?vue&type=template&id=5a5dc2c2");
 /* harmony import */ var _DayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DayWeek.vue?vue&type=script&lang=js */ "./resources/js/Views/DayWeek/DayWeek.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayWeek_vue_vue_type_template_id_5a5dc2c2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/DayWeek.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayWeek_vue_vue_type_template_id_5a5dc2c2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/DayWeek.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69764,13 +70842,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateDayWeek_vue_vue_type_template_id_627dbee9__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateDayWeek.vue?vue&type=template&id=627dbee9 */ "./resources/js/Views/DayWeek/Modals/CreateDayWeek.vue?vue&type=template&id=627dbee9");
 /* harmony import */ var _CreateDayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateDayWeek.vue?vue&type=script&lang=js */ "./resources/js/Views/DayWeek/Modals/CreateDayWeek.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateDayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateDayWeek_vue_vue_type_template_id_627dbee9__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/Modals/CreateDayWeek.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateDayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateDayWeek_vue_vue_type_template_id_627dbee9__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/Modals/CreateDayWeek.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69792,13 +70870,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateDayWeek_vue_vue_type_template_id_1d1f9608__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateDayWeek.vue?vue&type=template&id=1d1f9608 */ "./resources/js/Views/DayWeek/Modals/UpdateDayWeek.vue?vue&type=template&id=1d1f9608");
 /* harmony import */ var _UpdateDayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateDayWeek.vue?vue&type=script&lang=js */ "./resources/js/Views/DayWeek/Modals/UpdateDayWeek.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateDayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateDayWeek_vue_vue_type_template_id_1d1f9608__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/Modals/UpdateDayWeek.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateDayWeek_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateDayWeek_vue_vue_type_template_id_1d1f9608__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/Modals/UpdateDayWeek.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69820,13 +70898,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DayWeekDataTable_vue_vue_type_template_id_13b7a113__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DayWeekDataTable.vue?vue&type=template&id=13b7a113 */ "./resources/js/Views/DayWeek/Table/DayWeekDataTable.vue?vue&type=template&id=13b7a113");
 /* harmony import */ var _DayWeekDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DayWeekDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/DayWeek/Table/DayWeekDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayWeekDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayWeekDataTable_vue_vue_type_template_id_13b7a113__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/Table/DayWeekDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayWeekDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayWeekDataTable_vue_vue_type_template_id_13b7a113__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/DayWeek/Table/DayWeekDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69848,13 +70926,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _EstateType_vue_vue_type_template_id_888a92c0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EstateType.vue?vue&type=template&id=888a92c0 */ "./resources/js/Views/EstateType/EstateType.vue?vue&type=template&id=888a92c0");
 /* harmony import */ var _EstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EstateType.vue?vue&type=script&lang=js */ "./resources/js/Views/EstateType/EstateType.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_EstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_EstateType_vue_vue_type_template_id_888a92c0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/EstateType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_EstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_EstateType_vue_vue_type_template_id_888a92c0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/EstateType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69876,13 +70954,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateEstateType_vue_vue_type_template_id_7e79b461__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateEstateType.vue?vue&type=template&id=7e79b461 */ "./resources/js/Views/EstateType/Modals/CreateEstateType.vue?vue&type=template&id=7e79b461");
 /* harmony import */ var _CreateEstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateEstateType.vue?vue&type=script&lang=js */ "./resources/js/Views/EstateType/Modals/CreateEstateType.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateEstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateEstateType_vue_vue_type_template_id_7e79b461__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/Modals/CreateEstateType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateEstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateEstateType_vue_vue_type_template_id_7e79b461__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/Modals/CreateEstateType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69904,13 +70982,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateEstateType_vue_vue_type_template_id_67f4216e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateEstateType.vue?vue&type=template&id=67f4216e */ "./resources/js/Views/EstateType/Modals/UpdateEstateType.vue?vue&type=template&id=67f4216e");
 /* harmony import */ var _UpdateEstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateEstateType.vue?vue&type=script&lang=js */ "./resources/js/Views/EstateType/Modals/UpdateEstateType.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateEstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateEstateType_vue_vue_type_template_id_67f4216e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/Modals/UpdateEstateType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateEstateType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateEstateType_vue_vue_type_template_id_67f4216e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/Modals/UpdateEstateType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69932,13 +71010,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _EstateTypeDataTable_vue_vue_type_template_id_beefbc5a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EstateTypeDataTable.vue?vue&type=template&id=beefbc5a */ "./resources/js/Views/EstateType/Table/EstateTypeDataTable.vue?vue&type=template&id=beefbc5a");
 /* harmony import */ var _EstateTypeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./EstateTypeDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/EstateType/Table/EstateTypeDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_EstateTypeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_EstateTypeDataTable_vue_vue_type_template_id_beefbc5a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/Table/EstateTypeDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_EstateTypeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_EstateTypeDataTable_vue_vue_type_template_id_beefbc5a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/EstateType/Table/EstateTypeDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69960,13 +71038,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Logs_vue_vue_type_template_id_9720b700__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Logs.vue?vue&type=template&id=9720b700 */ "./resources/js/Views/Logs/Logs.vue?vue&type=template&id=9720b700");
 /* harmony import */ var _Logs_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Logs.vue?vue&type=script&lang=js */ "./resources/js/Views/Logs/Logs.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Logs_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Logs_vue_vue_type_template_id_9720b700__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Logs/Logs.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Logs_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Logs_vue_vue_type_template_id_9720b700__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Logs/Logs.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -69988,13 +71066,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _LogsDataTable_vue_vue_type_template_id_178f2873__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./LogsDataTable.vue?vue&type=template&id=178f2873 */ "./resources/js/Views/Logs/Table/LogsDataTable.vue?vue&type=template&id=178f2873");
 /* harmony import */ var _LogsDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./LogsDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/Logs/Table/LogsDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_LogsDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_LogsDataTable_vue_vue_type_template_id_178f2873__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Logs/Table/LogsDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_LogsDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_LogsDataTable_vue_vue_type_template_id_178f2873__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Logs/Table/LogsDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70016,13 +71094,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreatePartialCost_vue_vue_type_template_id_01027ca9__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreatePartialCost.vue?vue&type=template&id=01027ca9 */ "./resources/js/Views/PartialCost/Modals/CreatePartialCost.vue?vue&type=template&id=01027ca9");
 /* harmony import */ var _CreatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreatePartialCost.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialCost/Modals/CreatePartialCost.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePartialCost_vue_vue_type_template_id_01027ca9__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/Modals/CreatePartialCost.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePartialCost_vue_vue_type_template_id_01027ca9__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/Modals/CreatePartialCost.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70044,13 +71122,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdatePartialCost_vue_vue_type_template_id_46d5b13c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdatePartialCost.vue?vue&type=template&id=46d5b13c */ "./resources/js/Views/PartialCost/Modals/UpdatePartialCost.vue?vue&type=template&id=46d5b13c");
 /* harmony import */ var _UpdatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdatePartialCost.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialCost/Modals/UpdatePartialCost.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePartialCost_vue_vue_type_template_id_46d5b13c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/Modals/UpdatePartialCost.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePartialCost_vue_vue_type_template_id_46d5b13c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/Modals/UpdatePartialCost.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70072,13 +71150,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PartialCost_vue_vue_type_template_id_5060fcbe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartialCost.vue?vue&type=template&id=5060fcbe */ "./resources/js/Views/PartialCost/PartialCost.vue?vue&type=template&id=5060fcbe");
 /* harmony import */ var _PartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PartialCost.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialCost/PartialCost.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialCost_vue_vue_type_template_id_5060fcbe__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/PartialCost.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialCost_vue_vue_type_template_id_5060fcbe__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/PartialCost.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70100,13 +71178,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PartialCostDataTable_vue_vue_type_template_id_61aa9097__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartialCostDataTable.vue?vue&type=template&id=61aa9097 */ "./resources/js/Views/PartialCost/Table/PartialCostDataTable.vue?vue&type=template&id=61aa9097");
 /* harmony import */ var _PartialCostDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PartialCostDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialCost/Table/PartialCostDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialCostDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialCostDataTable_vue_vue_type_template_id_61aa9097__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/Table/PartialCostDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialCostDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialCostDataTable_vue_vue_type_template_id_61aa9097__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialCost/Table/PartialCostDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70128,13 +71206,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreatePartialRates_vue_vue_type_template_id_b6664a8e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreatePartialRates.vue?vue&type=template&id=b6664a8e */ "./resources/js/Views/PartialRates/Modals/CreatePartialRates.vue?vue&type=template&id=b6664a8e");
 /* harmony import */ var _CreatePartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreatePartialRates.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialRates/Modals/CreatePartialRates.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePartialRates_vue_vue_type_template_id_b6664a8e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/Modals/CreatePartialRates.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePartialRates_vue_vue_type_template_id_b6664a8e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/Modals/CreatePartialRates.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70156,13 +71234,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdatePartialRates_vue_vue_type_template_id_19603886__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdatePartialRates.vue?vue&type=template&id=19603886 */ "./resources/js/Views/PartialRates/Modals/UpdatePartialRates.vue?vue&type=template&id=19603886");
 /* harmony import */ var _UpdatePartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdatePartialRates.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialRates/Modals/UpdatePartialRates.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePartialRates_vue_vue_type_template_id_19603886__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/Modals/UpdatePartialRates.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePartialRates_vue_vue_type_template_id_19603886__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/Modals/UpdatePartialRates.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70184,13 +71262,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PartialRates_vue_vue_type_template_id_5e28eb60__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartialRates.vue?vue&type=template&id=5e28eb60 */ "./resources/js/Views/PartialRates/PartialRates.vue?vue&type=template&id=5e28eb60");
 /* harmony import */ var _PartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PartialRates.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialRates/PartialRates.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialRates_vue_vue_type_template_id_5e28eb60__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/PartialRates.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialRates_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialRates_vue_vue_type_template_id_5e28eb60__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/PartialRates.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70212,13 +71290,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PartialRatesDataTable_vue_vue_type_template_id_725fa853__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartialRatesDataTable.vue?vue&type=template&id=725fa853 */ "./resources/js/Views/PartialRates/Table/PartialRatesDataTable.vue?vue&type=template&id=725fa853");
 /* harmony import */ var _PartialRatesDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PartialRatesDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialRates/Table/PartialRatesDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialRatesDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialRatesDataTable_vue_vue_type_template_id_725fa853__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/Table/PartialRatesDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialRatesDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialRatesDataTable_vue_vue_type_template_id_725fa853__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialRates/Table/PartialRatesDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70240,13 +71318,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreatePartialCost_vue_vue_type_template_id_4c93981c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreatePartialCost.vue?vue&type=template&id=4c93981c */ "./resources/js/Views/PartialTemplate/Modals/CreatePartialCost.vue?vue&type=template&id=4c93981c");
 /* harmony import */ var _CreatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreatePartialCost.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialTemplate/Modals/CreatePartialCost.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePartialCost_vue_vue_type_template_id_4c93981c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/Modals/CreatePartialCost.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePartialCost_vue_vue_type_template_id_4c93981c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/Modals/CreatePartialCost.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70268,13 +71346,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdatePartialCost_vue_vue_type_template_id_db3266a2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdatePartialCost.vue?vue&type=template&id=db3266a2 */ "./resources/js/Views/PartialTemplate/Modals/UpdatePartialCost.vue?vue&type=template&id=db3266a2");
 /* harmony import */ var _UpdatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdatePartialCost.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialTemplate/Modals/UpdatePartialCost.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePartialCost_vue_vue_type_template_id_db3266a2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/Modals/UpdatePartialCost.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePartialCost_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePartialCost_vue_vue_type_template_id_db3266a2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/Modals/UpdatePartialCost.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70296,13 +71374,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PartialTemplate_vue_vue_type_template_id_12968d98__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartialTemplate.vue?vue&type=template&id=12968d98 */ "./resources/js/Views/PartialTemplate/PartialTemplate.vue?vue&type=template&id=12968d98");
 /* harmony import */ var _PartialTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PartialTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialTemplate/PartialTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialTemplate_vue_vue_type_template_id_12968d98__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/PartialTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialTemplate_vue_vue_type_template_id_12968d98__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/PartialTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70324,13 +71402,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PartialTemplateDataTable_vue_vue_type_template_id_4de5ab86__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PartialTemplateDataTable.vue?vue&type=template&id=4de5ab86 */ "./resources/js/Views/PartialTemplate/Table/PartialTemplateDataTable.vue?vue&type=template&id=4de5ab86");
 /* harmony import */ var _PartialTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PartialTemplateDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/PartialTemplate/Table/PartialTemplateDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialTemplateDataTable_vue_vue_type_template_id_4de5ab86__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/Table/PartialTemplateDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PartialTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PartialTemplateDataTable_vue_vue_type_template_id_4de5ab86__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/PartialTemplate/Table/PartialTemplateDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70353,7 +71431,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Password_vue_vue_type_template_id_dc65b600__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Password.vue?vue&type=template&id=dc65b600 */ "./resources/js/Views/Password/Password.vue?vue&type=template&id=dc65b600");
 /* harmony import */ var _Password_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Password.vue?vue&type=script&lang=js */ "./resources/js/Views/Password/Password.vue?vue&type=script&lang=js");
 /* harmony import */ var toastr_build_toastr_css_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! toastr/build/toastr.css?vue&type=style&index=0&lang=css */ "./node_modules/toastr/build/toastr.css?vue&type=style&index=0&lang=css");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -70361,7 +71439,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Password_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Password_vue_vue_type_template_id_dc65b600__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Password/Password.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Password_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Password_vue_vue_type_template_id_dc65b600__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Password/Password.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70383,13 +71461,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreatePermission_vue_vue_type_template_id_2f11cefa__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreatePermission.vue?vue&type=template&id=2f11cefa */ "./resources/js/Views/Permissions/Modals/CreatePermission.vue?vue&type=template&id=2f11cefa");
 /* harmony import */ var _CreatePermission_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreatePermission.vue?vue&type=script&lang=js */ "./resources/js/Views/Permissions/Modals/CreatePermission.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePermission_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePermission_vue_vue_type_template_id_2f11cefa__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Modals/CreatePermission.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreatePermission_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreatePermission_vue_vue_type_template_id_2f11cefa__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Modals/CreatePermission.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70411,13 +71489,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdatePermission_vue_vue_type_template_id_188c3c07__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdatePermission.vue?vue&type=template&id=188c3c07 */ "./resources/js/Views/Permissions/Modals/UpdatePermission.vue?vue&type=template&id=188c3c07");
 /* harmony import */ var _UpdatePermission_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdatePermission.vue?vue&type=script&lang=js */ "./resources/js/Views/Permissions/Modals/UpdatePermission.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePermission_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePermission_vue_vue_type_template_id_188c3c07__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Modals/UpdatePermission.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdatePermission_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdatePermission_vue_vue_type_template_id_188c3c07__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Modals/UpdatePermission.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70439,13 +71517,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Permissions_vue_vue_type_template_id_6b4eb4ea__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Permissions.vue?vue&type=template&id=6b4eb4ea */ "./resources/js/Views/Permissions/Permissions.vue?vue&type=template&id=6b4eb4ea");
 /* harmony import */ var _Permissions_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Permissions.vue?vue&type=script&lang=js */ "./resources/js/Views/Permissions/Permissions.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Permissions_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Permissions_vue_vue_type_template_id_6b4eb4ea__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Permissions.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Permissions_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Permissions_vue_vue_type_template_id_6b4eb4ea__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Permissions.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70467,13 +71545,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _PermissionsDataTable_vue_vue_type_template_id_2fdd7b2a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./PermissionsDataTable.vue?vue&type=template&id=2fdd7b2a */ "./resources/js/Views/Permissions/Table/PermissionsDataTable.vue?vue&type=template&id=2fdd7b2a");
 /* harmony import */ var _PermissionsDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./PermissionsDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/Permissions/Table/PermissionsDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PermissionsDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PermissionsDataTable_vue_vue_type_template_id_2fdd7b2a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Table/PermissionsDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_PermissionsDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_PermissionsDataTable_vue_vue_type_template_id_2fdd7b2a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Permissions/Table/PermissionsDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70496,7 +71574,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Profile_vue_vue_type_template_id_78b430b4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Profile.vue?vue&type=template&id=78b430b4 */ "./resources/js/Views/Profile/Profile.vue?vue&type=template&id=78b430b4");
 /* harmony import */ var _Profile_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Profile.vue?vue&type=script&lang=js */ "./resources/js/Views/Profile/Profile.vue?vue&type=script&lang=js");
 /* harmony import */ var toastr_build_toastr_css_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! toastr/build/toastr.css?vue&type=style&index=0&lang=css */ "./node_modules/toastr/build/toastr.css?vue&type=style&index=0&lang=css");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -70504,7 +71582,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Profile_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Profile_vue_vue_type_template_id_78b430b4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Profile/Profile.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Profile_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Profile_vue_vue_type_template_id_78b430b4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Profile/Profile.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70526,13 +71604,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateRol_vue_vue_type_template_id_edf0da4a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateRol.vue?vue&type=template&id=edf0da4a */ "./resources/js/Views/Roles/Modals/CreateRol.vue?vue&type=template&id=edf0da4a");
 /* harmony import */ var _CreateRol_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateRol.vue?vue&type=script&lang=js */ "./resources/js/Views/Roles/Modals/CreateRol.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRol_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRol_vue_vue_type_template_id_edf0da4a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Modals/CreateRol.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRol_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRol_vue_vue_type_template_id_edf0da4a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Modals/CreateRol.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70555,7 +71633,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UpdateRol_vue_vue_type_template_id_ac13eb24__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateRol.vue?vue&type=template&id=ac13eb24 */ "./resources/js/Views/Roles/Modals/UpdateRol.vue?vue&type=template&id=ac13eb24");
 /* harmony import */ var _UpdateRol_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateRol.vue?vue&type=script&lang=js */ "./resources/js/Views/Roles/Modals/UpdateRol.vue?vue&type=script&lang=js");
 /* harmony import */ var vue_multiselect_dist_vue_multiselect_css_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.css?vue&type=style&index=0&lang=css */ "./node_modules/vue-multiselect/dist/vue-multiselect.css?vue&type=style&index=0&lang=css");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -70563,7 +71641,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_UpdateRol_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRol_vue_vue_type_template_id_ac13eb24__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Modals/UpdateRol.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_UpdateRol_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRol_vue_vue_type_template_id_ac13eb24__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Modals/UpdateRol.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70585,13 +71663,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Roles_vue_vue_type_template_id_23df7a48__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Roles.vue?vue&type=template&id=23df7a48 */ "./resources/js/Views/Roles/Roles.vue?vue&type=template&id=23df7a48");
 /* harmony import */ var _Roles_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Roles.vue?vue&type=script&lang=js */ "./resources/js/Views/Roles/Roles.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Roles_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Roles_vue_vue_type_template_id_23df7a48__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Roles.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Roles_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Roles_vue_vue_type_template_id_23df7a48__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Roles.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70613,13 +71691,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RolesDataTable_vue_vue_type_template_id_bca37f8e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RolesDataTable.vue?vue&type=template&id=bca37f8e */ "./resources/js/Views/Roles/Table/RolesDataTable.vue?vue&type=template&id=bca37f8e");
 /* harmony import */ var _RolesDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RolesDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/Roles/Table/RolesDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RolesDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RolesDataTable_vue_vue_type_template_id_bca37f8e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Table/RolesDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RolesDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RolesDataTable_vue_vue_type_template_id_bca37f8e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Roles/Table/RolesDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70641,13 +71719,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateRoom_vue_vue_type_template_id_621f5c0b__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateRoom.vue?vue&type=template&id=621f5c0b */ "./resources/js/Views/Room/Modals/CreateRoom.vue?vue&type=template&id=621f5c0b");
 /* harmony import */ var _CreateRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateRoom.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Room/Modals/CreateRoom.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRoom_vue_vue_type_template_id_621f5c0b__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Modals/CreateRoom.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRoom_vue_vue_type_template_id_621f5c0b__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Modals/CreateRoom.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70669,13 +71747,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateRoom_vue_vue_type_template_id_5effd6d8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateRoom.vue?vue&type=template&id=5effd6d8 */ "./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=template&id=5effd6d8");
 /* harmony import */ var _UpdateRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateRoom.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRoom_vue_vue_type_template_id_5effd6d8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Modals/UpdateRoom.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRoom_vue_vue_type_template_id_5effd6d8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Modals/UpdateRoom.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70697,13 +71775,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Room_vue_vue_type_template_id_94f00000__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Room.vue?vue&type=template&id=94f00000 */ "./resources/js/Views/Room/Room.vue?vue&type=template&id=94f00000");
 /* harmony import */ var _Room_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Room.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Room/Room.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Room_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Room_vue_vue_type_template_id_94f00000__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Room.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Room_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Room_vue_vue_type_template_id_94f00000__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Room.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70725,13 +71803,44 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RoomDataTable_vue_vue_type_template_id_19c1ebf3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomDataTable.vue?vue&type=template&id=19c1ebf3 */ "./resources/js/Views/Room/Table/RoomDataTable.vue?vue&type=template&id=19c1ebf3");
 /* harmony import */ var _RoomDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoomDataTable.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Room/Table/RoomDataTable.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _RoomDataTable_vue_vue_type_style_index_0_id_19c1ebf3_lang_scss__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RoomDataTable.vue?vue&type=style&index=0&id=19c1ebf3&lang=scss */ "./resources/js/Views/Room/Table/RoomDataTable.vue?vue&type=style&index=0&id=19c1ebf3&lang=scss");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomDataTable_vue_vue_type_template_id_19c1ebf3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Table/RoomDataTable.vue"]])
+
+
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_RoomDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomDataTable_vue_vue_type_template_id_19c1ebf3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Table/RoomDataTable.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/js/Views/Room/Table/RoomsGrid.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/Views/Room/Table/RoomsGrid.vue ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _RoomsGrid_vue_vue_type_template_id_f59a55b0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomsGrid.vue?vue&type=template&id=f59a55b0 */ "./resources/js/Views/Room/Table/RoomsGrid.vue?vue&type=template&id=f59a55b0");
+/* harmony import */ var _RoomsGrid_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoomsGrid.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Room/Table/RoomsGrid.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomsGrid_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomsGrid_vue_vue_type_template_id_f59a55b0__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Table/RoomsGrid.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70753,13 +71862,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateRoomStatus_vue_vue_type_template_id_006a006f__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateRoomStatus.vue?vue&type=template&id=006a006f */ "./resources/js/Views/RoomStatus/Modals/CreateRoomStatus.vue?vue&type=template&id=006a006f");
 /* harmony import */ var _CreateRoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateRoomStatus.vue?vue&type=script&lang=js */ "./resources/js/Views/RoomStatus/Modals/CreateRoomStatus.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRoomStatus_vue_vue_type_template_id_006a006f__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/Modals/CreateRoomStatus.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRoomStatus_vue_vue_type_template_id_006a006f__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/Modals/CreateRoomStatus.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70781,13 +71890,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateRoomStatus_vue_vue_type_template_id_2c372508__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateRoomStatus.vue?vue&type=template&id=2c372508 */ "./resources/js/Views/RoomStatus/Modals/UpdateRoomStatus.vue?vue&type=template&id=2c372508");
 /* harmony import */ var _UpdateRoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateRoomStatus.vue?vue&type=script&lang=js */ "./resources/js/Views/RoomStatus/Modals/UpdateRoomStatus.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateRoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRoomStatus_vue_vue_type_template_id_2c372508__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/Modals/UpdateRoomStatus.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateRoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRoomStatus_vue_vue_type_template_id_2c372508__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/Modals/UpdateRoomStatus.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70809,13 +71918,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RoomStatus_vue_vue_type_template_id_3edc2780__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomStatus.vue?vue&type=template&id=3edc2780 */ "./resources/js/Views/RoomStatus/RoomStatus.vue?vue&type=template&id=3edc2780");
 /* harmony import */ var _RoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoomStatus.vue?vue&type=script&lang=js */ "./resources/js/Views/RoomStatus/RoomStatus.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomStatus_vue_vue_type_template_id_3edc2780__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/RoomStatus.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomStatus_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomStatus_vue_vue_type_template_id_3edc2780__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/RoomStatus.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70837,13 +71946,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RoomStatusDataTable_vue_vue_type_template_id_fe90c21a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomStatusDataTable.vue?vue&type=template&id=fe90c21a */ "./resources/js/Views/RoomStatus/Table/RoomStatusDataTable.vue?vue&type=template&id=fe90c21a");
 /* harmony import */ var _RoomStatusDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoomStatusDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/RoomStatus/Table/RoomStatusDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomStatusDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomStatusDataTable_vue_vue_type_template_id_fe90c21a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/Table/RoomStatusDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomStatusDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomStatusDataTable_vue_vue_type_template_id_fe90c21a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomStatus/Table/RoomStatusDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70865,13 +71974,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateRoomType_vue_vue_type_template_id_34c506bf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateRoomType.vue?vue&type=template&id=34c506bf */ "./resources/js/Views/RoomType/Modals/CreateRoomType.vue?vue&type=template&id=34c506bf");
 /* harmony import */ var _CreateRoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateRoomType.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/RoomType/Modals/CreateRoomType.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRoomType_vue_vue_type_template_id_34c506bf__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/Modals/CreateRoomType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateRoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateRoomType_vue_vue_type_template_id_34c506bf__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/Modals/CreateRoomType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70893,13 +72002,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateRoomType_vue_vue_type_template_id_f7bd59e8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateRoomType.vue?vue&type=template&id=f7bd59e8 */ "./resources/js/Views/RoomType/Modals/UpdateRoomType.vue?vue&type=template&id=f7bd59e8");
 /* harmony import */ var _UpdateRoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateRoomType.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/RoomType/Modals/UpdateRoomType.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateRoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRoomType_vue_vue_type_template_id_f7bd59e8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/Modals/UpdateRoomType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateRoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateRoomType_vue_vue_type_template_id_f7bd59e8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/Modals/UpdateRoomType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70921,13 +72030,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RoomType_vue_vue_type_template_id_3d628240__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomType.vue?vue&type=template&id=3d628240 */ "./resources/js/Views/RoomType/RoomType.vue?vue&type=template&id=3d628240");
 /* harmony import */ var _RoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoomType.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/RoomType/RoomType.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomType_vue_vue_type_template_id_3d628240__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/RoomType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomType_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomType_vue_vue_type_template_id_3d628240__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/RoomType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70949,13 +72058,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _RoomTypeDataTable_vue_vue_type_template_id_0f60feb3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoomTypeDataTable.vue?vue&type=template&id=0f60feb3 */ "./resources/js/Views/RoomType/Table/RoomTypeDataTable.vue?vue&type=template&id=0f60feb3");
 /* harmony import */ var _RoomTypeDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoomTypeDataTable.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/RoomType/Table/RoomTypeDataTable.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomTypeDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomTypeDataTable_vue_vue_type_template_id_0f60feb3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/Table/RoomTypeDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_RoomTypeDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_RoomTypeDataTable_vue_vue_type_template_id_0f60feb3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/RoomType/Table/RoomTypeDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -70977,13 +72086,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateSystemTime_vue_vue_type_template_id_75ac68d8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateSystemTime.vue?vue&type=template&id=75ac68d8 */ "./resources/js/Views/ShiftSystem/Modals/CreateSystemTime.vue?vue&type=template&id=75ac68d8");
 /* harmony import */ var _CreateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateSystemTime.vue?vue&type=script&lang=js */ "./resources/js/Views/ShiftSystem/Modals/CreateSystemTime.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateSystemTime_vue_vue_type_template_id_75ac68d8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/Modals/CreateSystemTime.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateSystemTime_vue_vue_type_template_id_75ac68d8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/Modals/CreateSystemTime.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71005,13 +72114,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateSystemTime_vue_vue_type_template_id_a2b78ebe__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateSystemTime.vue?vue&type=template&id=a2b78ebe */ "./resources/js/Views/ShiftSystem/Modals/UpdateSystemTime.vue?vue&type=template&id=a2b78ebe");
 /* harmony import */ var _UpdateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateSystemTime.vue?vue&type=script&lang=js */ "./resources/js/Views/ShiftSystem/Modals/UpdateSystemTime.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateSystemTime_vue_vue_type_template_id_a2b78ebe__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/Modals/UpdateSystemTime.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateSystemTime_vue_vue_type_template_id_a2b78ebe__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/Modals/UpdateSystemTime.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71033,13 +72142,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ShiftSystem_vue_vue_type_template_id_0babb3f8__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShiftSystem.vue?vue&type=template&id=0babb3f8 */ "./resources/js/Views/ShiftSystem/ShiftSystem.vue?vue&type=template&id=0babb3f8");
 /* harmony import */ var _ShiftSystem_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ShiftSystem.vue?vue&type=script&lang=js */ "./resources/js/Views/ShiftSystem/ShiftSystem.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ShiftSystem_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ShiftSystem_vue_vue_type_template_id_0babb3f8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/ShiftSystem.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ShiftSystem_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ShiftSystem_vue_vue_type_template_id_0babb3f8__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/ShiftSystem.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71061,13 +72170,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ShiftSystemDataTable_vue_vue_type_template_id_5651f75e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ShiftSystemDataTable.vue?vue&type=template&id=5651f75e */ "./resources/js/Views/ShiftSystem/Table/ShiftSystemDataTable.vue?vue&type=template&id=5651f75e");
 /* harmony import */ var _ShiftSystemDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ShiftSystemDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/ShiftSystem/Table/ShiftSystemDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ShiftSystemDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ShiftSystemDataTable_vue_vue_type_template_id_5651f75e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/Table/ShiftSystemDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ShiftSystemDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ShiftSystemDataTable_vue_vue_type_template_id_5651f75e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ShiftSystem/Table/ShiftSystemDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71089,13 +72198,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateSystemTime_vue_vue_type_template_id_72e17e4d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateSystemTime.vue?vue&type=template&id=72e17e4d */ "./resources/js/Views/SystemTime/Modals/CreateSystemTime.vue?vue&type=template&id=72e17e4d");
 /* harmony import */ var _CreateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateSystemTime.vue?vue&type=script&lang=js */ "./resources/js/Views/SystemTime/Modals/CreateSystemTime.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateSystemTime_vue_vue_type_template_id_72e17e4d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/Modals/CreateSystemTime.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateSystemTime_vue_vue_type_template_id_72e17e4d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/Modals/CreateSystemTime.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71117,13 +72226,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateSystemTime_vue_vue_type_template_id_5c5beb5a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateSystemTime.vue?vue&type=template&id=5c5beb5a */ "./resources/js/Views/SystemTime/Modals/UpdateSystemTime.vue?vue&type=template&id=5c5beb5a");
 /* harmony import */ var _UpdateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateSystemTime.vue?vue&type=script&lang=js */ "./resources/js/Views/SystemTime/Modals/UpdateSystemTime.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateSystemTime_vue_vue_type_template_id_5c5beb5a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/Modals/UpdateSystemTime.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateSystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateSystemTime_vue_vue_type_template_id_5c5beb5a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/Modals/UpdateSystemTime.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71145,13 +72254,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _SystemTime_vue_vue_type_template_id_6c22fe40__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SystemTime.vue?vue&type=template&id=6c22fe40 */ "./resources/js/Views/SystemTime/SystemTime.vue?vue&type=template&id=6c22fe40");
 /* harmony import */ var _SystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SystemTime.vue?vue&type=script&lang=js */ "./resources/js/Views/SystemTime/SystemTime.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_SystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_SystemTime_vue_vue_type_template_id_6c22fe40__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/SystemTime.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_SystemTime_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_SystemTime_vue_vue_type_template_id_6c22fe40__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/SystemTime.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71173,13 +72282,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _SystemTimeDataTable_vue_vue_type_template_id_6a7e4f13__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SystemTimeDataTable.vue?vue&type=template&id=6a7e4f13 */ "./resources/js/Views/SystemTime/Table/SystemTimeDataTable.vue?vue&type=template&id=6a7e4f13");
 /* harmony import */ var _SystemTimeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SystemTimeDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/SystemTime/Table/SystemTimeDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_SystemTimeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_SystemTimeDataTable_vue_vue_type_template_id_6a7e4f13__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/Table/SystemTimeDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_SystemTimeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_SystemTimeDataTable_vue_vue_type_template_id_6a7e4f13__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/SystemTime/Table/SystemTimeDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71201,13 +72310,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DateTemplate_vue_vue_type_template_id_d7abf736__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DateTemplate.vue?vue&type=template&id=d7abf736 */ "./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=template&id=d7abf736");
 /* harmony import */ var _DateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DateTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DateTemplate_vue_vue_type_template_id_d7abf736__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DateTemplate_vue_vue_type_template_id_d7abf736__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/DateTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71229,13 +72338,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateDateTemplate_vue_vue_type_template_id_92886900__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateDateTemplate.vue?vue&type=template&id=92886900 */ "./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=template&id=92886900");
 /* harmony import */ var _CreateDateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateDateTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateDateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateDateTemplate_vue_vue_type_template_id_92886900__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateDateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateDateTemplate_vue_vue_type_template_id_92886900__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/Modals/CreateDateTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71257,13 +72366,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateDateTemplate_vue_vue_type_template_id_2b4f294d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateDateTemplate.vue?vue&type=template&id=2b4f294d */ "./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=template&id=2b4f294d");
 /* harmony import */ var _UpdateDateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateDateTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateDateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateDateTemplate_vue_vue_type_template_id_2b4f294d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateDateTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateDateTemplate_vue_vue_type_template_id_2b4f294d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/Modals/UpdateDateTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71285,13 +72394,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DateTemplateDataTable_vue_vue_type_template_id_a1d117a4__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DateTemplateDataTable.vue?vue&type=template&id=a1d117a4 */ "./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=template&id=a1d117a4");
 /* harmony import */ var _DateTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DateTemplateDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DateTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DateTemplateDataTable_vue_vue_type_template_id_a1d117a4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DateTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DateTemplateDataTable_vue_vue_type_template_id_a1d117a4__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DateTemplate/Table/DateTemplateDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71313,13 +72422,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DayTemplate_vue_vue_type_template_id_2574fdd3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DayTemplate.vue?vue&type=template&id=2574fdd3 */ "./resources/js/Views/Tarifas/DayTemplate/DayTemplate.vue?vue&type=template&id=2574fdd3");
 /* harmony import */ var _DayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DayTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DayTemplate/DayTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayTemplate_vue_vue_type_template_id_2574fdd3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/DayTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayTemplate_vue_vue_type_template_id_2574fdd3__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/DayTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71341,13 +72450,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateDayTemplate_vue_vue_type_template_id_7688ef44__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateDayTemplate.vue?vue&type=template&id=7688ef44 */ "./resources/js/Views/Tarifas/DayTemplate/Modals/CreateDayTemplate.vue?vue&type=template&id=7688ef44");
 /* harmony import */ var _CreateDayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateDayTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DayTemplate/Modals/CreateDayTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateDayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateDayTemplate_vue_vue_type_template_id_7688ef44__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/Modals/CreateDayTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateDayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateDayTemplate_vue_vue_type_template_id_7688ef44__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/Modals/CreateDayTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71369,13 +72478,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateDayTemplate_vue_vue_type_template_id_8747b852__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateDayTemplate.vue?vue&type=template&id=8747b852 */ "./resources/js/Views/Tarifas/DayTemplate/Modals/UpdateDayTemplate.vue?vue&type=template&id=8747b852");
 /* harmony import */ var _UpdateDayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateDayTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DayTemplate/Modals/UpdateDayTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateDayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateDayTemplate_vue_vue_type_template_id_8747b852__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/Modals/UpdateDayTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateDayTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateDayTemplate_vue_vue_type_template_id_8747b852__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/Modals/UpdateDayTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71397,13 +72506,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _DayTemplateDataTable_vue_vue_type_template_id_29d4663c__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DayTemplateDataTable.vue?vue&type=template&id=29d4663c */ "./resources/js/Views/Tarifas/DayTemplate/Table/DayTemplateDataTable.vue?vue&type=template&id=29d4663c");
 /* harmony import */ var _DayTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./DayTemplateDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/DayTemplate/Table/DayTemplateDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayTemplateDataTable_vue_vue_type_template_id_29d4663c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/Table/DayTemplateDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_DayTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_DayTemplateDataTable_vue_vue_type_template_id_29d4663c__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/DayTemplate/Table/DayTemplateDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71425,13 +72534,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _HourTemplate_vue_vue_type_template_id_24feac25__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HourTemplate.vue?vue&type=template&id=24feac25 */ "./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=template&id=24feac25");
 /* harmony import */ var _HourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HourTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_HourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HourTemplate_vue_vue_type_template_id_24feac25__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_HourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HourTemplate_vue_vue_type_template_id_24feac25__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/HourTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71453,13 +72562,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateHourTemplate_vue_vue_type_template_id_ffec4328__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateHourTemplate.vue?vue&type=template&id=ffec4328 */ "./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=template&id=ffec4328");
 /* harmony import */ var _CreateHourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateHourTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateHourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateHourTemplate_vue_vue_type_template_id_ffec4328__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateHourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateHourTemplate_vue_vue_type_template_id_ffec4328__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/Modals/CreateHourTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71481,13 +72590,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateHourTemplate_vue_vue_type_template_id_16c5878e__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateHourTemplate.vue?vue&type=template&id=16c5878e */ "./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=template&id=16c5878e");
 /* harmony import */ var _UpdateHourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateHourTemplate.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateHourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateHourTemplate_vue_vue_type_template_id_16c5878e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateHourTemplate_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateHourTemplate_vue_vue_type_template_id_16c5878e__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/Modals/UpdateHourTemplate.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71509,13 +72618,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _HourTemplateDataTable_vue_vue_type_template_id_67b7a3ee__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./HourTemplateDataTable.vue?vue&type=template&id=67b7a3ee */ "./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=template&id=67b7a3ee");
 /* harmony import */ var _HourTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./HourTemplateDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_HourTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HourTemplateDataTable_vue_vue_type_template_id_67b7a3ee__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_HourTemplateDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_HourTemplateDataTable_vue_vue_type_template_id_67b7a3ee__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Tarifas/HourTemplate/Table/HourTemplateDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71537,13 +72646,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _CreateThemeType_vue_vue_type_template_id_978ca8ee__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CreateThemeType.vue?vue&type=template&id=978ca8ee */ "./resources/js/Views/ThemeType/Modals/CreateThemeType.vue?vue&type=template&id=978ca8ee");
 /* harmony import */ var _CreateThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateThemeType.vue?vue&type=script&lang=js */ "./resources/js/Views/ThemeType/Modals/CreateThemeType.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateThemeType_vue_vue_type_template_id_978ca8ee__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/Modals/CreateThemeType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CreateThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateThemeType_vue_vue_type_template_id_978ca8ee__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/Modals/CreateThemeType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71565,13 +72674,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _UpdateThemeType_vue_vue_type_template_id_5066e8dc__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UpdateThemeType.vue?vue&type=template&id=5066e8dc */ "./resources/js/Views/ThemeType/Modals/UpdateThemeType.vue?vue&type=template&id=5066e8dc");
 /* harmony import */ var _UpdateThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateThemeType.vue?vue&type=script&lang=js */ "./resources/js/Views/ThemeType/Modals/UpdateThemeType.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateThemeType_vue_vue_type_template_id_5066e8dc__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/Modals/UpdateThemeType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_UpdateThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateThemeType_vue_vue_type_template_id_5066e8dc__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/Modals/UpdateThemeType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71593,13 +72702,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ThemeTypeDataTable_vue_vue_type_template_id_152e736d__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ThemeTypeDataTable.vue?vue&type=template&id=152e736d */ "./resources/js/Views/ThemeType/Table/ThemeTypeDataTable.vue?vue&type=template&id=152e736d");
 /* harmony import */ var _ThemeTypeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ThemeTypeDataTable.vue?vue&type=script&lang=js */ "./resources/js/Views/ThemeType/Table/ThemeTypeDataTable.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ThemeTypeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ThemeTypeDataTable_vue_vue_type_template_id_152e736d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/Table/ThemeTypeDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ThemeTypeDataTable_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ThemeTypeDataTable_vue_vue_type_template_id_152e736d__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/Table/ThemeTypeDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71621,13 +72730,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _ThemeType_vue_vue_type_template_id_26e71128__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ThemeType.vue?vue&type=template&id=26e71128 */ "./resources/js/Views/ThemeType/ThemeType.vue?vue&type=template&id=26e71128");
 /* harmony import */ var _ThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ThemeType.vue?vue&type=script&lang=js */ "./resources/js/Views/ThemeType/ThemeType.vue?vue&type=script&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ThemeType_vue_vue_type_template_id_26e71128__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/ThemeType.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ThemeType_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ThemeType_vue_vue_type_template_id_26e71128__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/ThemeType/ThemeType.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71651,7 +72760,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CreateUser_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CreateUser.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Users/Modals/CreateUser.vue?vue&type=script&setup=true&lang=js");
 /* harmony import */ var vue_multiselect_dist_vue_multiselect_css_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.css?vue&type=style&index=0&lang=css */ "./node_modules/vue-multiselect/dist/vue-multiselect.css?vue&type=style&index=0&lang=css");
 /* harmony import */ var toastr_build_toastr_css_vue_type_style_index_1_lang_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! toastr/build/toastr.css?vue&type=style&index=1&lang=css */ "./node_modules/toastr/build/toastr.css?vue&type=style&index=1&lang=css");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -71660,7 +72769,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__["default"])(_CreateUser_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateUser_vue_vue_type_template_id_7ced7e7a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Modals/CreateUser.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__["default"])(_CreateUser_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CreateUser_vue_vue_type_template_id_7ced7e7a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Modals/CreateUser.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71684,7 +72793,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UpdateUser_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UpdateUser.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Users/Modals/UpdateUser.vue?vue&type=script&setup=true&lang=js");
 /* harmony import */ var vue_multiselect_dist_vue_multiselect_css_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-multiselect/dist/vue-multiselect.css?vue&type=style&index=0&lang=css */ "./node_modules/vue-multiselect/dist/vue-multiselect.css?vue&type=style&index=0&lang=css");
 /* harmony import */ var toastr_build_toastr_css_vue_type_style_index_1_lang_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! toastr/build/toastr.css?vue&type=style&index=1&lang=css */ "./node_modules/toastr/build/toastr.css?vue&type=style&index=1&lang=css");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -71693,7 +72802,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__["default"])(_UpdateUser_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateUser_vue_vue_type_template_id_79cdf947__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Modals/UpdateUser.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_4__["default"])(_UpdateUser_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UpdateUser_vue_vue_type_template_id_79cdf947__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Modals/UpdateUser.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71716,7 +72825,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _UsersDataTable_vue_vue_type_template_id_dc42243a__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./UsersDataTable.vue?vue&type=template&id=dc42243a */ "./resources/js/Views/Users/Table/UsersDataTable.vue?vue&type=template&id=dc42243a");
 /* harmony import */ var _UsersDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./UsersDataTable.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Users/Table/UsersDataTable.vue?vue&type=script&setup=true&lang=js");
 /* harmony import */ var sweetalert2_dist_sweetalert2_css_vue_type_style_index_0_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! sweetalert2/dist/sweetalert2.css?vue&type=style&index=0&lang=css */ "./node_modules/sweetalert2/dist/sweetalert2.css?vue&type=style&index=0&lang=css");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -71724,7 +72833,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_UsersDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UsersDataTable_vue_vue_type_template_id_dc42243a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Table/UsersDataTable.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_UsersDataTable_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_UsersDataTable_vue_vue_type_template_id_dc42243a__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Table/UsersDataTable.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -71746,13 +72855,69 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Users_vue_vue_type_template_id_61bf4232__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Users.vue?vue&type=template&id=61bf4232 */ "./resources/js/Views/Users/Users.vue?vue&type=template&id=61bf4232");
 /* harmony import */ var _Users_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Users.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Users/Users.vue?vue&type=script&setup=true&lang=js");
-/* harmony import */ var _var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
 
 ;
-const __exports__ = /*#__PURE__*/(0,_var_www_html_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Users_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Users_vue_vue_type_template_id_61bf4232__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Users.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_Users_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Users_vue_vue_type_template_id_61bf4232__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Users/Users.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/js/components/ButtonComponent.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/ButtonComponent.vue ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ButtonComponent_vue_vue_type_template_id_c59fa660__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ButtonComponent.vue?vue&type=template&id=c59fa660 */ "./resources/js/components/ButtonComponent.vue?vue&type=template&id=c59fa660");
+/* harmony import */ var _ButtonComponent_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ButtonComponent.vue?vue&type=script&setup=true&lang=js */ "./resources/js/components/ButtonComponent.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_ButtonComponent_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_ButtonComponent_vue_vue_type_template_id_c59fa660__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/ButtonComponent.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
+/***/ "./resources/js/components/CardComponent.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/CardComponent.vue ***!
+  \***************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _CardComponent_vue_vue_type_template_id_6e4da0f2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardComponent.vue?vue&type=template&id=6e4da0f2 */ "./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2");
+/* harmony import */ var _CardComponent_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardComponent.vue?vue&type=script&setup=true&lang=js */ "./resources/js/components/CardComponent.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_CardComponent_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_CardComponent_vue_vue_type_template_id_6e4da0f2__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/components/CardComponent.vue"]])
 /* hot reload */
 if (false) {}
 
@@ -72337,6 +73502,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Views/Room/Table/RoomsGrid.vue?vue&type=script&setup=true&lang=js":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/Views/Room/Table/RoomsGrid.vue?vue&type=script&setup=true&lang=js ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_RoomsGrid_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_RoomsGrid_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./RoomsGrid.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Table/RoomsGrid.vue?vue&type=script&setup=true&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/Views/RoomStatus/Modals/CreateRoomStatus.vue?vue&type=script&lang=js":
 /*!*******************************************************************************************!*\
   !*** ./resources/js/Views/RoomStatus/Modals/CreateRoomStatus.vue?vue&type=script&lang=js ***!
@@ -72909,6 +74090,38 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Users_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Users_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Users.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Users/Users.vue?vue&type=script&setup=true&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./resources/js/components/ButtonComponent.vue?vue&type=script&setup=true&lang=js":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/ButtonComponent.vue?vue&type=script&setup=true&lang=js ***!
+  \****************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ButtonComponent_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ButtonComponent_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ButtonComponent.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/ButtonComponent.vue?vue&type=script&setup=true&lang=js");
+ 
+
+/***/ }),
+
+/***/ "./resources/js/components/CardComponent.vue?vue&type=script&setup=true&lang=js":
+/*!**************************************************************************************!*\
+  !*** ./resources/js/components/CardComponent.vue?vue&type=script&setup=true&lang=js ***!
+  \**************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CardComponent_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CardComponent_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CardComponent.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CardComponent.vue?vue&type=script&setup=true&lang=js");
  
 
 /***/ }),
@@ -73489,6 +74702,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Views/Room/Table/RoomsGrid.vue?vue&type=template&id=f59a55b0":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/Views/Room/Table/RoomsGrid.vue?vue&type=template&id=f59a55b0 ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_RoomsGrid_vue_vue_type_template_id_f59a55b0__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_RoomsGrid_vue_vue_type_template_id_f59a55b0__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./RoomsGrid.vue?vue&type=template&id=f59a55b0 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Table/RoomsGrid.vue?vue&type=template&id=f59a55b0");
+
+
+/***/ }),
+
 /***/ "./resources/js/Views/RoomStatus/Modals/CreateRoomStatus.vue?vue&type=template&id=006a006f":
 /*!*************************************************************************************************!*\
   !*** ./resources/js/Views/RoomStatus/Modals/CreateRoomStatus.vue?vue&type=template&id=006a006f ***!
@@ -74061,6 +75290,51 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Users_vue_vue_type_template_id_61bf4232__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_Users_vue_vue_type_template_id_61bf4232__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./Users.vue?vue&type=template&id=61bf4232 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Users/Users.vue?vue&type=template&id=61bf4232");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/ButtonComponent.vue?vue&type=template&id=c59fa660":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/ButtonComponent.vue?vue&type=template&id=c59fa660 ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ButtonComponent_vue_vue_type_template_id_c59fa660__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_ButtonComponent_vue_vue_type_template_id_c59fa660__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./ButtonComponent.vue?vue&type=template&id=c59fa660 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/ButtonComponent.vue?vue&type=template&id=c59fa660");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2 ***!
+  \*********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CardComponent_vue_vue_type_template_id_6e4da0f2__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CardComponent_vue_vue_type_template_id_6e4da0f2__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CardComponent.vue?vue&type=template&id=6e4da0f2 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/components/CardComponent.vue?vue&type=template&id=6e4da0f2");
+
+
+/***/ }),
+
+/***/ "./resources/js/Views/Room/Table/RoomDataTable.vue?vue&type=style&index=0&id=19c1ebf3&lang=scss":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/Views/Room/Table/RoomDataTable.vue?vue&type=style&index=0&id=19c1ebf3&lang=scss ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_12_use_1_node_modules_vue_loader_dist_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_12_use_2_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_12_use_3_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_RoomDataTable_vue_vue_type_style_index_0_id_19c1ebf3_lang_scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/style-loader/dist/cjs.js!../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!../../../../../node_modules/vue-loader/dist/stylePostLoader.js!../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!../../../../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./RoomDataTable.vue?vue&type=style&index=0&id=19c1ebf3&lang=scss */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-12.use[1]!./node_modules/vue-loader/dist/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-12.use[2]!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-12.use[3]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Table/RoomDataTable.vue?vue&type=style&index=0&id=19c1ebf3&lang=scss");
 
 
 /***/ }),

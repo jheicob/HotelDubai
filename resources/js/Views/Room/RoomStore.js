@@ -13,8 +13,7 @@ export const RoomStore = defineStore('roomStore',() => {
     const roomType = ref([])
     const partialCost = ref([])
     const roomStatus = ref([])
-
-    const  room_type_id = ref('')
+    const room_type_id = ref('')
 
     const formatForm = () => {
         return {
