@@ -1,5 +1,5 @@
 // import defineStore of pinia
-import { defineStore } from 'pinia'
+import { defineStore,storeToRefs } from 'pinia'
 import axios from "axios";
 import {ref,computed} from 'vue'
 import { HelperStore } from '../../HelperStore';
@@ -14,6 +14,8 @@ export const RoomStore = defineStore('roomStore',() => {
     const partialCost = ref([])
     const roomStatus = ref([])
     const room_type_id = ref('')
+    const description = ref('');
+    const rooms = ref([]);
 
     const formatForm = () => {
         return {
@@ -72,6 +74,11 @@ export const RoomStore = defineStore('roomStore',() => {
         return one_partial_cost.attributes.rate
     })
 
+    const showDetail = (item) => {
+        description.value = item.attributes.description
+		$("#showDetail").modal("show");
+    }
+
     const getRoomStatus = () => {
         var urlKeeps = "/configuracion/room-status/get";
         axios
@@ -86,8 +93,34 @@ export const RoomStore = defineStore('roomStore',() => {
             .catch((err) => {});
     }
 
+    const {all} = storeToRefs(useHelper)
+    const filterRoomsByStatus = (statusId = null) => {
+        if(rooms.value.length == 0){
+            rooms.value = all.value
+        }
+
+        if(rooms.value.length != all.value.length){
+            all.value = rooms.value
+        }
+
+        if(statusId){
+            all.value = all.value.filter ((item) => {
+                console.log(item);
+                if(item.relationships.roomStatus.id == statusId) return true
+            })
+        }else{
+            all.value = rooms.value
+        }
+    }
+
+    const setRooms = async () => {
+        await useHelper.getAll()
+        rooms.value = all.value
+    }
+
 
     return {
+        setRooms,
         formatForm,
         setForm,
         getRoomType,
@@ -97,6 +130,10 @@ export const RoomStore = defineStore('roomStore',() => {
         roomType,
         partialCost,
         room_type_id,
-        getRate
+        getRate,
+        showDetail,
+        description,
+        rooms,
+        filterRoomsByStatus
     }
 })

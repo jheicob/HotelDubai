@@ -1,14 +1,15 @@
 <template>
-	<div class="card mb-3" :style="style" :class="cardClass">
-		<div class="card-header" :class="titleClass">
+	<div class="card mb-3" :style="CardStyle" :class="cardClass">
+		<div class="card-header" :class="titleClass" :style="titleStyle">
 			<slot name="title">Titulo</slot>
 		</div>
-		<div class="card-body" :class="bodyClass">
+		<div class="card-body" :class="bodyClass" :style="bodyStyle">
 			<slot name="body"> Body</slot>
 		</div>
-		<div class="card-footer" v-if="footer" :class="footerClass">
+		<div class="card-footer" v-if="footer" :class="footerClass" :style="footerStyle">
 			<slot name="footer" />
 		</div>
+		<slot></slot>
 	</div>
 </template>
 <script setup>
@@ -34,6 +35,22 @@
 			default: [],
 		},
 		footerClass: {
+			type: Array,
+			default: [],
+		},
+		titleStyle: {
+			type: Array,
+			default: [],
+		},
+		bodyStyle: {
+			type: Array,
+			default: [],
+		},
+		footerStyle: {
+			type: Array,
+			default: [],
+		},
+		cardStyle: {
 			type: Array,
 			default: [],
 		},

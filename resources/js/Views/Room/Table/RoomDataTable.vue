@@ -32,15 +32,78 @@
 					<div class="mb-2">
 						<ButtonComponent
 							:btnClass="['btn-primary', 'mx-1']"
+							:key="i"
+							@click="filterRoomsByStatus()"
+							text="Todo"
+						/>
+						<ButtonComponent
+							:btnClass="['btn-primary', 'mx-1']"
 							v-for="(status, i) in useStore.roomStatus"
 							:key="i"
+							@click="filterRoomsByStatus(status.id)"
 							:text="status.attributes.name"
+							:style="[status.attributes.color.css ?? 'btn-primary']"
 						/>
 					</div>
 
 					<div class="row">
 						<div class="col-3" v-for="(item, i) in all" :key="i">
-							<RoomsGrid :item="item" />
+							<RoomsGrid
+								:item="item"
+								:footerStyle="[
+									item.relationships.roomStatus.attributes.color.css ??
+										'',
+								]"
+							/>
+							<RoomsGrid
+								:item="item"
+								:footerStyle="[
+									item.relationships.roomStatus.attributes.color.css ??
+										'',
+								]"
+							/>
+							<RoomsGrid
+								:item="item"
+								:footerStyle="[
+									item.relationships.roomStatus.attributes.color.css ??
+										'',
+								]"
+							/>
+							<RoomsGrid
+								:item="item"
+								:footerStyle="[
+									item.relationships.roomStatus.attributes.color.css ??
+										'',
+								]"
+							/>
+							<RoomsGrid
+								:item="item"
+								:footerStyle="[
+									item.relationships.roomStatus.attributes.color.css ??
+										'',
+								]"
+							/>
+							<RoomsGrid
+								:item="item"
+								:footerStyle="[
+									item.relationships.roomStatus.attributes.color.css ??
+										'',
+								]"
+							/>
+							<RoomsGrid
+								:item="item"
+								:footerStyle="[
+									item.relationships.roomStatus.attributes.color.css ??
+										'',
+								]"
+							/>
+							<RoomsGrid
+								:item="item"
+								:footerStyle="[
+									item.relationships.roomStatus.attributes.color.css ??
+										'',
+								]"
+							/>
 						</div>
 					</div>
 
@@ -136,6 +199,14 @@
 		</div>
 		<create-permission />
 		<update-permission />
+		<ModalComponent idModal="showDetail" title>
+			<template #title>
+				<h5>Detalle de Habitación</h5>
+			</template>
+			<p>
+				{{ useStore.description }}
+			</p>
+		</ModalComponent>
 	</div>
 </template>
 
@@ -143,6 +214,7 @@
 	import CreatePermission from "../Modals/CreateRoom.vue";
 	import UpdatePermission from "../Modals/UpdateRoom.vue";
 	import { HelperStore } from "@/HelperStore";
+	import ModalComponent from "@/components/ModalComponent.vue";
 	import ButtonComponent from "@/components/ButtonComponent.vue";
 	import RoomsGrid from "./RoomsGrid.vue";
 	import { RoomStore } from "../RoomStore";
@@ -153,6 +225,8 @@
 
 	const { permiss, all } = storeToRefs(useHelper);
 	const { ShowCreateModal, ShowUpdateModal, deleteItem } = useHelper;
+	const { rooms } = storeToRefs(useStore);
+	const { filterRoomsByStatus } = useStore;
 
 	onMounted(() => {
 		useHelper.getAll();
