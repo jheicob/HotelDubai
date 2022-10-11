@@ -11,7 +11,7 @@
 			default: "Button",
 		},
 		btnClass: {
-			type: String,
+			type: Array,
 			default: "btn-primary",
 		},
 		disabled: {

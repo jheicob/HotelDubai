@@ -14,6 +14,7 @@ export const HelperStore = defineStore('HelperStore',() => {
     const errors = ref([])
     const url = ref('')
     const all = ref([])
+    const item = ref({})
 
     const getErrorRequest = (err) => {
         if (err.response?.status == 422) {
@@ -112,6 +113,7 @@ export const HelperStore = defineStore('HelperStore',() => {
         setForm,
         clearForm,
         errors,
-        putItem
+        putItem,
+        item
     }
 })

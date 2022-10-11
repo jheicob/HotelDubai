@@ -5,6 +5,7 @@
 		:titleClass="['text-center', 'fw-bold']"
 		:footerClass="['text-center', 'fw-bold']"
 		:footerStyle="footerStyle"
+		:cardStyle="[]"
 		@dblclick="updateItem"
 	>
 		<template #title>
@@ -15,15 +16,28 @@
 			}}
 		</template>
 		<template #body>
-			<div class="mx-auto">
+			<div class="text-center">
 				<ButtonComponent
-					:btnClass="['btn-info']"
+					:btnClass="['btn-info', 'mx-1']"
 					text="Ver Detalle"
 					@click="room.showDetail(item)"
 				/>
 				<ButtonComponent
+					v-if="room.ShowOcuppyButton(item)"
 					:btnClass="['btn-info']"
 					text="Ocupar"
+					@click="room.ShowOccuppyModal(item)"
+				/>
+				<ButtonComponent
+					v-if="room.ShowFreeButton(item)"
+					:btnClass="['btn-info']"
+					text="Liberar"
+					@click="room.showDetail(item)"
+				/>
+				<ButtonComponent
+					v-if="room.ShowExtendButton(item)"
+					:btnClass="['btn-info', 'mt-2']"
+					text="Extender"
 					@click="room.showDetail(item)"
 				/>
 			</div>

@@ -22818,6 +22818,43 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/OcuppyRoom.vue?vue&type=script&setup=true&lang=js":
+/*!**********************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/OcuppyRoom.vue?vue&type=script&setup=true&lang=js ***!
+  \**********************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _components_ModalComponent_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/components/ModalComponent.vue */ "./resources/js/components/ModalComponent.vue");
+/* harmony import */ var _RoomStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../RoomStore */ "./resources/js/Views/Room/RoomStore.js");
+/* harmony import */ var _HelperStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/HelperStore */ "./resources/js/HelperStore.js");
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  __name: 'OcuppyRoom',
+  setup: function setup(__props, _ref) {
+    var expose = _ref.expose;
+    expose();
+    var __returned__ = {
+      ModalComponent: _components_ModalComponent_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+      RoomStore: _RoomStore__WEBPACK_IMPORTED_MODULE_1__.RoomStore,
+      HelperStore: _HelperStore__WEBPACK_IMPORTED_MODULE_2__.HelperStore
+    };
+    Object.defineProperty(__returned__, '__isScriptSetup', {
+      enumerable: false,
+      value: true
+    });
+    return __returned__;
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&setup=true&lang=js":
 /*!**********************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&setup=true&lang=js ***!
@@ -22928,6 +22965,18 @@ __webpack_require__.r(__webpack_exports__);
     updated: {
       type: Boolean,
       "default": false
+    },
+    ocuppy: {
+      type: Boolean,
+      "default": false
+    },
+    free: {
+      type: Boolean,
+      "default": false
+    },
+    extend: {
+      type: Boolean,
+      "default": false
     }
   },
   setup: function setup(__props, _ref) {
@@ -22966,12 +23015,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Modals_CreateRoom_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../Modals/CreateRoom.vue */ "./resources/js/Views/Room/Modals/CreateRoom.vue");
 /* harmony import */ var _Modals_UpdateRoom_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Modals/UpdateRoom.vue */ "./resources/js/Views/Room/Modals/UpdateRoom.vue");
 /* harmony import */ var _HelperStore__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/HelperStore */ "./resources/js/HelperStore.js");
-/* harmony import */ var _components_ModalComponent_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/components/ModalComponent.vue */ "./resources/js/components/ModalComponent.vue");
-/* harmony import */ var _components_ButtonComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/ButtonComponent.vue */ "./resources/js/components/ButtonComponent.vue");
-/* harmony import */ var _RoomsGrid_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./RoomsGrid.vue */ "./resources/js/Views/Room/Table/RoomsGrid.vue");
-/* harmony import */ var _RoomStore__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../RoomStore */ "./resources/js/Views/Room/RoomStore.js");
-/* harmony import */ var pinia__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! pinia */ "./node_modules/pinia/dist/pinia.mjs");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _Modals_OcuppyRoom_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Modals/OcuppyRoom.vue */ "./resources/js/Views/Room/Modals/OcuppyRoom.vue");
+/* harmony import */ var _components_ModalComponent_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/components/ModalComponent.vue */ "./resources/js/components/ModalComponent.vue");
+/* harmony import */ var _components_ButtonComponent_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/components/ButtonComponent.vue */ "./resources/js/components/ButtonComponent.vue");
+/* harmony import */ var _RoomsGrid_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./RoomsGrid.vue */ "./resources/js/Views/Room/Table/RoomsGrid.vue");
+/* harmony import */ var _RoomStore__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../RoomStore */ "./resources/js/Views/Room/RoomStore.js");
+/* harmony import */ var pinia__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! pinia */ "./node_modules/pinia/dist/pinia.mjs");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
 
 
 
@@ -22987,9 +23038,9 @@ __webpack_require__.r(__webpack_exports__);
     var expose = _ref.expose;
     expose();
     var useHelper = (0,_HelperStore__WEBPACK_IMPORTED_MODULE_2__.HelperStore)();
-    var useStore = (0,_RoomStore__WEBPACK_IMPORTED_MODULE_6__.RoomStore)();
+    var useStore = (0,_RoomStore__WEBPACK_IMPORTED_MODULE_7__.RoomStore)();
 
-    var _storeToRefs = (0,pinia__WEBPACK_IMPORTED_MODULE_8__.storeToRefs)(useHelper),
+    var _storeToRefs = (0,pinia__WEBPACK_IMPORTED_MODULE_9__.storeToRefs)(useHelper),
         permiss = _storeToRefs.permiss,
         all = _storeToRefs.all;
 
@@ -22997,11 +23048,11 @@ __webpack_require__.r(__webpack_exports__);
         ShowUpdateModal = useHelper.ShowUpdateModal,
         deleteItem = useHelper.deleteItem;
 
-    var _storeToRefs2 = (0,pinia__WEBPACK_IMPORTED_MODULE_8__.storeToRefs)(useStore),
+    var _storeToRefs2 = (0,pinia__WEBPACK_IMPORTED_MODULE_9__.storeToRefs)(useStore),
         rooms = _storeToRefs2.rooms;
 
     var filterRoomsByStatus = useStore.filterRoomsByStatus;
-    (0,vue__WEBPACK_IMPORTED_MODULE_7__.onMounted)(function () {
+    (0,vue__WEBPACK_IMPORTED_MODULE_8__.onMounted)(function () {
       useHelper.getAll();
       useStore.getRoomStatus();
     });
@@ -23018,12 +23069,13 @@ __webpack_require__.r(__webpack_exports__);
       CreatePermission: _Modals_CreateRoom_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
       UpdatePermission: _Modals_UpdateRoom_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
       HelperStore: _HelperStore__WEBPACK_IMPORTED_MODULE_2__.HelperStore,
-      ModalComponent: _components_ModalComponent_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-      ButtonComponent: _components_ButtonComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
-      RoomsGrid: _RoomsGrid_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
-      RoomStore: _RoomStore__WEBPACK_IMPORTED_MODULE_6__.RoomStore,
-      storeToRefs: pinia__WEBPACK_IMPORTED_MODULE_8__.storeToRefs,
-      onMounted: vue__WEBPACK_IMPORTED_MODULE_7__.onMounted
+      OcuppyRoom: _Modals_OcuppyRoom_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+      ModalComponent: _components_ModalComponent_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+      ButtonComponent: _components_ButtonComponent_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
+      RoomsGrid: _RoomsGrid_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+      RoomStore: _RoomStore__WEBPACK_IMPORTED_MODULE_7__.RoomStore,
+      storeToRefs: pinia__WEBPACK_IMPORTED_MODULE_9__.storeToRefs,
+      onMounted: vue__WEBPACK_IMPORTED_MODULE_8__.onMounted
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -25353,7 +25405,7 @@ __webpack_require__.r(__webpack_exports__);
       "default": "Button"
     },
     btnClass: {
-      type: String,
+      type: Array,
       "default": "btn-primary"
     },
     disabled: {
@@ -29155,33 +29207,26 @@ var _hoisted_16 = {
   "class": "form-inline"
 };
 
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  "class": "btn btn-success ml-3",
-  type: "button"
-}, " Personalizar ", -1
-/* HOISTED */
-);
-
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "name",
   "class": "form-label"
 }, "Estado de la Habitación", -1
 /* HOISTED */
 );
 
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   selected: "",
   value: ""
 }, " Seleccione Estado de la Habitación ", -1
 /* HOISTED */
 );
 
-var _hoisted_20 = ["value"];
-var _hoisted_21 = {
+var _hoisted_19 = ["value"];
+var _hoisted_20 = {
   "class": "modal-footer"
 };
 
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   "class": "btn btn-danger text-white btn-icon-split mb-4",
   "data-dismiss": "modal"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
@@ -29190,15 +29235,15 @@ var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_23 = ["disabled"];
+var _hoisted_22 = ["disabled"];
 
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "text font-montserrat font-weight-bold"
 }, "Crear Crear Habitación", -1
 /* HOISTED */
 );
 
-var _hoisted_25 = [_hoisted_24];
+var _hoisted_24 = [_hoisted_23];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
@@ -29266,32 +29311,73 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "form-control col-4"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.getRate]]), _hoisted_17]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <label for=\"name\" class=\"form-label\"\n\t\t\t\t\t\t\t>Temática de la Habitación</label\n\t\t\t\t\t\t>\n\t\t\t\t\t\t<select\n\t\t\t\t\t\t\tclass=\"form-select\"\n\t\t\t\t\t\t\taria-label=\"Default select example\"\n\t\t\t\t\t\t\tv-model=\"form.theme_type_id\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<option selected value=\"\">\n\t\t\t\t\t\t\t\tSeleccione Temática de la Habitación\n\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\tv-for=\"keep in themeTypes\"\n\t\t\t\t\t\t\t\t:key=\"keep.id\"\n\t\t\t\t\t\t\t\t:value=\"keep.id\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t{{ keep.attributes.name }}\n\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t</select> "), _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.getRate]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button class=\"btn btn-success ml-3\" type=\"button\">\n\t\t\t\t\t\t\t\tPersonalizar\n\t\t\t\t\t\t\t</button> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <label for=\"name\" class=\"form-label\"\n\t\t\t\t\t\t\t>Temática de la Habitación</label\n\t\t\t\t\t\t>\n\t\t\t\t\t\t<select\n\t\t\t\t\t\t\tclass=\"form-select\"\n\t\t\t\t\t\t\taria-label=\"Default select example\"\n\t\t\t\t\t\t\tv-model=\"form.theme_type_id\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<option selected value=\"\">\n\t\t\t\t\t\t\t\tSeleccione Temática de la Habitación\n\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\tv-for=\"keep in themeTypes\"\n\t\t\t\t\t\t\t\t:key=\"keep.id\"\n\t\t\t\t\t\t\t\t:value=\"keep.id\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t{{ keep.attributes.name }}\n\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t</select> "), _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "form-select",
     "aria-label": "Default select example",
     "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
       return $setup.form.room_status_id = $event;
     })
-  }, [_hoisted_19, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.roomStatus, function (keep) {
+  }, [_hoisted_18, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.roomStatus, function (keep) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
       key: keep.id,
       value: keep.id
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.attributes.name), 9
     /* TEXT, PROPS */
-    , _hoisted_20);
+    , _hoisted_19);
   }), 128
   /* KEYED_FRAGMENT */
   ))], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.form.room_status_id]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.form.room_status_id]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     disabled: $setup.desactiveButton,
     onClick: _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $setup.storeItem($setup.formatForm);
     }, ["prevent"])),
     "class": "btn btn-primary text-white btn-icon-split mb-4"
-  }, _hoisted_25, 8
+  }, _hoisted_24, 8
   /* PROPS */
-  , _hoisted_23)])])])])]);
+  , _hoisted_22)])])])])]);
+}
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/OcuppyRoom.vue?vue&type=template&id=10e9b672":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/OcuppyRoom.vue?vue&type=template&id=10e9b672 ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render)
+/* harmony export */ });
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
+
+var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", null, "Ocupar Habitación", -1
+/* HOISTED */
+);
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", null, "Voy a ocupar un habitación", -1
+/* HOISTED */
+);
+
+function render(_ctx, _cache, $props, $setup, $data, $options) {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ModalComponent"], {
+    idModal: "showOcuppyRoom",
+    title: ""
+  }, {
+    title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_1];
+    }),
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_2];
+    }),
+    _: 1
+    /* STABLE */
+
+  });
 }
 
 /***/ }),
@@ -29404,33 +29490,26 @@ var _hoisted_16 = {
   "class": "form-inline"
 };
 
-var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-  "class": "btn btn-success ml-3",
-  type: "button"
-}, " Personalizar ", -1
-/* HOISTED */
-);
-
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
   "for": "name",
   "class": "form-label"
 }, "Estado de la Habitación", -1
 /* HOISTED */
 );
 
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
   selected: "",
   value: ""
 }, " Seleccione Estado de la Habitación ", -1
 /* HOISTED */
 );
 
-var _hoisted_20 = ["value"];
-var _hoisted_21 = {
+var _hoisted_19 = ["value"];
+var _hoisted_20 = {
   "class": "modal-footer"
 };
 
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   "class": "btn btn-danger text-white btn-icon-split mb-4",
   "data-dismiss": "modal"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
@@ -29439,15 +29518,15 @@ var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 /* HOISTED */
 );
 
-var _hoisted_23 = ["disabled"];
+var _hoisted_22 = ["disabled"];
 
-var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "text font-montserrat font-weight-bold"
 }, "Modificar Habitación", -1
 /* HOISTED */
 );
 
-var _hoisted_25 = [_hoisted_24];
+var _hoisted_24 = [_hoisted_23];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Modal "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
@@ -29515,32 +29594,32 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": "form-control col-4"
   }, null, 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.getRate]]), _hoisted_17]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <label for=\"name\" class=\"form-label\"\n\t\t\t\t\t\t\t>Temática de la Habitación</label\n\t\t\t\t\t\t>\n\t\t\t\t\t\t<select\n\t\t\t\t\t\t\tclass=\"form-select\"\n\t\t\t\t\t\t\taria-label=\"Default select example\"\n\t\t\t\t\t\t\tv-model=\"form.theme_type_id\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<option selected value=\"\">\n\t\t\t\t\t\t\t\tSeleccione Temática de la Habitación\n\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\tv-for=\"keep in themeTypes\"\n\t\t\t\t\t\t\t\t:key=\"keep.id\"\n\t\t\t\t\t\t\t\t:value=\"keep.id\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t{{ keep.attributes.name }}\n\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t</select> "), _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.getRate]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button class=\"btn btn-success ml-3\" type=\"button\">\n\t\t\t\t\t\t\t\tPersonalizar\n\t\t\t\t\t\t\t</button> ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <label for=\"name\" class=\"form-label\"\n\t\t\t\t\t\t\t>Temática de la Habitación</label\n\t\t\t\t\t\t>\n\t\t\t\t\t\t<select\n\t\t\t\t\t\t\tclass=\"form-select\"\n\t\t\t\t\t\t\taria-label=\"Default select example\"\n\t\t\t\t\t\t\tv-model=\"form.theme_type_id\"\n\t\t\t\t\t\t>\n\t\t\t\t\t\t\t<option selected value=\"\">\n\t\t\t\t\t\t\t\tSeleccione Temática de la Habitación\n\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t\t<option\n\t\t\t\t\t\t\t\tv-for=\"keep in themeTypes\"\n\t\t\t\t\t\t\t\t:key=\"keep.id\"\n\t\t\t\t\t\t\t\t:value=\"keep.id\"\n\t\t\t\t\t\t\t>\n\t\t\t\t\t\t\t\t{{ keep.attributes.name }}\n\t\t\t\t\t\t\t</option>\n\t\t\t\t\t\t</select> "), _hoisted_17, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     "class": "form-select",
     "aria-label": "Default select example",
     "onUpdate:modelValue": _cache[6] || (_cache[6] = function ($event) {
       return $setup.form.room_status_id = $event;
     })
-  }, [_hoisted_19, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.roomStatus, function (keep) {
+  }, [_hoisted_18, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.roomStatus, function (keep) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
       key: keep.id,
       value: keep.id
     }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(keep.attributes.name), 9
     /* TEXT, PROPS */
-    , _hoisted_20);
+    , _hoisted_19);
   }), 128
   /* KEYED_FRAGMENT */
   ))], 512
   /* NEED_PATCH */
-  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.form.room_status_id]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_21, [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $setup.form.room_status_id]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     disabled: $setup.desactiveButton,
     onClick: _cache[7] || (_cache[7] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $setup.putItem($setup.formatForm);
     }, ["prevent"])),
     "class": "btn btn-primary text-white btn-icon-split mb-4"
-  }, _hoisted_25, 8
+  }, _hoisted_24, 8
   /* PROPS */
-  , _hoisted_23)])])])])]);
+  , _hoisted_22)])])])])]);
 }
 
 /***/ }),
@@ -29674,7 +29753,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), 128
   /* KEYED_FRAGMENT */
   ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.all, function (item, i) {
-    var _item$relationships$r, _item$relationships$r2, _item$relationships$r3, _item$relationships$r4, _item$relationships$r5, _item$relationships$r6, _item$relationships$r7, _item$relationships$r8;
+    var _item$relationships$r;
 
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       "class": "col-3",
@@ -29682,41 +29761,6 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RoomsGrid"], {
       item: item,
       footerStyle: [(_item$relationships$r = item.relationships.roomStatus.attributes.color.css) !== null && _item$relationships$r !== void 0 ? _item$relationships$r : '']
-    }, null, 8
-    /* PROPS */
-    , ["item", "footerStyle"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RoomsGrid"], {
-      item: item,
-      footerStyle: [(_item$relationships$r2 = item.relationships.roomStatus.attributes.color.css) !== null && _item$relationships$r2 !== void 0 ? _item$relationships$r2 : '']
-    }, null, 8
-    /* PROPS */
-    , ["item", "footerStyle"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RoomsGrid"], {
-      item: item,
-      footerStyle: [(_item$relationships$r3 = item.relationships.roomStatus.attributes.color.css) !== null && _item$relationships$r3 !== void 0 ? _item$relationships$r3 : '']
-    }, null, 8
-    /* PROPS */
-    , ["item", "footerStyle"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RoomsGrid"], {
-      item: item,
-      footerStyle: [(_item$relationships$r4 = item.relationships.roomStatus.attributes.color.css) !== null && _item$relationships$r4 !== void 0 ? _item$relationships$r4 : '']
-    }, null, 8
-    /* PROPS */
-    , ["item", "footerStyle"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RoomsGrid"], {
-      item: item,
-      footerStyle: [(_item$relationships$r5 = item.relationships.roomStatus.attributes.color.css) !== null && _item$relationships$r5 !== void 0 ? _item$relationships$r5 : '']
-    }, null, 8
-    /* PROPS */
-    , ["item", "footerStyle"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RoomsGrid"], {
-      item: item,
-      footerStyle: [(_item$relationships$r6 = item.relationships.roomStatus.attributes.color.css) !== null && _item$relationships$r6 !== void 0 ? _item$relationships$r6 : '']
-    }, null, 8
-    /* PROPS */
-    , ["item", "footerStyle"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RoomsGrid"], {
-      item: item,
-      footerStyle: [(_item$relationships$r7 = item.relationships.roomStatus.attributes.color.css) !== null && _item$relationships$r7 !== void 0 ? _item$relationships$r7 : '']
-    }, null, 8
-    /* PROPS */
-    , ["item", "footerStyle"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RoomsGrid"], {
-      item: item,
-      footerStyle: [(_item$relationships$r8 = item.relationships.roomStatus.attributes.color.css) !== null && _item$relationships$r8 !== void 0 ? _item$relationships$r8 : '']
     }, null, 8
     /* PROPS */
     , ["item", "footerStyle"])]);
@@ -29737,7 +29781,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     _: 1
     /* STABLE */
 
-  })]);
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["OcuppyRoom"])]);
 }
 
 /***/ }),
@@ -29761,7 +29805,7 @@ var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 );
 
 var _hoisted_2 = {
-  "class": "mx-auto"
+  "class": "text-center"
 };
 
 var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
@@ -29783,6 +29827,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     titleClass: ['text-center', 'fw-bold'],
     footerClass: ['text-center', 'fw-bold'],
     footerStyle: $props.footerStyle,
+    cardStyle: [],
     onDblclick: $setup.updateItem
   }, {
     title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
@@ -29794,18 +29839,33 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     body: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ButtonComponent"], {
-        btnClass: ['btn-info'],
+        btnClass: ['btn-info', 'mx-1'],
         text: "Ver Detalle",
         onClick: _cache[0] || (_cache[0] = function ($event) {
           return $setup.room.showDetail($setup.item);
         })
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ButtonComponent"], {
+      }), $setup.room.ShowOcuppyButton($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ButtonComponent"], {
+        key: 0,
         btnClass: ['btn-info'],
         text: "Ocupar",
         onClick: _cache[1] || (_cache[1] = function ($event) {
+          return $setup.room.ShowOccuppyModal($setup.item);
+        })
+      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.room.ShowFreeButton($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ButtonComponent"], {
+        key: 1,
+        btnClass: ['btn-info'],
+        text: "Liberar",
+        onClick: _cache[2] || (_cache[2] = function ($event) {
           return $setup.room.showDetail($setup.item);
         })
-      })]), _hoisted_3, _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <b>Precio - Parcial:</b> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <br /> "), _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.relationships.partialCost.relationships.roomType.attributes.name), 1
+      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.room.ShowExtendButton($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ButtonComponent"], {
+        key: 2,
+        btnClass: ['btn-info', 'mt-2'],
+        text: "Extender",
+        onClick: _cache[3] || (_cache[3] = function ($event) {
+          return $setup.room.showDetail($setup.item);
+        })
+      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), _hoisted_3, _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <b>Precio - Parcial:</b> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <br /> "), _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.relationships.partialCost.relationships.roomType.attributes.name), 1
       /* TEXT */
       )];
     }),
@@ -34116,6 +34176,7 @@ var HelperStore = (0,pinia__WEBPACK_IMPORTED_MODULE_3__.defineStore)('HelperStor
   var errors = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
   var url = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)('');
   var all = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)([]);
+  var item = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)({});
 
   var getErrorRequest = function getErrorRequest(err) {
     var _err$response;
@@ -34218,7 +34279,8 @@ var HelperStore = (0,pinia__WEBPACK_IMPORTED_MODULE_3__.defineStore)('HelperStor
     setForm: setForm,
     clearForm: clearForm,
     errors: errors,
-    putItem: putItem
+    putItem: putItem,
+    item: item
   };
 });
 
@@ -34424,7 +34486,36 @@ var RoomStore = (0,pinia__WEBPACK_IMPORTED_MODULE_3__.defineStore)('roomStore', 
     };
   }();
 
+  var ShowOcuppyButton = function ShowOcuppyButton(item) {
+    return useHelper.permiss.ocuppy && item.relationships.roomStatus.attributes.name == 'Disponible';
+  };
+
+  var ShowFreeButton = function ShowFreeButton(item) {
+    return useHelper.permiss.free && (item.relationships.roomStatus.attributes.name == 'Ocupada' || item.relationships.roomStatus.attributes.name == 'Limpiando');
+  };
+
+  var ShowExtendButton = function ShowExtendButton(item) {
+    return useHelper.permiss.extend && item.relationships.roomStatus.attributes.name == 'Ocupada';
+  };
+
+  var ShowOccuppyModal = function ShowOccuppyModal(item) {
+    useHelper.item = item;
+    $("#showOcuppyRoom").modal("show");
+  };
+
+  var createFree = function createFree(item) {
+    console.log('habitacion Liberada');
+  };
+
+  var createExtend = function createExtend(item) {
+    console.log('Habitación extendida');
+  };
+
   return {
+    ShowOccuppyModal: ShowOccuppyModal,
+    ShowOcuppyButton: ShowOcuppyButton,
+    ShowExtendButton: ShowExtendButton,
+    ShowFreeButton: ShowFreeButton,
     setRooms: setRooms,
     formatForm: formatForm,
     setForm: setForm,
@@ -72046,6 +72137,34 @@ if (false) {}
 
 /***/ }),
 
+/***/ "./resources/js/Views/Room/Modals/OcuppyRoom.vue":
+/*!*******************************************************!*\
+  !*** ./resources/js/Views/Room/Modals/OcuppyRoom.vue ***!
+  \*******************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _OcuppyRoom_vue_vue_type_template_id_10e9b672__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OcuppyRoom.vue?vue&type=template&id=10e9b672 */ "./resources/js/Views/Room/Modals/OcuppyRoom.vue?vue&type=template&id=10e9b672");
+/* harmony import */ var _OcuppyRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OcuppyRoom.vue?vue&type=script&setup=true&lang=js */ "./resources/js/Views/Room/Modals/OcuppyRoom.vue?vue&type=script&setup=true&lang=js");
+/* harmony import */ var _home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+
+
+
+
+;
+const __exports__ = /*#__PURE__*/(0,_home_zippypc_Escritorio_Proyectos_Personal_HotelDubai_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_2__["default"])(_OcuppyRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_OcuppyRoom_vue_vue_type_template_id_10e9b672__WEBPACK_IMPORTED_MODULE_0__.render],['__file',"resources/js/Views/Room/Modals/OcuppyRoom.vue"]])
+/* hot reload */
+if (false) {}
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (__exports__);
+
+/***/ }),
+
 /***/ "./resources/js/Views/Room/Modals/UpdateRoom.vue":
 /*!*******************************************************!*\
   !*** ./resources/js/Views/Room/Modals/UpdateRoom.vue ***!
@@ -73794,6 +73913,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/Views/Room/Modals/OcuppyRoom.vue?vue&type=script&setup=true&lang=js":
+/*!******************************************************************************************!*\
+  !*** ./resources/js/Views/Room/Modals/OcuppyRoom.vue?vue&type=script&setup=true&lang=js ***!
+  \******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_OcuppyRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__["default"])
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_OcuppyRoom_vue_vue_type_script_setup_true_lang_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./OcuppyRoom.vue?vue&type=script&setup=true&lang=js */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/OcuppyRoom.vue?vue&type=script&setup=true&lang=js");
+ 
+
+/***/ }),
+
 /***/ "./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&setup=true&lang=js":
 /*!******************************************************************************************!*\
   !*** ./resources/js/Views/Room/Modals/UpdateRoom.vue?vue&type=script&setup=true&lang=js ***!
@@ -75006,6 +75141,22 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CreateRoom_vue_vue_type_template_id_621f5c0b__WEBPACK_IMPORTED_MODULE_0__.render)
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_CreateRoom_vue_vue_type_template_id_621f5c0b__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./CreateRoom.vue?vue&type=template&id=621f5c0b */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/CreateRoom.vue?vue&type=template&id=621f5c0b");
+
+
+/***/ }),
+
+/***/ "./resources/js/Views/Room/Modals/OcuppyRoom.vue?vue&type=template&id=10e9b672":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/Views/Room/Modals/OcuppyRoom.vue?vue&type=template&id=10e9b672 ***!
+  \*************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_OcuppyRoom_vue_vue_type_template_id_10e9b672__WEBPACK_IMPORTED_MODULE_0__.render)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_use_0_node_modules_vue_loader_dist_templateLoader_js_ruleSet_1_rules_2_node_modules_vue_loader_dist_index_js_ruleSet_0_use_0_OcuppyRoom_vue_vue_type_template_id_10e9b672__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!../../../../../node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!../../../../../node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./OcuppyRoom.vue?vue&type=template&id=10e9b672 */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5.use[0]!./node_modules/vue-loader/dist/templateLoader.js??ruleSet[1].rules[2]!./node_modules/vue-loader/dist/index.js??ruleSet[0].use[0]!./resources/js/Views/Room/Modals/OcuppyRoom.vue?vue&type=template&id=10e9b672");
 
 
 /***/ }),

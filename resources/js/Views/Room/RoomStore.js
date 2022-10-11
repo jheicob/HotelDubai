@@ -7,7 +7,6 @@ import { HelperStore } from '../../HelperStore';
 export const RoomStore = defineStore('roomStore',() => {
 
     const useHelper = HelperStore()
-
     useHelper.url = 'room'
 
     const roomType = ref([])
@@ -118,8 +117,47 @@ export const RoomStore = defineStore('roomStore',() => {
         rooms.value = all.value
     }
 
+    const ShowOcuppyButton = (item) => {
+        return (
+            useHelper.permiss.ocuppy &&
+            item.relationships.roomStatus.attributes.name == 'Disponible')
+    }
+    const ShowFreeButton = (item) => {
+        return (
+            useHelper.permiss.free
+            && (
+                item.relationships.roomStatus.attributes.name == 'Ocupada'
+                || item.relationships.roomStatus.attributes.name == 'Limpiando'
+                )
+            )
+    }
+    const ShowExtendButton = (item) => {
+        return (
+            useHelper.permiss.extend
+            && item.relationships.roomStatus.attributes.name == 'Ocupada'
+            )
+    }
+
+    const ShowOccuppyModal = (item) => {
+        useHelper.item = item
+        $("#showOcuppyRoom").modal("show");
+
+    }
+
+    const createFree = (item) => {
+        console.log('habitacion Liberada')
+    }
+
+    const createExtend = (item) => {
+        console.log('Habitación extendida')
+    }
+
 
     return {
+        ShowOccuppyModal,
+        ShowOcuppyButton,
+        ShowExtendButton,
+        ShowFreeButton,
         setRooms,
         formatForm,
         setForm,

@@ -55,55 +55,6 @@
 										'',
 								]"
 							/>
-							<RoomsGrid
-								:item="item"
-								:footerStyle="[
-									item.relationships.roomStatus.attributes.color.css ??
-										'',
-								]"
-							/>
-							<RoomsGrid
-								:item="item"
-								:footerStyle="[
-									item.relationships.roomStatus.attributes.color.css ??
-										'',
-								]"
-							/>
-							<RoomsGrid
-								:item="item"
-								:footerStyle="[
-									item.relationships.roomStatus.attributes.color.css ??
-										'',
-								]"
-							/>
-							<RoomsGrid
-								:item="item"
-								:footerStyle="[
-									item.relationships.roomStatus.attributes.color.css ??
-										'',
-								]"
-							/>
-							<RoomsGrid
-								:item="item"
-								:footerStyle="[
-									item.relationships.roomStatus.attributes.color.css ??
-										'',
-								]"
-							/>
-							<RoomsGrid
-								:item="item"
-								:footerStyle="[
-									item.relationships.roomStatus.attributes.color.css ??
-										'',
-								]"
-							/>
-							<RoomsGrid
-								:item="item"
-								:footerStyle="[
-									item.relationships.roomStatus.attributes.color.css ??
-										'',
-								]"
-							/>
 						</div>
 					</div>
 
@@ -207,6 +158,8 @@
 				{{ useStore.description }}
 			</p>
 		</ModalComponent>
+
+		<OcuppyRoom />
 	</div>
 </template>
 
@@ -214,6 +167,7 @@
 	import CreatePermission from "../Modals/CreateRoom.vue";
 	import UpdatePermission from "../Modals/UpdateRoom.vue";
 	import { HelperStore } from "@/HelperStore";
+	import OcuppyRoom from "../Modals/OcuppyRoom.vue";
 	import ModalComponent from "@/components/ModalComponent.vue";
 	import ButtonComponent from "@/components/ButtonComponent.vue";
 	import RoomsGrid from "./RoomsGrid.vue";

@@ -86,9 +86,9 @@
 								v-model="getRate"
 								class="form-control col-4"
 							/>
-							<button class="btn btn-success ml-3" type="button">
+							<!-- <button class="btn btn-success ml-3" type="button">
 								Personalizar
-							</button>
+							</button> -->
 						</div>
 
 						<!-- <label for="name" class="form-label"

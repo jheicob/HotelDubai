@@ -9,7 +9,6 @@
 <script setup>
 	import PermissionsDataTable from "./Table/RoomDataTable.vue";
 	import { HelperStore } from "@/HelperStore";
-
 	const useHelper = HelperStore();
 
 	const props = defineProps({
@@ -22,6 +21,18 @@
 			default: false,
 		},
 		updated: {
+			type: Boolean,
+			default: false,
+		},
+		ocuppy: {
+			type: Boolean,
+			default: false,
+		},
+		free: {
+			type: Boolean,
+			default: false,
+		},
+		extend: {
 			type: Boolean,
 			default: false,
 		},
