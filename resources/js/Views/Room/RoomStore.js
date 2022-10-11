@@ -3,8 +3,10 @@ import { defineStore,storeToRefs } from 'pinia'
 import axios from "axios";
 import {ref,computed} from 'vue'
 import { HelperStore } from '../../HelperStore';
+import { ocuppyRoomStore } from './Modals/OcuppyRoomStore';
 
 export const RoomStore = defineStore('roomStore',() => {
+    const OcuppyRoom = ocuppyRoomStore()
 
     const useHelper = HelperStore()
     useHelper.url = 'room'
@@ -15,6 +17,8 @@ export const RoomStore = defineStore('roomStore',() => {
     const room_type_id = ref('')
     const description = ref('');
     const rooms = ref([]);
+    const {all,item} = storeToRefs(useHelper)
+
 
     const formatForm = () => {
         return {
@@ -73,8 +77,8 @@ export const RoomStore = defineStore('roomStore',() => {
         return one_partial_cost.attributes.rate
     })
 
-    const showDetail = (item) => {
-        description.value = item.attributes.description
+    const showDetail = (room) => {
+        item.value = room
 		$("#showDetail").modal("show");
     }
 
@@ -92,7 +96,6 @@ export const RoomStore = defineStore('roomStore',() => {
             .catch((err) => {});
     }
 
-    const {all} = storeToRefs(useHelper)
     const filterRoomsByStatus = (statusId = null) => {
         if(rooms.value.length == 0){
             rooms.value = all.value
@@ -140,6 +143,7 @@ export const RoomStore = defineStore('roomStore',() => {
 
     const ShowOccuppyModal = (item) => {
         useHelper.item = item
+        OcuppyRoom.clearForm()
         $("#showOcuppyRoom").modal("show");
 
     }

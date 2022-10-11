@@ -1,6 +1,6 @@
 <template>
 	<button type="button" class="btn" :class="btnClass" :disabled="disabled">
-		{{ text }}
+		<slot>{{ text }}</slot>
 	</button>
 </template>
 <script setup>

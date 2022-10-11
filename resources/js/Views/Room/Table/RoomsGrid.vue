@@ -3,7 +3,7 @@
 		footer
 		:bodyClass="['fs-6']"
 		:titleClass="['text-center', 'fw-bold']"
-		:footerClass="['text-center', 'fw-bold']"
+		:footerClass="['text-center', 'fw-bold', 'text-white']"
 		:footerStyle="footerStyle"
 		:cardStyle="[]"
 		@dblclick="updateItem"
@@ -41,12 +41,13 @@
 					@click="room.showDetail(item)"
 				/>
 			</div>
-			<br />
-			<b>Tiempo Restante</b>
+			<div v-if="item.relationships.roomStatus.attributes.name == 'Ocupado'">
+				<br />
+				<b>Tiempo Restante</b>
+			</div>
+
 			<!-- <b>Precio - Parcial:</b> -->
 			<!-- <br /> -->
-			<b>Tipo Habitación:</b
-			>{{ item.relationships.partialCost.relationships.roomType.attributes.name }}
 		</template>
 		<template #footer>
 			{{ item.relationships.roomStatus.attributes.name }}

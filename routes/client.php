@@ -29,7 +29,8 @@ Route::group(
 
         Route::get('get', [App\Http\Controllers\Client\IndexController::class, 'get'])
             ->name('client.get')
-            ->middleware('permission:client.getPaginate');
+            // ->middleware('permission:client.getPaginate')
+            ;
 
         Route::post('assigned_room', [App\Http\Controllers\Client\CreateController::class, 'assigned_room'])
             ->name('client.assigned_room')

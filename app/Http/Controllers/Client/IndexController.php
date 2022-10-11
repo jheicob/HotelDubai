@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Http\Resources\Client\ClientResource;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
@@ -16,10 +17,12 @@ class IndexController extends Controller
         return ['view'];
     }
 
-    public function get()
+    public function get(Request $request)
     {
         try {
-            $client = Client::withTrashed()->get();
+    
+            $client = Client::filter($request)
+                withTrashed()->get();
 
             return ClientResource::collection($client);
         } catch (\Exception $e) {

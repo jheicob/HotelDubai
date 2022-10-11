@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import toastr from "toastr";
 import "toastr/build/toastr.css"
+import axios from 'axios';
 
 export const HelperStore = defineStore('HelperStore',() => {
     const desactiveButton = ref(false)
@@ -41,6 +42,19 @@ export const HelperStore = defineStore('HelperStore',() => {
                 });
             })
             .catch((err) => getErrorRequest(err))
+    }
+
+    const customRequest = (url,method,data,params) => {
+        axios({
+            method: method,
+            url: url,
+            data: data,
+            params: params,
+        })
+        .then((response) => {
+            return response.data;
+        })
+        .catch((err) => getErrorRequest(err))
     }
 
     const storeItem = (callback,idModal = "#exampleModal") => {
@@ -99,6 +113,7 @@ export const HelperStore = defineStore('HelperStore',() => {
     }
 
     return {
+        customRequest,
         form,
         url,
         all,

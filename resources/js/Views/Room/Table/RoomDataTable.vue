@@ -29,21 +29,41 @@
 							>
 						</a>
 					</div>
-					<div class="mb-2">
-						<ButtonComponent
-							:btnClass="['btn-primary', 'mx-1']"
-							:key="i"
-							@click="filterRoomsByStatus()"
-							text="Todo"
-						/>
-						<ButtonComponent
-							:btnClass="['btn-primary', 'mx-1']"
-							v-for="(status, i) in useStore.roomStatus"
-							:key="i"
-							@click="filterRoomsByStatus(status.id)"
-							:text="status.attributes.name"
-							:style="[status.attributes.color.css ?? 'btn-primary']"
-						/>
+					<div class="mb-2 row">
+						<div class="col-5"></div>
+						<div
+							class="mb-2 text-right btn-group col"
+							role="group"
+							aria-label="Basic example"
+						>
+							<ButtonComponent
+								:btnClass="['btn-light']"
+								:key="i"
+								@click="filterRoomsByStatus()"
+								text="Todo"
+							/>
+							<ButtonComponent
+								:btnClass="['btn-light', 'fw-bold']"
+								v-for="(status, i) in useStore.roomStatus"
+								:key="i"
+								@click="filterRoomsByStatus(status.id)"
+							>
+								<span
+									:style="[
+										status.attributes.color.color
+											? 'color:rgb(' +
+											  status.attributes.color.color.r +
+											  ',' +
+											  status.attributes.color.color.g +
+											  ',' +
+											  status.attributes.color.color.b +
+											  ')'
+											: '',
+									]"
+									>{{ status.attributes.name }}</span
+								>
+							</ButtonComponent>
+						</div>
 					</div>
 
 					<div class="row">
@@ -154,8 +174,13 @@
 			<template #title>
 				<h5>Detalle de Habitación</h5>
 			</template>
+			<p><b>Descripción:</b>{{ useHelper.item.attributes?.description ?? "" }}</p>
 			<p>
-				{{ useStore.description }}
+				<b>Tipo de Habitación:</b
+				>{{
+					useHelper.item.relationships?.partialCost.relationships.roomType
+						.attributes.name ?? ""
+				}}
 			</p>
 		</ModalComponent>
 
@@ -177,7 +202,7 @@
 	const useHelper = HelperStore();
 	const useStore = RoomStore();
 
-	const { permiss, all } = storeToRefs(useHelper);
+	const { permiss, all, item } = storeToRefs(useHelper);
 	const { ShowCreateModal, ShowUpdateModal, deleteItem } = useHelper;
 	const { rooms } = storeToRefs(useStore);
 	const { filterRoomsByStatus } = useStore;
