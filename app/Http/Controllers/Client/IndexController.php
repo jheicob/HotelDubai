@@ -20,9 +20,10 @@ class IndexController extends Controller
     public function get(Request $request)
     {
         try {
-    
+
             $client = Client::filter($request)
-                withTrashed()->get();
+                        ->withTrashed()
+                        ->get();
 
             return ClientResource::collection($client);
         } catch (\Exception $e) {
