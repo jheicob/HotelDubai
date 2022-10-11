@@ -15,6 +15,16 @@ class CreateClientRoomTable extends Migration
     {
         Schema::create('client_room', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('client_id');
+            $table->foreignId('room_id');
+            $table->dateTime('date_in');
+            $table->dateTime('date_out');
+            $table->string('partial_min');
+            $table->float('rate');
+            $table->string('observation');
+            $table->integer('quantity_partial');
+            $table->string('time_additional')->comment('format: H:i');
+            $table->float('price_additional');
             $table->timestamps();
         });
     }

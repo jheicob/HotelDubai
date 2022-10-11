@@ -14,8 +14,8 @@ class PartialRatesFactory extends Factory
     public function definition()
     {
         return [
-            'description' => $this->faker->randomDigit() . 'h',
-            'name' => $this->faker->unique()->randomDigit() . 'h',
+            'description' => $this->faker->randomDigitNotZero() . 'h',
+            'name' => $this->faker->unique()->randomDigitNotZero() . 'h',
         ];
     }
 }

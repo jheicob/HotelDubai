@@ -37,4 +37,10 @@ class Client extends Model implements Auditable
                     return $q->where('document','like',"%$document%");
                 });
     }
+
+    // get the rooms of user
+    public function rooms()
+    {
+        return $this->belongsToMany(Room::class)->using(ClientRoom::class);
+    }
 }

@@ -158,5 +158,6 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'client.updated']);
         Permission::create(['name' => 'client.getPaginate']);
         Permission::create(['name' => 'client.get']);
+        Permission::create(['name' => 'client.assigned_room']);
     }
 }

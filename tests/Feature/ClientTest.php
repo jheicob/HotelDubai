@@ -9,6 +9,10 @@ use Tests\TestCase;
 use App\Models\User;
 use App\Models\Client;
 use App\Http\Resources\Client\ClientResource;
+use App\Models\ClientRoom;
+use App\Models\Room;
+use App\Models\RoomStatus;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ClientTest extends TestCase
@@ -247,5 +251,58 @@ class ClientTest extends TestCase
 
         $this->assertCount(1,$client_with_1);
         $this->assertCount(2,$clients_with_5);
+    }
+
+    /**
+     * @test
+     */
+    public function assign_room_to_client_successfully(){
+        $this->withExceptionHandling();
+        $user = User::firstWhere('email', 'testing@c.c');
+        $client = Client::factory()->create();
+        $roomStatus = RoomStatus::factory()->create([
+            'name' => 'Disponible'
+        ]);
+        $room = Room::factory()
+                ->create(['room_status_id'=> $roomStatus->id]);
+        $roomStatus_ocuppy = RoomStatus::factory()->create([
+                    'name' => 'Ocupado'
+                ]);
+        $response = $this
+                        ->actingAs($user)
+                        ->postJson(route('client.assigned_room'),[
+                            'client_id'        => $client_id = $client->id,
+                            'room_id'          => $room_id = $room->id,
+                            'date_in'          => $date_in = Carbon::now()->format('Y-m-d H:i'),
+                            'observation'      => $observation = $this->faker->optional()->text(),
+                            'quantity_partial' => $quantity_partial = $this->faker->randomDigit(),
+                            // 'date_out'         =>Carbon::now()->addHours(4),
+                            // 'partial_min'      => ,
+                            // 'rate'             =>,
+                            // 'time_additional'  =>,
+                            // 'price_additional' =>,
+                        ]);
+
+        $response
+            ->assertOk();
+
+        $client_room = ClientRoom::first();
+
+        $partial_cost = $room->partialCost;
+        $partial_cost->partialRate->append('number_hour');
+
+        $hour_partial = $room->partialCost->partialRate->number_hour;
+
+        $this->assertEquals($client_id, $client_room->client_id);
+        $this->assertEquals($room_id, $client_room->room_id);
+        $this->assertEquals($date_in, $client_room->date_in);
+        $this->assertEquals($observation, $client_room->observation);
+        $this->assertEquals($quantity_partial, $client_room->quantity_partial);
+        $this->assertEquals(Carbon::parse($date_in)->addHours($hour_partial)->format('Y-m-d H:i'),$client_room->date_out);
+        $this->assertEquals($partial_cost->partialRate->name,$client_room->partial_min);
+        $this->assertEquals($partial_cost->rate,$client_room->rate);
+
+        $room->refresh();
+        $this->assertEquals($roomStatus_ocuppy->id,$room->room_status_id);
     }
 }

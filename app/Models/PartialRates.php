@@ -21,4 +21,14 @@ class PartialRates extends Authenticatable implements Auditable
         'description',
         'name',
     ];
+
+    /**
+     * get number of name
+     *
+     * @return bool
+     */
+    public function getNumberHourAttribute()
+    {
+        return rtrim($this->attributes['name'],'h');
+    }
 }

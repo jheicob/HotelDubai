@@ -40,4 +40,11 @@ class Room extends Model implements Auditable
     {
         return $this->belongsTo(PartialCost::class);
     }
+
+    /**
+     * get the clients that belongs many to this room
+     */
+    public function clients(){
+        return $this->belongsToMany(Client::class)->using(ClientRoom::class);
+    }
 }
