@@ -15,7 +15,10 @@ class CreateController extends Controller
         try {
             DB::beginTransaction();
 
-            $client = Client::create($request->all());
+            $client = Client::updateOrCreate(
+                $request->only('document'),
+                $request->except('document')
+            );
 
             DB::commit();
 

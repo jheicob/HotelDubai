@@ -4,7 +4,7 @@ namespace App\Http\Requests\Client;
 
 use App\Traits\CustomResponseFormRequestTrait;
 use Illuminate\Foundation\Http\FormRequest;
-
+use Illuminate\Validation\Rule;
 class UpdateRequest extends FormRequest
 {
     use CustomResponseFormRequestTrait;
@@ -27,7 +27,14 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'document' => [
+                'required',
+                Rule::unique('clients')->ignore($this->client)
+            ],
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
         ];
     }
 }

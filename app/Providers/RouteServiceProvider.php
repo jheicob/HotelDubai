@@ -84,6 +84,9 @@ class RouteServiceProvider extends ServiceProvider
                     ->namespace($this->namespace)
                     ->group(base_path('routes/rooms.php'));
 
+                Route::middleware('web')
+                    ->namespace($this->namespace)
+                    ->group(base_path('routes/client.php'));
             }
         );
     }

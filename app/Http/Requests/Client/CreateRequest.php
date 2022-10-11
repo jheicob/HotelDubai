@@ -27,7 +27,11 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'document' => 'required',
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
         ];
     }
 }

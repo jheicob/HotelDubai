@@ -139,6 +139,9 @@ class RoleSeeder extends Seeder
             'room.updated',
             'room.getPaginate',
             'room.get',
+            'room.occuppy',
+            'room.free',
+            'room.extend',
 
             'day.templates.index',
             'day.templates.create',
@@ -146,6 +149,13 @@ class RoleSeeder extends Seeder
             'day.templates.updated',
             'day.templates.getPaginate',
             'day.templates.get',
+
+            'client.index',
+            'client.create',
+            'client.delete',
+            'client.updated',
+            'client.getPaginate',
+            'client.get',
             ]
         );
     }

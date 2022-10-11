@@ -10,11 +10,11 @@ use Illuminate\Support\Facades\DB;
 class DeleteController extends Controller
 {
 
-    public function destroy($id)
+    public function destroy($client)
     {
          try {
             DB::beginTransaction();
-            $client = Client::where('id', $id)->withTrashed()->first();
+            $client = Client::where('id', $client)->withTrashed()->first();
 
             if(!$client){
                 return custom_response_error(422,'error-validation','Model no exist',422);
