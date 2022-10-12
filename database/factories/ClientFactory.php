@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\TypeDocument;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ClientFactory extends Factory
@@ -15,6 +16,7 @@ class ClientFactory extends Factory
     {
         return [
             'document' => $this->faker->unique()->regexify('/\d{9}/'),
+            'type_document_id' => TypeDocument::factory()->create(),
             'first_name' => $this->faker->firstName(),
             'last_name' => $this->faker->lastName(),
             'phone' => self::generatePhone(),

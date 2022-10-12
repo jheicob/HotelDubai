@@ -28,6 +28,7 @@
         "@mcistudio/vue-colorpicker": "^2.0.0",
         "@vitejs/plugin-vue": "^3.1.2",
         "laravel-vue-pagination": "^3.0.0",
+        "moment": "^2.29.4",
         "pinia": "^2.0.22",
         "sweetalert2": "^11.3.6",
         "toastr": "^2.1.4",

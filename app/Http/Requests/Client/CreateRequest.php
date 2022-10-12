@@ -30,8 +30,8 @@ class CreateRequest extends FormRequest
             'document' => 'required',
             'first_name' => 'required',
             'last_name' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
+            'phone' => 'nullable',
+            'email' => 'nullable',
         ];
     }
 }

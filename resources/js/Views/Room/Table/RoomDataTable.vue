@@ -67,7 +67,7 @@
 					</div>
 
 					<div class="row">
-						<div class="col-3" v-for="(item, i) in all" :key="i">
+						<div class="col-3 mt-2" v-for="(item, i) in all" :key="i">
 							<RoomsGrid
 								:item="item"
 								:footerStyle="[
@@ -212,6 +212,9 @@
 		useStore.getRoomStatus();
 	});
 </script>
-<style lang="scss">
-	// @import "~bootstrap/scss/bootstrap";
+<style>
+	.global-scroll {
+		height: 300px;
+		overflow-y: scroll;
+	}
 </style>

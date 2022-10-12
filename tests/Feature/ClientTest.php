@@ -12,6 +12,7 @@ use App\Http\Resources\Client\ClientResource;
 use App\Models\ClientRoom;
 use App\Models\Room;
 use App\Models\RoomStatus;
+use App\Models\TypeDocument;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -50,10 +51,12 @@ class ClientTest extends TestCase
     {
         $this->withExceptionHandling();
         $user = User::firstWhere('email', 'testing@c.c');
+        $typeDocument = TypeDocument::factory()->create();
         $response = $this
             ->actingAs($user)
             ->postJson(route('client.create'), [
                 'document' => $document = $this->faker->unique()->word(),
+                'type_document_id' => $type_document_id= $typeDocument->id,
                 'first_name' => $first_name = $this->faker->firstName(),
                 'last_name' => $last_name = $this->faker->lastName(),
                 'phone' => $phone = '0424-7621859',
@@ -64,6 +67,7 @@ class ClientTest extends TestCase
             ->assertCreated();
         $client = Client::firstWhere('document', $document);
         $this->assertEquals($document, $client->document);
+        $this->assertEquals($type_document_id,$client->type_document_id);
         $this->assertEquals($first_name, $client->first_name);
         $this->assertEquals($last_name, $client->last_name);
         $this->assertEquals($phone, $client->phone);
@@ -77,13 +81,17 @@ class ClientTest extends TestCase
     {
         $this->withExceptionHandling();
         $user = User::firstWhere('email', 'testing@c.c');
+        $typeDocument = TypeDocument::factory()->create();
         $client = Client::factory()->create([
-            'document' => $document = 1
+            'document' => $document = 1,
+            'type_document_id' => $typeDocument->id
         ]);
+
         $response = $this
             ->actingAs($user)
             ->postJson(route('client.create'), [
                 'document' => $document,
+                'type_document_id' => $type_document_id = $typeDocument->id,
                 'first_name' => $first_name = $this->faker->firstName(),
                 'last_name' => $last_name = $this->faker->lastName(),
                 'phone' => $phone = '0424-7621859',
@@ -124,39 +132,7 @@ class ClientTest extends TestCase
             ]);
     }
 
-    /**
-     * @test
-     */
-    public function update_successfully()
-    {
-        $this->withExceptionHandling();
-        $user = User::firstWhere('email', 'testing@c.c');
-        $client = Client::factory()->create();
 
-        $response = $this
-            ->actingAs($user)
-            ->putJson(route('client.updated', ['client' => $client->id]), [
-                'document' => $document = $this->faker->unique()->word(),
-                'first_name' => $first_name = $this->faker->firstName(),
-                'last_name' => $last_name = $this->faker->lastName(),
-                'phone' => $phone = '0424-7621859',
-                'email' => $email = $this->faker->email(),
-            ]);
-
-
-        $response
-            ->assertOk()
-            // ->assertExactJson([
-            //     'message' => 'updated'
-            // ])
-        ;
-        $client = Client::firstWhere('document', $document);
-        $this->assertEquals($document, $client->document);
-        $this->assertEquals($first_name, $client->first_name);
-        $this->assertEquals($last_name, $client->last_name);
-        $this->assertEquals($phone, $client->phone);
-        $this->assertEquals($email, $client->email);
-    }
 
     /**
      * @test
@@ -260,14 +236,10 @@ class ClientTest extends TestCase
         $this->withExceptionHandling();
         $user = User::firstWhere('email', 'testing@c.c');
         $client = Client::factory()->create();
-        $roomStatus = RoomStatus::factory()->create([
-            'name' => 'Disponible'
-        ]);
+        $roomStatus = RoomStatus::firstWhere('name','Disponible');
         $room = Room::factory()
                 ->create(['room_status_id'=> $roomStatus->id]);
-        $roomStatus_ocuppy = RoomStatus::factory()->create([
-                    'name' => 'Ocupado'
-                ]);
+        $roomStatus_ocuppy = RoomStatus::firstWhere('name','Ocupada');
         $response = $this
                         ->actingAs($user)
                         ->postJson(route('client.assigned_room'),[

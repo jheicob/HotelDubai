@@ -15,10 +15,24 @@ class RoomStatuseSeeder extends Seeder
     public function run()
     {
         RoomStatus::upsert([
-            ['name' => 'Limpiando','description' => 'Limpiando'],
-            ['name' => 'Reparación','description' => 'Reparación'],
-            ['name' => 'Ocupada','description' => 'Ocupada'],
-            ['name' => 'Fuera de Servicio','description' => 'Fuera de Servicio'],
+            [
+                'name' => 'Limpiando',
+                'description' => 'Limpiando',
+                'color' => '{"css": "background-color:rgba(91,192,222,1)", "mode": "solid", "color": {"a": 1, "b": 222, "g": 192, "r": 91}}vvvvvv'
+            ],
+            [
+                'name' => 'Disponible',
+                'description' => 'Disponible',
+                'color' => '{"css": "background-color:rgba(22,161,133,1)", "mode": "solid", "color": {"a": 1, "b": 133, "g": 161, "r": 22}}'
+            ],
+            [   'name' => 'Reparación',
+                'description' => 'Reparación',
+                'color' => '{"css": "background-color:rgba(239,174,77,1)", "mode": "solid", "color": {"a": 1, "b": 77, "g": 174, "r": 239}}'
+            ],
+            [   'name' => 'Ocupada',
+                'description' => 'Ocupada',
+                'color' => '{"css": "background-color:rgba(218,83,79,1)", "mode": "solid", "color": {"a": 1, "b": 79, "g": 83, "r": 218}}'
+            ],
         ],['name'],['description']);
     }
 }

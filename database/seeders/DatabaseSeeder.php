@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\RoomStatus;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -25,7 +24,8 @@ class DatabaseSeeder extends Seeder
             RoomTypeSeeder::class,
             ShiftSystemSeeder::class,
             ShiftTimeSeeder::class,
-            ThemeTypeSeeder::class
+            ThemeTypeSeeder::class,
+            TypeDocumentSeeder::class
         ]);
     }
 }

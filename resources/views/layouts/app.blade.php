@@ -27,7 +27,14 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/admin/sb-admin.css') }}" rel="stylesheet">
-
+    <style>
+        .ml-r-14 {
+            margin-left: 14.5rem
+        }
+        .ml-r-6 {
+            margin-left: 6rem
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -91,7 +98,8 @@
                             <a class="dropdown-item" href="{{ route('profile.index') }}">Perfil</a>
                             <a class="dropdown-item" href="{{ route('password.index') }}">Contraseña</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">Logout</a>
+                            <a class="dropdown-item" href="#" data-toggle="modal"
+                                data-target="#logoutModal">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -99,7 +107,10 @@
             </nav>
             <div id="wrapper">
                 <!-- Sidebar -->
-                <ul class="sidebar navbar-nav">
+                <ul class="sidebar navbar-nav" style="
+                position: fixed;
+                top: 3.5rem;
+                left: 0;">
                     <li class="nav-item active">
                         <a class="nav-link" href="/">
                             <i class="fas fa-fw fa-tachometer-alt"></i>
@@ -116,12 +127,12 @@
                     @endcan
 
                     @can('room.index')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('room.index') }}">
-                            <i class="fas fa-tags"></i>
-                            <span>Habitaciones</span>
-                        </a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('room.index') }}">
+                                <i class="fas fa-tags"></i>
+                                <span>Habitaciones</span>
+                            </a>
+                        </li>
                     @endcan
                     @can('seguridad')
                         <li class="nav-item dropdown">
@@ -146,33 +157,34 @@
                     @endcan
 
                     @can('tarifas')
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-percent"></i>
-                            <span>Tarifas</span>
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                            <h6 class="dropdown-header">Tarifas:</h6>
-                            @can('partial.cost.index')
-                                <a class="dropdown-item" href="{{ route('partial.cost.index') }}">Costo Por Parciales</a>
-                            @endcan
-                            @can('partial.templates.index')
-                                <a class="dropdown-item" href="{{ route('partial.templates.index') }}">Plantillas Parciales</a>
-                            @endcan
-                            @can('date.templates.index')
-                                <a class="dropdown-item" href="{{ route('date.templates.index') }}">Plantillas Fechas</a>
-                            @endcan
-                            @can('day.templates.index')
-                                <a class="dropdown-item" href="{{ route('day.templates.index') }}">Plantillas Días</a>
-                            @endcan
-                            @can('hour.templates.index')
-                                <a class="dropdown-item" href="{{ route('hour.templates.index') }}">Plantillas Horas</a>
-                            @endcan
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-percent"></i>
+                                <span>Tarifas</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                                <h6 class="dropdown-header">Tarifas:</h6>
+                                @can('partial.cost.index')
+                                    <a class="dropdown-item" href="{{ route('partial.cost.index') }}">Costo Por Parciales</a>
+                                @endcan
+                                @can('partial.templates.index')
+                                    <a class="dropdown-item" href="{{ route('partial.templates.index') }}">Plantillas
+                                        Parciales</a>
+                                @endcan
+                                @can('date.templates.index')
+                                    <a class="dropdown-item" href="{{ route('date.templates.index') }}">Plantillas Fechas</a>
+                                @endcan
+                                @can('day.templates.index')
+                                    <a class="dropdown-item" href="{{ route('day.templates.index') }}">Plantillas Días</a>
+                                @endcan
+                                @can('hour.templates.index')
+                                    <a class="dropdown-item" href="{{ route('hour.templates.index') }}">Plantillas Horas</a>
+                                @endcan
 
-                        </div>
-                    </li>
-                @endcan
+                            </div>
+                        </li>
+                    @endcan
 
                     @can('configuracion')
                         <li class="nav-item dropdown">
@@ -213,7 +225,7 @@
                     @endcan
 
                 </ul>
-                <div id="content-wrapper">
+                <div id="content-wrapper" class="ml-r-14">
                     @yield('content')
                     <footer class="sticky-footer">
                         <div class="container my-auto">
@@ -245,7 +257,8 @@
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    <a class="btn btn-primary" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
                         {{ __('Logout') }}
                     </a>
@@ -275,6 +288,15 @@
     <!-- Demo scripts for this page-->
     <script src="{{ asset('js/admin/demo/datatables-demo.js') }}"></script>
     <script src="{{ asset('js/admin/demo/chart-area-demo.js') }}"></script>
+    <script>
+        let menu = document.querySelector('#sidebarToggle')
+
+        menu.addEventListener('click',function(){
+            let content = document.querySelector('#content-wrapper')
+            content.classList.toggle('ml-r-14')
+            content.classList.toggle('ml-r-6')
+        })
+    </script>
 </body>
 
 </html>

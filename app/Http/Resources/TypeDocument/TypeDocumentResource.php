@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Resources\Client;
+namespace App\Http\Resources\TypeDocument;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ClientResource extends JsonResource
+class TypeDocumentResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -17,12 +17,8 @@ class ClientResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'attributes' => [
-                'document' => $this->resource->document,
-                'first_name' => $this->resource->first_name,
-                'last_name' => $this->resource->last_name,
-                'phone' => $this->resource->phone,
-                'email' => $this->resource->email,
-                'type_document_id' => $this->resource->type_document_id
+                'name' => $this->resource->name,
+                'description' => $this->resource->description
             ],
             'relationships' => [
                 /*

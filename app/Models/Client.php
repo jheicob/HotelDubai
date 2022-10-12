@@ -21,6 +21,8 @@ class Client extends Model implements Auditable
         'last_name',
         'phone',
         'email',
+        'type_document_id'
+
     ];
 
     protected $fillable = [
@@ -29,12 +31,13 @@ class Client extends Model implements Auditable
         'last_name',
         'phone',
         'email',
+        'type_document_id'
     ];
 
     public function scopeFilter(Builder $query,$request){
         return $query
                 ->when($request->document,function(Builder $q,$document){
-                    return $q->where('document','like',"%$document%");
+                    return $q->where('document',$document);
                 });
     }
 

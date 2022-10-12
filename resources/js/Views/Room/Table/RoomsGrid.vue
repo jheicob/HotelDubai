@@ -6,6 +6,7 @@
 		:footerClass="['text-center', 'fw-bold', 'text-white']"
 		:footerStyle="footerStyle"
 		:cardStyle="[]"
+		:cardClass="['h-100']"
 		@dblclick="updateItem"
 	>
 		<template #title>
@@ -16,30 +17,32 @@
 			}}
 		</template>
 		<template #body>
-			<div class="text-center">
-				<ButtonComponent
-					:btnClass="['btn-info', 'mx-1']"
-					text="Ver Detalle"
-					@click="room.showDetail(item)"
-				/>
-				<ButtonComponent
-					v-if="room.ShowOcuppyButton(item)"
-					:btnClass="['btn-info']"
-					text="Ocupar"
-					@click="room.ShowOccuppyModal(item)"
-				/>
-				<ButtonComponent
-					v-if="room.ShowFreeButton(item)"
-					:btnClass="['btn-info']"
-					text="Liberar"
-					@click="room.showDetail(item)"
-				/>
-				<ButtonComponent
-					v-if="room.ShowExtendButton(item)"
-					:btnClass="['btn-info', 'mt-2']"
-					text="Extender"
-					@click="room.showDetail(item)"
-				/>
+			<div class="d-flex align-items-center h-100">
+				<div class="text-center w-100">
+					<ButtonComponent
+						:btnClass="['btn-info', 'mx-1']"
+						text="Ver Detalle"
+						@click="room.showDetail(item)"
+					/>
+					<ButtonComponent
+						v-if="room.ShowOcuppyButton(item)"
+						:btnClass="['btn-info']"
+						text="Ocupar"
+						@click="room.ShowOccuppyModal(item)"
+					/>
+					<ButtonComponent
+						v-if="room.ShowFreeButton(item)"
+						:btnClass="['btn-info']"
+						text="Liberar"
+						@click="room.showDetail(item)"
+					/>
+					<ButtonComponent
+						v-if="room.ShowExtendButton(item)"
+						:btnClass="['btn-info', 'mt-2']"
+						text="Extender"
+						@click="room.showDetail(item)"
+					/>
+				</div>
 			</div>
 			<div v-if="item.relationships.roomStatus.attributes.name == 'Ocupado'">
 				<br />

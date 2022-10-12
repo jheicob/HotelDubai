@@ -19,6 +19,9 @@ export const RoomStore = defineStore('roomStore',() => {
     const rooms = ref([]);
     const {all,item} = storeToRefs(useHelper)
 
+    const getRooms = () => {
+        useHelper.getAll();
+    }
 
     const formatForm = () => {
         return {
@@ -158,6 +161,7 @@ export const RoomStore = defineStore('roomStore',() => {
 
 
     return {
+        getRooms,
         ShowOccuppyModal,
         ShowOcuppyButton,
         ShowExtendButton,

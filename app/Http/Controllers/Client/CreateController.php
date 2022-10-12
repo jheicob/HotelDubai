@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\AssignRoomRequest;
 use App\Http\Requests\Client\CreateRequest;
+use App\Http\Resources\Client\ClientResource;
 use Illuminate\Support\Facades\DB;
 use App\Models\Client;
 use App\Models\Room;
@@ -26,8 +27,8 @@ class CreateController extends Controller
             );
 
             DB::commit();
-
-            return custom_response_sucessfull('created successfull',201);
+            return ClientResource::make($client);
+            // return custom_response_sucessfull('created successfull',201);
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -52,10 +53,11 @@ class CreateController extends Controller
 
             $client->rooms()->attach($request->room_id,$request->except(['client_id','room_id']));
 
-            $roomStatus = RoomStatus::firstWhere('name','Ocupado');
+            $roomStatus = RoomStatus::firstWhere('name','Ocupada');
             $room->update([
                 'room_status_id' => $roomStatus->id,
             ]);
+            DB::commit();
             return custom_response_sucessfull('created successfull',200);
 
         }catch(\Exception $e){

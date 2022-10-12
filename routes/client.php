@@ -37,3 +37,34 @@ Route::group(
             ->middleware('permission:client.assigned_room');
     }
 );
+
+
+/** routes para TypeDocument **/
+
+Route::group(
+    [
+    'prefix'     => 'type-document',
+    'middleware'  => 'auth'
+    ], function () {
+
+        // Route::get('', [App\Http\Controllers\TypeDocument\IndexController::class, 'index'])
+        //     ->name('TypeDocument.index')
+        //     ->middleware('permission:TypeDocument.index');
+
+        // Route::post('create', [App\Http\Controllers\TypeDocument\CreateController::class, 'create'])
+        //     ->name('TypeDocument.create')
+        //     ->middleware('permission:TypeDocument.create');
+
+        // Route::delete('delete/{TypeDocument}', [App\Http\Controllers\TypeDocument\DeleteController::class, 'destroy'])
+        //     ->name('TypeDocument.delete')
+        //     ->middleware('permission:TypeDocument.delete');
+
+        // Route::put('{TypeDocument}', [App\Http\Controllers\TypeDocument\UpdateController::class, 'updated'])
+        //     ->name('TypeDocument.updated')
+        //     ->middleware('permission:TypeDocument.updated');
+
+        Route::get('get', [App\Http\Controllers\TypeDocument\IndexController::class, 'get'])
+            ->name('TypeDocument.get');
+    }
+);
+
