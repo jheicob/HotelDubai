@@ -64,6 +64,7 @@ class RoomService {
     private function getRateByDay($dayNameCurrent): int
     {
         // falta mostrar todo lo que se esta aplicando para mostrarlo en el detalle de ñla habitacion
+        // falta tambien agregar rango de horas para las fechas
 
         $day_template = DayTemplate::whereHas('dayWeek',function(Builder $builder) use ($dayNameCurrent){
             return $builder->where(

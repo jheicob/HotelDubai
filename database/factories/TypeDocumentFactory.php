@@ -8,7 +8,7 @@ class TypeDocumentFactory extends Factory
 {
     /**
      * Define the model's default state.
-     *
+     * nuevo comentario
      * @return array
      */
     public function definition()
