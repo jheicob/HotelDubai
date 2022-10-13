@@ -19,6 +19,7 @@ class ClientRoom extends Pivot
         'quantity_partial',
         'time_additional',
         'price_additional',
+        'invoiced'
     ];
 
     public function getDateInAttribute($value){

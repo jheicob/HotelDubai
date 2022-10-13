@@ -25,8 +25,8 @@ class RoomResource extends JsonResource
             'attributes' => [
                 'name'  => $this->resource->name,
                 'description' => $this->resource->description,
+                'rate_current' => $this->whenAppended('rate_current',fn () => $this->resource->rate_current),
                 'deleted_at'     => $this->resource->deleted_at,
-
             ],
             'relationships' => [
                 'roomStatus' => $this->whenLoaded('roomStatus', function() {

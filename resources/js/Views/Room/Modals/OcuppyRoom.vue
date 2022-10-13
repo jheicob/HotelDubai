@@ -116,10 +116,7 @@
 			<div class="row">
 				<div id="emailHelp" class="form-text col">
 					Parcial mínimo:
-					{{
-						item.relationships?.partialCost.relationships.partialRate
-							.attributes.name ?? ""
-					}}
+					{{ item.attributes?.rate_current ?? "" }}
 				</div>
 				<div id="emailHelp" class="form-text col">
 					Tarifa: $

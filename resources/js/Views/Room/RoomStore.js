@@ -18,7 +18,7 @@ export const RoomStore = defineStore('roomStore',() => {
     const description = ref('');
     const rooms = ref([]);
     const {all,item} = storeToRefs(useHelper)
-
+    const {customRequest} = useHelper
     const getRooms = () => {
         useHelper.getAll();
     }
@@ -151,6 +151,22 @@ export const RoomStore = defineStore('roomStore',() => {
 
     }
 
+    const ShowCleanButton = (item) => {
+        return (
+            useHelper.permiss.clean
+            && item.relationships.roomStatus.attributes.name == 'Ocupada'
+            )
+    }
+
+    const FreeRoom = (item) => {
+        if(item.relationships.roomStatus.attributes.name == 'Ocupada'){
+            console.log('comienza a facturar')
+        }else
+        if(item.relationships.roomStatus.attributes.name == 'Limpiando'){
+            changeStatusRoom(item.id,4)
+        }
+    }
+
     const createFree = (item) => {
         console.log('habitacion Liberada')
     }
@@ -159,9 +175,25 @@ export const RoomStore = defineStore('roomStore',() => {
         console.log('Habitación extendida')
     }
 
+    const changeStatusRoom = (room_id,room_status_id) => {
+        let url = `room/${room_id}/change-status`
+        let data = {
+            room_status_id : room_status_id
+        }
+
+        new Promise(customRequest(url,'post',data),getRooms())
+
+    }
+
+    const UpdateCleanRoom = (item) => {
+        changeStatusRoom(item.id,2)
+    }
 
     return {
+        FreeRoom,
+        UpdateCleanRoom,
         getRooms,
+        ShowCleanButton,
         ShowOccuppyModal,
         ShowOcuppyButton,
         ShowExtendButton,

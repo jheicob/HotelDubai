@@ -44,6 +44,7 @@ export const HelperStore = defineStore('HelperStore',() => {
             .catch((err) => getErrorRequest(err))
     }
 
+
     const customRequest = (url,method,data,params) => {
         axios({
             method: method,
@@ -51,9 +52,7 @@ export const HelperStore = defineStore('HelperStore',() => {
             data: data,
             params: params,
         })
-        .then((response) => {
-            return response.data;
-        })
+        .then((response) => (response.data))
         .catch((err) => getErrorRequest(err))
     }
 

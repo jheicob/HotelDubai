@@ -13,6 +13,7 @@ use App\Models\ClientRoom;
 use App\Models\Room;
 use App\Models\RoomStatus;
 use App\Models\TypeDocument;
+use App\Services\RoomService\RoomService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -276,5 +277,15 @@ class ClientTest extends TestCase
 
         $room->refresh();
         $this->assertEquals($roomStatus_ocuppy->id,$room->room_status_id);
+    }
+
+    /**
+     * @test
+     */
+    public function renew_room_to_client(){
+        $room = Room::find(98);
+        $room_service = new RoomService($room);
+        $rate = $room_service->getRateByConditionals();
+        dd($rate);
     }
 }

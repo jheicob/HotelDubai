@@ -13,7 +13,7 @@
 			{{ item.attributes.name }}
 			<br />
 			{{
-				`$${item.relationships.partialCost.attributes.rate} (${item.relationships.partialCost.relationships.partialRate.attributes.name})`
+				`$${item.attributes.rate_current} (${item.relationships.partialCost.relationships.partialRate.attributes.name})`
 			}}
 		</template>
 		<template #body>
@@ -21,26 +21,32 @@
 				<div class="text-center w-100">
 					<ButtonComponent
 						:btnClass="['btn-info', 'mx-1']"
-						text="Ver Detalle"
+						text="Detalle"
 						@click="room.showDetail(item)"
 					/>
 					<ButtonComponent
 						v-if="room.ShowOcuppyButton(item)"
-						:btnClass="['btn-info']"
+						:btnClass="['btn-info', 'mx-1']"
 						text="Ocupar"
 						@click="room.ShowOccuppyModal(item)"
 					/>
 					<ButtonComponent
 						v-if="room.ShowFreeButton(item)"
-						:btnClass="['btn-info']"
+						:btnClass="['btn-info', 'mx-1']"
 						text="Liberar"
-						@click="room.showDetail(item)"
+						@click="room.FreeRoom(item)"
 					/>
 					<ButtonComponent
 						v-if="room.ShowExtendButton(item)"
-						:btnClass="['btn-info', 'mt-2']"
+						:btnClass="['btn-info', 'mt-2', 'mx-1']"
 						text="Extender"
 						@click="room.showDetail(item)"
+					/>
+					<ButtonComponent
+						v-if="room.ShowCleanButton(item)"
+						:btnClass="['btn-info', 'mt-2', 'mx-1']"
+						text="Limpiar"
+						@click="room.UpdateCleanRoom(item)"
 					/>
 				</div>
 			</div>

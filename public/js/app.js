@@ -23016,6 +23016,10 @@ __webpack_require__.r(__webpack_exports__);
     extend: {
       type: Boolean,
       "default": false
+    },
+    clean: {
+      type: Boolean,
+      "default": false
     }
   },
   setup: function setup(__props, _ref) {
@@ -29586,7 +29590,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       , _hoisted_37)];
     }),
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      var _$setup$item$relation, _$setup$item$relation2, _$setup$item$relation3, _$setup$item$relation4;
+      var _$setup$item$attribut, _$setup$item$attribut2, _$setup$item$relation, _$setup$item$relation2;
 
       return [_hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
         "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
@@ -29691,9 +29695,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         disabled: !$setup.client_exist
       }, null, 8
       /* PROPS */
-      , _hoisted_30), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.quantity_partial]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, " Parcial mínimo: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$item$relation = (_$setup$item$relation2 = $setup.item.relationships) === null || _$setup$item$relation2 === void 0 ? void 0 : _$setup$item$relation2.partialCost.relationships.partialRate.attributes.name) !== null && _$setup$item$relation !== void 0 ? _$setup$item$relation : ""), 1
+      , _hoisted_30), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $setup.form.quantity_partial]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_31, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_32, " Parcial mínimo: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$item$attribut = (_$setup$item$attribut2 = $setup.item.attributes) === null || _$setup$item$attribut2 === void 0 ? void 0 : _$setup$item$attribut2.rate_current) !== null && _$setup$item$attribut !== void 0 ? _$setup$item$attribut : ""), 1
       /* TEXT */
-      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, " Tarifa: $ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$item$relation3 = (_$setup$item$relation4 = $setup.item.relationships) === null || _$setup$item$relation4 === void 0 ? void 0 : _$setup$item$relation4.partialCost.attributes.rate) !== null && _$setup$item$relation3 !== void 0 ? _$setup$item$relation3 : ""), 1
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_33, " Tarifa: $ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$item$relation = (_$setup$item$relation2 = $setup.item.relationships) === null || _$setup$item$relation2 === void 0 ? void 0 : _$setup$item$relation2.partialCost.attributes.rate) !== null && _$setup$item$relation !== void 0 ? _$setup$item$relation : ""), 1
       /* TEXT */
       )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [_hoisted_34, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         "onUpdate:modelValue": _cache[11] || (_cache[11] = function ($event) {
@@ -30200,37 +30204,44 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.attributes.name) + " ", 1
       /* TEXT */
-      ), _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)("$".concat($setup.item.relationships.partialCost.attributes.rate, " (").concat($setup.item.relationships.partialCost.relationships.partialRate.attributes.name, ")")), 1
+      ), _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)("$".concat($setup.item.attributes.rate_current, " (").concat($setup.item.relationships.partialCost.relationships.partialRate.attributes.name, ")")), 1
       /* TEXT */
       )];
     }),
     body: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ButtonComponent"], {
         btnClass: ['btn-info', 'mx-1'],
-        text: "Ver Detalle",
+        text: "Detalle",
         onClick: _cache[0] || (_cache[0] = function ($event) {
           return $setup.room.showDetail($setup.item);
         })
       }), $setup.room.ShowOcuppyButton($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ButtonComponent"], {
         key: 0,
-        btnClass: ['btn-info'],
+        btnClass: ['btn-info', 'mx-1'],
         text: "Ocupar",
         onClick: _cache[1] || (_cache[1] = function ($event) {
           return $setup.room.ShowOccuppyModal($setup.item);
         })
       })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.room.ShowFreeButton($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ButtonComponent"], {
         key: 1,
-        btnClass: ['btn-info'],
+        btnClass: ['btn-info', 'mx-1'],
         text: "Liberar",
         onClick: _cache[2] || (_cache[2] = function ($event) {
-          return $setup.room.showDetail($setup.item);
+          return $setup.room.FreeRoom($setup.item);
         })
       })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.room.ShowExtendButton($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ButtonComponent"], {
         key: 2,
-        btnClass: ['btn-info', 'mt-2'],
+        btnClass: ['btn-info', 'mt-2', 'mx-1'],
         text: "Extender",
         onClick: _cache[3] || (_cache[3] = function ($event) {
           return $setup.room.showDetail($setup.item);
+        })
+      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.room.ShowCleanButton($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ButtonComponent"], {
+        key: 3,
+        btnClass: ['btn-info', 'mt-2', 'mx-1'],
+        text: "Limpiar",
+        onClick: _cache[4] || (_cache[4] = function ($event) {
+          return $setup.room.UpdateCleanRoom($setup.item);
         })
       })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), $setup.item.relationships.roomStatus.attributes.name == 'Ocupado' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, _hoisted_7)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <b>Precio - Parcial:</b> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <br /> ")];
     }),
@@ -34916,6 +34927,8 @@ var RoomStore = (0,pinia__WEBPACK_IMPORTED_MODULE_4__.defineStore)('roomStore', 
       all = _storeToRefs.all,
       item = _storeToRefs.item;
 
+  var customRequest = useHelper.customRequest;
+
   var getRooms = function getRooms() {
     useHelper.getAll();
   };
@@ -35055,6 +35068,18 @@ var RoomStore = (0,pinia__WEBPACK_IMPORTED_MODULE_4__.defineStore)('roomStore', 
     $("#showOcuppyRoom").modal("show");
   };
 
+  var ShowCleanButton = function ShowCleanButton(item) {
+    return useHelper.permiss.clean && item.relationships.roomStatus.attributes.name == 'Ocupada';
+  };
+
+  var FreeRoom = function FreeRoom(item) {
+    if (item.relationships.roomStatus.attributes.name == 'Ocupada') {
+      console.log('comienza a facturar');
+    } else if (item.relationships.roomStatus.attributes.name == 'Limpiando') {
+      changeStatusRoom(item.id, 4);
+    }
+  };
+
   var createFree = function createFree(item) {
     console.log('habitacion Liberada');
   };
@@ -35063,8 +35088,23 @@ var RoomStore = (0,pinia__WEBPACK_IMPORTED_MODULE_4__.defineStore)('roomStore', 
     console.log('Habitación extendida');
   };
 
+  var changeStatusRoom = function changeStatusRoom(room_id, room_status_id) {
+    var url = "room/".concat(room_id, "/change-status");
+    var data = {
+      room_status_id: room_status_id
+    };
+    new Promise(customRequest(url, 'post', data), getRooms());
+  };
+
+  var UpdateCleanRoom = function UpdateCleanRoom(item) {
+    changeStatusRoom(item.id, 2);
+  };
+
   return {
+    FreeRoom: FreeRoom,
+    UpdateCleanRoom: UpdateCleanRoom,
     getRooms: getRooms,
+    ShowCleanButton: ShowCleanButton,
     ShowOccuppyModal: ShowOccuppyModal,
     ShowOcuppyButton: ShowOcuppyButton,
     ShowExtendButton: ShowExtendButton,

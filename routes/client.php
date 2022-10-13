@@ -35,6 +35,11 @@ Route::group(
         Route::post('assigned_room', [App\Http\Controllers\Client\CreateController::class, 'assigned_room'])
             ->name('client.assigned_room')
             ->middleware('permission:client.assigned_room');
+
+        Route::get('{client}/extend-use', [App\Http\Controllers\Client\CreateController::class, 'extendUse'])
+            ->name('client.extend.room.use')
+            ->middleware('permission:client.assigned_room');
+
     }
 );
 

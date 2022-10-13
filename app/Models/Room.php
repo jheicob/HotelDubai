@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -46,5 +47,28 @@ class Room extends Model implements Auditable
      */
     public function clients(){
         return $this->belongsToMany(Client::class)->using(ClientRoom::class);
+    }
+
+    /**
+     * obtiene el cuarto que esta activo
+     *
+     * @return void
+     */
+    public function roomActive(){
+        return $this->belongsToMany(Client::class)
+                    ->using(ClientRoom::class)
+                    ->withPivot([
+                        'date_in',
+                        'date_out',
+                        'partial_min',
+                        'rate',
+                        'observation',
+                        'quantity_partial',
+                        'time_additional',
+                        'price_additional',
+                        'invoiced'
+                    ])
+                    ->wherePivot('invoiced',false)
+                    ;
     }
 }

@@ -28,4 +28,19 @@ class UpdateController extends Controller
         }
     }
 
+    public function changeStatus(Request $request,Room $room){
+        try {
+            DB::beginTransaction();
+
+            $room->update($request->only('room_status_id'));
+
+            DB::commit();
+
+            return custom_response_sucessfull('updated successfull');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return custom_response_exception($e,__('errors.server.title'),500);
+        }
+    }
 }

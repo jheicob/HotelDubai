@@ -141,6 +141,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'room.get']);
         Permission::create(['name' => 'room.occuppy']);
         Permission::create(['name' => 'room.free']);
+        Permission::create(['name' => 'room.clean']);
         Permission::create(['name' => 'room.extend']);
 
 

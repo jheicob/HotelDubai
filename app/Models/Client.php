@@ -44,6 +44,38 @@ class Client extends Model implements Auditable
     // get the rooms of user
     public function rooms()
     {
-        return $this->belongsToMany(Room::class)->using(ClientRoom::class);
+        return $this->belongsToMany(Room::class)
+                    ->using(ClientRoom::class)
+                    ->withPivot(['date_in',
+                    'date_out',
+                    'partial_min',
+                    'rate',
+                    'observation',
+                    'quantity_partial',
+                    'time_additional',
+                    'price_additional',
+                    'invoiced'])
+                ;
+    }
+
+    /**
+     * obtiene el cuarto que esta activo
+     *
+     * @return void
+     */
+    public function roomActive(){
+        return $this->belongsToMany(Room::class)
+                    ->using(ClientRoom::class)
+                    ->withPivot(['date_in',
+                    'date_out',
+                    'partial_min',
+                    'rate',
+                    'observation',
+                    'quantity_partial',
+                    'time_additional',
+                    'price_additional',
+                    'invoiced'])
+                    ->wherePivot('invoiced',false)
+                    ;
     }
 }

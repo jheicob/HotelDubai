@@ -16,14 +16,16 @@ class HourTemplate extends Model implements Auditable
         'room_type_id',
         'shift_system_id',
         'rate',
-        'hour'
+        'hour',
+        'hour_end'
     ];
 
     protected $auditInclude = [
         'room_type_id',
         'shift_system_id',
         'rate',
-        'hour'
+        'hour',
+        'hour_end'
     ];
 
     public function roomType(){

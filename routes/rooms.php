@@ -27,6 +27,11 @@ Route::group(
             ->name('room.updated')
             ->middleware('permission:room.updated');
 
+        Route::post('{room}/change-status', [App\Http\Controllers\Room\UpdateController::class, 'changeStatus'])
+            ->name('room.change.status')
+            ->middleware('permission:room.updated');
+
+
         Route::get('get', [App\Http\Controllers\Room\IndexController::class, 'get'])
             ->name('room.get')
             ->middleware('permission:room.getPaginate');
