@@ -22988,6 +22988,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Table_RoomDataTable_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Table/RoomDataTable.vue */ "./resources/js/Views/Room/Table/RoomDataTable.vue");
 /* harmony import */ var _HelperStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/HelperStore */ "./resources/js/HelperStore.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -23027,12 +23029,14 @@ __webpack_require__.r(__webpack_exports__);
     expose();
     var props = __props;
     var useHelper = (0,_HelperStore__WEBPACK_IMPORTED_MODULE_1__.HelperStore)();
+    (0,vue__WEBPACK_IMPORTED_MODULE_2__.onMounted)(function () {});
     useHelper.permiss = props;
     var __returned__ = {
       useHelper: useHelper,
       props: props,
       PermissionsDataTable: _Table_RoomDataTable_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-      HelperStore: _HelperStore__WEBPACK_IMPORTED_MODULE_1__.HelperStore
+      HelperStore: _HelperStore__WEBPACK_IMPORTED_MODULE_1__.HelperStore,
+      onMounted: vue__WEBPACK_IMPORTED_MODULE_2__.onMounted
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -34757,8 +34761,8 @@ var ocuppyRoomStore = (0,pinia__WEBPACK_IMPORTED_MODULE_4__.defineStore)('ocuppy
   var client_exist = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
   var type_documents = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)([]);
   var client = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)({});
-  var date = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(moment__WEBPACK_IMPORTED_MODULE_2___default()().format('YYYY-DD-MM'));
-  var hour = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(moment__WEBPACK_IMPORTED_MODULE_2___default()().format('H:mm'));
+  var date = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(moment__WEBPACK_IMPORTED_MODULE_2___default()().format('YYYY-MM-DD'));
+  var hour = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(moment__WEBPACK_IMPORTED_MODULE_2___default()().format('HH:mm'));
 
   var clearForm = function clearForm() {
     form.value = {
@@ -35097,7 +35101,7 @@ var RoomStore = (0,pinia__WEBPACK_IMPORTED_MODULE_4__.defineStore)('roomStore', 
   };
 
   var UpdateCleanRoom = function UpdateCleanRoom(item) {
-    changeStatusRoom(item.id, 2);
+    changeStatusRoom(item.id, 1);
   };
 
   return {

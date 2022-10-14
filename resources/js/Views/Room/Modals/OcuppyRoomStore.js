@@ -11,8 +11,8 @@ export const ocuppyRoomStore = defineStore('ocuppyRoomStore',() => {
     const client_exist = ref(false)
     const type_documents = ref([])
     const client = ref({})
-    const date = ref(moment().format('YYYY-DD-MM'))
-    const hour = ref(moment().format('H:mm'))
+    const date = ref(moment().format('YYYY-MM-DD'))
+    const hour = ref(moment().format('HH:mm'))
 
     const clearForm = () => {
         form.value = {

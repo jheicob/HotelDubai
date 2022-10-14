@@ -186,7 +186,7 @@ export const RoomStore = defineStore('roomStore',() => {
     }
 
     const UpdateCleanRoom = (item) => {
-        changeStatusRoom(item.id,2)
+        changeStatusRoom(item.id,1)
     }
 
     return {
