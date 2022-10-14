@@ -18,7 +18,7 @@ class RoomStatuseSeeder extends Seeder
             [
                 'name' => 'Limpiando',
                 'description' => 'Limpiando',
-                'color' => '{"css": "background-color:rgba(91,192,222,1)", "mode": "solid", "color": {"a": 1, "b": 222, "g": 192, "r": 91}}vvvvvv'
+                'color' => '{"css": "background-color:rgba(91,192,222,1)", "mode": "solid", "color": {"a": 1, "b": 222, "g": 192, "r": 91}}'
             ],
             [
                 'name' => 'Disponible',
@@ -33,6 +33,6 @@ class RoomStatuseSeeder extends Seeder
                 'description' => 'Ocupada',
                 'color' => '{"css": "background-color:rgba(218,83,79,1)", "mode": "solid", "color": {"a": 1, "b": 79, "g": 83, "r": 218}}'
             ],
-        ],['name'],['description']);
+        ],['name'],['description','color']);
     }
 }

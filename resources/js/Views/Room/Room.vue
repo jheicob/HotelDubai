@@ -9,8 +9,13 @@
 <script setup>
 	import PermissionsDataTable from "./Table/RoomDataTable.vue";
 	import { HelperStore } from "@/HelperStore";
+    import {onMounted} from 'vue'
 	const useHelper = HelperStore();
 
+    
+    onMounted(()=>{
+
+    })
 	const props = defineProps({
 		create: {
 			type: Boolean,
