@@ -67,15 +67,14 @@
 					</div>
 
 					<div class="row">
-						<div class="col-3 mt-2" v-for="(item, i) in all" :key="i">
 							<RoomsGrid
+                                v-for="(item, i) in all" :key="i"
 								:item="item"
 								:footerStyle="[
 									item.relationships.roomStatus.attributes.color.css ??
 										'',
 								]"
 							/>
-						</div>
 					</div>
 
 					<!-- <table

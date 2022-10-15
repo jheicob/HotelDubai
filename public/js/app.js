@@ -22988,6 +22988,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Table_RoomDataTable_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Table/RoomDataTable.vue */ "./resources/js/Views/Room/Table/RoomDataTable.vue");
 /* harmony import */ var _HelperStore__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/HelperStore */ "./resources/js/HelperStore.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -23027,12 +23029,14 @@ __webpack_require__.r(__webpack_exports__);
     expose();
     var props = __props;
     var useHelper = (0,_HelperStore__WEBPACK_IMPORTED_MODULE_1__.HelperStore)();
+    (0,vue__WEBPACK_IMPORTED_MODULE_2__.onMounted)(function () {});
     useHelper.permiss = props;
     var __returned__ = {
       useHelper: useHelper,
       props: props,
       PermissionsDataTable: _Table_RoomDataTable_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-      HelperStore: _HelperStore__WEBPACK_IMPORTED_MODULE_1__.HelperStore
+      HelperStore: _HelperStore__WEBPACK_IMPORTED_MODULE_1__.HelperStore,
+      onMounted: vue__WEBPACK_IMPORTED_MODULE_2__.onMounted
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -30118,15 +30122,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   ))])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.all, function (item, i) {
     var _item$relationships$r;
 
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
-      "class": "col-3 mt-2",
-      key: i
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["RoomsGrid"], {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["RoomsGrid"], {
+      key: i,
       item: item,
       footerStyle: [(_item$relationships$r = item.relationships.roomStatus.attributes.color.css) !== null && _item$relationships$r !== void 0 ? _item$relationships$r : '']
     }, null, 8
     /* PROPS */
-    , ["item", "footerStyle"])]);
+    , ["item", "footerStyle"]);
   }), 128
   /* KEYED_FRAGMENT */
   ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <table\n\t\t\t\t\t\tclass=\"table table-bordered\"\n\t\t\t\t\t\tid=\"dataTable\"\n\t\t\t\t\t\twidth=\"100%\"\n\t\t\t\t\t\tcellspacing=\"0\"\n\t\t\t\t\t>\n\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<th>ID</th>\n\t\t\t\t\t\t\t\t<th>N° Habitación</th>\n\t\t\t\t\t\t\t\t<th>Descripción</th>\n\t\t\t\t\t\t\t\t<th>Tarifa</th>\n\t\t\t\t\t\t\t\t<th>Parcial Mínimo</th>\n\t\t\t\t\t\t\t\t<th>Tipo de Habitación</th>\n\t\t\t\t\t\t\t\t<th>Estado</th>\n\t\t\t\t\t\t\t\t<th>Accion</th>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t<tfoot>\n\t\t\t\t\t\t\t<tr>\n\t\t\t\t\t\t\t\t<th>ID</th>\n\t\t\t\t\t\t\t\t<th>N° Habitación</th>\n\t\t\t\t\t\t\t\t<th>Descripción</th>\n\t\t\t\t\t\t\t\t<th>Tarifa</th>\n\t\t\t\t\t\t\t\t<th>Parcial Mínimo</th>\n\t\t\t\t\t\t\t\t<th>Tipo de Habitación</th>\n\t\t\t\t\t\t\t\t<th>Estado</th>\n\t\t\t\t\t\t\t\t<th>Accion</th>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</tfoot>\n\t\t\t\t\t\t<tbody>\n\t\t\t\t\t\t\t<tr v-for=\"keep in all\" :key=\"keep.id\">\n\t\t\t\t\t\t\t\t<td>{{ keep.id }}</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t{{ keep.attributes.name }}\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t{{ keep.attributes.description }}\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t{{ keep.relationships.partialCost.attributes.rate }}\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t{{\n\t\t\t\t\t\t\t\t\t\tkeep.relationships.partialCost.relationships\n\t\t\t\t\t\t\t\t\t\t\t.partialRate.attributes.name\n\t\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t\t</td>\n\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t{{\n\t\t\t\t\t\t\t\t\t\tkeep.relationships.partialCost.relationships\n\t\t\t\t\t\t\t\t\t\t\t.roomType.attributes.name\n\t\t\t\t\t\t\t\t\t}}\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t{{ keep.relationships.roomStatus.attributes.name }}\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t\t<td>\n\t\t\t\t\t\t\t\t\t<i\n\t\t\t\t\t\t\t\t\t\t@click=\"\n\t\t\t\t\t\t\t\t\t\t\tuseHelper.ShowUpdatedModal(\n\t\t\t\t\t\t\t\t\t\t\t\tkeep,\n\t\t\t\t\t\t\t\t\t\t\t\tuseStore.setForm\n\t\t\t\t\t\t\t\t\t\t\t)\n\t\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t\t\tv-if=\"permiss.updated\"\n\t\t\t\t\t\t\t\t\t\tclass=\"ico fas fa-edit fa-lg text-secondary\"\n\t\t\t\t\t\t\t\t\t\tstyle=\"cursor: pointer\"\n\t\t\t\t\t\t\t\t\t\ttitle=\"Borrar\"\n\t\t\t\t\t\t\t\t\t></i>\n\n\t\t\t\t\t\t\t\t\t<i\n\t\t\t\t\t\t\t\t\t\tv-on:click.prevent=\"deleteItem(keep)\"\n\t\t\t\t\t\t\t\t\t\tv-if=\"permiss.deletet\"\n\t\t\t\t\t\t\t\t\t\t:class=\"\n\t\t\t\t\t\t\t\t\t\t\tkeep.attributes.deleted_at\n\t\t\t\t\t\t\t\t\t\t\t\t? 'ico fas fa-trash-restore-alt fa-lg text-secondary'\n\t\t\t\t\t\t\t\t\t\t\t\t: 'ico fas fa-trash fa-lg text-secondary'\n\t\t\t\t\t\t\t\t\t\t\"\n\t\t\t\t\t\t\t\t\t\tstyle=\"cursor: pointer\"\n\t\t\t\t\t\t\t\t\t\ttitle=\"Borrar\"\n\t\t\t\t\t\t\t\t\t></i>\n\t\t\t\t\t\t\t\t</td>\n\t\t\t\t\t\t\t</tr>\n\t\t\t\t\t\t</tbody>\n\t\t\t\t\t</table> ")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["CreatePermission"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["UpdatePermission"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ModalComponent"], {
@@ -30166,96 +30168,77 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
-
-var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
-/* HOISTED */
-);
-
+var _hoisted_1 = {
+  "class": "col-lg-2 col-xs-6"
+};
 var _hoisted_2 = {
-  "class": "d-flex align-items-center h-100"
-};
-var _hoisted_3 = {
-  "class": "text-center w-100"
-};
-var _hoisted_4 = {
-  key: 0
+  "class": "tile bg-greensea widget-appointments"
 };
 
-var _hoisted_5 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"tile-header dvd dvd-btm\"><h1 class=\"custom-font\" style=\"font-size:12px;\">Disponible<br></h1><ul class=\"controls\"><li><a href=\"index.php?view=proceso&amp;id_habitacion=&lt;?php echo $habitacion-&gt;id; ?&gt;\"><i class=\"fa fa-arrow-circle-left\"></i></a><!-- &lt;a  data-toggle=&quot;modal&quot; data-target=&quot;#myModalTarifa&lt;?php echo $habitacion-&gt;id; ?&gt;&quot;&gt;\n                        &lt;i class=&quot;fa fa-arrow-circle-left&quot;&gt;&lt;/i&gt;  &lt;/a&gt; --></li></ul></div>", 1);
+
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+  "class": "tile-body",
+  style: {
+    "padding": "1px"
+  }
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
+  style: {
+    "text-align": "center"
+  }
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "fa fa-bed"
+}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Nombre")])], -1
 /* HOISTED */
 );
 
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("b", null, "Tiempo Restante", -1
+var _hoisted_5 = {
+  "class": "modal fade bs-example-modal-xm",
+  id: "myModalCheckOut<?php echo $habitacion->id; ?>",
+  role: "dialog",
+  "aria-labelledby": "myModalLabel"
+};
+var _hoisted_6 = {
+  "class": "modal-dialog modal-info"
+};
+var _hoisted_7 = {
+  "class": "modal-dialog"
+};
+var _hoisted_8 = {
+  "class": "modal-content"
+};
+
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"modal-header\"><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><h4 class=\"modal-title\" style=\"color:black;\"><span class=\"fa fa-hotel\"></span> Habitación Nombre</h4></div>", 1);
+
+var _hoisted_10 = {
+  "class": "modal-footer"
+};
+
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  href: "index.php?view=proceso_cambiar&id=<?php echo $proceso->id; ?>",
+  "class": "btn btn-outline btn-warning pull-left"
+}, " CAMBIAR HABITACIÓN?", -1
 /* HOISTED */
 );
 
-var _hoisted_7 = [_hoisted_5, _hoisted_6];
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  href: "index.php?view=proceso_salida&id=<?php echo $proceso->id; ?>",
+  "class": "btn btn-outline btn-primary pull-left"
+}, "IR A PRE-CUENTA", -1
+/* HOISTED */
+);
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["CardComponent"], {
-    footer: "",
-    bodyClass: ['fs-6'],
-    titleClass: ['text-center', 'fw-bold'],
-    footerClass: ['text-center', 'fw-bold', 'text-white'],
-    footerStyle: $props.footerStyle,
-    cardStyle: [],
-    cardClass: ['h-100'],
-    onDblclick: $setup.updateItem
-  }, {
-    title: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.attributes.name) + " ", 1
-      /* TEXT */
-      ), _hoisted_1, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)("$".concat($setup.item.attributes.rate_current, " (").concat($setup.item.relationships.partialCost.relationships.partialRate.attributes.name, ")")), 1
-      /* TEXT */
-      )];
-    }),
-    body: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)($setup["ButtonComponent"], {
-        btnClass: ['btn-info', 'mx-1'],
-        text: "Detalle",
-        onClick: _cache[0] || (_cache[0] = function ($event) {
-          return $setup.room.showDetail($setup.item);
-        })
-      }), $setup.room.ShowOcuppyButton($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ButtonComponent"], {
-        key: 0,
-        btnClass: ['btn-info', 'mx-1'],
-        text: "Ocupar",
-        onClick: _cache[1] || (_cache[1] = function ($event) {
-          return $setup.room.ShowOccuppyModal($setup.item);
-        })
-      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.room.ShowFreeButton($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ButtonComponent"], {
-        key: 1,
-        btnClass: ['btn-info', 'mx-1'],
-        text: "Liberar",
-        onClick: _cache[2] || (_cache[2] = function ($event) {
-          return $setup.room.FreeRoom($setup.item);
-        })
-      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.room.ShowExtendButton($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ButtonComponent"], {
-        key: 2,
-        btnClass: ['btn-info', 'mt-2', 'mx-1'],
-        text: "Extender",
-        onClick: _cache[3] || (_cache[3] = function ($event) {
-          return $setup.room.showDetail($setup.item);
-        })
-      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $setup.room.ShowCleanButton($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["ButtonComponent"], {
-        key: 3,
-        btnClass: ['btn-info', 'mt-2', 'mx-1'],
-        text: "Limpiar",
-        onClick: _cache[4] || (_cache[4] = function ($event) {
-          return $setup.room.UpdateCleanRoom($setup.item);
-        })
-      })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])]), $setup.item.relationships.roomStatus.attributes.name == 'Ocupado' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, _hoisted_7)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <b>Precio - Parcial:</b> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <br /> ")];
-    }),
-    footer: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.relationships.roomStatus.attributes.name), 1
-      /* TEXT */
-      )];
+  var _component_center = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("center");
+
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /tile header "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" tile body "), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /tile body "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_center, null, {
+    "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_11, _hoisted_12];
     }),
     _: 1
     /* STABLE */
 
-  }, 8
-  /* PROPS */
-  , ["footerStyle"]);
+  })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-content ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-dialog ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ item.attributes.name }}\n\t\t\t<br />\n\t\t\t{{\n\t\t\t\t`$${item.attributes.rate_current} (${item.relationships.partialCost.relationships.partialRate.attributes.name})`\n\t\t\t}}\n\n\t\t\t<div class=\"d-flex align-items-center h-100\">\n\t\t\t\t<div class=\"text-center w-100\">\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Detalle\"\n\t\t\t\t\t\t@click=\"room.showDetail(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowOcuppyButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Ocupar\"\n\t\t\t\t\t\t@click=\"room.ShowOccuppyModal(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowFreeButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Liberar\"\n\t\t\t\t\t\t@click=\"room.FreeRoom(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowExtendButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mt-2', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Extender\"\n\t\t\t\t\t\t@click=\"room.showDetail(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowCleanButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mt-2', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Limpiar\"\n\t\t\t\t\t\t@click=\"room.UpdateCleanRoom(item)\"\n\t\t\t\t\t/>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div v-if=\"item.relationships.roomStatus.attributes.name == 'Ocupado'\">\n\t\t\t\t<br />\n\t\t\t\t<b>Tiempo Restante</b>\n\t\t\t</div>\n\n\t\t\t<b>Precio - Parcial:</b>\n\t\t\t<br />\n\t\t\t{{ item.relationships.roomStatus.attributes.name }} ")])]);
 }
 
 /***/ }),

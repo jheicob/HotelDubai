@@ -1,22 +1,56 @@
 <template>
-	<CardComponent
-		footer
-		:bodyClass="['fs-6']"
-		:titleClass="['text-center', 'fw-bold']"
-		:footerClass="['text-center', 'fw-bold', 'text-white']"
-		:footerStyle="footerStyle"
-		:cardStyle="[]"
-		:cardClass="['h-100']"
-		@dblclick="updateItem"
-	>
-		<template #title>
-			{{ item.attributes.name }}
+	<div class="col-lg-2 col-xs-6">
+        <section class="tile bg-greensea widget-appointments">
+            <div class="tile-header dvd dvd-btm">
+                <h1 class="custom-font" style="font-size: 12px;">Disponible<br></h1>
+                <ul class="controls">
+                    <li >
+                        <a href="index.php?view=proceso&id_habitacion=<?php echo $habitacion->id; ?>">
+                        <i class="fa fa-arrow-circle-left"></i>  </a>
+                        <!-- <a  data-toggle="modal" data-target="#myModalTarifa<?php echo $habitacion->id; ?>">
+                        <i class="fa fa-arrow-circle-left"></i>  </a> -->
+                    </li>
+                </ul>
+            </div>
+             <!-- /tile header -->
+
+            <!-- tile body -->
+            <div class="tile-body" style="padding: 1px;">
+                <h4 style="text-align: center;"><i class="fa fa-bed"></i> Nombre</h4>
+            </div>
+            <!-- /tile body -->
+
+            <div class="modal fade bs-example-modal-xm" id="myModalCheckOut<?php echo $habitacion->id; ?>" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-info">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" style="color: black;"><span class="fa fa-hotel"></span> Habitación Nombre</h4>
+                        </div>
+
+                        <div class="modal-footer">
+                        <center>
+                        <a href="index.php?view=proceso_cambiar&id=<?php echo $proceso->id; ?>" class="btn btn-outline btn-warning pull-left"> CAMBIAR HABITACIÓN?</a>
+
+                        <a href="index.php?view=proceso_salida&id=<?php echo $proceso->id; ?>" class="btn btn-outline btn-primary pull-left">IR A PRE-CUENTA</a>
+                        </center>
+
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                    </div>
+                    <!-- /.modal-dialog -->
+                </div>
+                <!-- /.modal -->
+            </div>
+			<!-- {{ item.attributes.name }}
 			<br />
 			{{
 				`$${item.attributes.rate_current} (${item.relationships.partialCost.relationships.partialRate.attributes.name})`
 			}}
-		</template>
-		<template #body>
+
 			<div class="d-flex align-items-center h-100">
 				<div class="text-center w-100">
 					<ButtonComponent
@@ -55,13 +89,12 @@
 				<b>Tiempo Restante</b>
 			</div>
 
-			<!-- <b>Precio - Parcial:</b> -->
-			<!-- <br /> -->
-		</template>
-		<template #footer>
-			{{ item.relationships.roomStatus.attributes.name }}
-		</template>
-	</CardComponent>
+			<b>Precio - Parcial:</b>
+			<br />
+			{{ item.relationships.roomStatus.attributes.name }} -->
+        </section>
+
+	</div>
 </template>
 
 <script setup>
@@ -99,4 +132,5 @@
 	// 	pro.item.relationships.partialCost.relationships.partialRate.attributes.name;
 </script>
 
-<style></style>
+<style>
+</style>
