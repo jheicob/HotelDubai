@@ -1,8 +1,11 @@
 <template>
 	<div class="col-lg-2 col-xs-6">
-        <section class="tile bg-greensea widget-appointments">
+        <section class="tile widget-appointments" :class='room.selectColor(item)'>
             <div class="tile-header dvd dvd-btm">
-                <h1 class="custom-font" style="font-size: 12px;">Disponible<br></h1>
+                <h1 class="custom-font" style="font-size: 12px;">
+                    {{item.relationships.roomStatus.attributes.name }}
+                </h1>
+                
                 <ul class="controls">
                     <li >
                         <a href="index.php?view=proceso&id_habitacion=<?php echo $habitacion->id; ?>">
@@ -14,9 +17,18 @@
             </div>
              <!-- /tile header -->
 
+             <div style="font-size: 12px" class="text-center dvd dvd-btm pb-2">
+                    <br>
+                  {{item.relationships.partialCost.relationships.roomType.attributes.name }}
+                    <br>
+                    {{room.showPartialAndRate(item)}}
+                </div>
+                
             <!-- tile body -->
             <div class="tile-body" style="padding: 1px;">
-                <h4 style="text-align: center;"><i class="fa fa-bed"></i> Nombre</h4>
+                <h4 style="text-align: center;"><i class="fa fa-bed"></i> 
+                    {{item.attributes.name}}
+                </h4>
             </div>
             <!-- /tile body -->
 
@@ -127,7 +139,9 @@
 	});
 
 	const { item } = toRefs(props);
-	// const rate = pro.;
+
+
+	// const item.relationships.roomStatus.attributes.name == 'Ocupado'rate = pro.;
 	// let part =
 	// 	pro.item.relationships.partialCost.relationships.partialRate.attributes.name;
 </script>

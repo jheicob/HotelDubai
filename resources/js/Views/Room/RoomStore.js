@@ -188,8 +188,37 @@ export const RoomStore = defineStore('roomStore',() => {
     const UpdateCleanRoom = (item) => {
         changeStatusRoom(item.id,2)
     }
+const selectColor = (item) => {
+//console.log(item);
+    let css = ''
+    switch (item.relationships.roomStatus.attributes.name){
+        case 'Ocupada':
+           css = 'bg-dangerr';
+            break;
+        case 'Disponible':
+            css = 'bg-greensea'
+            break
+        case 'Limpiando':
+            css = 'bg-warningg';
+            break;
+        case 'Reparación':
+            css = 'bg-infoo';
+            break;
+    }
+    return css;
+}
+
+const showPartialAndRate = (item)=>{
+    console.log(item)
+    let rate = item.relationships.partialCost.attributes.rate
+    let partial = item.relationships.partialCost.relationships.partialRate.attributes.name
+
+    return `${rate} (${partial})`
+}
 
     return {
+        showPartialAndRate,
+        selectColor,
         FreeRoom,
         UpdateCleanRoom,
         getRooms,

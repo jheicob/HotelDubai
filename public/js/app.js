@@ -23187,7 +23187,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
     var _toRefs = (0,vue__WEBPACK_IMPORTED_MODULE_0__.toRefs)(props),
-        item = _toRefs.item; // const rate = pro.;
+        item = _toRefs.item; // const item.relationships.roomStatus.attributes.name == 'Ocupado'rate = pro.;
     // let part =
     // 	pro.item.relationships.partialCost.relationships.partialRate.attributes.name;
 
@@ -30172,56 +30172,88 @@ var _hoisted_1 = {
   "class": "col-lg-2 col-xs-6"
 };
 var _hoisted_2 = {
-  "class": "tile bg-greensea widget-appointments"
+  "class": "tile-header dvd dvd-btm"
+};
+var _hoisted_3 = {
+  "class": "custom-font",
+  style: {
+    "font-size": "12px"
+  }
 };
 
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"tile-header dvd dvd-btm\"><h1 class=\"custom-font\" style=\"font-size:12px;\">Disponible<br></h1><ul class=\"controls\"><li><a href=\"index.php?view=proceso&amp;id_habitacion=&lt;?php echo $habitacion-&gt;id; ?&gt;\"><i class=\"fa fa-arrow-circle-left\"></i></a><!-- &lt;a  data-toggle=&quot;modal&quot; data-target=&quot;#myModalTarifa&lt;?php echo $habitacion-&gt;id; ?&gt;&quot;&gt;\n                        &lt;i class=&quot;fa fa-arrow-circle-left&quot;&gt;&lt;/i&gt;  &lt;/a&gt; --></li></ul></div>", 1);
-
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-  "class": "tile-body",
-  style: {
-    "padding": "1px"
-  }
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", {
-  style: {
-    "text-align": "center"
-  }
+var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", {
+  "class": "controls"
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  href: "index.php?view=proceso&id_habitacion=<?php echo $habitacion->id; ?>"
 }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
-  "class": "fa fa-bed"
-}), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Nombre")])], -1
+  "class": "fa fa-arrow-circle-left"
+})]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a  data-toggle=\"modal\" data-target=\"#myModalTarifa<?php echo $habitacion->id; ?>\">\n                        <i class=\"fa fa-arrow-circle-left\"></i>  </a> ")])], -1
 /* HOISTED */
 );
 
 var _hoisted_5 = {
+  style: {
+    "font-size": "12px"
+  },
+  "class": "text-center dvd dvd-btm pb-2"
+};
+
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_8 = {
+  "class": "tile-body",
+  style: {
+    "padding": "1px"
+  }
+};
+var _hoisted_9 = {
+  style: {
+    "text-align": "center"
+  }
+};
+
+var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+  "class": "fa fa-bed"
+}, null, -1
+/* HOISTED */
+);
+
+var _hoisted_11 = {
   "class": "modal fade bs-example-modal-xm",
   id: "myModalCheckOut<?php echo $habitacion->id; ?>",
   role: "dialog",
   "aria-labelledby": "myModalLabel"
 };
-var _hoisted_6 = {
+var _hoisted_12 = {
   "class": "modal-dialog modal-info"
 };
-var _hoisted_7 = {
+var _hoisted_13 = {
   "class": "modal-dialog"
 };
-var _hoisted_8 = {
+var _hoisted_14 = {
   "class": "modal-content"
 };
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"modal-header\"><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><h4 class=\"modal-title\" style=\"color:black;\"><span class=\"fa fa-hotel\"></span> Habitación Nombre</h4></div>", 1);
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createStaticVNode)("<div class=\"modal-header\"><button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\"><span aria-hidden=\"true\">×</span></button><h4 class=\"modal-title\" style=\"color:black;\"><span class=\"fa fa-hotel\"></span> Habitación Nombre</h4></div>", 1);
 
-var _hoisted_10 = {
+var _hoisted_16 = {
   "class": "modal-footer"
 };
 
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   href: "index.php?view=proceso_cambiar&id=<?php echo $proceso->id; ?>",
   "class": "btn btn-outline btn-warning pull-left"
 }, " CAMBIAR HABITACIÓN?", -1
 /* HOISTED */
 );
 
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
   href: "index.php?view=proceso_salida&id=<?php echo $proceso->id; ?>",
   "class": "btn btn-outline btn-primary pull-left"
 }, "IR A PRE-CUENTA", -1
@@ -30231,14 +30263,26 @@ var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_center = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("center");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_2, [_hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /tile header "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" tile body "), _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /tile body "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_center, null, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", {
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["tile widget-appointments", $setup.room.selectColor($setup.item)])
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.relationships.roomStatus.attributes.name), 1
+  /* TEXT */
+  ), _hoisted_4]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /tile header "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.relationships.partialCost.relationships.roomType.attributes.name) + " ", 1
+  /* TEXT */
+  ), _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.room.showPartialAndRate($setup.item)), 1
+  /* TEXT */
+  )]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" tile body "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.attributes.name), 1
+  /* TEXT */
+  )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /tile body "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_16, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_center, null, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_11, _hoisted_12];
+      return [_hoisted_17, _hoisted_18];
     }),
     _: 1
     /* STABLE */
 
-  })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-content ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-dialog ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ item.attributes.name }}\n\t\t\t<br />\n\t\t\t{{\n\t\t\t\t`$${item.attributes.rate_current} (${item.relationships.partialCost.relationships.partialRate.attributes.name})`\n\t\t\t}}\n\n\t\t\t<div class=\"d-flex align-items-center h-100\">\n\t\t\t\t<div class=\"text-center w-100\">\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Detalle\"\n\t\t\t\t\t\t@click=\"room.showDetail(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowOcuppyButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Ocupar\"\n\t\t\t\t\t\t@click=\"room.ShowOccuppyModal(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowFreeButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Liberar\"\n\t\t\t\t\t\t@click=\"room.FreeRoom(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowExtendButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mt-2', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Extender\"\n\t\t\t\t\t\t@click=\"room.showDetail(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowCleanButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mt-2', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Limpiar\"\n\t\t\t\t\t\t@click=\"room.UpdateCleanRoom(item)\"\n\t\t\t\t\t/>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div v-if=\"item.relationships.roomStatus.attributes.name == 'Ocupado'\">\n\t\t\t\t<br />\n\t\t\t\t<b>Tiempo Restante</b>\n\t\t\t</div>\n\n\t\t\t<b>Precio - Parcial:</b>\n\t\t\t<br />\n\t\t\t{{ item.relationships.roomStatus.attributes.name }} ")])]);
+  })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-content ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-dialog ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal ")]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ item.attributes.name }}\n\t\t\t<br />\n\t\t\t{{\n\t\t\t\t`$${item.attributes.rate_current} (${item.relationships.partialCost.relationships.partialRate.attributes.name})`\n\t\t\t}}\n\n\t\t\t<div class=\"d-flex align-items-center h-100\">\n\t\t\t\t<div class=\"text-center w-100\">\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Detalle\"\n\t\t\t\t\t\t@click=\"room.showDetail(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowOcuppyButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Ocupar\"\n\t\t\t\t\t\t@click=\"room.ShowOccuppyModal(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowFreeButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Liberar\"\n\t\t\t\t\t\t@click=\"room.FreeRoom(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowExtendButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mt-2', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Extender\"\n\t\t\t\t\t\t@click=\"room.showDetail(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowCleanButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mt-2', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Limpiar\"\n\t\t\t\t\t\t@click=\"room.UpdateCleanRoom(item)\"\n\t\t\t\t\t/>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div v-if=\"item.relationships.roomStatus.attributes.name == 'Ocupado'\">\n\t\t\t\t<br />\n\t\t\t\t<b>Tiempo Restante</b>\n\t\t\t</div>\n\n\t\t\t<b>Precio - Parcial:</b>\n\t\t\t<br />\n\t\t\t{{ item.relationships.roomStatus.attributes.name }} ")], 2
+  /* CLASS */
+  )]);
 }
 
 /***/ }),
@@ -35083,7 +35127,41 @@ var RoomStore = (0,pinia__WEBPACK_IMPORTED_MODULE_4__.defineStore)('roomStore', 
     changeStatusRoom(item.id, 2);
   };
 
+  var selectColor = function selectColor(item) {
+    //console.log(item);
+    var css = '';
+
+    switch (item.relationships.roomStatus.attributes.name) {
+      case 'Ocupada':
+        css = 'bg-dangerr';
+        break;
+
+      case 'Disponible':
+        css = 'bg-greensea';
+        break;
+
+      case 'Limpiando':
+        css = 'bg-warningg';
+        break;
+
+      case 'Reparación':
+        css = 'bg-infoo';
+        break;
+    }
+
+    return css;
+  };
+
+  var showPartialAndRate = function showPartialAndRate(item) {
+    console.log(item);
+    var rate = item.relationships.partialCost.attributes.rate;
+    var partial = item.relationships.partialCost.relationships.partialRate.attributes.name;
+    return "".concat(rate, " (").concat(partial, ")");
+  };
+
   return {
+    showPartialAndRate: showPartialAndRate,
+    selectColor: selectColor,
     FreeRoom: FreeRoom,
     UpdateCleanRoom: UpdateCleanRoom,
     getRooms: getRooms,
