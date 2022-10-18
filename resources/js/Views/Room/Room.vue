@@ -1,7 +1,8 @@
 <template>
 	<div class="row justify-content-center">
 		<div class="col-md-12">
-			<permissions-data-table />
+			<permissions-data-table v-show="!reception.show" />
+			<CreateReception v-show="reception.show" />
 		</div>
 	</div>
 </template>
@@ -10,8 +11,11 @@
 	import PermissionsDataTable from "./Table/RoomDataTable.vue";
 	import { HelperStore } from "@/HelperStore";
     import {onMounted} from 'vue'
-	const useHelper = HelperStore();
+	import {receptionStore} from './Reception/ReceptionStore.js'
+	import CreateReception from './Reception/CreateReception.vue'
 
+	const useHelper = HelperStore();
+	const reception = receptionStore();
     
     onMounted(()=>{
 

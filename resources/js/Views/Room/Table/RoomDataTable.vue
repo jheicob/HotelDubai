@@ -73,7 +73,9 @@
 								:footerStyle="[
 									item.relationships.roomStatus.attributes.color.css ??
 										'',
-								]"
+										]"
+
+								@dblclick="ShowUpdatedModal(item,useStore.setForm)"
 							/>
 					</div>
 
@@ -202,7 +204,7 @@
 	const useStore = RoomStore();
 
 	const { permiss, all, item } = storeToRefs(useHelper);
-	const { ShowCreateModal, ShowUpdateModal, deleteItem } = useHelper;
+	const { ShowCreateModal, ShowUpdatedModal, deleteItem } = useHelper;
 	const { rooms } = storeToRefs(useStore);
 	const { filterRoomsByStatus } = useStore;
 

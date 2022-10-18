@@ -4,10 +4,11 @@ import axios from "axios";
 import {ref,computed} from 'vue'
 import { HelperStore } from '../../HelperStore';
 import { ocuppyRoomStore } from './Modals/OcuppyRoomStore';
+import {receptionStore} from './Reception/ReceptionStore'
 
 export const RoomStore = defineStore('roomStore',() => {
     const OcuppyRoom = ocuppyRoomStore()
-
+    const reception = receptionStore();
     const useHelper = HelperStore()
     useHelper.url = 'room'
 
@@ -216,7 +217,15 @@ const showPartialAndRate = (item)=>{
     return `${rate} (${partial})`
 }
 
+const {show} = storeToRefs(reception)
+const showCreateReception = (room) => {
+    console.log(item)
+    show.value = true;
+    item.value = room
+}
+
     return {
+        showCreateReception,
         showPartialAndRate,
         selectColor,
         FreeRoom,
