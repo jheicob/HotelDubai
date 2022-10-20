@@ -20,8 +20,8 @@ class CreateReceptionDetailsTable extends Migration
             $table->float('rate');
             $table->string('observation')->nullable();
             $table->integer('quantity_partial');
-            $table->integer('time_additional');
-            $table->float('price_additional');
+            $table->integer('time_additional')->nullable();
+            $table->float('price_additional')->nullable();
             $table->timestamps();
         });
     }

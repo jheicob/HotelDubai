@@ -47,14 +47,27 @@ class CreateController extends Controller
             $partial_rate->append('number_hour');
 
             $rate = (new RoomService($room))->getRateByConditionals();
+
             $quantity_total_hours = $request->quantity_partial * $partial_rate->number_hour;
+
             $request->merge([
                 'date_out' => Carbon::parse($request->date_in)->addHours($quantity_total_hours),
                 'partial_min' => $partial_rate->name,
                 'rate' => $rate,
             ]);
 
-            $client->rooms()->attach($request->room_id,$request->except(['client_id','room_id']));
+            $reception = $client->receptions()->create($request->only([
+                'room_id',
+                'date_in',
+                'date_out',
+            ]));
+
+            $reception->details()->create($request->only([
+                'partial_min',
+                'rate',
+                'observation',
+                'quantity_partial',
+            ]));
 
             $roomStatus = RoomStatus::firstWhere('name','Ocupada');
             $room->update([

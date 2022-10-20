@@ -25,8 +25,8 @@ class Reception extends Model implements Auditable
         'date_in',
         'date_out',
         'invoiced'
-    ]; 
-    
+    ];
+
     public function getDateInAttribute($value){
         return Carbon::parse($value)->format('Y-m-d H:i');
     }

@@ -13,13 +13,13 @@ class CreateReceptionTable extends Migration
      */
     public function up()
     {
-        Schema::create('reception', function (Blueprint $table) {
+        Schema::create('receptions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('room_id');
             $table->foreignId('client_id');
             $table->dateTime('date_in');
             $table->dateTime('date_out');
-            $table->boolean('invoiced');
+            $table->boolean('invoiced')->default(false);
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ class CreateReceptionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reception');
+        Schema::dropIfExists('receptions');
     }
 }

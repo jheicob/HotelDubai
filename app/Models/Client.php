@@ -58,6 +58,10 @@ class Client extends Model implements Auditable
                 ;
     }
 
+    public function receptions(){
+        return $this->hasMany(Reception::class);
+    }
+
     /**
      * obtiene el cuarto que esta activo
      *
