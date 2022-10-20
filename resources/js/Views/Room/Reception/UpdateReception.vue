@@ -222,7 +222,7 @@
 														</div>
 														<!-- /.input group -->
 													</div>
-				</td>
+												</td>
 											</tr>
 										</tbody>
 									</table>

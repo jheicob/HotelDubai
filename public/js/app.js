@@ -23022,7 +23022,6 @@ __webpack_require__.r(__webpack_exports__);
 
     (0,vue__WEBPACK_IMPORTED_MODULE_0__.onMounted)(function () {
       ocuppy.getTypeDocuments();
-      ocuppy.clearForm();
     });
     var __returned__ = {
       store: store,
@@ -23322,10 +23321,10 @@ __webpack_require__.r(__webpack_exports__);
       if (minutes > 59) {
         hours = Math.floor(minutes / 60);
         hours = hours >= 10 ? hours : "0" + hours;
-        minutes = minutes - hours * 60;
-        minutes = minutes >= 10 ? minutes : "0" + minutes;
+        minutes = minutes - hours * 60; //    minutes = (minutes >= 10) ? minutes : "0" + minutes;
       }
 
+      minutes = minutes >= 10 ? minutes : "0" + minutes;
       if (minutes == "0") minutes = "00";
       seconds = Math.floor(seconds % 60);
       seconds = seconds >= 10 ? seconds : "0" + seconds;
@@ -30857,39 +30856,62 @@ var _hoisted_8 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementV
 /* HOISTED */
 );
 
-var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
-/* HOISTED */
-);
+var _hoisted_9 = {
+  key: 0
+};
 
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
 /* HOISTED */
 );
 
-var _hoisted_11 = {
-  key: 0
-};
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
 var _hoisted_12 = {
   key: 1
 };
-var _hoisted_13 = {
+
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_15 = {
+  key: 2
+};
+
+var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1
+/* HOISTED */
+);
+
+var _hoisted_18 = [_hoisted_16, _hoisted_17];
+var _hoisted_19 = {
   "class": "tile-body",
   style: {
     "padding": "1px"
   }
 };
-var _hoisted_14 = {
+var _hoisted_20 = {
   style: {
     "text-align": "center"
   }
 };
 
-var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("i", {
   "class": "fa fa-bed"
 }, null, -1
 /* HOISTED */
 );
 
-var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "modal fade bs-example-modal-xm",
   id: "myModalCheckOut",
   role: "dialog",
@@ -30918,11 +30940,13 @@ var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
   "class": "fa fa-hotel"
 }), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Habitación Nombre")])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
   "class": "modal-footer"
-}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                       <center>\n                        <a href=\"index.php?view=proceso_cambiar&id=<?php echo $proceso->id; ?>\" class=\"btn btn-outline btn-warning pull-left\"> CAMBIAR HABITACIÓN?</a>\n\n                        <a href=\"index.php?view=proceso_salida&id=<?php echo $proceso->id; ?>\" class=\"btn btn-outline btn-primary pull-left\">IR A PRE-CUENTA</a>\n </center>")])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-content ")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-dialog ")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal ")], -1
+}, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("                       <center>\n                            <a href=\"index.php?view=proceso_cambiar&id=<?php echo $proceso->id; ?>\" class=\"btn btn-outline btn-warning pull-left\"> CAMBIAR HABITACIÓN?</a>\n\n                            <a href=\"index.php?view=proceso_salida&id=<?php echo $proceso->id; ?>\" class=\"btn btn-outline btn-primary pull-left\">IR A PRE-CUENTA</a>\n     </center>")])]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-content ")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal-dialog ")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.modal ")], -1
 /* HOISTED */
 );
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
+  var _$setup$item$relation, _$setup$item$relation2, _$setup$item$relation3, _$setup$item$relation4;
+
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["tile widget-appointments", $setup.room.selectColor($setup.item)])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.relationships.roomStatus.attributes.name), 1
@@ -30932,15 +30956,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.room.showCreateReception($setup.item);
     })
-  }, _hoisted_6), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a  data-toggle=\"modal\" data-target=\"#myModalTarifa<?php echo $habitacion->id; ?>\">\n                        <i class=\"fa fa-arrow-circle-left\"></i>  </a> ")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /tile header "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.relationships.partialCost.relationships.roomType.attributes.name) + " ", 1
+  }, _hoisted_6), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a  data-toggle=\"modal\" data-target=\"#myModalTarifa<?php echo $habitacion->id; ?>\">\n                        <i class=\"fa fa-arrow-circle-left\"></i>  </a> ")])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /tile header "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, !$setup.reception.isOcupped($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("br", _hoisted_9)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.relationships.partialCost.relationships.roomType.attributes.name) + " ", 1
   /* TEXT */
-  ), _hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.room.showPartialAndRate($setup.item)) + " ", 1
+  ), _hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.room.showPartialAndRate($setup.item)) + " ", 1
   /* TEXT */
-  ), _hoisted_10, $setup.reception.isOcupped($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_11, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.getTimeInMinutesAndSeconds($setup.countdown)), 1
+  ), _hoisted_11, $setup.reception.isOcupped($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" in: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$item$relation = (_$setup$item$relation2 = $setup.item.relationships.receptionActive) === null || _$setup$item$relation2 === void 0 ? void 0 : _$setup$item$relation2.attributes.date_in) !== null && _$setup$item$relation !== void 0 ? _$setup$item$relation : '') + " ", 1
   /* TEXT */
-  )) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("br", _hoisted_12))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" tile body "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_14, [_hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.attributes.name), 1
+  ), _hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" out: " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)((_$setup$item$relation3 = (_$setup$item$relation4 = $setup.item.relationships.receptionActive) === null || _$setup$item$relation4 === void 0 ? void 0 : _$setup$item$relation4.attributes.date_out) !== null && _$setup$item$relation3 !== void 0 ? _$setup$item$relation3 : ''), 1
   /* TEXT */
-  )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /tile body "), _hoisted_16, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ item.attributes.name }}\n\t\t\t<br />\n\t\t\t{{\n\t\t\t\t`$${item.attributes.rate_current} (${item.relationships.partialCost.relationships.partialRate.attributes.name})`\n\t\t\t}}\n\n\t\t\t<div class=\"d-flex align-items-center h-100\">\n\t\t\t\t<div class=\"text-center w-100\">\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Detalle\"\n\t\t\t\t\t\t@click=\"room.showDetail(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowOcuppyButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Ocupar\"\n\t\t\t\t\t\t@click=\"room.ShowOccuppyModal(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowFreeButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Liberar\"\n\t\t\t\t\t\t@click=\"room.FreeRoom(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowExtendButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mt-2', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Extender\"\n\t\t\t\t\t\t@click=\"room.showDetail(item)\"\n\t\t\t\t\t/>\n\t\t\t\t\t<ButtonComponent\n\t\t\t\t\t\tv-if=\"room.ShowCleanButton(item)\"\n\t\t\t\t\t\t:btnClass=\"['btn-info', 'mt-2', 'mx-1']\"\n\t\t\t\t\t\ttext=\"Limpiar\"\n\t\t\t\t\t\t@click=\"room.UpdateCleanRoom(item)\"\n\t\t\t\t\t/>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t\t<div v-if=\"item.relationships.roomStatus.attributes.name == 'Ocupado'\">\n\t\t\t\t<br />\n\t\t\t\t<b>Tiempo Restante</b>\n\t\t\t</div>\n\n\t\t\t<b>Precio - Parcial:</b>\n\t\t\t<br />\n\t\t\t{{ item.relationships.roomStatus.attributes.name }} ")], 2
+  )]), _hoisted_14, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.getTimeInMinutesAndSeconds($setup.countdown)), 1
+  /* TEXT */
+  )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), !$setup.reception.isOcupped($setup.item) ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_15, _hoisted_18)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" tile body "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.attributes.name), 1
+  /* TEXT */
+  )])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /tile body "), _hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ item.attributes.name }}\n                <br />\n                {{\n                    `$${item.attributes.rate_current} (${item.relationships.partialCost.relationships.partialRate.attributes.name})`\n                }}\n\n                <div class=\"d-flex align-items-center h-100\">\n                    <div class=\"text-center w-100\">\n                        <ButtonComponent\n                            :btnClass=\"['btn-info', 'mx-1']\"\n                            text=\"Detalle\"\n                            @click=\"room.showDetail(item)\"\n                        />\n                        <ButtonComponent\n                            v-if=\"room.ShowOcuppyButton(item)\"\n                            :btnClass=\"['btn-info', 'mx-1']\"\n                            text=\"Ocupar\"\n                            @click=\"room.ShowOccuppyModal(item)\"\n                        />\n                        <ButtonComponent\n                            v-if=\"room.ShowFreeButton(item)\"\n                            :btnClass=\"['btn-info', 'mx-1']\"\n                            text=\"Liberar\"\n                            @click=\"room.FreeRoom(item)\"\n                        />\n                        <ButtonComponent\n                            v-if=\"room.ShowExtendButton(item)\"\n                            :btnClass=\"['btn-info', 'mt-2', 'mx-1']\"\n                            text=\"Extender\"\n                            @click=\"room.showDetail(item)\"\n                        />\n                        <ButtonComponent\n                            v-if=\"room.ShowCleanButton(item)\"\n                            :btnClass=\"['btn-info', 'mt-2', 'mx-1']\"\n                            text=\"Limpiar\"\n                            @click=\"room.UpdateCleanRoom(item)\"\n                        />\n                    </div>\n                </div>\n                <div v-if=\"item.relationships.roomStatus.attributes.name == 'Ocupado'\">\n                    <br />\n                    <b>Tiempo Restante</b>\n                </div>\n\n                <b>Precio - Parcial:</b>\n                <br />\n                {{ item.relationships.roomStatus.attributes.name }} ")], 2
   /* CLASS */
   )]);
 }
@@ -35452,22 +35480,47 @@ var ocuppyRoomStore = (0,pinia__WEBPACK_IMPORTED_MODULE_6__.defineStore)('ocuppy
   var client = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)({});
   var date = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(moment__WEBPACK_IMPORTED_MODULE_2___default()().format('YYYY-MM-DD'));
   var hour = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(moment__WEBPACK_IMPORTED_MODULE_2___default()().format('HH:mm'));
+  var reception_update = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(false);
 
   var clearForm = function clearForm() {
-    form.value = {
-      client_id: null,
-      document: '',
-      type_document_id: '',
-      first_name: '',
-      last_name: '',
-      phone: '',
-      email: '',
-      //
-      room_id: '',
-      date_in: setDate.value,
-      observation: '',
-      quantity_partial: 1
-    };
+    var update = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+    if (update) {
+      reception_update.value = true;
+      client_exist.value = true;
+      date.value = moment__WEBPACK_IMPORTED_MODULE_2___default()(update.relationships.receptionActive.attributes.date_out).format('YYYY-MM-DD');
+      hour.value = moment__WEBPACK_IMPORTED_MODULE_2___default()(update.relationships.receptionActive.attributes.date_out).format('HH:mm');
+      form.value = {
+        client_id: update.relationships.receptionActive.attributes.client_id,
+        document: update.relationships.receptionActive.relationships.client.attributes.document,
+        type_document_id: update.relationships.receptionActive.relationships.client.attributes.type_document_id,
+        first_name: update.relationships.receptionActive.relationships.client.attributes.first_name,
+        last_name: update.relationships.receptionActive.relationships.client.attributes.last_name,
+        phone: update.relationships.receptionActive.relationships.client.attributes.phone,
+        email: update.relationships.receptionActive.relationships.client.attributes.email,
+        //
+        room_id: update.id,
+        date_in: update.relationships.receptionActive.attributes.date_in,
+        observation: update.relationships.receptionActive.attributes.observation,
+        quantity_partial: 1
+      };
+    } else {
+      _;
+      form.value = {
+        client_id: null,
+        document: '',
+        type_document_id: '',
+        first_name: '',
+        last_name: '',
+        phone: '',
+        email: '',
+        //
+        room_id: '',
+        date_in: setDate.value,
+        observation: '',
+        quantity_partial: 1
+      };
+    }
   };
 
   var setDate = (0,vue__WEBPACK_IMPORTED_MODULE_1__.computed)(function () {
@@ -35877,6 +35930,14 @@ var RoomStore = (0,pinia__WEBPACK_IMPORTED_MODULE_5__.defineStore)('roomStore', 
     //  console.log(item)
     show.value = true;
     item.value = room;
+
+    if (room.relationships.receptionActive != null) {
+      console.log('item');
+      OcuppyRoom.clearForm(room);
+    } else {
+      console.log('no item');
+      OcuppyRoom.clearForm();
+    }
   };
 
   return {

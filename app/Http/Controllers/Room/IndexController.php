@@ -23,7 +23,7 @@ class IndexController extends Controller
                 'roomStatus',
                 'partialCost.roomType',
                 'partialCost.partialRate',
-                'receptionActive'
+                'receptionActive.client'
                 ])->withTrashed()->get();
 
             $room->transform(function($value){

@@ -9,10 +9,13 @@ use App\Http\Requests\Client\CreateRequest;
 use App\Http\Resources\Client\ClientResource;
 use Illuminate\Support\Facades\DB;
 use App\Models\Client;
+use App\Models\Reception;
 use App\Models\Room;
 use App\Models\RoomStatus;
 use App\Services\RoomService\RoomService;
 use Carbon\Carbon;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Response;
 
 class CreateController extends Controller
 {
@@ -43,6 +46,7 @@ class CreateController extends Controller
 
             $client = Client::find($request->client_id);
             $room = Room::find($request->room_id);
+
             $partial_rate = $room->partialCost->partialRate;
             $partial_rate->append('number_hour');
 
@@ -55,6 +59,12 @@ class CreateController extends Controller
                 'partial_min' => $partial_rate->name,
                 'rate' => $rate,
             ]);
+
+            $reception = self::verifiedReceptionActive($client);
+
+            if($reception){
+                return self::extendReception($reception,$request,$quantity_total_hours);
+            }
 
             $reception = $client->receptions()->create($request->only([
                 'room_id',
@@ -69,6 +79,8 @@ class CreateController extends Controller
                 'quantity_partial',
             ]));
 
+
+            // $status = $request->date_in > Carbon::now() ? 'Reservada' : 'Ocupada';
             $roomStatus = RoomStatus::firstWhere('name','Ocupada');
             $room->update([
                 'room_status_id' => $roomStatus->id,
@@ -83,17 +95,41 @@ class CreateController extends Controller
         }
     }
 
+    public function verifiedReceptionActive(Client $client)
+    {
+
+        if(!$client->receptionActive->first()){
+            return false;
+        }
+        return $client->receptionActive->first();
+    }
+
+    public function extendReception(Reception $reception, Request $request,int $quantity_total_hours): JsonResponse
+    {
+        $reception->update([
+            'date_out' => Carbon::parse($reception->date_out)->addHours($quantity_total_hours),
+        ]);
+        $reception->details()->create($request->only([
+            'partial_min',
+            'rate',
+            'observation',
+            'quantity_partial',
+        ]));
+        DB::commit();
+        return custom_response_sucessfull('update_successfull');
+    }
+
     public function extendUse(Request $request){
         try{
             DB::beginTransaction();
 
             $client = Client::find($request->client);
 
-            $client->load('roomActive');
-            $client->roomActive->map(function($room){
-                $room->pivot->invoiced = true;
+            $reception = $client->receptionActive->first();
+            /*$client->roomActive->map(function($room){
+                $room->invoiced = true;
                 $room->pivot->save();
-            });
+            });*/
 
             $room = Room::find($request->room_id);
 

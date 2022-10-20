@@ -222,6 +222,16 @@ const showCreateReception = (room) => {
   //  console.log(item)
     show.value = true;
     item.value = room
+    if(room.relationships.receptionActive != null){
+console.log('item')
+    OcuppyRoom.clearForm(room)
+    }else{
+
+console.log('no item')
+    OcuppyRoom.clearForm()
+    }
+    
+    
 }
 
     return {

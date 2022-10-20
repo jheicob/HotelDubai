@@ -17,8 +17,30 @@ export const ocuppyRoomStore = defineStore('ocuppyRoomStore',() => {
     const client = ref({})
     const date = ref(moment().format('YYYY-MM-DD'))
     const hour = ref(moment().format('HH:mm'))
+    const reception_update = ref(false)
 
-    const clearForm = () => {
+    const clearForm = (update = false) => {
+        if(update){
+            reception_update.value = true
+            client_exist.value = true
+            date.value = moment(update.relationships.receptionActive.attributes.date_out).format('YYYY-MM-DD')
+            hour.value = moment(update.relationships.receptionActive.attributes.date_out).format('HH:mm')
+
+            form.value = {
+                client_id: update.relationships.receptionActive.attributes.client_id,
+                document : update.relationships.receptionActive.relationships.client.attributes.document,
+                type_document_id: update.relationships.receptionActive.relationships.client.attributes.type_document_id,
+                first_name : update.relationships.receptionActive.relationships.client.attributes.first_name,
+                last_name : update.relationships.receptionActive.relationships.client.attributes.last_name,
+                phone : update.relationships.receptionActive.relationships.client.attributes.phone,
+                email : update.relationships.receptionActive.relationships.client.attributes.email,
+                    //
+                room_id : update.id,
+                date_in : update.relationships.receptionActive.attributes.date_in,
+                observation : update.relationships.receptionActive.attributes.observation,
+                quantity_partial : 1,
+            }
+        }else{_
         form.value = {
             client_id: null,
             document : '',
@@ -32,6 +54,7 @@ export const ocuppyRoomStore = defineStore('ocuppyRoomStore',() => {
             date_in : setDate.value,
             observation : '',
             quantity_partial : 1,
+        }
         }
     }
 

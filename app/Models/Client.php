@@ -82,4 +82,8 @@ class Client extends Model implements Auditable
                     ->wherePivot('invoiced',false)
                     ;
     }
+
+    public function receptionActive(){
+        return $this->receptions()->where('invoiced',false);
+    }
 }
