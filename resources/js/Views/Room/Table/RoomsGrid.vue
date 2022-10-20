@@ -8,6 +8,10 @@
                 
                 <ul class="controls">
                     <li >
+                        <!-- <a href="#" @click="room.showCreateReception(item)" >
+                            <i class="fa-regular fa-file-lines"></i>
+                        </a>-->
+
                         <a href="#" @click="room.showCreateReception(item)" >
                             <i class="fa fa-arrow-circle-left"></i>
                         </a>

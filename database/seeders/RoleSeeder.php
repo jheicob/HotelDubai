@@ -156,7 +156,14 @@ class RoleSeeder extends Seeder
             'client.updated',
             'client.getPaginate',
             'client.get',
-            'client.assigned_room'
+            'client.assigned_room',
+
+            'invoice.index',
+            'invoice.create',
+            'invoice.delete',
+            'invoice.updated',
+            'invoice.getPaginate',
+            'invoice.get',
             ]
         );
     }

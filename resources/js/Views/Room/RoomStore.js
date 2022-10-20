@@ -217,17 +217,19 @@ const showPartialAndRate = (item)=>{
     return `${rate} (${partial})`
 }
 
-const {show} = storeToRefs(reception)
+const {show,updated_reception} = storeToRefs(reception)
 const showCreateReception = (room) => {
   //  console.log(item)
     show.value = true;
     item.value = room
     if(room.relationships.receptionActive != null){
-console.log('item')
+//console.log('item')
+        updated_reception.value = true
     OcuppyRoom.clearForm(room)
     }else{
 
-console.log('no item')
+        updated_reception.value = false
+//console.log('no item')
     OcuppyRoom.clearForm()
     }
     

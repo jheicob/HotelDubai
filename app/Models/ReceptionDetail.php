@@ -34,4 +34,8 @@ class ReceptionDetail extends Model implements Auditable
     public function reception(){
         return $this->belongsTo(Reception::class);
     }
+
+    public function invoiceDetail(){
+        return $this->morphMany(InvoiceDetail::class,'productable');
+    }
 }

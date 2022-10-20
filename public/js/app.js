@@ -30452,15 +30452,19 @@ var _hoisted_66 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 );
 
 var _hoisted_67 = [_hoisted_66];
-var _hoisted_68 = ["disabled"];
+var _hoisted_68 = {
+  key: 0,
+  "class": "btn btn-success text-white btn-icon-split mb-4 col-3"
+};
+var _hoisted_69 = ["disabled"];
 
-var _hoisted_69 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+var _hoisted_70 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
   "class": "text font-montserrat font-weight-bold"
 }, "Asignar Habitación", -1
 /* HOISTED */
 );
 
-var _hoisted_70 = [_hoisted_69];
+var _hoisted_71 = [_hoisted_70];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _$setup$item$attribut, _$setup$item$attribut2, _$setup$item$relation, _$setup$item$relation2, _$setup$item$attribut3, _$setup$item$attribut4, _$setup$item$attribut5, _$setup$item$attribut6, _$setup$item$relation3, _$setup$item$relation4;
 
@@ -30598,15 +30602,15 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[11] || (_cache[11] = function ($event) {
       return $setup.store.show = false;
     })
-  }, _hoisted_67), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, _hoisted_67), $setup.store.updated_reception ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("button", _hoisted_68, " Facturar ")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     disabled: $setup.desactiveButton,
     onClick: _cache[12] || (_cache[12] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function ($event) {
       return $setup.storeAssignedRoom();
     }, ["prevent"])),
     "class": "btn btn-primary text-white btn-icon-split mb-4 col-5"
-  }, _hoisted_70, 8
+  }, _hoisted_71, 8
   /* PROPS */
-  , _hoisted_68)])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.table-responsive ")])])])]);
+  , _hoisted_69)])])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" /.table-responsive ")])])])]);
 }
 
 /***/ }),
@@ -30951,7 +30955,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["tile widget-appointments", $setup.room.selectColor($setup.item)])
   }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", _hoisted_3, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($setup.item.relationships.roomStatus.attributes.name), 1
   /* TEXT */
-  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
+  ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <a href=\"#\" @click=\"room.showCreateReception(item)\" >\n                            <i class=\"fa-regular fa-file-lines\"></i>\n                        </a>"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     href: "#",
     onClick: _cache[0] || (_cache[0] = function ($event) {
       return $setup.room.showCreateReception($setup.item);
@@ -35651,17 +35655,21 @@ __webpack_require__.r(__webpack_exports__);
 
 var receptionStore = (0,pinia__WEBPACK_IMPORTED_MODULE_2__.defineStore)('ReceptionStore', function () {
   var show = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
+  var updated_reception = (0,vue__WEBPACK_IMPORTED_MODULE_0__.ref)(false);
 
   var hiddenReception = function hiddenReception() {
     show.value = false;
   };
 
   var isOcupped = function isOcupped(item) {
+    //      console.log('ocupped',item)
+    //        if(!item) return false;
     return item.relationships.roomStatus.attributes.name == 'Ocupada';
   };
 
   return {
     show: show,
+    updated_reception: updated_reception,
     hiddenReception: hiddenReception,
     isOcupped: isOcupped
   };
@@ -35924,7 +35932,8 @@ var RoomStore = (0,pinia__WEBPACK_IMPORTED_MODULE_5__.defineStore)('roomStore', 
   };
 
   var _storeToRefs2 = (0,pinia__WEBPACK_IMPORTED_MODULE_5__.storeToRefs)(reception),
-      show = _storeToRefs2.show;
+      show = _storeToRefs2.show,
+      updated_reception = _storeToRefs2.updated_reception;
 
   var showCreateReception = function showCreateReception(room) {
     //  console.log(item)
@@ -35932,10 +35941,12 @@ var RoomStore = (0,pinia__WEBPACK_IMPORTED_MODULE_5__.defineStore)('roomStore', 
     item.value = room;
 
     if (room.relationships.receptionActive != null) {
-      console.log('item');
+      //console.log('item')
+      updated_reception.value = true;
       OcuppyRoom.clearForm(room);
     } else {
-      console.log('no item');
+      updated_reception.value = false; //console.log('no item')
+
       OcuppyRoom.clearForm();
     }
   };

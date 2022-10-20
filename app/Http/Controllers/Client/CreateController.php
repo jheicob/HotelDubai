@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Client\AssignRoomRequest;
 use App\Http\Requests\Client\CreateRequest;
+use App\Http\Requests\Client\InvoiceReceptionRequest;
 use App\Http\Resources\Client\ClientResource;
 use Illuminate\Support\Facades\DB;
 use App\Models\Client;
@@ -159,4 +160,17 @@ class CreateController extends Controller
         }
     }
 
+    public function invoiceReception(InvoiceReceptionRequest $request){
+        DB::beginTransaction();
+
+        try{
+
+            DB::commit();
+            return custom_response_sucessfull('invoice create');
+        }catch(\Exception $e){
+            DB::rollBack();
+
+            return custom_response_exception($e,__('errors.server.title'),500);
+        }
+    }
 }

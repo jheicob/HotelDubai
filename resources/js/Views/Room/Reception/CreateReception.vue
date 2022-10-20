@@ -295,6 +295,14 @@
 			<a class="btn btn-danger text-white btn-icon-split mb-4 col-3" @click="store.show = false">
 				<span class="text font-montserrat font-weight-bold">Cancelar</span>
 			</a>
+
+			<button
+				v-if="store.updated_reception"
+				class="btn btn-success text-white btn-icon-split mb-4 col-3"
+				>
+				Facturar
+			</button>
+
 			<button
 				:disabled="desactiveButton"
 				v-on:click.prevent="storeAssignedRoom()"

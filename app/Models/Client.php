@@ -84,6 +84,7 @@ class Client extends Model implements Auditable
     }
 
     public function receptionActive(){
-        return $this->receptions()->where('invoiced',false);
+        return $this->hasMany(Reception::class)
+                ->where('invoiced',false);
     }
 }
