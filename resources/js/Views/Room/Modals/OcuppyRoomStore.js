@@ -3,16 +3,20 @@ import { HelperStore } from "@/HelperStore";
 import {computed, ref} from 'vue'
 import moment from 'moment'
 import { RoomStore } from "../RoomStore";
+import {receptionStore} from '../Reception/ReceptionStore'
+import dayjs from 'dayjs'
 
 export const ocuppyRoomStore = defineStore('ocuppyRoomStore',() => {
     const helper = HelperStore()
     const useRoom = RoomStore()
+    const reception = receptionStore();
+
     const {form,item} = storeToRefs(helper)
     const client_exist = ref(false)
     const type_documents = ref([])
     const client = ref({})
-    const date = ref(moment().format('YYYY-DD-MM'))
-    const hour = ref(moment().format('H:mm'))
+    const date = ref(moment().format('YYYY-MM-DD'))
+    const hour = ref(moment().format('HH:mm'))
 
     const clearForm = () => {
         form.value = {
@@ -66,6 +70,7 @@ export const ocuppyRoomStore = defineStore('ocuppyRoomStore',() => {
             .catch((err) => helper.getErrorRequest(err))
     }
 
+    const {show} = storeToRefs(reception);
     const assigRoom = () => {
         let data = {
             client_id : form.value.client_id,
@@ -80,6 +85,7 @@ export const ocuppyRoomStore = defineStore('ocuppyRoomStore',() => {
                 //
                 $("#showOcuppyRoom").modal("hide")
                 clearForm()
+                show.value = false
                 useRoom.getRooms();
 
             })

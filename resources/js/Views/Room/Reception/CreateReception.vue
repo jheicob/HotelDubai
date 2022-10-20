@@ -111,22 +111,22 @@
 																></i>
 																Tipo Documento:
 															</div>
-															?php $tipo_documentos =
-															TipoDocumentoData::getAll();
-															?>
+															
 															<select
 																name="tipo_documento"
 																id="tipo_documento"
 																required
-																class="form-control"
+																v-model="form.type_document_id"
+																class="form-select"
 															>
-																<!-- ?php foreach ($tipo_documentos as $tipo_documento) : ?> -->
-																<option
-																	value="?php echo $tipo_documento->id; ?>"
-																>
-																	?php echo
-																	$tipo_documento->nombre;
-																	?>
+															<!-- ?php foreach ($tipo_documentos as $tipo_documento) : ?> -->
+															<option value=''>Seleccione...</option>
+															<option 
+																	v-for="(type_document,i) in ocuppy.type_documents" 
+																	:key=i
+																	:value="type_document.id"
+																	>
+																	{{type_document.attributes.name}}
 																</option>
 																<!-- ?php endforeach; ?> -->
 															</select>
@@ -145,11 +145,9 @@
 																id="documento"
 																required="required"
 																placeholder="Ingresar documento para buscar"
-															/>
-															<input
-																type="hidden"
-																id="id"
-															/>
+																v-model="form.document"
+																@blur="ocuppy.getClient"
+																/>
 														</div>
 														<!-- /.input group -->
 													</div>
@@ -166,6 +164,7 @@
 																name="nombre"
 																id="nombre"
 																required
+																v-model="form.first_name"
 																placeholder="Ingrese nombres"
 															/>
 														</div>
@@ -176,15 +175,15 @@
 															<div
 																class="input-group-addon"
 															>
-																RUT:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+																Apellidos:
 															</div>
 															<input
 																type="text"
 																class="form-control"
 																placeholder="Ingrese RUT"
+																v-model="form.last_name"
 																name="razon_social"
 																id="razon_social"
-																value=""
 															/>
 															<div
 																class="input-group-addon"
@@ -198,27 +197,14 @@
 																name="telefono"
 																id="telefono"
 																required
-																value=""
+																v-model="form.phone"
 															/>
 														</div>
 														<!-- /.input group -->
 													</div>
 													<div class="form-group">
 														<div class="input-group">
-															<div
-																class="input-group-addon"
-															>
-																Procedencia:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-															</div>
-															<input
-																type="text"
-																class="form-control"
-																name="nacionalidad"
-																id="nacionalidad"
-																placeholder="Ingrese procedencia (No es obligatorio)"
-																data-inputmask='"mask": "(999) 999-9999"'
-																data-mask
-															/>
+															
 															<div
 																class="input-group-addon"
 															>
@@ -230,6 +216,7 @@
 																name="direccion"
 																id="direccion"
 																required
+																v-model="form.email"
 																placeholder="Ingrese correo electronico "
 															/>
 														</div>
@@ -255,139 +242,70 @@
 								<tbody style="padding: 0px">
 									<tr style="padding: 0px">
 										<td colspan="3">
-											<!-- Date dd/mm/yyyy -->
-											<div class="form-group">
-												<label>Tarifa:</label>
-												<div class="input-group">
-													<div class="input-group-addon">
-														<i class="fa fa-globe"></i>
-													</div>
-													<select
-														class="form-control"
-														onchange="CargarTarifa(this.value);"
-														required
-														name="id_tarifa"
-													>
-														<!-- ?php $tarifas_ha = TarifaHabitacionData::getAllHabitacion($_GET['id_habitacion']); ?> -->
-														<option value="">
-															--- Selecciona ---
-														</option>
-														<!-- ?php foreach ($tarifas_ha as $tarifa_ha) : ?> -->
-														<option
-															value="?php echo $tarifa_ha->id; ?>"
-														>
-															?php echo
-															$tarifa_ha->getTarifa()->nombre;
-															?>
-														</option>
-														<!-- ?php endforeach; ?> -->
-													</select>
-												</div>
-												<!-- /.input group -->
-											</div>
-											<div
-												class="form-group"
-												id="mostrar_precio"
-											></div>
-											<div class="form-group">
-												<div class="input-group">
-													<div class="input-group-addon">
-														Cant. de personas:
-													</div>
-													<select
-														class="form-control"
-														name="cantidad"
-													>
-														<option value="1">1</option>
-														<option value="2">2</option>
-														<option value="3">3</option>
-														<option value="4">4</option>
-														<option value="5">5</option>
-														<option value="6">6</option>
-													</select>
-												</div>
-												<!-- /.input group -->
-											</div>
-											<div class="form-group">
-												<div class="input-group">
-													<div class="input-group-addon">
-														Estado de pago
-														&nbsp;&nbsp;&nbsp;&nbsp;
-													</div>
-													<select
-														class="form-control"
-														name="pagado"
-														onchange="MostrarSelectMedioPago(this.value);"
-														required
-													>
-														<option value="">
-															--- Selecciona ---
-														</option>
-														<option value="1">Pagado</option>
-														<option value="0">
-															Falta pagar
-														</option>
-													</select>
-												</div>
-												<!-- /.input group -->
-											</div>
-											<!-- Date dd/mm/yyyy -->
-											<div
-												class="form-group"
-												id="mostrar_selectmediopago"
-											>
-												<!-- /.input group -->
-											</div>
-											<div
-												class="form-group"
-												id="mostrar_mediopago"
-											></div>
-											<div class="form-group">
-												<div class="input-group">
-													<div class="input-group-addon">
-														Fecha
-														salida&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													</div>
-													<input
-														type="text"
-														class="form-control"
-														name="fecha_salida"
-														id="fecha_salida"
-														value="?php echo $nuevafecha; ?>"
-														data-inputmask='"mask": "(999) 999-9999"'
-														data-mask
-													/>
-													<div class="input-group-addon">
-														Hora salida
-													</div>
-													<input
-														type="time"
-														class="form-control"
-														name="hora_salida"
-														value="?php echo $doce; ?>"
-													/>
-												</div>
-												<!-- /.input group -->
-											</div>
-											<div class="box-footer">
-												<a
-													href="#"													
-													class="btn btn-danger"
-													@click="store.hiddenReception"
-													>Cancelar</a
-												>
-												<input
-													type="hidden"
-													name="id_habitacion"
-													value="?php echo $habitacion->id; ?>"
-												/>
-												<button
-													type="submit"
-													class="btn btn-success pull-right"
-												>
-													Registrar ingreso
-												</button>
-											</div>
+		<div class="row">
+			<div class="col">
+				<label class="form-label">Fecha de Entrada</label>
+				<input
+					v-model="date"
+					type="date"
+					class="form-control"
+					:disabled="!client_exist"
+				/>
+			</div>
+			<div class="col">
+				<label class="form-label">Hora de Entrada</label>
+				<input
+					v-model="hour"
+					type="time"
+					class="form-control"
+					:disabled="!client_exist"
+				/>
+			</div>
+		</div>
+<div>
+			<label class="form-label">Cantidad de parciales</label>
+			<input
+				v-model="form.quantity_partial"
+				type="number"
+				class="form-control"
+				:disabled="!client_exist"
+			/>
+			<div class="row">
+				<div id="emailHelp" class="form-text col">
+					Parcial mínimo:
+					{{ item.attributes?.rate_current ?? "" }}
+				</div>
+				<div id="emailHelp" class="form-text col">
+					Tarifa: $
+					{{ item.relationships?.partialCost.attributes.rate ?? "" }}
+				</div>
+			</div>
+		</div>
+		<div>
+			<label class="form-label">Observaciones</label>
+			<input
+				v-model="form.observation"
+				type="text"
+				class="form-control"
+				:disabled="!client_exist"
+			/>
+		</div>
+
+		<div class="row justify-content-between mt-4">
+			<a class="btn btn-danger text-white btn-icon-split mb-4 col-3" @click="store.show = false">
+				<span class="text font-montserrat font-weight-bold">Cancelar</span>
+			</a>
+			<button
+				:disabled="desactiveButton"
+				v-on:click.prevent="storeAssignedRoom()"
+				class="btn btn-primary text-white btn-icon-split mb-4 col-5"
+			>
+				<span class="text font-montserrat font-weight-bold"
+					>Asignar Habitación</span
+				>
+			</button>
+		</div>
+
 										</td>
 									</tr>
 								</tbody>
@@ -405,12 +323,20 @@ import {onMounted} from 'vue'
 import {storeToRefs} from 'pinia'
 import {receptionStore} from './ReceptionStore.js'
 import {HelperStore} from '@/HelperStore'
+import {ocuppyRoomStore} from '../Modals/OcuppyRoomStore'
+import { RoomStore } from "../RoomStore";
 
 const store = receptionStore();
 const helper = HelperStore();
+const ocuppy = ocuppyRoomStore();
 
-const {item} = storeToRefs(helper)
-onMounted( () =>{
-	console.log('crear reception')
-} )
+	const { getClient, storeAssignedRoom } = ocuppy;
+
+	const { form, item, desactiveButton } = storeToRefs(helper);
+	const { client_exist, type_documents, date, hour } = storeToRefs(ocuppy);
+
+	onMounted(() => {
+		ocuppy.getTypeDocuments();
+		ocuppy.clearForm()
+	});
 </script>

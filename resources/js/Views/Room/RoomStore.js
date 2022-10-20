@@ -111,7 +111,7 @@ export const RoomStore = defineStore('roomStore',() => {
 
         if(statusId){
             all.value = all.value.filter ((item) => {
-                console.log(item);
+//                console.log(item);
                 if(item.relationships.roomStatus.id == statusId) return true
             })
         }else{
@@ -210,7 +210,7 @@ const selectColor = (item) => {
 }
 
 const showPartialAndRate = (item)=>{
-    console.log(item)
+//    console.log(item)
     let rate = item.relationships.partialCost.attributes.rate
     let partial = item.relationships.partialCost.relationships.partialRate.attributes.name
 
@@ -219,7 +219,7 @@ const showPartialAndRate = (item)=>{
 
 const {show} = storeToRefs(reception)
 const showCreateReception = (room) => {
-    console.log(item)
+  //  console.log(item)
     show.value = true;
     item.value = room
 }

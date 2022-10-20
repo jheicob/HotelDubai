@@ -78,6 +78,6 @@ class Room extends Model implements Auditable
 
     public function receptionActive()
     {
-        return $this->receptions()->where('invoiced',false)->first();
+        return $this->receptions()->where('invoiced',false);
     }
 }

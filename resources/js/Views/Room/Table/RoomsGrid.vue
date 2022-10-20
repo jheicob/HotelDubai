@@ -23,17 +23,20 @@
                   {{item.relationships.partialCost.relationships.roomType.attributes.name }}
                     <br>
                     {{room.showPartialAndRate(item)}}
+                    <br>
+                    <span v-if="reception.isOcupped(item)" >{{getTimeInMinutesAndSeconds(countdown)}}</span>
+                    <br v-else>
                 </div>
                 
             <!-- tile body -->
             <div class="tile-body" style="padding: 1px;">
-                <h4 style="text-align: center;"><i class="fa fa-bed"></i> 
+        <h4 style="text-align: center;"><i class="fa fa-bed"></i> 
                     {{item.attributes.name}}
                 </h4>
             </div>
             <!-- /tile body -->
 
-            <div class="modal fade bs-example-modal-xm" id="myModalCheckOut<?php echo $habitacion->id; ?>" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal fade bs-example-modal-xm" id="myModalCheckOut" role="dialog" aria-labelledby="myModalLabel">
                 <div class="modal-dialog modal-info">
                     <div class="modal-dialog">
                     <div class="modal-content">
@@ -44,11 +47,11 @@
                         </div>
 
                         <div class="modal-footer">
-                        <center>
+ <!--                       <center>
                         <a href="index.php?view=proceso_cambiar&id=<?php echo $proceso->id; ?>" class="btn btn-outline btn-warning pull-left"> CAMBIAR HABITACIÓN?</a>
 
                         <a href="index.php?view=proceso_salida&id=<?php echo $proceso->id; ?>" class="btn btn-outline btn-primary pull-left">IR A PRE-CUENTA</a>
-                        </center>
+ </center>-->
 
                         </div>
                     </div>
@@ -111,18 +114,30 @@
 </template>
 
 <script setup>
-	import { ref, computed, toRefs } from "vue";
+    import { ref, computed, toRefs, onMounted } from "vue";
 	import CardComponent from "@/components/CardComponent.vue";
 	import { HelperStore } from "@/HelperStore";
 	import { RoomStore } from "../RoomStore";
 	import ButtonComponent from "@/components/ButtonComponent.vue";
 	import ModalComponent from "@/components/ModalComponent.vue";
+    import {receptionStore} from '../Reception/ReceptionStore.js'
+    import {storeToRefs} from 'pinia'
+    import dayjs from 'dayjs'
+
 	const helper = HelperStore();
 	const room = RoomStore();
+    const reception = receptionStore();
+    const countdown = ref(0);
+// const {countdown, date_out} = storeToRefs(reception);
 
-	const updateItem = () => {
+onMounted(()=> {
+        let date = item.value.relationships.receptionActive?.attributes.date_out ?? dayjs();
+    setupCountdownTimer(date)         
+})	
+
+    const updateItem = () => {
 		if (helper.permiss.updated) {
-			console.log(item);
+//			console.log(item);
 			helper.ShowUpdatedModal(item.value, room.setForm);
 		}
 	};
@@ -141,7 +156,48 @@
 
 	const { item } = toRefs(props);
 
+ const setupCountdownTimer = (date) => {
+      let timer = setInterval(() => {
+          countdown.value = dayjs(date).valueOf() - dayjs().valueOf()
 
+          if (countdown.value <= 0) {
+              countdown.value = 0
+              clearInterval(timer)
+          }
+      }, 1000)
+    }
+
+    const getTimeInMinutesAndSeconds = (millis) => {
+/*        if(!millis){
+            return '';
+        }*//*
+        const hours   = (millis / (1000*60*60)).toFixed(0)
+        const minutes = (millis / (1000*60)).toFixed(0)
+        const seconds = (millis / 1000).toFixed(0)
+//        const seconds = ((millis % 60000) / 1000).toFixed(0)
+
+        return setNumber(hours) + ':' + setNumber(minutes) + ':' + setNumber(seconds)
+      return minutes + ':' + (seconds < 10 ? '0' : '') + seconds*/
+ var seconds = (millis / 1000).toFixed(0);
+        var minutes = Math.floor(seconds / 60);
+        var hours = "00";
+        if (minutes > 59) {
+            hours = Math.floor(minutes / 60);
+            hours = (hours >= 10) ? hours : "0" + hours;
+            minutes = minutes - (hours * 60);
+            minutes = (minutes >= 10) ? minutes : "0" + minutes;
+        }
+        if(minutes == "0") minutes = "00"
+
+        seconds = Math.floor(seconds % 60);
+        seconds = (seconds >= 10) ? seconds : "0" + seconds;
+            return hours + ":" + minutes + ":" + seconds;
+    }
+
+function setNumber(number){
+    if(number < 10) return `0${number}`
+    return number
+}
 	// const item.relationships.roomStatus.attributes.name == 'Ocupado'rate = pro.;
 	// let part =
 	// 	pro.item.relationships.partialCost.relationships.partialRate.attributes.name;

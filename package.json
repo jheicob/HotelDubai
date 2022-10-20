@@ -27,6 +27,7 @@
     "dependencies": {
         "@mcistudio/vue-colorpicker": "^2.0.0",
         "@vitejs/plugin-vue": "^3.1.2",
+        "dayjs": "^1.11.5",
         "laravel-vue-pagination": "^3.0.0",
         "moment": "^2.29.4",
         "pinia": "^2.0.22",
