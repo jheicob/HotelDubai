@@ -38,4 +38,12 @@ class Reception extends Model implements Auditable
     public function details(){
         return $this->hasMany(ReceptionDetail::class);
     }
+
+    public function client(){
+        return $this->belongsTo(Client::class);
+    }
+
+    public function room(){
+        return $this->belongsTo(Room::class);
+    }
 }

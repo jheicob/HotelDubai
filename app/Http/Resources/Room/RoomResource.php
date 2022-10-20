@@ -5,6 +5,7 @@ namespace App\Http\Resources\Room;
 use App\Http\Resources\PartialCostResource;
 use App\Http\Resources\PartialRateResource;
 use App\Http\Resources\PartialTemplateResource;
+use App\Http\Resources\ReceptionResource;
 use App\Http\Resources\RoomStatusResource;
 use App\Http\Resources\RoomTypeResource;
 use App\Http\Resources\ThemeTypeResource;
@@ -34,6 +35,9 @@ class RoomResource extends JsonResource
                 }),
                 'partialCost' => $this->whenLoaded('partialCost', function() {
                     return PartialCostResource::make($this->resource->partialCost);
+                }),
+                'receptionActive' => $this->whenLoaded('receptionActive', function() {
+                    return ReceptionResource::make($this->resource->receptionActive);
                 }),
 
             ],
