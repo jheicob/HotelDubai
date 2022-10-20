@@ -8,7 +8,7 @@
                 
                 <ul class="controls">
                     <li >
-                        <a href="#" @click="room.showCreateReception(item)">
+                        <a href="#" @click="room.showCreateReception(item)" >
                             <i class="fa fa-arrow-circle-left"></i>
                         </a>
                         <!-- <a  data-toggle="modal" data-target="#myModalTarifa<?php echo $habitacion->id; ?>">
