@@ -10,6 +10,11 @@ Route::group(
     'middleware'  => 'auth'
     ], function () {
 
+        Route::get('printFiscal/{invoice}', [App\Http\Controllers\Invoice\CreateController::class, 'printFiscal'])
+        ->name('invoice.printFiscal')
+        ->middleware('permission:invoice.printFiscal')
+        ;
+
         Route::get('', [App\Http\Controllers\Invoice\IndexController::class, 'index'])
             ->name('invoice.index')
             ->middleware('permission:invoice.index');
@@ -29,5 +34,7 @@ Route::group(
         Route::get('get', [App\Http\Controllers\Invoice\IndexController::class, 'get'])
             ->name('invoice.get')
             ->middleware('permission:invoice.getPaginate');
+
+
     }
 );

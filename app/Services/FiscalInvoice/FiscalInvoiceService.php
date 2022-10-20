@@ -31,7 +31,7 @@ class FiscalInvoiceService {
      *
      * @var array
      */
-    protected $ivaProduct;
+    public $ivaProduct;
 
     /**
      * Commands for get payment methods
@@ -45,8 +45,12 @@ class FiscalInvoiceService {
      */
     protected $credit_note = false;
 
+    protected $client;
+    protected $rif;
 	public function __construct(){
 		$this->cont_lines_comment = 0;
+
+
 		// self::includeFirstLineDataCompany();
         $this->discount = config('invoice.commands.additional');
         $this->ivaProduct = config('invoice.commands.products');
@@ -58,23 +62,36 @@ class FiscalInvoiceService {
      * @param string $type
      * @return void
      */
-    public static function getIva(string $type): string
+    public function getIva(string $type): string
     {
-        return (string) self::$ivaProduct[$type];
+        return (string) $this->ivaProduct[$type];
     }
 
 	/**
 	 * add as first line the data of company
 	 * @return void
 	 */
-	protected function includeFirstLineDataCompany(): void
+	public function includeFirstLineDataCompany($client,$rif): void
 	{
-		$nombre = config('invoice.company');
-		$rif = config('invoice.rif');
+        $data = [
+            // config('invoice.company'),
+            // config('invoice.rif')
+            $client,
+            $rif
+        ];
 
-        $string = $nombre .' - ' .$rif;
-        self::addLineToHead($string);
+        $string = implode('|',$data);
+        self::addLineToHead($string,'VE');
 	}
+
+    /**
+     * apply subtotal to invoice
+     */
+    public function applySubTotal(): void
+    {
+        $string = config('invoice.commands.sub_total');
+        self::addLine($string);
+    }
 
 	/**
 	 * validate the count of lines max by type page
@@ -180,7 +197,7 @@ class FiscalInvoiceService {
      * @param string $text
      * @return void
      */
-    public function addLineToHead(string $text): void
+    public function addLineToHead(string $text, string $first = ''): void
     {
         if(strlen($text) > 39){
             throw new \Exception('Máximo de carácteres excedidos para la línea');
@@ -189,7 +206,7 @@ class FiscalInvoiceService {
 
         $data = [
             config('invoice.commands.head'),
-            '0'.self::getCountLines(),
+            $first != '' ? $first : '0'.self::getCountLines(),
             $text
         ];
 
@@ -242,16 +259,26 @@ class FiscalInvoiceService {
         self::addLine($string);
     }
 
+    public function applyTotal(){
+        self::addLine(config('invoice.commands.printer_invoice'));
+    }
+
     /**
      * download file
      *
-     * @param string $filename
+     * @param string $filename sin extension
      * @return void
      */
-    public function download(string $filename)
+    public function download(string $filename = '')
     {
+        if($filename == ''){
+            $filename = Carbon::now()->format('Y_m_d').'-factura_fiscal';
+        }
 
-        header('Content-Type: application/octet-stream');
+        $filename .= '.ia2';
+
+        // self::addLine(config('invoice.commands.printer_invoice'));
+        header('Content-Type: application/plain-text');
         header("Content-Transfer-Encoding: Binary");
         header("Content-disposition: attachment; filename=$filename");
 

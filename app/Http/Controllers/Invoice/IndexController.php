@@ -19,7 +19,11 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $invoice = Invoice::withTrashed()->get();
+            $invoice = Invoice::with([
+                'client',
+                'details'
+            ])
+                    ->withTrashed()->get();
 
             return InvoiceResource::collection($invoice);
         } catch (\Exception $e) {

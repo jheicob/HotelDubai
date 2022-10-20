@@ -87,4 +87,8 @@ class Client extends Model implements Auditable
         return $this->hasMany(Reception::class)
                 ->where('invoiced',false);
     }
+
+    public function getFullNameAttribute(){
+        return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
+    }
 }

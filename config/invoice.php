@@ -72,6 +72,8 @@ return [
 
         'printer' => 'FF',
 
+        'printer_invoice' => '99|20|0.00',
+
         'credit_note' => [
             'init' => 'XX',
             'close' => 'FE',

@@ -8,7 +8,9 @@ use App\Http\Requests\Invoice\CreateRequest;
 use App\Models\Client;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
+use App\Models\Reception;
 use App\Models\ReceptionDetail;
+use App\Services\FiscalInvoice\DebitNoteService;
 use App\Services\Invoice\InvoiceService;
 
 class CreateController extends Controller
@@ -32,7 +34,6 @@ class CreateController extends Controller
             $request->merge([
                 'total' => $this->service->calculateTotalByReceptionDetails($reception)
             ]);
-            dump($request->observation);
             $invoice = new Invoice();
             $invoice = Invoice::create($request->only([
                 'client_id',
@@ -40,7 +41,6 @@ class CreateController extends Controller
                 'observation',
                 'date'
             ]));
-            dump($invoice->observation);
             $reception->details->map(function($item) use ($invoice){
                 $data = [
                     'price'      => $item->rate,
@@ -51,6 +51,7 @@ class CreateController extends Controller
                 $item->invoiceDetail()->create($data);
             });
             // $invoice_details = $invoice->details()->create()
+            // $reception->update(['invoiced' => true]);
             DB::commit();
 
             return custom_response_sucessfull('created successfull',201);
@@ -61,6 +62,30 @@ class CreateController extends Controller
         }
     }
 
+    public function printFiscal(Invoice $invoice, Request $request)
+    {
+        // return ';';
+        $client = $invoice->client;
+        $client->append('full_name');
+        $debit_note = new DebitNoteService();
+        $debit_note->includeFirstLineDataCompany($client->full_name,$client->document);
+        $debit_note->addLineToHead(config('invoice.company'));
+        $debit_note->addLineToHead(config('invoice.rif'));
 
+        $invoice->details->map(function($invoice_detail) use ($debit_note){
+            if($invoice_detail->productable_type == 'App\Models\ReceptionDetail'){
+                $product = ReceptionDetail::find($invoice_detail->productable_id);
+            }
+            $debit_note->addProduct(
+                        $invoice_detail->price,
+                        $invoice_detail->quantity,
+                        $product->partial_min,
+                        'excent'
+                        );
+        });
+        $debit_note->applySubTotal();
+        $debit_note->applyTotal();
 
+        return $debit_note->download();
+    }
 }

@@ -18,7 +18,7 @@ use Tests\TestCase;
 class InvoiceTest extends TestCase
 {
     use
-    DatabaseTransactions,
+    // DatabaseTransactions,
     WithFaker;
 
     /**
@@ -56,7 +56,6 @@ class InvoiceTest extends TestCase
             ->actingAs($user)
             ->postJson(route('invoice.create'), [
                 'client_id'     => $reception->client_id,
-                'date'          => $date = Carbon::now(),
                 'observation'   => $obs = $this->faker->text(),
                 'reception_details' => [
                     [
@@ -81,7 +80,6 @@ class InvoiceTest extends TestCase
         $this->assertDatabaseHas('invoices',$invoice->toArray());
         $this->assertEquals($reception->client_id,$invoice->client_id,);
         $this->assertEquals($obs,$invoice->observation);
-        $this->assertEquals($date,$invoice->date);
         $this->assertEquals($invoice_service->calculateTotalByReceptionDetails($reception),$invoice->total);
 
         // verified invoice details
@@ -94,6 +92,7 @@ class InvoiceTest extends TestCase
         $this->assertEquals($invoice_details[0]->price, $reception_details[0]->rate);
         // get description from reception_detail
 
+        // $this->assertTrue($reception->invoiced);
     }
 
 }

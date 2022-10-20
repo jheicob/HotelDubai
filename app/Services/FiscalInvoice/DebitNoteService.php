@@ -33,15 +33,6 @@ class DebitNoteService extends FiscalInvoiceService {
         self::addLine($string);
     }
 
-    /**
-     * apply subtotal to invoice
-     */
-    private function applySubTotal(): void
-    {
-        $string = self::formatString(config('invoice.commands.subtotal'));
-        self::addLine($string);
-    }
-
 
     public function getInformationOfPrinter(int $invoice_id): void
     {
