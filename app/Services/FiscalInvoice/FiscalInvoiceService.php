@@ -4,20 +4,21 @@ namespace App\Services\FiscalInvoice;
 
 use Carbon\Carbon;
 
-class FiscalInvoiceService {
+class FiscalInvoiceService
+{
 
 
-	/**
-	 * contador de lineas de comentarios;
-	 * @var int
-	*/
-	protected $cont_lines_comment = 0;
+    /**
+     * contador de lineas de comentarios;
+     * @var int
+     */
+    protected $cont_lines_comment = 0;
 
-	/**
-	 * string para formar el documento fiscal
-	 * @var string
-	 */
-	protected $document = '';
+    /**
+     * string para formar el documento fiscal
+     * @var string
+     */
+    protected $document = '';
 
     /**
      * Command for get discounts of invoice
@@ -47,15 +48,16 @@ class FiscalInvoiceService {
 
     protected $client;
     protected $rif;
-	public function __construct(){
-		$this->cont_lines_comment = 0;
+    public function __construct()
+    {
+        $this->cont_lines_comment = 0;
 
 
-		// self::includeFirstLineDataCompany();
+        // self::includeFirstLineDataCompany();
         $this->discount = config('invoice.commands.additional');
         $this->ivaProduct = config('invoice.commands.products');
         $this->payment_methods = config('invoice.commands.payment_methods');
-	}
+    }
     /**
      * get iva
      *
@@ -67,12 +69,12 @@ class FiscalInvoiceService {
         return (string) $this->ivaProduct[$type];
     }
 
-	/**
-	 * add as first line the data of company
-	 * @return void
-	 */
-	public function includeFirstLineDataCompany($client,$rif): void
-	{
+    /**
+     * add as first line the data of company
+     * @return void
+     */
+    public function includeFirstLineDataCompany($client, $rif): void
+    {
         $data = [
             // config('invoice.company'),
             // config('invoice.rif')
@@ -80,9 +82,9 @@ class FiscalInvoiceService {
             $rif
         ];
 
-        $string = implode('|',$data);
-        self::addLineToHead($string,'VE');
-	}
+        $string = implode('|', $data);
+        self::addLineToHead($string, 'VE');
+    }
 
     /**
      * apply subtotal to invoice
@@ -93,18 +95,18 @@ class FiscalInvoiceService {
         self::addLine($string);
     }
 
-	/**
-	 * validate the count of lines max by type page
-	 * @return void
-	 */
-	protected function validateLinesMax(): void
-	{
-		$max = config('invoice.comments.lines_max');
+    /**
+     * validate the count of lines max by type page
+     * @return void
+     */
+    protected function validateLinesMax(): void
+    {
+        $max = config('invoice.comments.lines_max');
 
-		if(self::getCountLines() > $max){
-			throw new \Exception('Límite máximo de líneas para los comentarios excedido');
-		}
-	}
+        if (self::getCountLines() > $max) {
+            throw new \Exception('Límite máximo de líneas para los comentarios excedido');
+        }
+    }
 
     /**
      * Add Line to document
@@ -114,7 +116,7 @@ class FiscalInvoiceService {
      */
     protected function addLine(string $line): void
     {
-		$this->document .= $line;
+        $this->document .= $line;
         self::addLineBreak();
     }
 
@@ -157,10 +159,10 @@ class FiscalInvoiceService {
      */
     protected function padWithZeros(mixed $number, int $quantity_spaces, int $quantity_decimal): string
     {
-        $string = number_format($number,$quantity_decimal,'.','');
+        $string = number_format($number, $quantity_decimal, '.', '');
 
         $length_number = strlen($string);
-        if($length_number > $quantity_spaces) return $string;
+        if ($length_number > $quantity_spaces) return $string;
 
         $spaces_to_pad = $quantity_spaces - $length_number;
         $number_pad_with_zeros = str_pad($string, $spaces_to_pad, "0", STR_PAD_LEFT);
@@ -175,21 +177,21 @@ class FiscalInvoiceService {
      */
     protected function formatString(array $data): string
     {
-        return implode('|',$data);
+        return implode('|', $data);
     }
 
     // ---------------
 
     /**
-	 * Add comment to invoice
-	 * @param string $comment comment to add
-	 */
-	public function addComment(string $comment): void
-	{
+     * Add comment to invoice
+     * @param string $comment comment to add
+     */
+    public function addComment(string $comment): void
+    {
         $command = config('invoice.commands.comment');
-		$string = $command .'|'.$comment;
+        $string = $command . '|' . $comment;
         self::addLine($string);
-	}
+    }
 
     /**
      * Add line to head in fiscal invoice
@@ -199,14 +201,14 @@ class FiscalInvoiceService {
      */
     public function addLineToHead(string $text, string $first = ''): void
     {
-        if(strlen($text) > 39){
+        if (strlen($text) > 39) {
             throw new \Exception('Máximo de carácteres excedidos para la línea');
         }
         self::validateLinesMax();
 
         $data = [
             config('invoice.commands.head'),
-            $first != '' ? $first : '0'.self::getCountLines(),
+            $first != '' ? $first : '0' . self::getCountLines(),
             $text
         ];
 
@@ -217,7 +219,7 @@ class FiscalInvoiceService {
 
     public function addPaymentMethod(string $payment_method): void
     {
-        if(!array_key_exists($payment_method,$this->payment_methods)){
+        if (!array_key_exists($payment_method, $this->payment_methods)) {
             throw new \Exception('Tipo de pago no disponible');
         }
 
@@ -232,24 +234,24 @@ class FiscalInvoiceService {
 
     public function addProduct(int $price, int $quantity, string $description, string $iva): void
     {
-        if(!array_key_exists($iva,$this->ivaProduct)){
+        if (!array_key_exists($iva, $this->ivaProduct)) {
             throw new \Exception('Impuesto no disponible');
         }
         $getIva = self::getIva($iva);
 
         $data = [
-            self::padWithZeros($price,10,2),
-            self::padWithZeros($quantity,8,3),
+            self::padWithZeros($price, 10, 2),
+            self::padWithZeros($quantity, 8, 3),
             $description,
         ];
 
-        if($this->credit_note){
+        if ($this->credit_note) {
             array_unshift(
                 $data,
                 config('invoice.commands.credit_note.product'),
                 $getIva[1]
             );
-        }else{
+        } else {
             array_unshift(
                 $data,
                 $getIva
@@ -259,7 +261,8 @@ class FiscalInvoiceService {
         self::addLine($string);
     }
 
-    public function applyTotal(){
+    public function applyTotal()
+    {
         self::addLine(config('invoice.commands.printer_invoice'));
     }
 
@@ -271,18 +274,17 @@ class FiscalInvoiceService {
      */
     public function download(string $filename = '')
     {
-        if($filename == ''){
-            $filename = Carbon::now()->format('Y_m_d').'-factura_fiscal';
+        if ($filename == '') {
+            $filename = Carbon::now()->format('Y_m_d') . '-factura_fiscal';
         }
 
         $filename .= '.ia2';
 
-        // self::addLine(config('invoice.commands.printer_invoice'));
+        self::addLine(config('invoice.commands.printer_invoice'));
         header('Content-Type: application/plain-text');
         header("Content-Transfer-Encoding: Binary");
         header("Content-disposition: attachment; filename=$filename");
 
         return $this->document;
     }
-
 }
