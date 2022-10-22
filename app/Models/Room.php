@@ -71,4 +71,13 @@ class Room extends Model implements Auditable
                     ->wherePivot('invoiced',false)
                     ;
     }
+
+    public function receptions(){
+        return $this->hasMany(Reception::class);
+    }
+
+    public function receptionActive()
+    {
+        return $this->receptions()->where('invoiced',false);
+    }
 }

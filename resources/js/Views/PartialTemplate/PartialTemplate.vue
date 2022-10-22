@@ -5,6 +5,7 @@
         :create="create"
         :deletet="deletet"
         :updated="updated"
+
       />
     </div>
   </div>

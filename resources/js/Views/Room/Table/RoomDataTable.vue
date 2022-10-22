@@ -67,15 +67,16 @@
 					</div>
 
 					<div class="row">
-						<div class="col-3 mt-2" v-for="(item, i) in all" :key="i">
 							<RoomsGrid
+                                v-for="(item, i) in all" :key="i"
 								:item="item"
 								:footerStyle="[
 									item.relationships.roomStatus.attributes.color.css ??
 										'',
-								]"
+										]"
+
+								@dblclick="ShowUpdatedModal(item,useStore.setForm)"
 							/>
-						</div>
 					</div>
 
 					<!-- <table
@@ -203,7 +204,7 @@
 	const useStore = RoomStore();
 
 	const { permiss, all, item } = storeToRefs(useHelper);
-	const { ShowCreateModal, ShowUpdateModal, deleteItem } = useHelper;
+	const { ShowCreateModal, ShowUpdatedModal, deleteItem } = useHelper;
 	const { rooms } = storeToRefs(useStore);
 	const { filterRoomsByStatus } = useStore;
 

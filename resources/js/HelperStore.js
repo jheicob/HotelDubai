@@ -59,7 +59,7 @@ export const HelperStore = defineStore('HelperStore',() => {
     const storeItem = (callback,idModal = "#exampleModal") => {
         desactiveButton.value = true;
         let url_store = `/${url.value}/create`
-        console.log(url_store)
+//        console.log(url_store)
         axios
             .post(url_store, form.value)
             .then((response) => {
@@ -113,7 +113,7 @@ export const HelperStore = defineStore('HelperStore',() => {
 
     return {
         customRequest,
-        form,
+      form,
         url,
         all,
         ShowCreateModal,

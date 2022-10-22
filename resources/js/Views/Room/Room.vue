@@ -1,21 +1,25 @@
 <template>
 	<div class="row justify-content-center">
 		<div class="col-md-12">
-			<permissions-data-table />
+			<permissions-data-table v-show="!reception.show" />
+			<CreateReception v-show="reception.show" />
+			<GenerateInvoice />
 		</div>
+		<!-- <Facturar /> -->
 	</div>
 </template>
 
 <script setup>
 	import PermissionsDataTable from "./Table/RoomDataTable.vue";
 	import { HelperStore } from "@/HelperStore";
-    import {onMounted} from 'vue'
+	import { onMounted } from "vue";
+	import { receptionStore } from "./Reception/ReceptionStore.js";
+	import CreateReception from "./Reception/CreateReception.vue";
+	// import { Facturar } from "../Invoice/Factura.vue";
 	const useHelper = HelperStore();
+	const reception = receptionStore();
 
-    
-    onMounted(()=>{
-
-    })
+	onMounted(() => {});
 	const props = defineProps({
 		create: {
 			type: Boolean,
