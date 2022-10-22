@@ -27,16 +27,15 @@ class AssignRoomRequest extends FormRequest
     public function rules()
     {
         return [
+            'room_id' => 'required|exists:rooms,id',
             'client_id' => [
                 'required',
                 'exists:clients,id',
-                new VerifiedReceptionAndRoom($this->room_id)
+                // new VerifiedReceptionAndRoom($this->room_id)
             ],
-            'room_id' => 'required|exists:rooms,id',
             'date_in' => 'required|date',
             'observation' => 'nullable|string',
             'quantity_partial' => 'required|numeric',
         ];
     }
-
 }

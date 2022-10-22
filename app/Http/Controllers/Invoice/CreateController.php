@@ -55,6 +55,8 @@ class CreateController extends Controller
             });
             // $invoice_details = $invoice->details()->create()
             $reception->update(['invoiced' => true]);
+            $roomStatus = \App\Models\RoomStatus::firstWhere('name', 'Disponible');
+            $reception->room->update(['room_status_id' => $roomStatus->id]);
             DB::commit();
 
             return custom_response_sucessfull([
@@ -69,6 +71,7 @@ class CreateController extends Controller
 
     public function printFiscal(Invoice $invoice, Request $request)
     {
+        $igtf = $request->igtf == 'true' ? true : false;
         // return ';';
         $client = $invoice->client;
         $client->append('full_name');
@@ -91,6 +94,6 @@ class CreateController extends Controller
         $debit_note->applySubTotal();
         // $debit_note->applyTotal();
 
-        return $debit_note->download('', $request->igtf);
+        return $debit_note->download('', (bool) $igtf);
     }
 }

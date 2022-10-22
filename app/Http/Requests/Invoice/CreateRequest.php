@@ -29,15 +29,15 @@ class CreateRequest extends FormRequest
     {
         return [
             'client_id'     => 'required|exists:clients,id',
-            'reception_details'  => 'required|array',
-            'reception_details.*.id'   => [
-                'nullable',
-                'integer',
-                'exists:reception_details,id',
-                new VerifiedReceptionDetailOfClient($this->client_id)
-            ],
-            'reception_details.*.time_additional'   => 'nullable|string',
-            'reception_details.*.price_additional'  => 'nullable|numeric',
+            // 'reception_details'  => 'required|array',
+            // 'reception_details.*.id'   => [
+            //     'nullable',
+            //     'integer',
+            //     'exists:reception_details,id',
+            //     new VerifiedReceptionDetailOfClient($this->client_id)
+            // ],
+            // 'reception_details.*.time_additional'   => 'nullable|string',
+            // 'reception_details.*.price_additional'  => 'nullable|numeric',
             // 'products'  => 'required|array',
             // 'products.*.id'   => 'nullable|string',
             // 'products.*.time_additional'   => 'nullable|string',

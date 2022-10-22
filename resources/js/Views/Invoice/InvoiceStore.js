@@ -3,11 +3,11 @@ import { ref, computed } from "vue";
 import axios from "axios";
 import { HelperStore } from "@/HelperStore";
 import { RoomStore } from "../Room/RoomStore";
-
+import { receptionStore } from "../Room/Reception/ReceptionStore";
 export const InvoiceStore = defineStore("InvoiceStore", () => {
     const roomStore = RoomStore();
     const helper = HelperStore();
-
+    const reception = receptionStore();
     const details = ref("");
 
     const getClientFullName = (client) => {
@@ -41,26 +41,27 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
     }*/
     };
 
-    const { show } = storeToRefs(roomStore);
-    const printInvoice = (bool) => {
+    const { show } = storeToRefs(reception);
+    const printInvoice = (igtf) => {
         let url = "invoice/create";
         let data = {
-            room_id:
+            client_id:
                 helper.item.relationships.receptionActive.relationships.client
                     .id,
         };
         axios
-            .post(url)
+            .post(url, data)
             .then((res) => {
                 let id = res.data.message.id;
-                window.open("/printFiscal/" + id);
-                show.value = true;
+                window.open("/invoice/printFiscal/" + id + "?igtf=" + igtf);
+                show.value = false;
+                $("#exampleModal23").modal("hide");
             })
             .catch((err) => helper.getErrorRequest(err));
     };
 
     const openModal = () => {
-        $("#exampleModal23").show();
+        $("#exampleModal23").modal("show");
     };
     return {
         getClientFullName,

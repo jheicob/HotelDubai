@@ -280,7 +280,7 @@ class FiscalInvoiceService
 
         $filename .= '.ia2';
 
-        if (!$igtf) {
+        if ($igtf == false) {
             self::addLine(config('invoice.commands.printer_invoice'));
         } else {
             self::addLine(config('invoice.commands.printer_invoice_igtf'));
