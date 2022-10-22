@@ -28,18 +28,31 @@
 						</a>
 					</div>
 					<div class="modal-body">
-						<table>
+						<table
+						    class="table table-bordered"
+		  cellspacing="0">
 							<thead>
-								<th>
-									<td>Producto</td>
-									<td>Cantidad</td>
-									<td>Precio</td>
-									<td>Subtotal</td>
-								</th>
+								<tr>
+									<th>Producto</th>
+									<th>Cantidad</th>
+									<th>Precio</th>
+									<th>Subtotal</th>
+								</tr>
 							</thead>
 							<tbody>
-								<tr >
-									<td></td>
+								<tr v-for="detail in useStore.details" :key="detail.id">
+									<td>
+										{{detail.attributes?.product_name ?? ''}}
+									</td>
+									<td>
+										{{detail.attributes?.quantity ?? ''}}
+									</td>
+									<td>
+										{{detail.attributes?.price ?? ''}}
+									</td>
+									<td>
+										{{(detail.attributes?.price ?? 1) * (detail.attributes?.quantity ?? 1)}}
+									</td>
 								</tr>
 
 							</tbody>

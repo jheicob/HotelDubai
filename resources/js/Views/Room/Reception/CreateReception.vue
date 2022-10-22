@@ -196,7 +196,6 @@
 																placeholder="Ingrese teléfono"
 																name="telefono"
 																id="telefono"
-																required
 																v-model="form.phone"
 															/>
 														</div>
@@ -215,7 +214,6 @@
 																class="form-control"
 																name="direccion"
 																id="direccion"
-																required
 																v-model="form.email"
 																placeholder="Ingrese correo electronico "
 															/>
@@ -299,6 +297,8 @@
 			<button
 				v-if="store.updated_reception"
 				class="btn btn-success text-white btn-icon-split mb-4 col-3"
+				type='button'
+				@click="openModal"
 				>
 				Facturar
 			</button>
@@ -325,14 +325,20 @@
 			</section>
 		</div>
 	</div>
+	
 </template>
 <script setup>
 import {onMounted} from 'vue'
 import {storeToRefs} from 'pinia'
 import {receptionStore} from './ReceptionStore.js'
 import {HelperStore} from '@/HelperStore'
+import {InvoiceStore} from '../../Invoice/InvoiceStore.js'
 import {ocuppyRoomStore} from '../Modals/OcuppyRoomStore'
 import { RoomStore } from "../RoomStore";
+
+const openModal = () => {
+	$('#exampleModal23').show()
+}
 
 const store = receptionStore();
 const helper = HelperStore();

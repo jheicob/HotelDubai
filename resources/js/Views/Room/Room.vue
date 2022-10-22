@@ -3,6 +3,7 @@
 		<div class="col-md-12">
 			<permissions-data-table v-show="!reception.show" />
 			<CreateReception v-show="reception.show" />
+			<GenerateInvoice />
 		</div>
 	</div>
 </template>
@@ -14,6 +15,7 @@
 	import {receptionStore} from './Reception/ReceptionStore.js'
 	import CreateReception from './Reception/CreateReception.vue'
 
+import {GenerateInvoice} from '../Invoice/GenerateInvoice.vue'
 	const useHelper = HelperStore();
 	const reception = receptionStore();
     

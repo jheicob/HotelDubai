@@ -57,7 +57,10 @@ class CreateController extends Controller
             $reception->update(['invoiced' => true]);
             DB::commit();
 
-            return custom_response_sucessfull('created successfull', 201);
+            return custom_response_sucessfull([
+                'status' => 'created successfull',
+                'id'     => $invoice->id
+            ], 201);
         } catch (\Exception $e) {
             DB::rollBack();
             return custom_response_exception($e, __('errors.server.title'), 500);

@@ -22,6 +22,7 @@ class InvoiceDetailResource extends JsonResource
                 'productable_type' => $this->resource->productable_type,
                 'price' => $this->resource->price,
                 'quantity' => $this->resource->quantity,
+                'product_name' => $this->resource->product_name
             ],
             'relationships' => [
 
