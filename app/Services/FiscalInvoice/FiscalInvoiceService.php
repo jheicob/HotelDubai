@@ -272,7 +272,7 @@ class FiscalInvoiceService
      * @param string $filename sin extension
      * @return void
      */
-    public function download(string $filename = '')
+    public function download(string $filename = '', bool $igtf)
     {
         if ($filename == '') {
             $filename = Carbon::now()->format('Y_m_d') . '-factura_fiscal';
@@ -280,7 +280,11 @@ class FiscalInvoiceService
 
         $filename .= '.ia2';
 
-        self::addLine(config('invoice.commands.printer_invoice'));
+        if (!$igtf) {
+            self::addLine(config('invoice.commands.printer_invoice'));
+        } else {
+            self::addLine(config('invoice.commands.printer_invoice_igtf'));
+        }
         header('Content-Type: application/plain-text');
         header("Content-Transfer-Encoding: Binary");
         header("Content-disposition: attachment; filename=$filename");

@@ -37,7 +37,7 @@ class CreateController extends Controller
                 'date'  => Carbon::now()->format('Y-m-d H:i:s')
             ]);
             //           $invoice = new Invoice();
-           //dump($request->only(['client_id','total','observation','date']));
+            //dump($request->only(['client_id','total','observation','date']));
             $invoice = Invoice::create($request->only([
                 'client_id',
                 'total',
@@ -91,6 +91,6 @@ class CreateController extends Controller
         $debit_note->applySubTotal();
         // $debit_note->applyTotal();
 
-        return $debit_note->download();
+        return $debit_note->download('', $request->igtf);
     }
 }

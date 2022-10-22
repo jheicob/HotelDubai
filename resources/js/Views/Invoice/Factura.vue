@@ -33,8 +33,18 @@
 								Financieras? (IGTF)
 							</div>
 							<div class="row">
-								<button class="btn btn-info">No</button>
-								<button class="btn btn-danger">Sí</button>
+								<button
+									class="btn btn-info"
+									@click="store.printInvoice(false)"
+								>
+									No
+								</button>
+								<button
+									class="btn btn-danger"
+									@click="store.printInvoice(true)"
+								>
+									Sí
+								</button>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -54,7 +64,4 @@
 	</div>
 </template>
 
-<script setup>
-	// import { InvoiceStore } from "./InvoiceStore";
-	// const store = InvoiceStore();
-</script>
+<script setup></script>

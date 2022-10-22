@@ -57,13 +57,17 @@
 							<tr v-for="keep in useHelper.all" :key="keep.id">
 								<td>{{ keep.id }}</td>
 								<td>{{ keep.attributes.date }}</td>
-								<td>{{ useStore.getClientFullName(keep.relationships.client)}}</td>
-								<td>{{ keep.attributes.total}}</td>
+								<td>
+									{{
+										useStore.getClientFullName(
+											keep.relationships.client
+										)
+									}}
+								</td>
+								<td>{{ keep.attributes.total }}</td>
 								<td>
 									<i
-										v-on:click.prevent="
-											useStore.showDetails(keep)
-										"
+										v-on:click.prevent="useStore.showDetails(keep)"
 										class="ico fas fa-edit fa-lg text-secondary"
 										style="cursor: pointer"
 										title="Borrar"
@@ -87,18 +91,17 @@
 				</div>
 			</div>
 		</div>
-<!--
+		<!--
 		<CreatePermission />
 -->
 		<Detail />
-
 	</div>
 </template>
 
 <script setup>
 	// this composition component vue 3
 	import { onMounted } from "vue";
-//	import CreatePermission from "../Modals/CreateRoomType.vue";
+	//	import CreatePermission from "../Modals/CreateRoomType.vue";
 	import Detail from "../Modals/ShowDetail.vue";
 
 	//import store of component
@@ -109,9 +112,11 @@
 
 	const useHelper = HelperStore();
 	const useStore = InvoiceStore();
+	useHelper.url = "invoice";
 
 	onMounted(() => {
-//		useStore.getRoomTypes();
-		useHelper.getAll()
+		//		useStore.getRoomTypes();
+
+		useHelper.getAll();
 	});
 </script>

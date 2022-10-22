@@ -5,23 +5,21 @@
 			<CreateReception v-show="reception.show" />
 			<GenerateInvoice />
 		</div>
+		<!-- <Facturar /> -->
 	</div>
 </template>
 
 <script setup>
 	import PermissionsDataTable from "./Table/RoomDataTable.vue";
 	import { HelperStore } from "@/HelperStore";
-    import {onMounted} from 'vue'
-	import {receptionStore} from './Reception/ReceptionStore.js'
-	import CreateReception from './Reception/CreateReception.vue'
-
-import {GenerateInvoice} from '../Invoice/GenerateInvoice.vue'
+	import { onMounted } from "vue";
+	import { receptionStore } from "./Reception/ReceptionStore.js";
+	import CreateReception from "./Reception/CreateReception.vue";
+	// import { Facturar } from "../Invoice/Factura.vue";
 	const useHelper = HelperStore();
 	const reception = receptionStore();
-    
-    onMounted(()=>{
 
-    })
+	onMounted(() => {});
 	const props = defineProps({
 		create: {
 			type: Boolean,
