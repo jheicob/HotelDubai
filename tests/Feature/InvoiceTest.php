@@ -18,7 +18,7 @@ use Tests\TestCase;
 class InvoiceTest extends TestCase
 {
     use
-    // DatabaseTransactions,
+    DatabaseTransactions,
     WithFaker;
 
     /**
@@ -73,7 +73,7 @@ class InvoiceTest extends TestCase
 
         $reception->refresh();
 
-        $invoice = Invoice::first();
+        $invoice = Invoice::orderBy('created_at','desc')->first();
 
         $invoice_service = new InvoiceService(new Invoice,new CreditNoteService, new DebitNoteService);
 
@@ -92,7 +92,7 @@ class InvoiceTest extends TestCase
         $this->assertEquals($invoice_details[0]->price, $reception_details[0]->rate);
         // get description from reception_detail
 
-        // $this->assertTrue($reception->invoiced);
+        $this->assertEquals(1,$reception->invoiced);
     }
 
 }

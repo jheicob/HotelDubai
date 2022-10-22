@@ -42,8 +42,8 @@ class Invoice extends Model implements Auditable
         return $this->hasMany(InvoiceDetail::class);
     }
 
-    public function setDateAttribute($value){
+ /*   public function setDateAttribute($value){
         $this->attributes['date'] = Carbon::now()->format('Y-m-d H:i:s');
-    }
+ }*/
 
 }

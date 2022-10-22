@@ -27,6 +27,8 @@ import datetemplate from './Views/Tarifas/DateTemplate/DateTemplate.vue'
 import Room from './Views/Room/Room.vue';
 import HourTemplate from './Views/Tarifas/HourTemplate/HourTemplate.vue'
 import DayTemplate from './Views/Tarifas/DayTemplate/DayTemplate.vue'
+import Invoice from './Views/Invoice/Invoice.vue'
+
 const app = createApp({});
 app.use(createPinia())
 /**
@@ -61,6 +63,7 @@ app.component('datetemplate',datetemplate);
 app.component('HourTemplate',HourTemplate);
 app.component('DayTemplate',DayTemplate);
 app.component('room', Room);
+app.component('invoice',Invoice);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

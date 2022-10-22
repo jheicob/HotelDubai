@@ -12,6 +12,7 @@ use App\Models\Reception;
 use App\Models\ReceptionDetail;
 use App\Services\FiscalInvoice\DebitNoteService;
 use App\Services\Invoice\InvoiceService;
+use Carbon\Carbon;
 
 class CreateController extends Controller
 {
@@ -32,16 +33,18 @@ class CreateController extends Controller
             $reception = $client->receptionActive->first();
 
             $request->merge([
-                'total' => $this->service->calculateTotalByReceptionDetails($reception)
+                'total' => $this->service->calculateTotalByReceptionDetails($reception),
+                'date'  => Carbon::now()->format('Y-m-d H:i:s')
             ]);
-            $invoice = new Invoice();
+            //           $invoice = new Invoice();
+           //dump($request->only(['client_id','total','observation','date']));
             $invoice = Invoice::create($request->only([
                 'client_id',
                 'total',
                 'observation',
                 'date'
             ]));
-            $reception->details->map(function($item) use ($invoice){
+            $reception->details->map(function ($item) use ($invoice) {
                 $data = [
                     'price'      => $item->rate,
                     'quantity'   => $item->quantity_partial,
@@ -51,14 +54,13 @@ class CreateController extends Controller
                 $item->invoiceDetail()->create($data);
             });
             // $invoice_details = $invoice->details()->create()
-            // $reception->update(['invoiced' => true]);
+            $reception->update(['invoiced' => true]);
             DB::commit();
 
-            return custom_response_sucessfull('created successfull',201);
-
+            return custom_response_sucessfull('created successfull', 201);
         } catch (\Exception $e) {
             DB::rollBack();
-            return custom_response_exception($e,__('errors.server.title'),500);
+            return custom_response_exception($e, __('errors.server.title'), 500);
         }
     }
 
@@ -68,23 +70,23 @@ class CreateController extends Controller
         $client = $invoice->client;
         $client->append('full_name');
         $debit_note = new DebitNoteService();
-        $debit_note->includeFirstLineDataCompany($client->full_name,$client->document);
+        $debit_note->includeFirstLineDataCompany($client->full_name, $client->document);
         $debit_note->addLineToHead(config('invoice.company'));
         $debit_note->addLineToHead(config('invoice.rif'));
 
-        $invoice->details->map(function($invoice_detail) use ($debit_note){
-            if($invoice_detail->productable_type == 'App\Models\ReceptionDetail'){
+        $invoice->details->map(function ($invoice_detail) use ($debit_note) {
+            if ($invoice_detail->productable_type == 'App\Models\ReceptionDetail') {
                 $product = ReceptionDetail::find($invoice_detail->productable_id);
             }
             $debit_note->addProduct(
-                        $invoice_detail->price,
-                        $invoice_detail->quantity,
-                        $product->partial_min,
-                        'excent'
-                        );
+                $invoice_detail->price,
+                $invoice_detail->quantity,
+                $product->partial_min,
+                'excent'
+            );
         });
         $debit_note->applySubTotal();
-        $debit_note->applyTotal();
+        // $debit_note->applyTotal();
 
         return $debit_note->download();
     }

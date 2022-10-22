@@ -19,19 +19,20 @@ class InvoiceResource extends JsonResource
             'id' => $this->resource->id,
             'attributes' => [
                 'total' => $this->resource->total,
-                'observation' => $this->resource->observation,
-                'num_fiscal' => $this->resource->num_fiscal,
-                'date_fiscal' => $this->resource->date_fiscal,
-                'cancelled' => $this->resource->cancelled,
-            ],
-            'relationships' => [
-                    'client' => $this->whenLoaded('client', function() {
-                        return ClientResource::make($this->resource->client);
-                    }),
-                    'details' => $this->whenLoaded('details', function() {
-                        return InvoiceDetailResource::collection($this->resource->details);
-                    }),
-            ],
-        ];
+                'date'  => $this->resource->date,
+                    'observation' => $this->resource->observation,
+                    'num_fiscal' => $this->resource->num_fiscal,
+                    'date_fiscal' => $this->resource->date_fiscal,
+                    'cancelled' => $this->resource->cancelled,
+                ],
+                'relationships' => [
+                        'client' => $this->whenLoaded('client', function() {
+                            return ClientResource::make($this->resource->client);
+                        }),
+                        'details' => $this->whenLoaded('details', function() {
+                            return InvoiceDetailResource::collection($this->resource->details);
+                        }),
+                ],
+            ];
+        }
     }
-}
