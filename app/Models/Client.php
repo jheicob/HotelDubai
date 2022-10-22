@@ -58,6 +58,10 @@ class Client extends Model implements Auditable
                 ;
     }
 
+    public function receptions(){
+        return $this->hasMany(Reception::class);
+    }
+
     /**
      * obtiene el cuarto que esta activo
      *
@@ -77,5 +81,14 @@ class Client extends Model implements Auditable
                     'invoiced'])
                     ->wherePivot('invoiced',false)
                     ;
+    }
+
+    public function receptionActive(){
+        return $this->hasMany(Reception::class)
+                ->where('invoiced',false);
+    }
+
+    public function getFullNameAttribute(){
+        return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
     }
 }

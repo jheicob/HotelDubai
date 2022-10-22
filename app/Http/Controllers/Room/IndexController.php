@@ -22,7 +22,9 @@ class IndexController extends Controller
             $room = Room::with([
                 'roomStatus',
                 'partialCost.roomType',
-                'partialCost.partialRate'
+                'partialCost.partialRate',
+                'receptionActive.client',
+                'receptionActive.details',
                 ])->withTrashed()->get();
 
             $room->transform(function($value){

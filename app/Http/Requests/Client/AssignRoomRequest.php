@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Client;
 
+use App\Rules\Client\VerifiedReceptionAndRoom;
 use App\Traits\CustomResponseFormRequestTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -26,8 +27,12 @@ class AssignRoomRequest extends FormRequest
     public function rules()
     {
         return [
-            'client_id' => 'required|exists:clients,id',
             'room_id' => 'required|exists:rooms,id',
+            'client_id' => [
+                'required',
+                'exists:clients,id',
+                // new VerifiedReceptionAndRoom($this->room_id)
+            ],
             'date_in' => 'required|date',
             'observation' => 'nullable|string',
             'quantity_partial' => 'required|numeric',

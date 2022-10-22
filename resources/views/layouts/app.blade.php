@@ -14,6 +14,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
     {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
     {{-- <script src="{{ mix('js/app.js') }}" defer></script> --}}
     <!-- Fonts -->
@@ -134,6 +135,15 @@
                             </a>
                         </li>
                     @endcan
+                    @can('invoice.index')
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('invoice.index') }}">
+                                <i class="fas fa-tags"></i>
+                                <span>Facturas</span>
+                            </a>
+                        </li>
+                    @endcan
+
                     @can('seguridad')
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"

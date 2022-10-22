@@ -4,10 +4,11 @@ import axios from "axios";
 import {ref,computed} from 'vue'
 import { HelperStore } from '../../HelperStore';
 import { ocuppyRoomStore } from './Modals/OcuppyRoomStore';
+import {receptionStore} from './Reception/ReceptionStore'
 
 export const RoomStore = defineStore('roomStore',() => {
     const OcuppyRoom = ocuppyRoomStore()
-
+    const reception = receptionStore();
     const useHelper = HelperStore()
     useHelper.url = 'room'
 
@@ -110,7 +111,7 @@ export const RoomStore = defineStore('roomStore',() => {
 
         if(statusId){
             all.value = all.value.filter ((item) => {
-                console.log(item);
+//                console.log(item);
                 if(item.relationships.roomStatus.id == statusId) return true
             })
         }else{
@@ -188,8 +189,57 @@ export const RoomStore = defineStore('roomStore',() => {
     const UpdateCleanRoom = (item) => {
         changeStatusRoom(item.id,1)
     }
+const selectColor = (item) => {
+//console.log(item);
+    let css = ''
+    switch (item.relationships.roomStatus.attributes.name){
+        case 'Ocupada':
+           css = 'bg-dangerr';
+            break;
+        case 'Disponible':
+            css = 'bg-greensea'
+            break
+        case 'Limpiando':
+            css = 'bg-warningg';
+            break;
+        case 'Reparación':
+            css = 'bg-infoo';
+            break;
+    }
+    return css;
+}
+
+const showPartialAndRate = (item)=>{
+//    console.log(item)
+    let rate = item.relationships.partialCost.attributes.rate
+    let partial = item.relationships.partialCost.relationships.partialRate.attributes.name
+
+    return `${rate} (${partial})`
+}
+
+const {show,updated_reception} = storeToRefs(reception)
+const showCreateReception = (room) => {
+  //  console.log(item)
+    show.value = true;
+    item.value = room
+    if(room.relationships.receptionActive != null){
+//console.log('item')
+        updated_reception.value = true
+    OcuppyRoom.clearForm(room)
+    }else{
+
+        updated_reception.value = false
+//console.log('no item')
+    OcuppyRoom.clearForm()
+    }
+    
+    
+}
 
     return {
+        showCreateReception,
+        showPartialAndRate,
+        selectColor,
         FreeRoom,
         UpdateCleanRoom,
         getRooms,

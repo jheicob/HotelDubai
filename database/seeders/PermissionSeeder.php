@@ -160,5 +160,13 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'client.getPaginate']);
         Permission::create(['name' => 'client.get']);
         Permission::create(['name' => 'client.assigned_room']);
+
+        Permission::create(['name' => 'invoice.index']);
+        Permission::create(['name' => 'invoice.create']);
+        Permission::create(['name' => 'invoice.delete']);
+        Permission::create(['name' => 'invoice.updated']);
+        Permission::create(['name' => 'invoice.getPaginate']);
+        Permission::create(['name' => 'invoice.get']);
+        Permission::create(['name' => 'invoice.printFiscal']);
     }
 }
