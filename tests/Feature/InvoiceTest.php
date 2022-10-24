@@ -69,13 +69,13 @@ class InvoiceTest extends TestCase
                     [
                         'type'        => $payment_type = $this->faker->randomElement(['divisa', 'Bs']),
                         'method'      => $payment_method = $this->faker->randomElement(['efectivo', 'digital', 'tarjeta']),
-                        'quantity'    => $payment_quantity = 20,
+                        'quantity'    => $payment_quantity = 400,
                         'description' => $payment_description = $this->faker->text(),
                     ],
                     [
                         'type'        => $payment2_type = $this->faker->randomElement(['divisa', 'Bs']),
                         'method'      => $payment2_method = $this->faker->randomElement(['efectivo', 'digital', 'tarjeta']),
-                        'quantity'    => $payment2_quantity = 20,
+                        'quantity'    => $payment2_quantity = 57,
                         'description' => $payment2_description = $this->faker->text(),
                     ]
                 ]
@@ -122,5 +122,54 @@ class InvoiceTest extends TestCase
         $this->assertEquals($payment2_description, $invoice->payments[1]->description);
 
         $this->assertEquals($payment_quantity + $payment2_quantity, $invoice->total_payment);
+    }
+
+    /**
+     * @test
+     */
+    public function create_failed_by_incomplete_payment()
+    {
+        // $this->withoutExceptionHandling();
+        $user = User::firstWhere('email', 'testing@c.c');
+
+        $reception = Reception::find(12);
+
+        $response = $this
+            ->actingAs($user)
+            ->postJson(route('invoice.create'), [
+                'client_id'     => $reception->client_id,
+                'observation'   => $obs = $this->faker->text(),
+                // 'reception_details' => [
+                //     [
+                //         'id' => '2',
+                //         'time_additional' => '',
+                //         'price_additional'=> 0
+                //     ]
+                // ]
+                'payments' => [
+                    [
+                        'type'        => $payment_type = $this->faker->randomElement(['divisa', 'Bs']),
+                        'method'      => $payment_method = $this->faker->randomElement(['efectivo', 'digital', 'tarjeta']),
+                        'quantity'    => $payment_quantity = 20,
+                        'description' => $payment_description = $this->faker->text(),
+                    ],
+                    [
+                        'type'        => $payment2_type = $this->faker->randomElement(['divisa', 'Bs']),
+                        'method'      => $payment2_method = $this->faker->randomElement(['efectivo', 'digital', 'tarjeta']),
+                        'quantity'    => $payment2_quantity = 20,
+                        'description' => $payment2_description = $this->faker->text(),
+                    ]
+                ]
+            ]);
+
+        $response
+            ->assertStatus(422)
+            ->assertJsonStructure([
+                'data' => [
+                    'code',
+                    'title',
+                    'errors'
+                ]
+            ]);
     }
 }

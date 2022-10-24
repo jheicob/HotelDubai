@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Invoice;
 
 use App\Rules\Invoice\VerifiedReceptionDetailOfClient;
+use App\Rules\Invoice\VerifiedTotalPayment;
 use App\Traits\CustomResponseFormRequestTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -47,6 +48,24 @@ class CreateRequest extends FormRequest
             'payments.*.method'      => 'required|in:efectivo,digital,tarjeta',
             'payments.*.quantity'    => 'required|numeric',
             'payments.*.description' => 'required|string',
+            'total_payment' => new VerifiedTotalPayment($this->client_id)
         ];
+    }
+
+    public function prepareForValidation()
+    {
+
+        $this->merge([
+            'total_payment' => self::getTotalPayment()
+        ]);
+    }
+
+    private function getTotalPayment()
+    {
+        $acum = 0;
+        foreach ($this->payments as $payment) {
+            $acum += $payment['quantity'];
+        }
+        return $acum;
     }
 }
