@@ -53,8 +53,9 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
             .post(url, data)
             .then((res) => {
                 let id = res.data.message.id;
-                window.open("/invoice/printFiscal/" + id + "?igtf=" + igtf);
+                window.open("/invoice/printFiscal/" + id);
                 show.value = false;
+                location.reload();
                 $("#exampleModal23").modal("hide");
             })
             .catch((err) => helper.getErrorRequest(err));
@@ -63,9 +64,34 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
     const openModal = () => {
         $("#exampleModal23").modal("show");
     };
+
+    const isPrintable = (item) => {
+        return item.attributes.status == 'Sin Imprimir'
+    }
+
+    const isCancellable = (item) => {
+        return item.attributes.status == 'Impreso'
+    }
+
+        const printFiscalInvoice = (item, dev = false) => {
+            let id = item.id
+            let url;
+console.log(item,dev)
+            if(dev == false){
+                url = "/invoice/printFiscal/" + id
+            }else{
+                url = "/invoice/printFiscal/" + id + '?isCancel=true'
+            }
+                window.open(url);
+                //helper.getAll()
+           location.reload();
+        }
     return {
+        isPrintable,
+        isCancellable,
         getClientFullName,
         showDetails,
+        printFiscalInvoice,
         getDetails,
         details,
         form,

@@ -162,7 +162,7 @@ class CreateController extends Controller
         $debit_note->applySubTotal();
         // $debit_note->applyTotal();
         $invoice->update([
-            'status' => 'Impreso',
+            'status' => 'Cancelada',
             'cancelled' => Carbon::now()->format('Y-m-d H:i:s')
         ]);
         DB::commit();
