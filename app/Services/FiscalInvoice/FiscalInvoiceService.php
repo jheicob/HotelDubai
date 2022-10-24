@@ -28,6 +28,12 @@ class FiscalInvoiceService
     protected $discount;
 
     /**
+     * limit max for first line
+     * @var int
+     */
+    protected $limitLineHead = 39;
+
+    /**
      * UCommand for get iva of product
      *
      * @var array
@@ -46,6 +52,7 @@ class FiscalInvoiceService
      */
     protected $credit_note = false;
 
+    protected $factura_fiscal = 'factura_fiscal';
     protected $client;
     protected $rif;
     public function __construct()
@@ -73,7 +80,7 @@ class FiscalInvoiceService
      * add as first line the data of company
      * @return void
      */
-    public function includeFirstLineDataCompany($client, $rif): void
+    /*    public function includeFirstLineDataCompany($client, $rif): void
     {
         $data = [
             // config('invoice.company'),
@@ -84,7 +91,7 @@ class FiscalInvoiceService
 
         $string = implode('|', $data);
         self::addLineToHead($string, 'VE');
-    }
+    }*/
 
     /**
      * apply subtotal to invoice
@@ -127,7 +134,7 @@ class FiscalInvoiceService
      */
     protected function addLineBreak(): void
     {
-        $this->document .= '\n';
+        $this->document .= "\n";
     }
 
     /**
@@ -201,8 +208,8 @@ class FiscalInvoiceService
      */
     public function addLineToHead(string $text, string $first = ''): void
     {
-        if (strlen($text) > 39) {
-            throw new \Exception('Máximo de carácteres excedidos para la línea');
+        if (strlen($text) > $this->limitLineHead) {
+            throw new \Exception('Máximo de carácteres excedidos para la línea:' . $text);
         }
         self::validateLinesMax();
 
@@ -214,7 +221,9 @@ class FiscalInvoiceService
 
         $string = self::formatString($data);
         self::addLine($string);
-        self::addLineToCountLines();
+        if (!$this->credit_note) {
+            //self::addLineToCountLines();
+        }
     }
 
     public function addPaymentMethod(string $payment_method): void
@@ -232,31 +241,16 @@ class FiscalInvoiceService
         self::addLine($string);
     }
 
-    public function addProduct(int $price, int $quantity, string $description, string $iva): void
+    public function addProduct(int $price, int $quantity, string $description, int $iva = 0): void
     {
-        if (!array_key_exists($iva, $this->ivaProduct)) {
-            throw new \Exception('Impuesto no disponible');
-        }
-        $getIva = self::getIva($iva);
 
         $data = [
+            config('invoice.commands.products.include'),
             self::padWithZeros($price, 10, 2),
             self::padWithZeros($quantity, 8, 3),
+            self::padWithZeros($iva, 4, 2),
             $description,
         ];
-
-        if ($this->credit_note) {
-            array_unshift(
-                $data,
-                config('invoice.commands.credit_note.product'),
-                $getIva[1]
-            );
-        } else {
-            array_unshift(
-                $data,
-                $getIva
-            );
-        }
         $string = self::formatString($data);
         self::addLine($string);
     }
@@ -275,7 +269,7 @@ class FiscalInvoiceService
     public function download(string $filename = '', bool $igtf)
     {
         if ($filename == '') {
-            $filename = Carbon::now()->format('Y_m_d') . '-factura_fiscal';
+            $filename = Carbon::now()->format('Y_m_d') . '-' . $this->factura_fiscal;
         }
 
         $filename .= '.ia2';
@@ -290,5 +284,45 @@ class FiscalInvoiceService
         header("Content-disposition: attachment; filename=$filename");
 
         return $this->document;
+    }
+
+
+    /**
+     * add discount to invoice, not need apply the applySubTotal method before
+     *
+     * @param string $type 'percentage' or 'amount'
+     * @param boolean $is_plus true = sum, false = subs
+     * @param integer $amount
+     * @return void
+     */
+    public function addDiscountToSubTotal(string $type, bool $is_plus, int $amount): void
+    {
+        self::applySubTotal();
+        if (!array_key_exists($type, $this->discount)) {
+            throw new \Exception('Tipo de descuento no disponible');
+        }
+
+        $quantity_int = $this->discount[$type] == 70 ?
+            2 : 7;
+        $data = [
+            $this->discount[$type],
+            $is_plus ? '+' : '-',
+            self::padWithZeros($amount, $quantity_int + 2, 2)
+        ];
+
+        $string = self::formatString($data);
+        self::addLine($string);
+    }
+
+
+    public function getInformationOfPrinter(int $invoice_id): void
+    {
+        $data = [
+            config('invoice.commands.printer'),
+            $invoice_id
+        ];
+
+        $string = self::formatString($data);
+        self::addLine($string);
     }
 }

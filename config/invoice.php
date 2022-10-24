@@ -38,7 +38,7 @@ return [
         'comment' => 40,
 
         'products' => [
-
+            'include' => '64|PV*',
             //excento de iva
             'excent' => 20,
 
