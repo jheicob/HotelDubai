@@ -45,6 +45,7 @@ class CreateController extends Controller
                 'observation',
                 'date'
             ]));
+
             $reception->details->map(function ($item) use ($invoice) {
                 $data = [
                     'price'      => $item->rate,
@@ -54,6 +55,9 @@ class CreateController extends Controller
 
                 $item->invoiceDetail()->create($data);
             });
+
+            self::storePayments($invoice, $request->payments);
+
             // $invoice_details = $invoice->details()->create()
             $reception->update(['invoiced' => true]);
             $roomStatus = \App\Models\RoomStatus::firstWhere('name', 'Disponible');
@@ -68,6 +72,23 @@ class CreateController extends Controller
             DB::rollBack();
             return custom_response_exception($e, __('errors.server.title'), 500);
         }
+    }
+
+    /**
+     * create payments for invoice
+     *
+     * @param Invoice $invoice
+     * @param array $payments
+     * @return void
+     */
+    private function storePayments(Invoice $invoice, array $payments)
+    {
+        $acum = 0;
+        foreach ($payments as $payment) {
+            $acum += $payment['quantity'];
+            $invoice->payments()->create($payment);
+        }
+        $invoice->update(['total_payment' => $acum]);
     }
 
     public function printFiscal(Invoice $invoice, Request $request)

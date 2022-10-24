@@ -22,7 +22,8 @@ class Invoice extends Model implements Auditable
         'date_fiscal',
         'observation',
         'cancelled',
-        'status'
+        'status',
+        'total_payment',
     ];
 
     protected $fillable = [
@@ -33,7 +34,8 @@ class Invoice extends Model implements Auditable
         'num_fiscal',
         'date_fiscal',
         'cancelled',
-        'status'
+        'status',
+        'total_payment',
     ];
 
     public function client()
@@ -49,4 +51,9 @@ class Invoice extends Model implements Auditable
     /*   public function setDateAttribute($value){
         $this->attributes['date'] = Carbon::now()->format('Y-m-d H:i:s');
  }*/
+
+    public function payments()
+    {
+        return $this->hasMany(InvoicePayment::class);
+    }
 }

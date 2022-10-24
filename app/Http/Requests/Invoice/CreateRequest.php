@@ -42,6 +42,11 @@ class CreateRequest extends FormRequest
             // 'products.*.id'   => 'nullable|string',
             // 'products.*.time_additional'   => 'nullable|string',
             // 'products.*.price_additional'  => 'nullable|numeric',
+            'payments' => 'required|array',
+            'payments.*.type'        => 'required|in:divisa,Bs',
+            'payments.*.method'      => 'required|in:efectivo,digital,tarjeta',
+            'payments.*.quantity'    => 'required|numeric',
+            'payments.*.description' => 'required|string',
         ];
     }
 }
