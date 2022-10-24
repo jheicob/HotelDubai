@@ -130,6 +130,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
                 clearForm();
                 show.value = false;
                 useRoom.getRooms();
+                location.reload()
             })
             .catch((err) => helper.getErrorRequest(err));
     };

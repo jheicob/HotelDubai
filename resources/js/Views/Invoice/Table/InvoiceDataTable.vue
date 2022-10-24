@@ -41,6 +41,7 @@
 								<th>Fecha</th>
 								<th>Cliente</th>
 								<th>Total</th>
+								<th>Estado</th>
 								<th>Accion</th>
 							</tr>
 						</thead>
@@ -50,6 +51,7 @@
 								<th>Fecha</th>
 								<th>Cliente</th>
 								<th>Total</th>
+								<th>Estado</th>
 								<th>Accion</th>
 							</tr>
 						</tfoot>
@@ -65,24 +67,27 @@
 									}}
 								</td>
 								<td>{{ keep.attributes.total }}</td>
+								<td>{{ keep.attributes.status }}</td>
 								<td>
 									<i
 										v-on:click.prevent="useStore.showDetails(keep)"
-										class="ico fas fa-edit fa-lg text-secondary"
+										class="ico fas fa-eye fa-lg text-secondary mr-2"
 										style="cursor: pointer"
-										title="Borrar"
+										title="Ver Detalle"
 									></i>
-
 									<i
-										v-on:click.prevent="useStore.deleteRoomType(keep)"
-										v-if="useHelper.permiss.deletet"
-										:class="
-											keep.attributes.deleted_at
-												? 'ico fas fa-trash-restore-alt fa-lg text-secondary'
-												: 'ico fas fa-trash fa-lg text-secondary'
-										"
+										v-on:click.prevent="useStore.printFiscalInvoice(keep)"
+										class="ico fas fa-print fa-lg text-secondary mr-2"
+										v-if="useStore.isPrintable(keep)"
 										style="cursor: pointer"
-										title="Borrar"
+										title="Imprimir"
+									></i>
+	<i
+										v-on:click.prevent="useStore.printFiscalInvoice(keep,true)"
+										class="ico fas fa-window-close fa-lg text-secondary mr-2"
+										v-if="useStore.isCancellable(keep)"
+										style="cursor: pointer"
+										title="Devolucion"
 									></i>
 								</td>
 							</tr>
