@@ -278,9 +278,9 @@ class FiscalInvoiceService
         $number_format = str_replace(',', '', $number_format);
         $line .= $number_format;
         self::addLine($line);
-        // header('Content-Type: application/plain-text');
-        // header("Content-Transfer-Encoding: Binary");
-        // header("Content-disposition: attachment; filename=$filename");
+        header('Content-Type: application/plain-text');
+        header("Content-Transfer-Encoding: Binary");
+        header("Content-disposition: attachment; filename=$filename");
 
         return $this->document;
     }
