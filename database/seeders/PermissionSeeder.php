@@ -169,5 +169,6 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'invoice.getPaginate']);
         Permission::create(['name' => 'invoice.get']);
         Permission::create(['name' => 'invoice.printFiscal']);
+        Permission::create(['name' => 'invoice.cancel']);
     }
 }

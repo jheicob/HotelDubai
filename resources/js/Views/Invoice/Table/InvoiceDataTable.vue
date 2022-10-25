@@ -85,7 +85,7 @@
 	<i
 										v-on:click.prevent="useStore.printFiscalInvoice(keep,true)"
 										class="ico fas fa-window-close fa-lg text-secondary mr-2"
-										v-if="useStore.isCancellable(keep)"
+										v-if="useStore.isCancellable(keep) && useHelper.permiss.cancel"
 										style="cursor: pointer"
 										title="Devolucion"
 									></i>

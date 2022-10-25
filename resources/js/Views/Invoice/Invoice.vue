@@ -25,6 +25,10 @@
 			type: Boolean,
 			default: false,
 		},
+		cancel:{
+			type: Boolean,
+			default: false
+		}
 	});
 
 	useHelper.permiss = props;

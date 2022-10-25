@@ -174,7 +174,8 @@ class RoleSeeder extends Seeder
                 'invoice.updated',
                 'invoice.getPaginate',
                 'invoice.get',
-                'invoice.printFiscal'
+                'invoice.printFiscal',
+                'invoice.cancel'
             ]
         );
 
