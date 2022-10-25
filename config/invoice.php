@@ -38,7 +38,7 @@ return [
         'comment' => 40,
 
         'products' => [
-
+            'include' => '64|PV*',
             //excento de iva
             'excent' => 20,
 
@@ -72,9 +72,7 @@ return [
 
         'printer' => 'FF',
 
-        'printer_invoice' => '99|20|0.00',
-        'printer_invoice_igtf' => '99|20|3.00',
-
+        'printer_invoice' => '99|20',
 
         'credit_note' => [
             'init' => 'XX',

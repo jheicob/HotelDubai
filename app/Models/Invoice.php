@@ -20,8 +20,10 @@ class Invoice extends Model implements Auditable
         'total',
         'num_fiscal',
         'date_fiscal',
-        'observation'.
+        'observation',
         'cancelled',
+        'status',
+        'total_payment',
     ];
 
     protected $fillable = [
@@ -32,18 +34,26 @@ class Invoice extends Model implements Auditable
         'num_fiscal',
         'date_fiscal',
         'cancelled',
+        'status',
+        'total_payment',
     ];
 
-    public function client(){
+    public function client()
+    {
         return $this->belongsTo(Client::class);
     }
 
-    public function details(){
+    public function details()
+    {
         return $this->hasMany(InvoiceDetail::class);
     }
 
- /*   public function setDateAttribute($value){
+    /*   public function setDateAttribute($value){
         $this->attributes['date'] = Carbon::now()->format('Y-m-d H:i:s');
  }*/
 
+    public function payments()
+    {
+        return $this->hasMany(InvoicePayment::class);
+    }
 }

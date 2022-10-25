@@ -425,67 +425,249 @@
                     <!-- /.table-responsive -->
                 </form>
             </section>
-        </div>
+            <div
+                class="modal fade"
+                id="exampleModal23"
+                tabindex="-1"
+                role="dialog"
+                aria-labelledby="exampleModalLabel"
+                aria-hidden="true"
+            >
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header py-2">
+                            <h5
+                                class="modal-title title-page text-secondary"
+                                id="exampleModalLabel"
+                            >
+                                Generar Factura
+                            </h5>
+                            <a
+                                type="button"
+                                class="close"
+                                data-dismiss="modal"
+                                aria-label="Close"
+                            >
+                                <span aria-hidden="true">&times;</span>
+                            </a>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <h3>Costos de Habitación</h3>
+                                <table class="table text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>Parciales</th>
+                                            <th>Precio x Parcial</th>
+                                            <th>Parcial Adicional</th>
+                                            <th>Observacion</th>
+                                            <th>Precio x Parcial Adicional</th>
+                                            <th>total</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            v-for="(detail, i) in invoice.form
+                                                .reception_details"
+                                            :key="i"
+                                        >
+                                            <td>
+                                                {{ detail.partial_min ?? "" }}
+                                            </td>
+                                            <td>
+                                                {{ detail.rate ?? "" }}
+                                            </td>
+                                            <td>
+                                                <div
+                                                    class="input-group mb-3 col-6 mx-auto"
+                                                >
+                                                    <input
+                                                        type="number"
+                                                        class="form-control"
+                                                        v-model="
+                                                            invoice.form
+                                                                .reception_details[
+                                                                i
+                                                            ].time_additional
+                                                        "
+                                                        aria-describedby="basic-addon2"
+                                                        min="1"
+                                                    />
+                                                    <span
+                                                        class="input-group-text"
+                                                        id="basic-addon2"
+                                                        >H</span
+                                                    >
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <input
+                                                    class="form-control"
+                                                    v-model="
+                                                        invoice.form
+                                                            .reception_details[
+                                                            i
+                                                        ].observation
+                                                    "
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    type="number"
+                                                    class="col-4 form-control mx-auto"
+                                                    v-model="
+                                                        invoice.form
+                                                            .reception_details[
+                                                            i
+                                                        ].price_additional
+                                                    "
+                                                />
+                                            </td>
+                                            <td>
+                                                {{
+                                                    invoice.getTotalByDetails(i)
+                                                }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="5">Total</th>
+                                            <th>
+                                                {{
+                                                    invoice.getAcumTotalByDetails()
+                                                }}
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
 
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div
-                    class="modal fade"
-                    id="exampleModal23"
-                    tabindex="-1"
-                    role="dialog"
-                    aria-labelledby="exampleModalLabel"
-                    aria-hidden="true"
-                >
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header py-2">
-                                <h5
-                                    class="modal-title title-page text-secondary"
-                                    id="exampleModalLabel"
-                                >
-                                    Generar Factura
-                                </h5>
-                                <a
-                                    type="button"
-                                    class="close"
-                                    data-dismiss="modal"
-                                    aria-label="Close"
-                                >
-                                    <span aria-hidden="true">&times;</span>
-                                </a>
+                                <div class="my-2"></div>
+                                <h3>Pagos</h3>
+                                <table class="table text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>Tipo de Pago</th>
+                                            <th>Método de Pago</th>
+                                            <th>Monto</th>
+                                            <th>Observacion</th>
+                                            <th>Accion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr
+                                            v-for="(pay, i) in invoice.form
+                                                .payments"
+                                            :key="i"
+                                        >
+                                            <td>
+                                                {{ pay.type }}
+                                            </td>
+                                            <td>
+                                                {{ pay.method }}
+                                            </td>
+                                            <td>
+                                                {{ pay.quantity }}
+                                            </td>
+                                            <td>
+                                                {{ pay.description }}
+                                            </td>
+                                            <td>
+                                                <i
+                                                    class="fas fa-minus"
+                                                    style="cursor: pointer"
+                                                    @click="
+                                                        invoice.deletePayment(i)
+                                                    "
+                                                >
+                                                </i>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <select
+                                                    class="form-select"
+                                                    v-model="
+                                                        invoice.payment.type
+                                                    "
+                                                >
+                                                    <option value="Bs">
+                                                        Bs
+                                                    </option>
+                                                    <option value="divisa">
+                                                        Divisa
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <select
+                                                    class="form-select"
+                                                    v-model="
+                                                        invoice.payment.method
+                                                    "
+                                                >
+                                                    <option value="tarjeta">
+                                                        Tarjeta
+                                                    </option>
+                                                    <option value="efectivo">
+                                                        Efectivo
+                                                    </option>
+                                                    <option value="digital">
+                                                        Digital
+                                                    </option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input
+                                                    type="number"
+                                                    class="form-control"
+                                                    v-model="
+                                                        invoice.payment.quantity
+                                                    "
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    class="form-control"
+                                                    v-model="
+                                                        invoice.payment
+                                                            .description
+                                                    "
+                                                />
+                                            </td>
+
+                                            <td colspan="5">
+                                                <i
+                                                    class="fas fa-plus"
+                                                    style="cursor: pointer"
+                                                    @click="invoice.addPayment"
+                                                >
+                                                </i>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                            <div class="modal-body">
-                                <div class="row text-center">
-                                    ¿Se aplicará el Impuesto a Grandes
-                                    Transacciones Financieras? (IGTF)
-                                </div>
-                                <div class="row justify-content-between px-5">
-                                    <button
-                                        class="btn btn-info col-2"
-                                        @click="invoice.printInvoice(false)"
-                                    >
-                                        No
-                                    </button>
-                                    <button
-                                        class="btn btn-danger col-2"
-                                        @click="invoice.printInvoice(true)"
-                                    >
-                                        Sí
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <a
-                                    class="btn btn-danger text-white btn-icon-split mb-4"
-                                    data-dismiss="modal"
+                        </div>
+                        <div class="modal-footer">
+                            <a
+                                class="btn btn-danger text-white btn-icon-split mb-4"
+                                data-dismiss="modal"
+                            >
+                                <span
+                                    class="text font-montserrat font-weight-bold"
+                                    >Cerrar</span
                                 >
-                                    <span
-                                        class="text font-montserrat font-weight-bold"
-                                        >Cerrar</span
-                                    >
-                                </a>
-                            </div>
+                            </a>
+                            <a
+                                class="btn btn-success text-white btn-icon-split mb-4"
+                                @click="invoice.printInvoice"
+                            >
+                                <span
+                                    class="text font-montserrat font-weight-bold"
+                                    >Facturar</span
+                                >
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -504,6 +686,21 @@ import { RoomStore } from "../RoomStore";
 
 const openModal = () => {
     console.log("aqui");
+    let details =
+        item.value.relationships.receptionActive.relationships.details;
+    console.log(details);
+    form_invoice.value.reception_details = [];
+    details.map((detail) => {
+        form_invoice.value.reception_details.push({
+            id: detail.id,
+            partial_min: detail.attributes.partial_min,
+            rate: detail.attributes.rate,
+            quantity_partial: detail.attributes.quantity_partial ?? 0,
+            observation: detail.attributes.observation,
+            time_additional: detail.attributes.time_additional ?? 0,
+            price_additional: detail.attributes.price_additional ?? 0,
+        });
+    });
     $("#exampleModal23").modal("show");
 };
 
@@ -515,7 +712,10 @@ const ocuppy = ocuppyRoomStore();
 const { getClient, storeAssignedRoom } = ocuppy;
 
 const { form, item, desactiveButton } = storeToRefs(helper);
+
 const { client_exist, type_documents, date, hour } = storeToRefs(ocuppy);
+
+const { form: form_invoice } = storeToRefs(invoice);
 
 onMounted(() => {
     ocuppy.getTypeDocuments();

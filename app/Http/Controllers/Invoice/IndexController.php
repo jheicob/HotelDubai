@@ -21,13 +21,16 @@ class IndexController extends Controller
         try {
             $invoice = Invoice::with([
                 'client',
-                'details'
+                'details',
+                'payments'
             ])
-                ->withTrashed()->get();
+                ->withTrashed()
+                ->orderBy('id', 'desc')
+                ->get();
 
-            $invoice->map(function ($invoic){
-                $invoic->details->transform(function($detail){
-                    if($detail->productable_type == 'App\Models\ReceptionDetail'){
+            $invoice->map(function ($invoic) {
+                $invoic->details->transform(function ($detail) {
+                    if ($detail->productable_type == 'App\Models\ReceptionDetail') {
                         $reception_detail = ReceptionDetail::find($detail->productable_id);
                     }
                     $detail['product_name'] = $reception_detail->partial_min;
@@ -38,7 +41,7 @@ class IndexController extends Controller
 
             return InvoiceResource::collection($invoice);
         } catch (\Exception $e) {
-            return custom_response_exception($e,__('errors.server.title'),500);
+            return custom_response_exception($e, __('errors.server.title'), 500);
         }
     }
 }
