@@ -32,7 +32,7 @@ class CreateController extends Controller
             $client = Client::find($request->client_id);
 
             $reception = $client->receptionActive->first();
-            
+
             self::VerifiedAndUpdateAdditionalReceptionDetails($reception, $request->reception_details);
             $request->merge([
                 'total' => $this->service->calculateTotalByReceptionDetails($reception),
@@ -56,10 +56,10 @@ class CreateController extends Controller
 
                 $item->invoiceDetail()->create($data);
 
-                if($item->time_additional){
+                if ($item->time_additional) {
                     $quantity_aditional = (string) $item->time_additional;
-                    $quantity_aditional = (int) rtrim($quantity_aditional,'h');
-                    $data2= [
+                    $quantity_aditional = (int) rtrim($quantity_aditional, 'h');
+                    $data2 = [
                         'price' => $item->price_additional,
                         'quantity' => $quantity_aditional,
                         'invoice_id' => $invoice->id,
@@ -89,12 +89,13 @@ class CreateController extends Controller
     /**
      * verified and update additionals for reception details
      */
-    public function VerifiedAndUpdateAdditionalReceptionDetails(Reception $reception,array $details) {
+    public function VerifiedAndUpdateAdditionalReceptionDetails(Reception $reception, array $details)
+    {
         $reception_details = $reception->details;
 
-        foreach($details as $detail){
-            if($detail['time_additional'] != 0){
-                ($reception_details->firstWhere('id',$detail['id']))
+        foreach ($details as $detail) {
+            if ($detail['time_additional'] != 0) {
+                ($reception_details->firstWhere('id', $detail['id']))
                     ->update([
                         'time_additional' => $detail['time_additional'],
                         'price_additional' => $detail['price_additional'],
@@ -128,23 +129,23 @@ class CreateController extends Controller
             $igtf = $request->igtf == 'true' ? true : false;
             $isCancel = $request->isCancel == 'true' ? true : false;
 
-            if ($invoice->cancelled && $isCancel) {
-                return custom_response_error(
-                    422,
-                    'Validation error',
-                    'No se puede volver a cancelar una Factura',
-                    422
-                );
-            }
+            // if ($invoice->cancelled && $isCancel) {
+            //     return custom_response_error(
+            //         422,
+            //         'Validation error',
+            //         'No se puede volver a cancelar una Factura',
+            //         422
+            //     );
+            // }
 
-            if ($invoice->status == 'Impreso' && !$isCancel) {
-                return custom_response_error(
-                    422,
-                    'Validation error',
-                    'La Factura ya está impresa, contacte con el administrador',
-                    422
-                );
-            }
+            // if ($invoice->status == 'Impreso' && !$isCancel) {
+            //     return custom_response_error(
+            //         422,
+            //         'Validation error',
+            //         'La Factura ya está impresa, contacte con el administrador',
+            //         422
+            //     );
+            // }
 
             // return ';';
             $client = $invoice->client;
@@ -186,7 +187,7 @@ class CreateController extends Controller
         // $debit_note->applyTotal();
         $invoice->update(['status' => 'Impreso']);
         DB::commit();
-        return $debit_note->download('', (bool) $igtf);
+        return $debit_note->download('', self::sumPaymentInDivisa($invoice));
     }
 
     /**
@@ -218,6 +219,13 @@ class CreateController extends Controller
         ]);
         DB::commit();
 
-        return $debit_note->download('', (bool) $igtf);
+        return $debit_note->download('', self::sumPaymentInDivisa($invoice));
+    }
+
+    private function sumPaymentInDivisa(Invoice $invoice): int
+    {
+        $payments = $invoice->payments->where('type', 'divisa');
+        if ($payments->count() > 0) return $payments->sum('quantity');
+        return 0;
     }
 }

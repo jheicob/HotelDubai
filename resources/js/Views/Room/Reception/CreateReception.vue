@@ -472,22 +472,24 @@
                                             :key="i"
                                         >
                                             <td>
-                                                {{
-                                                    detail.partial_min ?? ""
-                                                }}
+                                                {{ detail.partial_min ?? "" }}
                                             </td>
                                             <td>
-                                                {{
-                                                    detail.rate ??
-                                                    ""
-                                                }}
+                                                {{ detail.rate ?? "" }}
                                             </td>
                                             <td>
-                                                <div class="input-group mb-3 col-6 mx-auto">
+                                                <div
+                                                    class="input-group mb-3 col-6 mx-auto"
+                                                >
                                                     <input
                                                         type="number"
                                                         class="form-control"
-                                                        v-model="invoice.form.reception_details[i].time_additional"
+                                                        v-model="
+                                                            invoice.form
+                                                                .reception_details[
+                                                                i
+                                                            ].time_additional
+                                                        "
                                                         aria-describedby="basic-addon2"
                                                         min="1"
                                                     />
@@ -499,22 +501,45 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <input class="form-control" 
-                                                        v-model="invoice.form.reception_details[i].observation"
+                                                <input
+                                                    class="form-control"
+                                                    v-model="
+                                                        invoice.form
+                                                            .reception_details[
+                                                            i
+                                                        ].observation
+                                                    "
                                                 />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
                                                     class="col-4 form-control mx-auto"
-                                                    v-model="invoice.form.reception_details[i].price_additional"
+                                                    v-model="
+                                                        invoice.form
+                                                            .reception_details[
+                                                            i
+                                                        ].price_additional
+                                                    "
                                                 />
                                             </td>
                                             <td>
-                                                {{invoice.getTotalByDetails(i)}}
+                                                {{
+                                                    invoice.getTotalByDetails(i)
+                                                }}
                                             </td>
                                         </tr>
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="5">Total</th>
+                                            <th>
+                                                {{
+                                                    invoice.getAcumTotalByDetails()
+                                                }}
+                                            </th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
 
                                 <div class="my-2"></div>
@@ -522,75 +547,105 @@
                                 <table class="table text-center">
                                     <thead>
                                         <tr>
-                                            <th>
-                                                Tipo de Pago
-                                            </th>
-                                            <th>
-                                                Método de Pago
-                                            </th>
-                                            <th>
-                                                Monto
-                                            </th>
-                                            <th>
-                                                Observacion
-                                            </th>
+                                            <th>Tipo de Pago</th>
+                                            <th>Método de Pago</th>
+                                            <th>Monto</th>
+                                            <th>Observacion</th>
                                             <th>Accion</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(pay,i) in invoice.form.payments" :key="i">
+                                        <tr
+                                            v-for="(pay, i) in invoice.form
+                                                .payments"
+                                            :key="i"
+                                        >
                                             <td>
-                                                {{pay.type}}
-                                            </td> 
-                                            <td>
-                                                {{pay.method}}
+                                                {{ pay.type }}
                                             </td>
                                             <td>
-                                                {{pay.quantity}}
+                                                {{ pay.method }}
                                             </td>
                                             <td>
-                                                {{pay.description}}
+                                                {{ pay.quantity }}
                                             </td>
                                             <td>
-                                                    <i 
-                                                        class="fas fa-minus"
-                                                        style="cursor:pointer"
-                                                        @click="invoice.deletePayment(i)">
-                                                    
-                                                    </i>
+                                                {{ pay.description }}
+                                            </td>
+                                            <td>
+                                                <i
+                                                    class="fas fa-minus"
+                                                    style="cursor: pointer"
+                                                    @click="
+                                                        invoice.deletePayment(i)
+                                                    "
+                                                >
+                                                </i>
                                             </td>
                                         </tr>
                                         <tr>
-                                             <td>
-                                                 <select class="form-select" v-model="invoice.payment.type">
-                                                     <option value='Bs'> Bs </option>
-                                                     <option value="divisa">Divisa </option>
-                                                 </select>
-                                            </td> 
                                             <td>
-                                                 <select class="form-select" v-model="invoice.payment.method">
-                                                     <option value='tarjeta'> Tarjeta </option>
-                                                     <option value="efectivo"> Efectivo </option>
-                                                     <option value="digital"> Digital </option>
-                                                 </select>
+                                                <select
+                                                    class="form-select"
+                                                    v-model="
+                                                        invoice.payment.type
+                                                    "
+                                                >
+                                                    <option value="Bs">
+                                                        Bs
+                                                    </option>
+                                                    <option value="divisa">
+                                                        Divisa
+                                                    </option>
+                                                </select>
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control" v-model="invoice.payment.quantity" />
+                                                <select
+                                                    class="form-select"
+                                                    v-model="
+                                                        invoice.payment.method
+                                                    "
+                                                >
+                                                    <option value="tarjeta">
+                                                        Tarjeta
+                                                    </option>
+                                                    <option value="efectivo">
+                                                        Efectivo
+                                                    </option>
+                                                    <option value="digital">
+                                                        Digital
+                                                    </option>
+                                                </select>
                                             </td>
                                             <td>
-                                                <input class="form-control" v-model="invoice.payment.description" />
+                                                <input
+                                                    type="number"
+                                                    class="form-control"
+                                                    v-model="
+                                                        invoice.payment.quantity
+                                                    "
+                                                />
+                                            </td>
+                                            <td>
+                                                <input
+                                                    class="form-control"
+                                                    v-model="
+                                                        invoice.payment
+                                                            .description
+                                                    "
+                                                />
                                             </td>
 
                                             <td colspan="5">
-                                                <i 
+                                                <i
                                                     class="fas fa-plus"
-                                                        style="cursor:pointer"
-                                                    @click="invoice.addPayment">
+                                                    style="cursor: pointer"
+                                                    @click="invoice.addPayment"
+                                                >
                                                 </i>
                                             </td>
                                         </tr>
                                     </tbody>
-
                                 </table>
                             </div>
                         </div>
@@ -604,7 +659,7 @@
                                     >Cerrar</span
                                 >
                             </a>
-<a
+                            <a
                                 class="btn btn-success text-white btn-icon-split mb-4"
                                 @click="invoice.printInvoice"
                             >
@@ -634,7 +689,7 @@ const openModal = () => {
     let details =
         item.value.relationships.receptionActive.relationships.details;
     console.log(details);
-    form_invoice.value.reception_details = []
+    form_invoice.value.reception_details = [];
     details.map((detail) => {
         form_invoice.value.reception_details.push({
             id: detail.id,
@@ -643,7 +698,7 @@ const openModal = () => {
             quantity_partial: detail.attributes.quantity_partial ?? 0,
             observation: detail.attributes.observation,
             time_additional: detail.attributes.time_additional ?? 0,
-            price_additional: detail.attributes.price_additional ?? 0
+            price_additional: detail.attributes.price_additional ?? 0,
         });
     });
     $("#exampleModal23").modal("show");
