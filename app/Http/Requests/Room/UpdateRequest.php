@@ -4,6 +4,8 @@ namespace App\Http\Requests\Room;
 
 use App\Traits\CustomResponseFormRequestTrait;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Rules\Room\VerifiedStatusPermissForCamarero;
+use Illuminate\Support\Facades\Auth;
 
 class UpdateRequest extends FormRequest
 {
@@ -16,7 +18,8 @@ class UpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $user = Auth::user();
+        return $user->can('room.updated') || $user->can('room.free');
     }
 
     /**
@@ -26,6 +29,17 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
+        if((Auth::user()->roles->first())->name == 'Camarero'){
+            return [
+                'room_status_id' => [
+                    'required',
+                    'exists:room_statuses,id',
+                    new VerifiedStatusPermissForCamarero()
+               
+                ]
+            ]
+                ;
+        }
         return [
             'room_status_id' => 'required|exists:room_statuses,id',
             'partial_cost_id' => 'required|exists:partial_costs,id',

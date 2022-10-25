@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Auth;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Room extends Model implements Auditable
@@ -80,4 +81,13 @@ class Room extends Model implements Auditable
     {
         return $this->receptions()->where('invoiced',false);
     }
+  public function scopeIsCamarero(Builder $query) {
+        $role = Auth::user()->roles->first();
+        
+        return $query->when($role->name == 'Camarero',function(Builder $q){
+            return $q->where('room_status_id',1); // 1 is Sucia
+        });
+    }
+
+
 }

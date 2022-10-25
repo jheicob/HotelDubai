@@ -16,6 +16,7 @@ use App\Models\RoomStatus;
 use App\Services\RoomService\RoomService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
+use App\Http\Requests\Client\CancelUseRequest;
 use Illuminate\Http\Response;
 
 class CreateController extends Controller
@@ -37,12 +38,13 @@ class CreateController extends Controller
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return custom_response_exception($e,__('errors.server.title'),500);
+            return custom_response_exception($e, __('errors.server.title'), 500);
         }
     }
 
-    public function assigned_room(AssignRoomRequest $request){
-        try{
+    public function assigned_room(AssignRoomRequest $request)
+    {
+        try {
             DB::beginTransaction();
 
             $client = Client::find($request->client_id);
@@ -63,8 +65,8 @@ class CreateController extends Controller
 
             $reception = self::verifiedReceptionActive($client);
 
-            if($reception){
-                return self::extendReception($reception,$request,$quantity_total_hours);
+            if ($reception) {
+                return self::extendReception($reception, $request, $quantity_total_hours);
             }
 
             $reception = $client->receptions()->create($request->only([
@@ -82,30 +84,50 @@ class CreateController extends Controller
 
 
             // $status = $request->date_in > Carbon::now() ? 'Reservada' : 'Ocupada';
-            $roomStatus = RoomStatus::firstWhere('name','Ocupada');
+            $roomStatus = RoomStatus::firstWhere('name', 'Ocupada');
             $room->update([
                 'room_status_id' => $roomStatus->id,
             ]);
             DB::commit();
-            return custom_response_sucessfull('created successfull',200);
-
-        }catch(\Exception $e){
+            return custom_response_sucessfull('created successfull', 200);
+        } catch (\Exception $e) {
             DB::rollBack();
-            return custom_response_exception($e,__('errors.server.title'),500);
+            return custom_response_exception($e, __('errors.server.title'), 500);
+        }
+    }
 
+    public function CancelUse(Client $client, CancelUseRequest $request)
+    {
+        try {
+            DB::beginTransaction();
+
+            $reception = $client->receptionActive->first();
+
+            $reception->details->map(function ($detail) {
+                $detail->delete();
+            });
+            
+            $room = $reception->room;
+            $room->update(['room_status_id' => 2]);
+            $reception->delete();
+            DB::commit();
+            return custom_response_sucessfull('cancel successfull', 200);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return custom_response_exception($e, __('errors.server.title'), 500);
         }
     }
 
     public function verifiedReceptionActive(Client $client)
     {
 
-        if(!$client->receptionActive->first()){
+        if (!$client->receptionActive->first()) {
             return false;
         }
         return $client->receptionActive->first();
     }
 
-    public function extendReception(Reception $reception, Request $request,int $quantity_total_hours): JsonResponse
+    public function extendReception(Reception $reception, Request $request, int $quantity_total_hours): JsonResponse
     {
         $reception->update([
             'date_out' => Carbon::parse($reception->date_out)->addHours($quantity_total_hours),
@@ -120,8 +142,9 @@ class CreateController extends Controller
         return custom_response_sucessfull('update_successfull');
     }
 
-    public function extendUse(Request $request){
-        try{
+    public function extendUse(Request $request)
+    {
+        try {
             DB::beginTransaction();
 
             $client = Client::find($request->client);
@@ -144,33 +167,32 @@ class CreateController extends Controller
                 'rate' => $room->partialCost->rate,
             ]);
 
-            $client->rooms()->attach($request->room_id,$request->except(['client_id','room_id']));
+            $client->rooms()->attach($request->room_id, $request->except(['client_id', 'room_id']));
 
-            $roomStatus = RoomStatus::firstWhere('name','Ocupada');
+            $roomStatus = RoomStatus::firstWhere('name', 'Ocupada');
             $room->update([
                 'room_status_id' => $roomStatus->id,
             ]);
             DB::commit();
-            return custom_response_sucessfull('created successfull',200);
-
-        }catch(\Exception $e){
+            return custom_response_sucessfull('created successfull', 200);
+        } catch (\Exception $e) {
             DB::rollBack();
-            return custom_response_exception($e,__('errors.server.title'),500);
-
+            return custom_response_exception($e, __('errors.server.title'), 500);
         }
     }
 
-    public function invoiceReception(InvoiceReceptionRequest $request){
+    public function invoiceReception(InvoiceReceptionRequest $request)
+    {
         DB::beginTransaction();
 
-        try{
+        try {
 
             DB::commit();
             return custom_response_sucessfull('invoice create');
-        }catch(\Exception $e){
+        } catch (\Exception $e) {
             DB::rollBack();
 
-            return custom_response_exception($e,__('errors.server.title'),500);
+            return custom_response_exception($e, __('errors.server.title'), 500);
         }
     }
 }

@@ -2,10 +2,9 @@
 	<div class="row justify-content-center">
 		<div class="col-md-12">
 			<permissions-data-table v-show="!reception.show" />
-			<CreateReception v-show="reception.show" />
+			<CreateReception v-show="reception.show" v-if="props.ocuppy" />
 			<GenerateInvoice />
 		</div>
-		<!-- <Facturar /> -->
 	</div>
 </template>
 
@@ -15,7 +14,6 @@
 	import { onMounted } from "vue";
 	import { receptionStore } from "./Reception/ReceptionStore.js";
 	import CreateReception from "./Reception/CreateReception.vue";
-	// import { Facturar } from "../Invoice/Factura.vue";
 	const useHelper = HelperStore();
 	const reception = receptionStore();
 
@@ -51,5 +49,5 @@
 		},
 	});
 
-	useHelper.permiss = props;
+useHelper.permiss = props
 </script>

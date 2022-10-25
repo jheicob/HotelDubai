@@ -31,6 +31,7 @@ class VerifiedReceptionAndRoom implements Rule
 
         $reception = $client->receptionActive->first();
 
+        if ($reception == '') return true;
         if ($reception->room_id == $this->room_id) {
             return true;
         }

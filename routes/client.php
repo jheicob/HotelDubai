@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -7,9 +8,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(
     [
-    'prefix'     => 'client',
-    'middleware'  => 'auth'
-    ], function () {
+        'prefix'     => 'client',
+        'middleware'  => 'auth'
+    ],
+    function () {
 
         Route::get('', [App\Http\Controllers\Client\IndexController::class, 'index'])
             ->name('client.index')
@@ -30,7 +32,7 @@ Route::group(
         Route::get('get', [App\Http\Controllers\Client\IndexController::class, 'get'])
             ->name('client.get')
             // ->middleware('permission:client.getPaginate')
-            ;
+        ;
 
         Route::post('assigned_room', [App\Http\Controllers\Client\CreateController::class, 'assigned_room'])
             ->name('client.assigned_room')
@@ -40,6 +42,9 @@ Route::group(
             ->name('client.extend.room.use')
             ->middleware('permission:client.assigned_room');
 
+        Route::get('{client}/cancel-use', [App\Http\Controllers\Client\CreateController::class, 'CancelUse'])
+            ->name('client.cancel.room.use')
+            ->middleware('permission:client.cancel.room');
     }
 );
 
@@ -48,9 +53,10 @@ Route::group(
 
 Route::group(
     [
-    'prefix'     => 'type-document',
-    'middleware'  => 'auth'
-    ], function () {
+        'prefix'     => 'type-document',
+        'middleware'  => 'auth'
+    ],
+    function () {
 
         // Route::get('', [App\Http\Controllers\TypeDocument\IndexController::class, 'index'])
         //     ->name('TypeDocument.index')
@@ -72,4 +78,3 @@ Route::group(
             ->name('TypeDocument.get');
     }
 );
-

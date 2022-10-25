@@ -32,6 +32,7 @@
         .ml-r-14 {
             margin-left: 14.5rem
         }
+
         .ml-r-6 {
             margin-left: 6rem
         }
@@ -96,10 +97,11 @@
                             <i class="fas fa-user-circle fa-fw"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="{{ route('profile.index') }}">Perfil</a>
-                            <a class="dropdown-item" href="{{ route('password.index') }}">Contraseña</a>
+                            <a class="dropdown-item" style="color:black" href="{{ route('profile.index') }}">Perfil</a>
+                            <a class="dropdown-item" style="color:black"
+                                href="{{ route('password.index') }}">Contraseña</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" data-toggle="modal"
+                            <a class="dropdown-item" href="#" style="color:black" data-toggle="modal"
                                 data-target="#logoutModal">Logout</a>
                         </div>
                     </li>
@@ -108,7 +110,8 @@
             </nav>
             <div id="wrapper">
                 <!-- Sidebar -->
-                <ul class="sidebar navbar-nav" style="
+                <ul class="sidebar navbar-nav"
+                    style="
                 position: fixed;
                 top: 3.5rem;
                 left: 0;">
@@ -301,7 +304,7 @@
     <script>
         let menu = document.querySelector('#sidebarToggle')
 
-        menu.addEventListener('click',function(){
+        menu.addEventListener('click', function() {
             let content = document.querySelector('#content-wrapper')
             content.classList.toggle('ml-r-14')
             content.classList.toggle('ml-r-6')

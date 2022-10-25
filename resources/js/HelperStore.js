@@ -99,10 +99,12 @@ export const HelperStore = defineStore('HelperStore',() => {
     }
 
     const ShowCreateModal = (idModal = "#exampleModal") => {
+        if(!permiss.value.create) return;
         $(idModal).modal("show");
     }
 
     const ShowUpdatedModal = (permission, callback, idModal = "#exampleModal2") => {
+        if(!permiss.value.updated && !permiss.value.free) return;
         setForm(callback,permission)
         $(idModal).modal("show");
     }

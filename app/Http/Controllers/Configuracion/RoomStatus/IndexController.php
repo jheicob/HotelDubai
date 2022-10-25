@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Configuracion\RoomStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\RoomStatusResource;
 use App\Models\RoomStatus;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Validation\ValidationException;
 
@@ -15,10 +17,20 @@ class IndexController extends Controller
         return view('RoomStatus.index');
     }
 
+    private function isCamarero() {
+        $role = Auth::user()->roles->first();
+
+        return $role->name == 'Camarero';
+    }
     public function get()
     {
         try {
-            $permissions = RoomStatus::withTrashed()->get();
+            $permissions = RoomStatus::withTrashed()
+                ->when(self::isCamarero(),function(Builder $query){
+                    return $query->where('name','Disponible')
+                                ->orWhere('name','Sucia');
+                })        
+                ->get();
 
             return RoomStatusResource::collection($permissions);
         } catch (ValidationException $ex) {

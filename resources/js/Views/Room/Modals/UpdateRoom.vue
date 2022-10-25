@@ -12,6 +12,7 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header py-2">
+
 						<h5
 							class="modal-title title-page text-secondary"
 							id="exampleModalLabel"
@@ -28,6 +29,7 @@
 						</a>
 					</div>
 					<div class="modal-body">
+						<div v-if="useHelper.permiss.updated">
 						<label for="description" class="form-label"
 							>Número de Habitación</label
 						>
@@ -110,6 +112,8 @@
 								{{ keep.attributes.name }}
 							</option>
 						</select> -->
+						</div>
+						<div v-if="useHelper.permiss.free">
 						<label for="name" class="form-label"
 							>Estado de la Habitación</label
 						>
@@ -129,6 +133,7 @@
 								{{ keep.attributes.name }}
 							</option>
 						</select>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<a

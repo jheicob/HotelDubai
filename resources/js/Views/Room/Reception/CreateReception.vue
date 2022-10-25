@@ -282,6 +282,12 @@
                                     </table>
                                 </div>
                             </div>
+                                            <button 
+                                                class="btn btn-info mr-5 mt-4"
+                                                @click.prevent="store.show = false"
+                                                >
+                                                Regresar
+                                            </button>
                         </div>
                         <div class="col-md-1"></div>
                         <div class="col-md-5">
@@ -381,9 +387,11 @@
                                             <div
                                                 class="row justify-content-between mt-4"
                                             >
+
                                                 <a
                                                     class="btn btn-danger text-white btn-icon-split mb-4 col-3"
-                                                    @click="store.show = false"
+                                                    @click="store.cancelUse(item)"
+                                                    v-if="store.updated_reception"
                                                 >
                                                     <span
                                                         class="text font-montserrat font-weight-bold"

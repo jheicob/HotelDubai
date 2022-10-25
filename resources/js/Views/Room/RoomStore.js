@@ -199,7 +199,7 @@ const selectColor = (item) => {
         case 'Disponible':
             css = 'bg-greensea'
             break
-        case 'Limpiando':
+        case 'Sucia':
             css = 'bg-warningg';
             break;
         case 'Reparación':
@@ -220,6 +220,9 @@ const showPartialAndRate = (item)=>{
 const {show,updated_reception} = storeToRefs(reception)
 const showCreateReception = (room) => {
   //  console.log(item)
+    if(!useHelper.permiss.ocuppy) {
+        return
+    }
     show.value = true;
     item.value = room
     if(room.relationships.receptionActive != null){
