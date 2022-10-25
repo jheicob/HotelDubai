@@ -32,7 +32,8 @@ class CreateController extends Controller
             $client = Client::find($request->client_id);
 
             $reception = $client->receptionActive->first();
-
+            
+            self::VerifiedAndUpdateAdditionalReceptionDetails($reception, $request->reception_details);
             $request->merge([
                 'total' => $this->service->calculateTotalByReceptionDetails($reception),
                 'date'  => Carbon::now()->format('Y-m-d H:i:s')
@@ -54,6 +55,17 @@ class CreateController extends Controller
                 ];
 
                 $item->invoiceDetail()->create($data);
+
+                if($item->time_additional){
+                    $quantity_aditional = (string) $item->time_additional;
+                    $quantity_aditional = (int) rtrim($quantity_aditional,'h');
+                    $data2= [
+                        'price' => $item->price_additional,
+                        'quantity' => $quantity_aditional,
+                        'invoice_id' => $invoice->id,
+                    ];
+                    $item->invoiceDetail()->create($data2);
+                }
             });
 
             self::storePayments($invoice, $request->payments);
@@ -71,6 +83,24 @@ class CreateController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return custom_response_exception($e, __('errors.server.title'), 500);
+        }
+    }
+
+    /**
+     * verified and update additionals for reception details
+     */
+    public function VerifiedAndUpdateAdditionalReceptionDetails(Reception $reception,array $details) {
+        $reception_details = $reception->details;
+
+        foreach($details as $detail){
+            if($detail['time_additional'] != 0){
+                ($reception_details->firstWhere('id',$detail['id']))
+                    ->update([
+                        'time_additional' => $detail['time_additional'],
+                        'price_additional' => $detail['price_additional'],
+                        'observation' => $detail['observation'],
+                    ]);
+            }
         }
     }
 

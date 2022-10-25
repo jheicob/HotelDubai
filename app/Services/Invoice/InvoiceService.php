@@ -37,6 +37,11 @@ class InvoiceService {
         $total = 0;
         foreach($details as $detail){
             $total += $detail->rate * $detail->quantity_partial;
+            if($detail->time_additional){
+                $quantity_aditional = (string) $detail->time_additional;
+                $quantity_aditional = (int) rtrim($quantity_aditional,'h');
+                $total += $quantity_aditional * $detail->price_additional;
+            }
         }
 
         return $total;

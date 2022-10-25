@@ -5,12 +5,13 @@ import moment from "moment";
 import { RoomStore } from "../RoomStore";
 import { receptionStore } from "../Reception/ReceptionStore";
 import dayjs from "dayjs";
+import { InvoiceStore } from "../../Invoice/InvoiceStore";
 
 export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
     const helper = HelperStore();
     const useRoom = RoomStore();
     const reception = receptionStore();
-
+    const invoice = InvoiceStore();
     const { form, item } = storeToRefs(helper);
     const client_exist = ref(false);
     const type_documents = ref([]);
@@ -168,7 +169,12 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
             .catch((err) => helper.getErrorRequest(err));
     };
 
+    const getReceptionDetailByItem = (item) => {
+        
+        return item.relationships?.receptionActive.details ?? []
+    }
     return {
+        getReceptionDetailByItem,
         clearForm,
         date,
         hour,

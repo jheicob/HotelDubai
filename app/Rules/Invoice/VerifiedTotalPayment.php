@@ -33,7 +33,7 @@ class VerifiedTotalPayment implements Rule
             $acum += ($detail->rate * $detail->quantity_partial);
         }
 
-        if ($acum != $value) return false;
+        if ($acum > $value) return false;
 
         return true;
     }
