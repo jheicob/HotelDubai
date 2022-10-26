@@ -19,7 +19,7 @@ class UpdateRequest extends FormRequest
     public function authorize()
     {
         $user = Auth::user();
-        return $user->can('room.updated') || $user->can('room.free');
+        return $user->can('room.updated') || $user->can('room.free') || $user->can('room.changeParcial');
     }
 
     /**
@@ -37,6 +37,13 @@ class UpdateRequest extends FormRequest
                     new VerifiedStatusPermissForCamarero()
                
                 ]
+            ]
+                ;
+        }
+         if((Auth::user()->roles->first())->name == 'Recepcionista'){
+            return [
+            'partial_cost_id' => 'required|exists:partial_costs,id',
+
             ]
                 ;
         }
