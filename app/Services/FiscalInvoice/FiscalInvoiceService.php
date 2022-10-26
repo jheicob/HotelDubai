@@ -54,6 +54,7 @@ class FiscalInvoiceService
 
     protected $factura_fiscal = 'factura_fiscal';
     protected $client;
+    protected $invoice_id;
     protected $rif;
     public function __construct()
     {
@@ -222,7 +223,7 @@ class FiscalInvoiceService
         $string = self::formatString($data);
         self::addLine($string);
         if (!$this->credit_note) {
-            //self::addLineToCountLines();
+            self::addLineToCountLines();
         }
     }
 
@@ -260,6 +261,10 @@ class FiscalInvoiceService
         self::addLine(config('invoice.commands.printer_invoice'));
     }
 
+    public function setInvoiceId(int $invoice_id)
+    {
+        $this->invoice_id = $invoice_id;
+    }
     /**
      * download file
      *
@@ -278,6 +283,11 @@ class FiscalInvoiceService
         $number_format = str_replace(',', '', $number_format);
         $line .= $number_format;
         self::addLine($line);
+
+        $line = config('invoice.commands.printer') . '|';
+        $line .= $this->invoice_id;
+        self::addLine($line);
+
         header('Content-Type: application/plain-text');
         header("Content-Transfer-Encoding: Binary");
         header("Content-disposition: attachment; filename=$filename");

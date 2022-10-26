@@ -168,9 +168,11 @@ class CreateController extends Controller
     private function createDebitNote(Invoice $invoice, $full_name, $document, $igtf)
     {
         $debit_note = new DebitNoteService();
+        $debit_note->setInvoiceId($invoice->id);
+
         $debit_note->includeFirstLineDataCompany($full_name, $document);
-        $debit_note->addLineToHead(config('invoice.company'));
-        $debit_note->addLineToHead(config('invoice.rif'));
+        // $debit_note->addLineToHead(config('invoice.company'));
+        // $debit_note->addLineToHead(config('invoice.rif'));
         $debit_note->addComment('Factura Fiscal');
 
         $invoice->details->map(function ($invoice_detail) use ($debit_note) {
@@ -196,9 +198,10 @@ class CreateController extends Controller
     private function createCreditNote(Invoice $invoice, $full_name, $document, $igtf)
     {
         $debit_note = new CreditNoteService();
+        $debit_note->setInvoiceId($invoice->id);
         $debit_note->includeFirstLineDataCompanyForCN($full_name, $document, $invoice, 'ASZ-129');
-        $debit_note->addLineToHead(config('invoice.company'));
-        $debit_note->addLineToHead(config('invoice.rif'));
+        // $debit_note->addLineToHead(config('invoice.company'));
+        // $debit_note->addLineToHead(config('invoice.rif'));
         $debit_note->addComment('Devolución de Factura Fiscal');
 
         $invoice->details->map(function ($invoice_detail) use ($debit_note) {
