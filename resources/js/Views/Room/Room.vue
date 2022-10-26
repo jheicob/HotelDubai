@@ -47,7 +47,11 @@
 			type: Boolean,
 			default: false,
 		},
+		change_parcial: {
+			type: Boolean,
+			default: false,
+		},
 	});
 
-useHelper.permiss = props
+	useHelper.permiss = props;
 </script>

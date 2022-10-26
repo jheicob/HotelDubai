@@ -16,10 +16,6 @@ class PartialRateSeeder extends Seeder
     {
         PartialRates::upsert([
             [
-                'name'        => '4h',
-                'description' => '4h'
-            ],
-            [
                 'name'        => '6h',
                 'description' => '6h'
             ],
@@ -27,6 +23,6 @@ class PartialRateSeeder extends Seeder
                 'name'        => '8h',
                 'description' => '8h'
             ],
-        ],['name'],['description']);
+        ], ['name'], ['description']);
     }
 }

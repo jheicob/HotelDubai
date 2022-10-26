@@ -150,6 +150,7 @@ class RoleSeeder extends Seeder
                 'room.get',
                 'room.occuppy',
                 'room.free',
+                'room.changeParcial',
                 'room.extend',
 
                 'day.templates.index',
@@ -185,7 +186,10 @@ class RoleSeeder extends Seeder
             'room.get',
             'room.occuppy',
             'room.status.getPaginate',
+            'room.changeParcial',
 
+                'partial.cost.getPaginate',
+                'room.type.getPaginate',
             'room.extend',
 
             'invoice.index',
@@ -197,7 +201,7 @@ class RoleSeeder extends Seeder
             'client.index',
             'client.create',
             'client.delete',
-                'client.cancel.room',
+            'client.cancel.room',
             'client.updated',
             'client.getPaginate',
             'client.get',
@@ -218,7 +222,10 @@ class RoleSeeder extends Seeder
         $supervisor_role->givePermissionTo([
             'room.index',
             'room.getPaginate',
+            'room.changeParcial',
             'room.get',
+                'partial.cost.getPaginate',
+                'room.type.getPaginate',
             'room.occuppy',
             'room.status.getPaginate',
 
@@ -232,7 +239,7 @@ class RoleSeeder extends Seeder
 
             'client.index',
             'client.create',
-                'client.cancel.room',
+            'client.cancel.room',
             'client.delete',
             'client.updated',
             'client.getPaginate',

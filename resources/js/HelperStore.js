@@ -1,35 +1,35 @@
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
+import { defineStore } from "pinia";
+import { ref } from "vue";
 import toastr from "toastr";
-import "toastr/build/toastr.css"
-import axios from 'axios';
+import "toastr/build/toastr.css";
+import axios from "axios";
 
-export const HelperStore = defineStore('HelperStore',() => {
-    const desactiveButton = ref(false)
+export const HelperStore = defineStore("HelperStore", () => {
+    const desactiveButton = ref(false);
     const permiss = ref({
-        create:false,
-        deletet:false,
+        create: false,
+        deletet: false,
         updated: false,
-    })
-    const form = ref({})
-    const errors = ref([])
-    const url = ref('')
-    const all = ref([])
-    const item = ref({})
+    });
+    const form = ref({});
+    const errors = ref([]);
+    const url = ref("");
+    const all = ref([]);
+    const item = ref({});
 
     const getErrorRequest = (err) => {
         if (err.response?.status == 422) {
             errors.value = err.response.data.data.errors;
-        }else{
-            errors.value = err
+        } else {
+            errors.value = err;
         }
         for (let error in errors.value) {
             toastr.error(errors.value[error]);
         }
-    }
+    };
 
     const getAll = () => {
-        var urlKeeps = `/${url.value}/get`
+        var urlKeeps = `/${url.value}/get`;
         axios
             .get(urlKeeps)
             .then((response) => {
@@ -41,31 +41,30 @@ export const HelperStore = defineStore('HelperStore',() => {
                     });
                 });
             })
-            .catch((err) => getErrorRequest(err))
-    }
+            .catch((err) => getErrorRequest(err));
+    };
 
-
-    const customRequest = (url,method,data,params) => {
+    const customRequest = (url, method, data, params) => {
         axios({
             method: method,
             url: url,
             data: data,
             params: params,
         })
-        .then((response) => (response.data))
-        .catch((err) => getErrorRequest(err))
-    }
+            .then((response) => response.data)
+            .catch((err) => getErrorRequest(err));
+    };
 
-    const storeItem = (callback,idModal = "#exampleModal") => {
+    const storeItem = (callback, idModal = "#exampleModal") => {
         desactiveButton.value = true;
-        let url_store = `/${url.value}/create`
-//        console.log(url_store)
+        let url_store = `/${url.value}/create`;
+        //        console.log(url_store)
         axios
             .post(url_store, form.value)
             .then((response) => {
                 $(idModal).modal("hide");
-                clearForm(callback)
-                getAll()
+                clearForm(callback);
+                getAll();
             })
             .catch((err) => {
                 getErrorRequest(err);
@@ -77,45 +76,48 @@ export const HelperStore = defineStore('HelperStore',() => {
         desactiveButton.value = true;
         let url_put = `/${url.value}/${form.value.id}`;
         axios
-          .put(url_put, form.value)
-          .then((response) => {
-            form.value = callback();
-            $(idModal).modal("hide");
-            getAll()
-          })
-          .catch((error) => (getErrorRequest(error)))
-          .finally(() => (desactiveButton.value = false))
-      }
+            .put(url_put, form.value)
+            .then((response) => {
+                form.value = callback();
+                $(idModal).modal("hide");
+                getAll();
+            })
+            .catch((error) => getErrorRequest(error))
+            .finally(() => (desactiveButton.value = false));
+    };
 
     const clearForm = (callback) => {
-        form.value = callback()
-    }
+        form.value = callback();
+    };
 
     const deleteItem = (item) => {
-        var url = `/${url.value}/delete/${item.id}`
+        var url = `/${url.value}/delete/${item.id}`;
         axios.delete(url).then((response) => {
-            getAll()
+            getAll();
         });
-    }
+    };
 
     const ShowCreateModal = (idModal = "#exampleModal") => {
-        if(!permiss.value.create) return;
+        if (!permiss.value.create) return;
         $(idModal).modal("show");
-    }
+    };
 
-    const ShowUpdatedModal = (permission, callback, idModal = "#exampleModal2") => {
-        if(!permiss.value.updated && !permiss.value.free) return;
-        setForm(callback,permission)
+    const ShowUpdatedModal = (
+        permission,
+        callback,
+        idModal = "#exampleModal2"
+    ) => {
+        setForm(callback, permission);
         $(idModal).modal("show");
-    }
+    };
 
     const setForm = (callback, item) => {
-        form.value = callback(item)
-    }
+        form.value = callback(item);
+    };
 
     return {
         customRequest,
-      form,
+        form,
         url,
         all,
         ShowCreateModal,
@@ -130,6 +132,6 @@ export const HelperStore = defineStore('HelperStore',() => {
         clearForm,
         errors,
         putItem,
-        item
-    }
-})
+        item,
+    };
+});

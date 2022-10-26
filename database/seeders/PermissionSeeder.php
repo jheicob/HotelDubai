@@ -41,7 +41,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'users.updated']);
         Permission::create(['name' => 'users.getPaginate']);
 
-         //configuracion
+        //configuracion
 
         Permission::create(['name' => 'configuracion']);
 
@@ -143,6 +143,7 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'room.free']);
         Permission::create(['name' => 'room.clean']);
         Permission::create(['name' => 'room.extend']);
+        Permission::create(['name' => 'room.changeParcial']);
 
 
 

@@ -15,8 +15,8 @@ class RoomTypeSeeder extends Seeder
     public function run()
     {
         RoomType::upsert([
-            ['name' => 'Sencilla','description' => 'Sencilla'],
-            ['name' => 'Doble','description' => 'Doble'],
-        ],['name'],['description']);
+            ['name' => '6H', 'description' => '6H'],
+            ['name' => '8H', 'description' => '8H'],
+        ], ['name'], ['description']);
     }
 }

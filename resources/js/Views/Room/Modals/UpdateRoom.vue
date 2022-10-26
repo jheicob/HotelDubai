@@ -12,7 +12,6 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header py-2">
-
 						<h5
 							class="modal-title title-page text-secondary"
 							id="exampleModalLabel"
@@ -30,70 +29,79 @@
 					</div>
 					<div class="modal-body">
 						<div v-if="useHelper.permiss.updated">
-						<label for="description" class="form-label"
-							>Número de Habitación</label
-						>
-						<input
-							type="text"
-							name="description"
-							v-model="form.name"
-							class="form-control"
-						/>
-						<label for="description" class="form-label">Descripción</label>
-						<input
-							type="text"
-							name="description"
-							v-model="form.description"
-							class="form-control"
-						/>
-						<label for="name" class="form-label">Tipo Habitacion</label>
-						<select
-							class="form-select"
-							aria-label="Default select example"
-							v-model="room_type_id"
-							@change="getPartialCost"
-						>
-							<option selected value="">Seleccione Tipo Habitacion</option>
-							<option
-								v-for="keep in roomType"
-								:key="keep.id"
-								:value="keep.id"
+							<label for="description" class="form-label"
+								>Número de Habitación</label
 							>
-								{{ keep.attributes.name }}
-							</option>
-						</select>
-						<label for="name" class="form-label">Parcial Mínimo</label>
-						<select
-							class="form-select"
-							aria-label="Default select example"
-							v-model="form.partial_cost_id"
-							:disabled="partialCost.length < 1"
-						>
-							<option selected value="">Seleccione Parcial Mínimo</option>
-							<option
-								v-for="keep in partialCost"
-								:key="keep.id"
-								:value="keep.id"
-							>
-								({{ keep.relationships.partialRate.attributes.name }}) $
-								{{ keep.attributes.rate }}
-							</option>
-						</select>
-						<label for="rate" class="form-label">Tarifa</label>
-						<div class="form-inline">
 							<input
-								disabled
-								type="number"
-								name="date"
-								v-model="getRate"
-								class="form-control col-4"
+								type="text"
+								name="description"
+								v-model="form.name"
+								class="form-control"
 							/>
-							<!-- <button class="btn btn-success ml-3" type="button">
+							<label for="description" class="form-label"
+								>Descripción</label
+							>
+							<input
+								type="text"
+								name="description"
+								v-model="form.description"
+								class="form-control"
+							/>
+							<label for="name" class="form-label">Tipo Habitacion</label>
+							<select
+								class="form-select"
+								aria-label="Default select example"
+								v-model="room_type_id"
+								@change="getPartialCost"
+							>
+								<option selected value="">
+									Seleccione Tipo Habitacion
+								</option>
+								<option
+									v-for="keep in roomType"
+									:key="keep.id"
+									:value="keep.id"
+								>
+									{{ keep.attributes.name }}
+								</option>
+							</select>
+						</div>
+						<div v-if="useHelper.permiss.change_parcial">
+							<label for="name" class="form-label">Parcial Mínimo</label>
+							<select
+								class="form-select"
+								aria-label="Default select example"
+								v-model="form.partial_cost_id"
+								:disabled="partialCost.length < 1"
+							>
+								<option selected value="">
+									Seleccione Parcial Mínimo
+								</option>
+								<option
+									v-for="keep in partialCost"
+									:key="keep.id"
+									:value="keep.id"
+								>
+									({{ keep.relationships.partialRate.attributes.name }})
+									$
+									{{ keep.attributes.rate }}
+								</option>
+							</select>
+							<label for="rate" class="form-label">Tarifa</label>
+							<div class="form-inline">
+								<input
+									disabled
+									type="number"
+									name="date"
+									v-model="getRate"
+									class="form-control col-4"
+								/>
+								<!-- <button class="btn btn-success ml-3" type="button">
 								Personalizar
 							</button> -->
-						</div>
+							</div>
 
-						<!-- <label for="name" class="form-label"
+							<!-- <label for="name" class="form-label"
 							>Temática de la Habitación</label
 						>
 						<select
@@ -114,25 +122,25 @@
 						</select> -->
 						</div>
 						<div v-if="useHelper.permiss.free">
-						<label for="name" class="form-label"
-							>Estado de la Habitación</label
-						>
-						<select
-							class="form-select"
-							aria-label="Default select example"
-							v-model="form.room_status_id"
-						>
-							<option selected value="">
-								Seleccione Estado de la Habitación
-							</option>
-							<option
-								v-for="keep in roomStatus"
-								:key="keep.id"
-								:value="keep.id"
+							<label for="name" class="form-label"
+								>Estado de la Habitación</label
 							>
-								{{ keep.attributes.name }}
-							</option>
-						</select>
+							<select
+								class="form-select"
+								aria-label="Default select example"
+								v-model="form.room_status_id"
+							>
+								<option selected value="">
+									Seleccione Estado de la Habitación
+								</option>
+								<option
+									v-for="keep in roomStatus"
+									:key="keep.id"
+									:value="keep.id"
+								>
+									{{ keep.attributes.name }}
+								</option>
+							</select>
 						</div>
 					</div>
 					<div class="modal-footer">
