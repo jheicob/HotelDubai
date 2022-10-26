@@ -14,6 +14,7 @@ use App\Services\FiscalInvoice\DebitNoteService;
 use App\Services\FiscalInvoice\CreditNoteService;
 use App\Services\Invoice\InvoiceService;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class CreateController extends Controller
 {
@@ -180,10 +181,13 @@ class CreateController extends Controller
                 $product = ReceptionDetail::find($invoice_detail->productable_id);
             }
 
-            $iva = 0.16;
+           $iva = 0.16;
             $cantidad = $invoice_detail->quantity;
+            Log::info('cantidad:'.$cantidad);
             $total = $invoice_detail->price * $cantidad;
+            Log::info('total:'.$total);
             $precio = ($total / (1 + $iva));
+            Log::info('precio:'.$precio);
 
             $name_product = $product->reception->observation . ' ' . $product->partial_min;
 
@@ -218,13 +222,15 @@ class CreateController extends Controller
                 $product = ReceptionDetail::find($invoice_detail->productable_id);
             }
 
+            
             $iva = 0.16;
             $cantidad = $invoice_detail->quantity;
+            Log::info('cantidad:'.$cantidad);
             $total = $invoice_detail->price * $cantidad;
+            Log::info('total:'.$total);
             $precio = ($total / (1 + $iva));
-
+            Log::info('precio:'.$precio);
             $name_product = $product->reception->observation . ' ' . $product->partial_min;
-
 
             $debit_note->addProduct(
                 $precio,

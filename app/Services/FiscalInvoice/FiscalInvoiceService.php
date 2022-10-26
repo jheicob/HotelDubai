@@ -3,6 +3,7 @@
 namespace App\Services\FiscalInvoice;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class FiscalInvoiceService
 {
@@ -165,16 +166,21 @@ class FiscalInvoiceService
      * @param integer $quantity_spaces
      * @return string
      */
-    protected function padWithZeros(int $number, int $quantity_spaces, int $quantity_decimal): string
+    protected function padWithZeros(float $number, int $quantity_spaces, int $quantity_decimal): string
     {
+        Log::info('precio_llegado:'.$number);
+        Log::info('espacios:'.$quantity_spaces);
+        Log::info('decimales:'.$quantity_decimal);
         $string = number_format($number, $quantity_decimal, '.', '');
-
+        Log::info('format_number:'.$string);
         $length_number = strlen($string);
-        if ($length_number > $quantity_spaces) return $string;
+        if ($length_number > $quantity_spaces) {
+            return $string;
+        }
 
         $spaces_to_pad = $quantity_spaces - $length_number;
         $number_pad_with_zeros = str_pad($string, $spaces_to_pad, "0", STR_PAD_LEFT);
-
+        
         return $number_pad_with_zeros;
     }
 
@@ -242,7 +248,7 @@ class FiscalInvoiceService
         self::addLine($string);
     }
 
-    public function addProduct(int $price, int $quantity, string $description, int $iva = 0): void
+    public function addProduct(float $price, int $quantity, string $description, int $iva = 0): void
     {
 
         $data = [

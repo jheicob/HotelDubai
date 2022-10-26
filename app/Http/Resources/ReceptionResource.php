@@ -22,6 +22,7 @@ class ReceptionResource extends JsonResource
                 'date_in' => $this->resource->date_in,
                 'date_out' => $this->resource->date_out,
                 'invoiced' => $this->resource->invoiced,
+                'observation' => $this->resource->observation,
             ],
             'relationships' => [
                 'client' => $this->whenLoaded('client', function() {
