@@ -190,7 +190,8 @@ class CreateController extends Controller
             $debit_note->addProduct(
                 $precio,
                 $invoice_detail->quantity,
-                $name_product
+                $name_product,
+                $iva * 100
             );
         });
         $debit_note->applySubTotal();
@@ -210,16 +211,26 @@ class CreateController extends Controller
         $debit_note->includeFirstLineDataCompanyForCN($full_name, $document, $invoice, 'ASZ-129');
         // $debit_note->addLineToHead(config('invoice.company'));
         // $debit_note->addLineToHead(config('invoice.rif'));
-        $debit_note->addComment('Devolución de Factura Fiscal');
+        // $debit_note->addComment('Devolución de Factura Fiscal');
 
         $invoice->details->map(function ($invoice_detail) use ($debit_note) {
             if ($invoice_detail->productable_type == 'App\Models\ReceptionDetail') {
                 $product = ReceptionDetail::find($invoice_detail->productable_id);
             }
+
+            $iva = 0.16;
+            $cantidad = $invoice_detail->quantity;
+            $total = $invoice_detail->price * $cantidad;
+            $precio = ($total / (1 + $iva));
+
+            $name_product = $product->reception->observation . ' ' . $product->partial_min;
+
+
             $debit_note->addProduct(
-                $invoice_detail->price,
+                $precio,
                 $invoice_detail->quantity,
-                $product->partial_min
+                $name_product,
+                $iva * 100
             );
         });
         $debit_note->applySubTotal();
