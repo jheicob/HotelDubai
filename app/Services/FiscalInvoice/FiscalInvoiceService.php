@@ -160,11 +160,11 @@ class FiscalInvoiceService
     /**
      * pad with zeros the number input
      *
-     * @param mixed $number
+     * @param int $number
      * @param integer $quantity_spaces
      * @return string
      */
-    protected function padWithZeros(mixed $number, int $quantity_spaces, int $quantity_decimal): string
+    protected function padWithZeros(int $number, int $quantity_spaces, int $quantity_decimal): string
     {
         $string = number_format($number, $quantity_decimal, '.', '');
 
