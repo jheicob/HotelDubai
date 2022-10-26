@@ -29,6 +29,7 @@ class CreateRequest extends FormRequest
         return [
             'room_type_id' => 'required|exists:room_types,id',
             'hour'         => 'required|regex:/[\d]{2}:[\d]{2}/',
+            'hour_end'     => 'required|regex:/[\d]{2}:[\d]{2}/',
             'rate'         => 'required|numeric',
         ];
     }

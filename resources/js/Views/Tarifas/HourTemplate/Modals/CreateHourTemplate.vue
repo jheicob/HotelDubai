@@ -44,7 +44,7 @@
 							</option>
 						</select>
 
-						<label for="hour" class="form-label">Hora</label>
+						<label for="hour" class="form-label">Hora Inicio</label>
 						<div class="form-inline text-center">
 							<input
 								class="form-control col-2"
@@ -67,6 +67,30 @@
 								max="59"
 								v-model="minute"
 							/>
+						</div>
+						<label for="hour" class="form-label">Hora Fin</label>
+						<div class="form-inline text-center">
+							<input
+								class="form-control col-2"
+								name="hour"
+								type="number"
+								min="00"
+								max="12"
+								@keypress="validHour"
+								@blur="validHour"
+								v-model="hour_end"
+							/>
+							:
+							<input
+								class="form-control col-2"
+								name="minute"
+								type="number"
+								min="00"
+								@keydown="validMinute"
+								@blur="validMinute"
+								max="59"
+								v-model="minute_end"
+							/>
 							<select
 								class="form-select col-2"
 								aria-label="Default select example"
@@ -82,7 +106,6 @@
 								</option>
 							</select>
 						</div>
-
 						<label for="rate" class="form-label">Tarifa</label>
 						<input
 							class="form-control"
@@ -130,6 +153,8 @@
 				form: this.getClearFormObject(),
 				hour: "0",
 				minute: "0",
+				hour_end: "0",
+				minute_end: "0",
 				patials: [],
 				roomType: [],
 				dayWeek: [],
@@ -140,8 +165,8 @@
 		methods: {
 			validHour(event) {
 				console.log("hour", this.hour);
-				if (this.hour < 0 || this.hour > 12) {
-					event.target.value = this.hour = 12;
+				if (this.hour < 0 || this.hour > 23) {
+					event.target.value = this.hour = 23;
 					event.preventDefault();
 				}
 			},
@@ -155,9 +180,13 @@
 			formatSetHour() {
 				return `${this.hour}:${this.minute}`;
 			},
+			formatSetHourEnd() {
+				return `${this.hour_end}:${this.minute_end}`;
+			},
 			createPermission: function () {
 				var url = "/tarifas/hour-templates/create";
 				this.form.hour = this.formatSetHour();
+				this.form.hour_end = this.formatSetHourEnd();
 				axios
 					.post(url, this.form)
 					.then((response) => {
