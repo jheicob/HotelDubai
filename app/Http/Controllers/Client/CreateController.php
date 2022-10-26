@@ -73,6 +73,7 @@ class CreateController extends Controller
                 'room_id',
                 'date_in',
                 'date_out',
+                'observation'
             ]));
 
             $reception->details()->create($request->only([
@@ -131,6 +132,7 @@ class CreateController extends Controller
     {
         $reception->update([
             'date_out' => Carbon::parse($reception->date_out)->addHours($quantity_total_hours),
+                'observation' => $request->observation
         ]);
         $reception->details()->create($request->only([
             'partial_min',

@@ -16,7 +16,8 @@ class Reception extends Model implements Auditable
         'room_id',
         'date_in',
         'date_out',
-        'invoiced'
+        'invoiced',
+        'observation'
     ];
 
     protected $auditInclude = [
@@ -24,6 +25,7 @@ class Reception extends Model implements Auditable
         'room_id',
         'date_in',
         'date_out',
+        'observation',
         'invoiced'
     ];
 

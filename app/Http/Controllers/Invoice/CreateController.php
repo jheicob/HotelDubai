@@ -173,16 +173,24 @@ class CreateController extends Controller
         $debit_note->includeFirstLineDataCompany($full_name, $document);
         // $debit_note->addLineToHead(config('invoice.company'));
         // $debit_note->addLineToHead(config('invoice.rif'));
-        $debit_note->addComment('Factura Fiscal');
+        // $debit_note->addComment('Factura Fiscal');
 
         $invoice->details->map(function ($invoice_detail) use ($debit_note) {
             if ($invoice_detail->productable_type == 'App\Models\ReceptionDetail') {
                 $product = ReceptionDetail::find($invoice_detail->productable_id);
             }
+
+            $iva = 0.16;
+            $cantidad = $invoice_detail->quantity;
+            $total = $invoice_detail->price * $cantidad;
+            $precio = ($total / (1 + $iva));
+
+            $name_product = $product->reception->observation . ' ' . $product->partial_min;
+
             $debit_note->addProduct(
-                $invoice_detail->price,
+                $precio,
                 $invoice_detail->quantity,
-                $product->partial_min
+                $name_product
             );
         });
         $debit_note->applySubTotal();
