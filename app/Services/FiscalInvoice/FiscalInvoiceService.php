@@ -168,11 +168,7 @@ class FiscalInvoiceService
      */
     protected function padWithZeros(float $number, int $quantity_spaces, int $quantity_decimal): string
     {
-        Log::info('precio_llegado:'.$number);
-        Log::info('espacios:'.$quantity_spaces);
-        Log::info('decimales:'.$quantity_decimal);
         $string = number_format($number, $quantity_decimal, '.', '');
-        Log::info('format_number:'.$string);
         $length_number = strlen($string);
         if ($length_number > $quantity_spaces) {
             return $string;
@@ -180,7 +176,7 @@ class FiscalInvoiceService
 
         $spaces_to_pad = $quantity_spaces - $length_number;
         $number_pad_with_zeros = str_pad($string, $spaces_to_pad, "0", STR_PAD_LEFT);
-        
+
         return $number_pad_with_zeros;
     }
 
