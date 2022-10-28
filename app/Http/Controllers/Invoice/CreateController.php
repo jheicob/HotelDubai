@@ -181,13 +181,15 @@ class CreateController extends Controller
                 $product = ReceptionDetail::find($invoice_detail->productable_id);
             }
 
-           $iva = 0.16;
+                      $iva = 0.16;
+ //           Log::info('------producto nuevo------');
             $cantidad = $invoice_detail->quantity;
-            Log::info('cantidad:'.$cantidad);
+   //         Log::info('cantidad:'.$cantidad);
             $total = $invoice_detail->price * $cantidad;
-            Log::info('total:'.$total);
-            $precio = ($total / (1 + $iva));
-            Log::info('precio:'.$precio);
+     //       Log::info('total:'.$total);
+            $precio = round(($total / (1 + $iva)),2);
+       //     Log::info('precio sin iva:'.$precio);
+         //   Log::info('---------------------------');
 
             $name_product = $product->reception->observation . ' ' . $product->partial_min;
 
@@ -224,9 +226,14 @@ class CreateController extends Controller
 
             
             $iva = 0.16;
+      //      Log::info('------producto nuevo------');
             $cantidad = $invoice_detail->quantity;
+        //    Log::info('cantidad:'.$cantidad);
             $total = $invoice_detail->price * $cantidad;
-            $precio = ($total / (1 + $iva));
+          //  Log::info('total:'.$total);
+            $precio = round(($total / (1 + $iva)),2);
+            //Log::info('precio sin iva:'.$precio);
+            //Log::info('---------------------------');
             $name_product = $product->reception->observation . ' ' . $product->partial_min;
 
             $debit_note->addProduct(
