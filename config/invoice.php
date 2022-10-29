@@ -8,6 +8,7 @@ const TYPE_PAGE = [
 ];
 
 return [
+    'local' => env('ENV_MAQ','ED'),
 
     // Nombre de la compañía que se mostrará en la factura
     'company' => 'Hotel Dubai',

@@ -1,6 +1,11 @@
 <template>
-	<div class="col-lg-2 col-xs-6">
-        <section class="tile widget-appointments" :class='room.selectColor(item)'>
+    	<div class="col-1 m-0 p-0 border border-white">
+              
+        <section 
+            class="tile widget-appointments mb-0" 
+            @click="showBody = !showBody "
+            :class='room.selectColor(item,getTimeInMinutesAndSeconds(countdown))' 
+            >
             <div class="tile-header dvd dvd-btm">
                 <h1 class="custom-font" style="font-size: 12px;">
                     {{item.relationships.roomStatus.attributes.name }}
@@ -22,9 +27,7 @@
             </div>
              <!-- /tile header -->
 
-             <div style="font-size: 12px" class="text-center dvd dvd-btm pb-2">
-                    <br>
-                    <br  v-if="!reception.isOcupped(item)">
+             <div style="font-size: 12px" class="text-center dvd dvd-btm pb-2" :style="[showBody == false ? 'display:none':'']">
                   {{item.relationships.partialCost.relationships.roomType.attributes.name }}
                     <br>
                     {{room.showPartialAndRate(item)}}
@@ -126,7 +129,7 @@
                 {{ item.relationships.roomStatus.attributes.name }} -->
             </section>
 
-        </div>
+            </div>
     </template>
 
     <script setup>
@@ -215,6 +218,7 @@ function setNumber(number){
     if(number < 10) return `0${number}`
     return number
 }
+        const showBody = ref(false)
 	// const item.relationships.roomStatus.attributes.name == 'Ocupado'rate = pro.;
 	// let part =
 	// 	pro.item.relationships.partialCost.relationships.partialRate.attributes.name;

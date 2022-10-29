@@ -39,30 +39,19 @@
     </style>
 </head>
 
-<body id="page-top">
+<body id="page-top" >
+
     <div>
         <main>
             <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-
-                <a class="navbar-brand mr-1" href="/">Start Bootstrap</a>
-
-                <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
-                    <i class="fas fa-bars"></i>
-                </button>
+                <a class="navbar-brand mr-1" href="{{route('room.index')}}">
+                    <img src="/img/Logo.png" alt="Logo" width="24" height="24" class="d-inline-block align-text-top">
+                    Hotel Dubai
+                </a>
+                <div class="mx-3"></div>
 
                 <!-- Navbar Search -->
-                <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search for..." aria-label="Search"
-                            aria-describedby="basic-addon2">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">
-                                <i class="fas fa-search"></i>
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
+               
                 <!-- Navbar -->
                 <ul class="navbar-nav ml-auto ml-md-0">
                     {{-- <li class="nav-item dropdown no-arrow mx-1">
@@ -90,38 +79,8 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
-                    </li> --}}
-                    <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-user-circle fa-fw"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" style="color:black" href="{{ route('profile.index') }}">Perfil</a>
-                            <a class="dropdown-item" style="color:black"
-                                href="{{ route('password.index') }}">Contraseña</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#" style="color:black" data-toggle="modal"
-                                data-target="#logoutModal">Logout</a>
-                        </div>
-                    </li>
-                </ul>
-
-            </nav>
-            <div id="wrapper">
-                <!-- Sidebar -->
-                <ul class="sidebar navbar-nav"
-                    style="
-                position: fixed;
-                top: 3.5rem;
-                left: 0;">
-                    <!--<li class="nav-item active">
-                        <a class="nav-link" href="/">
-                            <i class="fas fa-fw fa-tachometer-alt"></i>
-                            <span>Dashboard</span>
-                        </a>
-                    </li>-->
-                    @can('users.index')
+--}}
+  @can('users.index')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('users.index') }}">
                                 <i class="fas fa-users"></i>
@@ -155,15 +114,14 @@
                                 <span>Seguridad</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                                <h6 class="dropdown-header">Seguridad:</h6>
                                 @can('roles.index')
-                                    <a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('roles.index') }}">Roles</a>
                                 @endcan
                                 @can('permissions.index')
-                                    <a class="dropdown-item" href="{{ route('permissions.index') }}">Permisos</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('permissions.index') }}">Permisos</a>
                                 @endcan
                                 @can('logs.index')
-                                    <a class="dropdown-item" href="{{ route('logs.index') }}">Logs</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('logs.index') }}">Logs</a>
                                 @endcan
                             </div>
                         </li>
@@ -177,22 +135,21 @@
                                 <span>Tarifas</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                                <h6 class="dropdown-header">Tarifas:</h6>
                                 @can('partial.cost.index')
-                                    <a class="dropdown-item" href="{{ route('partial.cost.index') }}">Costo Por Parciales</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('partial.cost.index') }}">Costo Por Parciales</a>
                                 @endcan
                                 @can('partial.templates.index')
-                                    <a class="dropdown-item" href="{{ route('partial.templates.index') }}">Plantillas
+                                    <a class="dropdown-item text-dark" href="{{ route('partial.templates.index') }}">Plantillas
                                         Parciales</a>
                                 @endcan
                                 @can('date.templates.index')
-                                    <a class="dropdown-item" href="{{ route('date.templates.index') }}">Plantillas Fechas</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('date.templates.index') }}">Plantillas Fechas</a>
                                 @endcan
                                 @can('day.templates.index')
-                                    <a class="dropdown-item" href="{{ route('day.templates.index') }}">Plantillas Días</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('day.templates.index') }}">Plantillas Días</a>
                                 @endcan
                                 @can('hour.templates.index')
-                                    <a class="dropdown-item" href="{{ route('hour.templates.index') }}">Plantillas Horas</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('hour.templates.index') }}">Plantillas Horas</a>
                                 @endcan
 
                             </div>
@@ -207,40 +164,61 @@
                                 <span>Configuracion</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                                <h6 class="dropdown-header">Configuracion:</h6>
                                 @can('room.type.index')
-                                    <a class="dropdown-item" href="{{ route('room.type.index') }}">Tipo Habitacion</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('room.type.index') }}">Tipo Habitacion</a>
                                 @endcan
                                 {{-- @can('theme.type.index')
                                     <a class="dropdown-item" href="{{ route('theme.type.index') }}">Tipo Tematica</a>
                                 @endcan --}}
                                 @can('estate.type.index')
-                                    <a class="dropdown-item" href="{{ route('estate.type.index') }}">Tipo inmueble</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('estate.type.index') }}">Tipo inmueble</a>
                                 @endcan
                                 @can('partial.rates.index')
-                                    <a class="dropdown-item" href="{{ route('partial.rates.index') }}">Tarifas Parciales</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('partial.rates.index') }}">Tarifas Parciales</a>
                                 @endcan
                                 @can('room.status.index')
-                                    <a class="dropdown-item" href="{{ route('room.status.index') }}">Estado Habitaciones</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('room.status.index') }}">Estado Habitaciones</a>
                                 @endcan
                                 @can('day.week.index')
-                                    <a class="dropdown-item" href="{{ route('day.week.index') }}">Dia Semana</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('day.week.index') }}">Dia Semana</a>
                                 @endcan
                                 @can('system.time.index')
-                                    <a class="dropdown-item" href="{{ route('system.time.index') }}">Horas Sistema</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('system.time.index') }}">Horas Sistema</a>
                                 @endcan
                                 @can('shift.system.index')
-                                    <a class="dropdown-item" href="{{ route('shift.system.index') }}">Turnos Sistema</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('shift.system.index') }}">Turnos Sistema</a>
                                 @endcan
 
                             </div>
                         </li>
                     @endcan
 
+</ul>
+<div class="col"></div>
+<ul class="navbar-nav ml-auto ml-md-0">
+                    <li class="nav-item dropdown no-arrow">
+                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user-circle fa-fw"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" style="color:black" href="{{ route('profile.index') }}">Perfil</a>
+                            <a class="dropdown-item" style="color:black"
+                                href="{{ route('password.index') }}">Contraseña</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#" style="color:black" data-toggle="modal"
+                                data-target="#logoutModal">Logout</a>
+                        </div>
+                    </li>
                 </ul>
-                <div id="content-wrapper" class="ml-r-14">
+
+            </nav>
+            <div id="wrapper">
+                <!-- Sidebar -->
+
+                <div id="content-wrapper" class="">
                     @yield('content')
-                    <footer class="sticky-footer">
+                    <footer class="sticky-footer w-100">
                         <div class="container my-auto">
                             <div class="copyright text-center my-auto">
                                 <span>Copyright © Your Website 2019</span>
@@ -299,16 +277,12 @@
     <script src="{{ asset('js/admin/sb-admin.min.js') }}"></script>
 
     <!-- Demo scripts for this page-->
-    <script src="{{ asset('js/admin/demo/datatables-demo.js') }}"></script>
+    <script src="{{ asset('js/admin/demo/datatables-demo.js') }}"></script>    
     <script src="{{ asset('js/admin/demo/chart-area-demo.js') }}"></script>
     <script>
-        let menu = document.querySelector('#sidebarToggle')
-
-        menu.addEventListener('click', function() {
-            let content = document.querySelector('#content-wrapper')
-            content.classList.toggle('ml-r-14')
-            content.classList.toggle('ml-r-6')
-        })
+       
+        const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
     </script>
 </body>
 

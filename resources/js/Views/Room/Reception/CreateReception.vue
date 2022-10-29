@@ -499,12 +499,12 @@
                                                             ].time_additional
                                                         "
                                                         aria-describedby="basic-addon2"
-                                                        min="1"
+                                                        min="0"
                                                     />
                                                     <span
                                                         class="input-group-text"
                                                         id="basic-addon2"
-                                                        >H</span
+                                                        >x {{detail.partial_min ?? ''}}</span
                                                     >
                                                 </div>
                                             </td>
@@ -693,10 +693,10 @@ import { ocuppyRoomStore } from "../Modals/OcuppyRoomStore";
 import { RoomStore } from "../RoomStore";
 
 const openModal = () => {
-    console.log("aqui");
+//    console.log("aqui");
     let details =
         item.value.relationships.receptionActive.relationships.details;
-    console.log(details);
+//    console.log(details);
     form_invoice.value.reception_details = [];
     details.map((detail) => {
         form_invoice.value.reception_details.push({
@@ -705,8 +705,8 @@ const openModal = () => {
             rate: detail.attributes.rate,
             quantity_partial: detail.attributes.quantity_partial ?? 0,
             observation: detail.attributes.observation,
-            time_additional: detail.attributes.time_additional ?? 0,
-            price_additional: detail.attributes.price_additional ?? 0,
+            time_additional: 0,
+            price_additional: detail.attributes.rate ?? 0,
         });
     });
     $("#exampleModal23").modal("show");

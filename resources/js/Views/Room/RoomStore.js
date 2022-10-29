@@ -189,12 +189,14 @@ export const RoomStore = defineStore('roomStore',() => {
     const UpdateCleanRoom = (item) => {
         changeStatusRoom(item.id,1)
     }
-const selectColor = (item) => {
+const selectColor = (item, countdown) => {
 //console.log(item);
     let css = ''
     switch (item.relationships.roomStatus.attributes.name){
         case 'Ocupada':
-           css = 'bg-dangerr';
+            let hour = countdown.split(':')[0]
+            let minutes = countdown.split(':')[1] 
+            css = (hour == 0) && (minutes < 15) ?  'bg-warning' : 'bg-dangerr';
             break;
         case 'Disponible':
             css = 'bg-greensea'
