@@ -47,6 +47,8 @@ class CreateController extends Controller
                 'observation',
                 'date'
             ]));
+            $invoice->identify = config('invoice.local') . '-' . $invoice->id;
+            $invoice->save();
 
             $reception->details->map(function ($item) use ($invoice) {
                 $data = [
@@ -129,26 +131,6 @@ class CreateController extends Controller
         try {
             $igtf = $request->igtf == 'true' ? true : false;
             $isCancel = $request->isCancel == 'true' ? true : false;
-
-            // if ($invoice->cancelled && $isCancel) {
-            //     return custom_response_error(
-            //         422,
-            //         'Validation error',
-            //         'No se puede volver a cancelar una Factura',
-            //         422
-            //     );
-            // }
-
-            // if ($invoice->status == 'Impreso' && !$isCancel) {
-            //     return custom_response_error(
-            //         422,
-            //         'Validation error',
-            //         'La Factura ya está impresa, contacte con el administrador',
-            //         422
-            //     );
-            // }
-
-            // return ';';
             $client = $invoice->client;
             $client->append('full_name');
 
@@ -169,27 +151,23 @@ class CreateController extends Controller
     private function createDebitNote(Invoice $invoice, $full_name, $document, $igtf)
     {
         $debit_note = new DebitNoteService();
-        $debit_note->setInvoiceId($invoice->id);
-
+        $debit_note->setInvoiceId($invoice->identify);
         $debit_note->includeFirstLineDataCompany($full_name, $document);
-        // $debit_note->addLineToHead(config('invoice.company'));
-        // $debit_note->addLineToHead(config('invoice.rif'));
-        // $debit_note->addComment('Factura Fiscal');
 
         $invoice->details->map(function ($invoice_detail) use ($debit_note) {
             if ($invoice_detail->productable_type == 'App\Models\ReceptionDetail') {
                 $product = ReceptionDetail::find($invoice_detail->productable_id);
             }
 
-                      $iva = 0.16;
- //           Log::info('------producto nuevo------');
+            $iva = 0.16;
+            //           Log::info('------producto nuevo------');
             $cantidad = $invoice_detail->quantity;
-   //         Log::info('cantidad:'.$cantidad);
+            //         Log::info('cantidad:'.$cantidad);
             $total = $invoice_detail->price * $cantidad;
-     //       Log::info('total:'.$total);
-            $precio = round(($total / (1 + $iva)),2);
-       //     Log::info('precio sin iva:'.$precio);
-         //   Log::info('---------------------------');
+            //       Log::info('total:'.$total);
+            $precio = round(($total / (1 + $iva)), 2);
+            //     Log::info('precio sin iva:'.$precio);
+            //   Log::info('---------------------------');
 
             $name_product = $product->reception->observation . ' ' . $product->partial_min;
 
@@ -213,25 +191,22 @@ class CreateController extends Controller
     private function createCreditNote(Invoice $invoice, $full_name, $document, $igtf)
     {
         $debit_note = new CreditNoteService();
-        $debit_note->setInvoiceId($invoice->id);
+        $debit_note->setInvoiceId($invoice->identify);
         $debit_note->includeFirstLineDataCompanyForCN($full_name, $document, $invoice, 'ASZ-129');
-        // $debit_note->addLineToHead(config('invoice.company'));
-        // $debit_note->addLineToHead(config('invoice.rif'));
-        // $debit_note->addComment('Devolución de Factura Fiscal');
 
         $invoice->details->map(function ($invoice_detail) use ($debit_note) {
             if ($invoice_detail->productable_type == 'App\Models\ReceptionDetail') {
                 $product = ReceptionDetail::find($invoice_detail->productable_id);
             }
 
-            
+
             $iva = 0.16;
-      //      Log::info('------producto nuevo------');
+            //      Log::info('------producto nuevo------');
             $cantidad = $invoice_detail->quantity;
-        //    Log::info('cantidad:'.$cantidad);
+            //    Log::info('cantidad:'.$cantidad);
             $total = $invoice_detail->price * $cantidad;
-          //  Log::info('total:'.$total);
-            $precio = round(($total / (1 + $iva)),2);
+            //  Log::info('total:'.$total);
+            $precio = round(($total / (1 + $iva)), 2);
             //Log::info('precio sin iva:'.$precio);
             //Log::info('---------------------------');
             $name_product = $product->reception->observation . ' ' . $product->partial_min;
