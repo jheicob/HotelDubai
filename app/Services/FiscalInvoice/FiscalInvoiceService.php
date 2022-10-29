@@ -287,7 +287,7 @@ class FiscalInvoiceService
         self::addLine($line);
 
         $line = config('invoice.commands.printer') . '|';
-        $line .= $this->invoice_id;
+        $line .= config('invoice.local').'-'.$this->invoice_id;
         self::addLine($line);
 
         header('Content-Type: application/plain-text');
