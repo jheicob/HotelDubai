@@ -13,11 +13,13 @@ use App\Models\ReceptionDetail;
 use App\Services\FiscalInvoice\DebitNoteService;
 use App\Services\FiscalInvoice\CreditNoteService;
 use App\Services\Invoice\InvoiceService;
+use App\Traits\Configurations\GeneralConfiguration;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class CreateController extends Controller
 {
+    use GeneralConfiguration;
     protected $service;
 
     public function __construct(InvoiceService $service)
@@ -192,7 +194,7 @@ class CreateController extends Controller
     {
         $debit_note = new CreditNoteService();
         $debit_note->setInvoiceId($invoice->identify);
-        $debit_note->includeFirstLineDataCompanyForCN($full_name, $document, $invoice, 'ASZ-129');
+        $debit_note->includeFirstLineDataCompanyForCN($full_name, $document, $invoice, $this->getFiscalMachineSerial());
 
         $invoice->details->map(function ($invoice_detail) use ($debit_note) {
             if ($invoice_detail->productable_type == 'App\Models\ReceptionDetail') {

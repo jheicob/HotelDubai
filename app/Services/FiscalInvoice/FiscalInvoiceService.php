@@ -2,11 +2,14 @@
 
 namespace App\Services\FiscalInvoice;
 
+use App\Traits\Configurations\GeneralConfiguration;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
 
 class FiscalInvoiceService
 {
+
+    use GeneralConfiguration;
 
 
     /**
@@ -287,7 +290,7 @@ class FiscalInvoiceService
         self::addLine($line);
 
         $line = config('invoice.commands.printer') . '|';
-        $line .= config('invoice.local').'-'.$this->invoice_id;
+        $line .= $this->getEnv() . '-' . $this->invoice_id;
         self::addLine($line);
 
         header('Content-Type: application/plain-text');

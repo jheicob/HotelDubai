@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             RoleSeeder::class,
             //------------
+            ConfigurationSeeder::class,
             DayWeekSeeder::class,
             PartialRateSeeder::class,
             RoomStatuseSeeder::class,
