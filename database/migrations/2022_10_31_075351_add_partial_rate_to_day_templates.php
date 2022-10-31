@@ -15,6 +15,7 @@ class AddPartialRateToDayTemplates extends Migration
     {
         Schema::table('day_templates', function (Blueprint $table) {
             $table->foreignId('partial_rate_id')
+                ->nullable()
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('restrict');

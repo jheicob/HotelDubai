@@ -15,6 +15,7 @@ class AddPartialRateToHourTemplates extends Migration
     {
         Schema::table('hour_templates', function (Blueprint $table) {
             $table->foreignId('partial_rate_id')
+                ->nullable()
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('restrict');

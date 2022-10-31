@@ -15,6 +15,7 @@ class HourTemplate extends Model implements Auditable
     protected $fillable = [
         'room_type_id',
         'shift_system_id',
+        'partial_rate_id',
         'rate',
         'hour',
         'hour_end'
@@ -24,15 +25,23 @@ class HourTemplate extends Model implements Auditable
         'room_type_id',
         'shift_system_id',
         'rate',
+        'partial_rate_id',
         'hour',
         'hour_end'
     ];
 
-    public function roomType(){
+    public function roomType()
+    {
         return $this->belongsTo(RoomType::class);
     }
 
-    public function shiftSystem(){
+    public function shiftSystem()
+    {
         return $this->belongsTo(ShiftSystem::class);
+    }
+
+    public function estateType()
+    {
+        return $this->belongsTo(EstateType::class);
     }
 }

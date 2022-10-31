@@ -15,6 +15,7 @@ class AddPropertyTypeToRooms extends Migration
     {
         Schema::table('rooms', function (Blueprint $table) {
             $table->foreignId('estate_type_id')
+                ->nullable()
                 ->constrained()
                 ->onUpdate('cascade')
                 ->onDelete('restrict');

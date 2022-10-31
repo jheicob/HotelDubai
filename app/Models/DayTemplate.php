@@ -17,16 +17,19 @@ class DayTemplate extends Model implements Auditable
     protected $fillable = [
         'room_type_id',
         'day_week_id',
+        'partial_rate_id',
         'rate',
     ];
 
-    protected $auditInclude =[
+    protected $auditInclude = [
         'room_type_id',
+        'partial_rate_id',
         'day_week_id',
         'rate',
     ];
 
-    public function roomType(){
+    public function roomType()
+    {
         return $this->belongsTo(RoomType::class);
     }
 
@@ -38,5 +41,10 @@ class DayTemplate extends Model implements Auditable
     public function dayWeek()
     {
         return $this->belongsTo(DayWeek::class);
+    }
+
+    public function estateType()
+    {
+        return $this->belongsTo(EstateType::class);
     }
 }
