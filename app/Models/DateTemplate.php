@@ -32,8 +32,8 @@ class DateTemplate extends Model implements Auditable
         return $this->belongsTo(RoomType::class);
     }
 
-    public function estateType()
+    public function partialRate()
     {
-        return $this->belongsTo(EstateType::class);
+        return $this->belongsTo(PartialRates::class);
     }
 }

@@ -24,7 +24,7 @@ class DayTemplateResource extends JsonResource
             'relationships' => [
                 'roomType' => $this->whenLoaded('roomType',fn () => RoomTypeResource::make($this->resource->roomType)),
                 'dayWeek'  => $this->whenLoaded('dayWeek',fn () => RoomTypeResource::make($this->resource->dayWeek)),
-
+                'partialRate' => $this->whenLoaded('partialRate', fn() => \App\Http\Resources\PartialRateResource::make($this->resource->partialRate)),
             ],
         ];
     }

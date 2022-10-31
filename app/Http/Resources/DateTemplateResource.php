@@ -23,6 +23,7 @@ class DateTemplateResource extends JsonResource
             ],
             'relationships' => [
                 'roomType'    => $this->whenLoaded('roomType', fn() => RoomTypeResource::make($this->resource->roomType)),
+                'partialRate'    => $this->whenLoaded('partialRate', fn() => RoomTypeResource::make($this->resource->partialRate)),
             ],
         ];
     }

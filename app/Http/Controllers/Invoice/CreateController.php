@@ -77,7 +77,7 @@ class CreateController extends Controller
 
             // $invoice_details = $invoice->details()->create()
             $reception->update(['invoiced' => true]);
-            $roomStatus = \App\Models\RoomStatus::firstWhere('name', 'Disponible');
+            $roomStatus = \App\Models\RoomStatus::firstWhere('name', 'Sucia');
             $reception->room->update(['room_status_id' => $roomStatus->id]);
             DB::commit();
 
@@ -231,10 +231,15 @@ class CreateController extends Controller
         return $debit_note->download('', self::sumPaymentInDivisa($invoice));
     }
 
-    private function sumPaymentInDivisa(Invoice $invoice): int
+    private function sumPaymentInDivisa(Invoice $invoice): float
     {
         $payments = $invoice->payments->where('type', 'divisa');
-        if ($payments->count() > 0) return $payments->sum('quantity');
+        $sum = 0;
+        if ($payments->count() > 0){
+            $sum = $payments->sum('quantity');
+            return round(($sum / 1.03),2); // el 3% del igtf
+        } 
+ //       return $payments->sum('quantity');
         return 0;
     }
 }

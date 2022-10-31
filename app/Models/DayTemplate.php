@@ -43,8 +43,8 @@ class DayTemplate extends Model implements Auditable
         return $this->belongsTo(DayWeek::class);
     }
 
-    public function estateType()
+    public function partialRate()
     {
-        return $this->belongsTo(EstateType::class);
+        return $this->belongsTo(PartialRate::class);
     }
 }
