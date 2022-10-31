@@ -11,7 +11,8 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
-class RoomService {
+class RoomService
+{
 
     protected $room;
 
@@ -22,7 +23,9 @@ class RoomService {
     protected $date;
     protected $room_type_id;
     protected $dayName;
-    public function __construct(Room $room,bool $renew = false)
+    protected $partial_min;
+
+    public function __construct(Room $room, bool $renew = false)
     {
         $this->room = $room;
         $this->renew = $renew;
@@ -30,28 +33,28 @@ class RoomService {
         self::setVars();
     }
 
-    private function setVars(){
+    private function setVars()
+    {
 
-        if($this->renew){
+        if ($this->renew) {
             $this->room->load('roomActive');
-            $detail = ClientRoom::where('room_id',$this->room->id)
-                        ->where('client_id',$this->room->roomActive[0]->id)
-                        ->where('invoiced',false)
-                        ->orderBy('date_out','desc')
-                        ->first()
-                        ;
+            $detail = ClientRoom::where('room_id', $this->room->id)
+                ->where('client_id', $this->room->roomActive[0]->id)
+                ->where('invoiced', false)
+                ->orderBy('date_out', 'desc')
+                ->first();
             $this->now = Carbon::parse($detail->date_out);
-        }else{
+        } else {
             $this->now = Carbon::now();
         }
         $this->acum = $this->room->partialCost->rate;
         $this->dayName = $this->now->locale('es')->dayName;
         $this->date = $this->now->format('m/d');
-
     }
 
 
-    public function getRateByConditionals(){
+    public function getRateByConditionals()
+    {
 
 
         $this->acum += self::getRateByDate($this->date);
@@ -64,20 +67,19 @@ class RoomService {
     private function getRateByDay($dayNameCurrent): int
     {
         // falta mostrar todo lo que se esta aplicando para mostrarlo en el detalle de ñla habitacion
-        // falta tambien agregar rango de horas para las fechas
 
-        $day_template = DayTemplate::whereHas('dayWeek',function(Builder $builder) use ($dayNameCurrent){
+        $day_template = DayTemplate::whereHas('dayWeek', function (Builder $builder) use ($dayNameCurrent) {
             return $builder->where(
-                                DB::raw('lower(name)'),
-                                'like',
-                                DB::raw("lower('$dayNameCurrent')")
-                            );
-                    })
-                    ->where('room_type_id',$this->room_type_id)
-                    ->first()
-                    ;
+                DB::raw('lower(name)'),
+                'like',
+                DB::raw("lower('$dayNameCurrent')")
+            );
+        })
+            ->where('room_type_id', $this->room_type_id)
+            ->first();
 
-        if($day_template != ''){
+        if ($day_template != '') {
+            self::getPartialCostByRoomTypeAndPartial($day_template->room_type_id, $day_template->partial_rate_id);
             return (int) $day_template->rate;
         }
         return 0;
@@ -91,12 +93,13 @@ class RoomService {
      */
     private function getRateByDate($dateCurrent): int
     {
-        $date_template = DateTemplate::where('date',$dateCurrent)
-                    ->where('room_type_id',$this->room_type_id)
-                    ->first()
-                    ;
+        $date_template = DateTemplate::where('date', $dateCurrent)
+            ->where('room_type_id', $this->room_type_id)
+            ->first();
 
-        if($date_template != ''){
+        if ($date_template != '') {
+            self::getPartialCostByRoomTypeAndPartial($date_template->room_type_id, $date_template->partial_rate_id);
+
             return (int) $date_template->rate;
         }
         return 0;
@@ -104,23 +107,24 @@ class RoomService {
 
     private function getRateByHour(): int
     {
-        $hour_template = HourTemplate::where('room_type_id',$this->room_type_id)
-                    ->get()
-                    ;
+        $hour_template = HourTemplate::where('room_type_id', $this->room_type_id)
+            ->get();
 
-        if($hour_template->count() == 0){
+        if ($hour_template->count() == 0) {
             return 0;
         }
 
         $now = Carbon::now();
-        $bool = $hour_template->map(function($hour) use ($now){
+        $bool = $hour_template->map(function ($hour) use ($now) {
             $start = self::setHourByString($hour->hour);
             $end = self::setHourByString($hour->hour_end);
-            if($now >= $start && $now <= $end){
+            if ($now >= $start && $now <= $end) {
                 return $hour;
             }
         })->filter()->first();
-        if($bool != ''){
+        if ($bool != '') {
+            self::getPartialCostByRoomTypeAndPartial($bool->room_type_id, $bool->partial_rate_id);
+
             return (int) $bool->rate;
         }
         return 0;
@@ -128,11 +132,33 @@ class RoomService {
 
     private function setHourByString(string $hour_start): Carbon
     {
-        $hour = explode(':',$hour_start);
+        $hour = explode(':', $hour_start);
         $now = Carbon::now();
         $now->hour   = $hour[0];
         $now->minute = $hour[1];
 
         return $now;
+    }
+
+    public function getPartialByConditionals()
+    {
+        return $this->partial_min;
+    }
+
+    private function updatePartialCost(int $partial_cost_id)
+    {
+        $this->room->update(['partial_cost_id' => $partial_cost_id]);
+    }
+
+    private function getPartialCostByRoomTypeAndPartial(int $room_type_id, int $partial_rate_id)
+    {
+        $partial_cost =  \App\Models\PartialCost::where('room_type_id', $room_type_id)
+            ->where('partial_rates_id', $partial_rate_id)
+            ->first();
+
+        if ($partial_cost == '') {
+            return $this->room->partial_cost_id;
+        }
+        self::updatePartialCost($partial_cost->id);
     }
 }

@@ -200,20 +200,41 @@ class RoomTest extends TestCase
     /**
      * @test
      */
-    public function change_status_to_room(){
+    public function change_status_to_room()
+    {
         $room = Room::factory()->create([
             'room_status_id' => 1
         ]);
-        $user = User::firstWhere('email','testing@c.c');
+        $user = User::firstWhere('email', 'testing@c.c');
 
         $response = $this
-                        ->actingAs($user)
-                        ->postJson(route('room.change.status',['room'=>$room->id]),[
-                            'room_status_id' => 3
-                        ]);
+            ->actingAs($user)
+            ->postJson(route('room.change.status', ['room' => $room->id]), [
+                'room_status_id' => 3
+            ]);
 
         $response->assertOk();
         $room->refresh();
-        $this->assertEquals(3,$room->room_status_id);
+        $this->assertEquals(3, $room->room_status_id);
+    }
+
+    /**
+     * @test
+     */
+    public function room_with_day_templates()
+    {
+        $room = Room::orderBy('created_at', 'desc')->first();
+        $day_template = \App\Models\DayTemplate::create([
+            'room_type_id'    => $room->partialCost->room_type_id,
+            'partial_rate_id' => 1, // partial of 6h
+            'day_week_id'     => 1, //Monday
+            'rate'            => 0,
+        ]);
+
+        $partial_cost_current = $room->partial_cost_id;
+        (new \App\Services\RoomService\RoomService($room))->getRateByConditionals();
+        $partial_cost_new = $room->partial_cost_id;
+
+        $this->assertNotEquals($partial_cost_current, $partial_cost_new);
     }
 }
