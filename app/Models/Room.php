@@ -20,19 +20,23 @@ class Room extends Model implements Auditable
         'room_status_id',
         'partial_cost_id',
         'description',
-        'name'
+        'name',
+        'estate_type_id',
+
     ];
 
     // fields to audit
     protected $auditInclude = [
         'room_status_id',
         'partial_cost_id',
+        'estate_type_id',
         'description',
         'name'
 
     ];
 
-    public function roomStatus(){
+    public function roomStatus()
+    {
         return $this->belongsTo(RoomStatus::class);
     }
 
@@ -46,7 +50,8 @@ class Room extends Model implements Auditable
     /**
      * get the clients that belongs many to this room
      */
-    public function clients(){
+    public function clients()
+    {
         return $this->belongsToMany(Client::class)->using(ClientRoom::class);
     }
 
@@ -55,39 +60,39 @@ class Room extends Model implements Auditable
      *
      * @return void
      */
-    public function roomActive(){
+    public function roomActive()
+    {
         return $this->belongsToMany(Client::class)
-                    ->using(ClientRoom::class)
-                    ->withPivot([
-                        'date_in',
-                        'date_out',
-                        'partial_min',
-                        'rate',
-                        'observation',
-                        'quantity_partial',
-                        'time_additional',
-                        'price_additional',
-                        'invoiced'
-                    ])
-                    ->wherePivot('invoiced',false)
-                    ;
+            ->using(ClientRoom::class)
+            ->withPivot([
+                'date_in',
+                'date_out',
+                'partial_min',
+                'rate',
+                'observation',
+                'quantity_partial',
+                'time_additional',
+                'price_additional',
+                'invoiced'
+            ])
+            ->wherePivot('invoiced', false);
     }
 
-    public function receptions(){
+    public function receptions()
+    {
         return $this->hasMany(Reception::class);
     }
 
     public function receptionActive()
     {
-        return $this->receptions()->where('invoiced',false);
+        return $this->receptions()->where('invoiced', false);
     }
-  public function scopeIsCamarero(Builder $query) {
+    public function scopeIsCamarero(Builder $query)
+    {
         $role = Auth::user()->roles->first();
-        
-        return $query->when($role->name == 'Camarero',function(Builder $q){
-            return $q->where('room_status_id',1); // 1 is Sucia
+
+        return $query->when($role->name == 'Camarero', function (Builder $q) {
+            return $q->where('room_status_id', 1); // 1 is Sucia
         });
     }
-
-
 }
