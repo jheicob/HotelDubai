@@ -30,6 +30,7 @@ class RoomService
         $this->room = $room;
         $this->renew = $renew;
         $this->room_type_id = $this->room->partialCost->room_type_id;
+        $this->partial_min  = $this->room->partialCost->partial_rates_id;
         self::setVars();
     }
 
@@ -147,7 +148,7 @@ class RoomService
 
     private function updatePartialCost(int $partial_cost_id)
     {
-        $this->room->update(['partial_cost_id' => $partial_cost_id]);
+        // $this->room->update(['partial_cost_id' => $partial_cost_id]);
     }
 
     private function getPartialCostByRoomTypeAndPartial(int $room_type_id, int $partial_rate_id)
@@ -159,6 +160,7 @@ class RoomService
         if ($partial_cost == '') {
             return $this->room->partial_cost_id;
         }
-        self::updatePartialCost($partial_cost->id);
+        // self::updatePartialCost($partial_cost->id);
+        return $this->partial_min = $partial_cost->id;
     }
 }

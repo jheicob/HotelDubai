@@ -26,18 +26,27 @@ class IndexController extends Controller
                 'receptionActive.client',
                 'receptionActive.details',
             ])->withTrashed()
-            ->IsCamarero()
-              ->get();
+                ->IsCamarero()
+                ->get();
 
-            $room->transform(function($value){
-                $rate = (new RoomService($value))->getRateByConditionals();
+            $room->transform(function ($value) {
+                $rate = (new RoomService($value));
                 $value->append('rate_current');
-                $value->rate_current = $rate;
+                $value->rate_current = $rate->getRateByConditionals();
+                $value->partial_cost_id = $rate->getPartialByConditionals();
                 return $value;
-                });
+            });
+
+            $room->load([
+                'roomStatus',
+                'partialCost.roomType',
+                'partialCost.partialRate',
+                'receptionActive.client',
+                'receptionActive.details',
+            ]);
             return RoomResource::collection($room);
         } catch (\Exception $e) {
-            return custom_response_exception($e,__('errors.server.title'),500);
+            return custom_response_exception($e, __('errors.server.title'), 500);
         }
     }
 }

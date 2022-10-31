@@ -53,13 +53,16 @@ class CreateController extends Controller
             $partial_rate = $room->partialCost->partialRate;
             $partial_rate->append('number_hour');
 
-            $rate = (new RoomService($room))->getRateByConditionals();
+            $room_service = (new RoomService($room));
+            $rate = $room_service->getRateByConditionals();
+            $partialCost_new = $room_service->getPartialByConditionals();
+            $partial_rate_new = \App\Models\PartialCost::find($partialCost_new)->partialRate->name;
 
             $quantity_total_hours = $request->quantity_partial * $partial_rate->number_hour;
 
             $request->merge([
                 'date_out' => Carbon::parse($request->date_in)->addHours($quantity_total_hours),
-                'partial_min' => $partial_rate->name,
+                'partial_min' => $partial_rate_new,
                 'rate' => $rate,
             ]);
 
@@ -107,7 +110,7 @@ class CreateController extends Controller
             $reception->details->map(function ($detail) {
                 $detail->delete();
             });
-            
+
             $room = $reception->room;
             $room->update(['room_status_id' => 2]);
             $reception->delete();
@@ -132,7 +135,7 @@ class CreateController extends Controller
     {
         $reception->update([
             'date_out' => Carbon::parse($reception->date_out)->addHours($quantity_total_hours),
-                'observation' => $request->observation
+            'observation' => $request->observation
         ]);
         $reception->details()->create($request->only([
             'partial_min',
