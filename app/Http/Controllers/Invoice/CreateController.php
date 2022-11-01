@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Log;
 class CreateController extends Controller
 {
     use GeneralConfiguration;
+    protected $aum_neto;
     protected $service;
 
     public function __construct(InvoiceService $service)
@@ -162,14 +163,7 @@ class CreateController extends Controller
             }
 
             $iva = 0.16;
-            //           Log::info('------producto nuevo------');
-            $cantidad = $invoice_detail->quantity;
-            //         Log::info('cantidad:'.$cantidad);
-            $total = $invoice_detail->price * $cantidad;
-            //       Log::info('total:'.$total);
-            $precio = round(($total / (1 + $iva)), 2);
-            //     Log::info('precio sin iva:'.$precio);
-            //   Log::info('---------------------------');
+            $precio = self::calculatePriceOfProduct($invoice_detail);
 
             $name_product = $product->reception->observation . ' ' . $product->partial_min;
 
@@ -187,6 +181,22 @@ class CreateController extends Controller
         return $debit_note->download('', self::sumPaymentInDivisa($invoice));
     }
 
+    private function calculatePriceOfProduct($invoice_detail)
+    {
+        $iva = 0.16;
+        //           Log::info('------producto nuevo------');
+        $cantidad = $invoice_detail->quantity;
+        //         Log::info('cantidad:'.$cantidad);
+        $total = $invoice_detail->price * $cantidad;
+        //       Log::info('total:'.$total);
+        $precio = round(($total / (1 + $iva)), 2);
+        //     Log::info('precio sin iva:'.$precio);
+        //   Log::info('---------------------------');
+        $this->acum_neto += $precio;
+
+        return $precio;
+    }
+
     /**
      * create a credit note
      */
@@ -201,16 +211,9 @@ class CreateController extends Controller
                 $product = ReceptionDetail::find($invoice_detail->productable_id);
             }
 
-
             $iva = 0.16;
-            //      Log::info('------producto nuevo------');
-            $cantidad = $invoice_detail->quantity;
-            //    Log::info('cantidad:'.$cantidad);
-            $total = $invoice_detail->price * $cantidad;
-            //  Log::info('total:'.$total);
-            $precio = round(($total / (1 + $iva)), 2);
-            //Log::info('precio sin iva:'.$precio);
-            //Log::info('---------------------------');
+            $precio = self::calculatePriceOfProduct($invoice_detail);
+
             $name_product = $product->reception->observation . ' ' . $product->partial_min;
 
             $debit_note->addProduct(
@@ -235,11 +238,11 @@ class CreateController extends Controller
     {
         $payments = $invoice->payments->where('type', 'divisa');
         $sum = 0;
-        if ($payments->count() > 0){
+        if ($payments->count() > 0) {
             $sum = $payments->sum('quantity');
-            return round(($sum / 1.03),2); // el 3% del igtf
-        } 
- //       return $payments->sum('quantity');
+            return round(($sum / 1.03), 2); // el 3% del igtf 103
+        }
+        //       return $payments->sum('quantity');
         return 0;
     }
 }
