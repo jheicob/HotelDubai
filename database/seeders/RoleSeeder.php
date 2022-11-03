@@ -182,6 +182,7 @@ class RoleSeeder extends Seeder
 
         $recepcionista_role->givePermissionTo([
             'room.index',
+                'estate.type.getPaginate',
             'room.getPaginate',
             'room.get',
             'room.occuppy',
@@ -211,9 +212,12 @@ class RoleSeeder extends Seeder
 
         $camarero_role->givePermissionTo([
             'room.index',
+                'partial.cost.getPaginate',
             'room.free',
             'room.getPaginate',
+                'estate.type.getPaginate',
             'room.get',
+                'room.type.getPaginate',
             'room.updated',
             'room.status.getPaginate',
             'room.free'
@@ -221,6 +225,7 @@ class RoleSeeder extends Seeder
 
         $supervisor_role->givePermissionTo([
             'room.index',
+                'estate.type.getPaginate',
             'room.getPaginate',
             'room.changeParcial',
             'room.get',
