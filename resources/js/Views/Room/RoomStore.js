@@ -254,6 +254,9 @@ const showCreateReception = (room) => {
     if(!useHelper.permiss.ocuppy) {
         return
     }
+    if(room.relationships.roomStatus.id != 2 && room.relationships.roomStatus.id != 4){
+        return;
+    }
     show.value = true;
     item.value = room
     if(room.relationships.receptionActive != null){
