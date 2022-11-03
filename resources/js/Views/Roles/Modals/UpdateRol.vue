@@ -51,6 +51,19 @@
 							track-by="id"
 						>
 						</multiselect>
+
+						<label for="checkedPermissions" class="form-label"
+							>Tipos de Inmueble</label
+						>
+						<multiselect
+							v-model="form.estates_types"
+							id="checkedPermissions"
+							:options="estates_types"
+							:multiple="true"
+							label="name"
+							track-by="id"
+						>
+						</multiselect>
 					</div>
 					<div class="modal-footer">
 						<a
@@ -86,12 +99,15 @@
 		components: {
 			Multiselect,
 		},
-
+		mounted(){
+			this.getEstateTypes() 
+		},
 		created() {},
 		data() {
 			return {
 				form: this.getClearFormObject(),
 				permissions: [],
+				estates_types: [],
 			};
 		},
 		methods: {
@@ -109,6 +125,17 @@
 						this.$emit("GetCreatedRol");
 					})
 					.catch((error) => {});
+			},
+			getEstateTypes() {
+				var urlKeeps = "/configuracion/estate-type/get";
+				axios
+					.get(urlKeeps)
+					.then((response) => {
+						this.estates_types = response.data.data.map(function (elt) {
+							return { name: elt.attributes.name, id: elt.id };
+						});
+					})
+					.catch((err) => {});
 			},
 			getKeeps: function () {
 				var urlKeeps = "/permissions/get";
@@ -130,6 +157,11 @@
 				) {
 					return { name: elt.attributes.name, id: elt.id };
 				});
+				this.form.estates_types = role.relationships.estateTypes.map(function (
+					elt
+				) {
+					return { name: elt.attributes.name, id: elt.id };
+				});
 				this.getKeeps();
 			},
 			getClearFormObject() {
@@ -137,6 +169,7 @@
 					id: null,
 					name: null,
 					permission_id: [],
+					estates_types: [],
 				};
 			},
 		},

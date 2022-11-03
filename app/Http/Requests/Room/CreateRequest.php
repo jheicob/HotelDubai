@@ -30,6 +30,7 @@ class CreateRequest extends FormRequest
             'room_status_id' => 'required|exists:room_statuses,id',
             'partial_cost_id' => 'required|exists:partial_costs,id',
             'description' => 'required|string',
+            'estate_type_id' => 'required|exists:estate_types,id',
             'name'      => 'required|string'
         ];
     }

@@ -16,8 +16,17 @@ class UpdatedController extends Controller
         try {
             DB::beginTransaction();
 
-            $id->update($request->all());
-            $id->syncPermissions($request->get('permission_id'));
+            $role = \App\Models\Role::find($id->id);
+            $role->update($request->all());
+            $role->syncPermissions($request->get('permission_id'));
+
+            $id = [];
+
+            foreach($request->estates_types as $estates_type){
+                $id[] = $estates_type['id'];
+            }
+
+            $role->estateTypes()->sync($id);
             DB::commit();
 
             return response()->json(Response::HTTP_OK);

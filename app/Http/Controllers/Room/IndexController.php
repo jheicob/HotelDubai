@@ -19,13 +19,8 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $room = Room::with([
-                'roomStatus',
-                'partialCost.roomType',
-                'partialCost.partialRate',
-                'receptionActive.client',
-                'receptionActive.details',
-            ])->withTrashed()
+            $room = Room::withTrashed()
+                ->IsNotAdmin()
                 ->IsCamarero()
                 ->get();
 
@@ -39,6 +34,7 @@ class IndexController extends Controller
 
             $room->load([
                 'roomStatus',
+                'estateType',
                 'partialCost.roomType',
                 'partialCost.partialRate',
                 'receptionActive.client',

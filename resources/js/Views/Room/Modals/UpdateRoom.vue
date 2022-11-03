@@ -141,6 +141,23 @@
 									{{ keep.attributes.name }}
 								</option>
 							</select>
+						<label for="name" class="form-label">Pertenece a:</label>
+						<select
+							class="form-select"
+							aria-label="Default select example"
+							v-model="form.estate_type_id"
+						> 
+							<option selected value="">
+								Seleccione tipo de inmueble
+							</option>
+							<option
+								v-for="keep in useStore.estateTypes"
+								:key="keep.id"
+								:value="keep.id"
+							>
+								{{ keep.attributes.name }}
+							</option>
+						</select>
 						</div>
 					</div>
 					<div class="modal-footer">
@@ -189,5 +206,6 @@
 		getPartialCost();
 		getRoomType();
 		getRoomStatus();
+		useStore.getEstateTypes()
 	});
 </script>

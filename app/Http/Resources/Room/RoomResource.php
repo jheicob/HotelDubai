@@ -36,6 +36,9 @@ class RoomResource extends JsonResource
                 'partialCost' => $this->whenLoaded('partialCost', function() {
                     return PartialCostResource::make($this->resource->partialCost);
                 }),
+                'estateType' => $this->whenLoaded('estateType', function() {
+                    return RoomTypeResource::make($this->resource->estateType);
+                }),
                 'receptionActive' => $this->whenLoaded('receptionActive', function() {
                     if($this->resource->receptionActive->first()){
                         return ReceptionResource::make($this->resource->receptionActive->first());

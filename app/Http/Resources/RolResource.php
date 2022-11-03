@@ -26,6 +26,9 @@ class RolResource extends JsonResource
                 'permissions' => $this->whenLoaded('permissions', function() {
                     return PermissionResource::collection($this->resource->permissions);
                 }),
+                'estateTypes' => $this->whenLoaded('estateTypes', function() {
+                    return RoomTypeResource::collection($this->resource->estateTypes);
+                })
             ],
         ];
     }

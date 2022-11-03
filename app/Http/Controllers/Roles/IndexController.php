@@ -19,8 +19,12 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $role = Role::with('permissions')->get();
-
+            $role = \App\Models\Role::with([
+                'permissions',
+                'estateTypes'
+            ])->get();
+            
+ //           return $role;
             return RolResource::collection($role);
         } catch (ValidationException $ex) {
             return response()->json([

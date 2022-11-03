@@ -22,7 +22,6 @@ class Room extends Model implements Auditable
         'description',
         'name',
         'estate_type_id',
-
     ];
 
     // fields to audit
@@ -32,7 +31,6 @@ class Room extends Model implements Auditable
         'estate_type_id',
         'description',
         'name'
-
     ];
 
     public function roomStatus()
@@ -40,6 +38,9 @@ class Room extends Model implements Auditable
         return $this->belongsTo(RoomStatus::class);
     }
 
+    public function estateType(){
+        return $this->belongsTo(EstateType::class);
+    }
 
     // get the partialCost that belongs to this room
     public function partialCost()
@@ -95,4 +96,20 @@ class Room extends Model implements Auditable
             return $q->where('room_status_id', 1); // 1 is Sucia
         });
     }
+
+    public function scopeIsNotAdmin(Builder $query){
+        $user = \Illuminate\Support\Facades\Auth::user();
+        $role = $user->roles->first();
+
+        if($role->name != 'Admin'){
+            $rol = Role::find($role->id);
+            $id_estate = [];
+
+            foreach($rol->estateTypes as $estateType) {
+                $id_estate[] = $estateType['id'];
+            }
+            return $query->whereIn('estate_type_id',$id_estate);
+        }
+    }
+
 }
