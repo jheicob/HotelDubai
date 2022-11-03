@@ -31,6 +31,7 @@ export const RoomStore = defineStore('roomStore',() => {
             rate: "",
             partial_cost_id: "",
             room_status_id: "",
+            estate_type_id: ''
         }
     }
 
@@ -45,6 +46,7 @@ export const RoomStore = defineStore('roomStore',() => {
             rate: item.relationships.partialCost.attributes.rate,
             partial_cost_id: item.relationships.partialCost.id,
             room_status_id: item.relationships.roomStatus.id,
+            estate_type_id: item.relationships.estateType?.id ?? ''
         }
     }
 
@@ -100,6 +102,16 @@ export const RoomStore = defineStore('roomStore',() => {
             .catch((err) => {});
     }
 
+    const estateTypes = ref([])
+    const getEstateTypes = () => {
+        var urlKeeps = "/configuracion/estate-type/get";
+        axios
+            .get(urlKeeps)
+            .then((response) => {
+                estateTypes.value = response.data.data;
+            })
+            .catch((err) => {});
+    }
     const filterRoomsByStatus = (statusId = null) => {
         if(rooms.value.length == 0){
             rooms.value = all.value
@@ -118,7 +130,24 @@ export const RoomStore = defineStore('roomStore',() => {
             all.value = rooms.value
         }
     }
+    const filterRoomsByEstateType = (statusId = null) => {
+        if(rooms.value.length == 0){
+            rooms.value = all.value
+        }
 
+        if(rooms.value.length != all.value.length){
+            all.value = rooms.value
+        }
+
+        if(statusId){
+            all.value = all.value.filter ((item) => {
+//                console.log(item);
+                if(item.relationships.estateType?.id == statusId) return true
+            })
+        }else{
+            all.value = rooms.value
+        }
+    }
     const setRooms = async () => {
         await useHelper.getAll()
         rooms.value = all.value
@@ -234,7 +263,7 @@ const showCreateReception = (room) => {
     }else{
 
         updated_reception.value = false
-//console.log('no item')
+//console.log('no useStore.item')
     OcuppyRoom.clearForm()
     }
     
@@ -267,6 +296,8 @@ const showCreateReception = (room) => {
         showDetail,
         description,
         rooms,
-        filterRoomsByStatus
+        filterRoomsByStatus,
+        getEstateTypes,
+        estateTypes,filterRoomsByEstateType 
     }
 })

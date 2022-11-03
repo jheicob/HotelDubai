@@ -14,7 +14,12 @@
 		    <div class="row justify-content-between ">
 		    	<div class="col-2 my-auto">
 			  		<i class="fas fa-table"></i>
-					Data Habitaciones
+					<select class="mx-3" @change="getAllWithFilter" v-model="estate_type_id">
+						<option value=''>Todo</option>
+						<option v-for="(item,i) in useStore.estateTypes" :value="item.id">
+							{{item.attributes.name}}
+						</option>
+					</select>
 				</div>
 				<div
 		 			class="text-right btn-group col"
@@ -110,7 +115,7 @@ import ButtonComponent from "@/components/ButtonComponent.vue";
 import RoomsGrid from "./RoomsGrid.vue";
 import { RoomStore } from "../RoomStore";
 import { storeToRefs } from "pinia";
-import { onMounted } from "vue";
+import { onMounted,ref } from "vue";
 const useHelper = HelperStore();
 const useStore = RoomStore();
 
@@ -118,6 +123,12 @@ const { permiss, all, item } = storeToRefs(useHelper);
 const { ShowCreateModal, ShowUpdatedModal, deleteItem } = useHelper;
 const { rooms } = storeToRefs(useStore);
 const { filterRoomsByStatus } = useStore;
+
+const estate_type_id = ref('')
+
+const getAllWithFilter = () => {
+	useStore.filterRoomsByEstateType(estate_type_id.value)
+}
 
 onMounted(() => {
 	useHelper.getAll();

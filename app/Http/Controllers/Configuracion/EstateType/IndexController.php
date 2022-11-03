@@ -19,7 +19,16 @@ class IndexController extends Controller
     public function get()
     {
         try {
+            $role = \Illuminate\Support\Facades\Auth::user()->roles->first();
+
+            if($role->name != 'Admin'){
+                $rol = \App\Models\Role::find($role->id);
+
+                $permissions = $rol->estateTypes;
+            }else{
+
             $permissions = EstateType::withTrashed()->get();
+            }
 
             return RoomTypeResource::collection($permissions);
         } catch (ValidationException $ex) {

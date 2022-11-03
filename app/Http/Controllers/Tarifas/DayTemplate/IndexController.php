@@ -20,7 +20,8 @@ class IndexController extends Controller
         try {
             $daytemplate = DayTemplate::with([
                 'roomType',
-                'dayWeek'
+                'dayWeek',
+                'partialRate'
             ])->withTrashed()->get();
 
             return DayTemplateResource::collection($daytemplate);

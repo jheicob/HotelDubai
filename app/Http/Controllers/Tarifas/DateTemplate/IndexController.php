@@ -20,7 +20,12 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $dateTemplate = DateTemplate::with(['roomType'])->withTrashed()->get();
+            $dateTemplate = DateTemplate::with([
+                'roomType',
+                'partialRate'
+                            ])
+                            ->withTrashed()
+                            ->get();
 
             return DateTemplateResource::collection($dateTemplate);
         } catch (\Exception $e) {

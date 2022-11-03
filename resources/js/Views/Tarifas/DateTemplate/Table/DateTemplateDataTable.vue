@@ -41,6 +41,7 @@
                                 <th>Tipo Habitacion</th>
                                 <th>Fecha</th>
                                 <th>Tarifa</th>
+                                <th>Parcial</th>
                                 <th>Accion</th>
                             </tr>
                         </thead>
@@ -50,6 +51,7 @@
                                 <th>Tipo Habitacion</th>
                                 <th>Fecha</th>
                                 <th>Tarifa</th>
+                                <th>Parcial</th>
                                 <th>Accion</th>
                             </tr>
                         </tfoot>
@@ -64,6 +66,7 @@
                                 </td>
                                 <td>{{ keep.attributes.date }}</td>
                                 <td>{{ keep.attributes.rate }}</td>
+                                <td>{{ keep.relationships.partialRate.attributes.name }}</td>
                                 <td>
                                     <i
                                         v-on:click.prevent="

@@ -50,6 +50,7 @@ class UpdateRequest extends FormRequest
         return [
             'room_status_id' => 'required|exists:room_statuses,id',
             'partial_cost_id' => 'required|exists:partial_costs,id',
+            'estate_type_id' => 'required|exists:estate_types,id',
             'description' => 'required|string',
             'name'      => 'required|string'
         ];

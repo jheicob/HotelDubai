@@ -11,22 +11,29 @@ class DateTemplate extends Model implements Auditable
 {
     use
         HasFactory,
-        SoftDeletes
-    ;
+        SoftDeletes;
     use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [
         'room_type_id',
+        'partial_rate_id',
         'date',
         'rate'
     ];
     protected $auditInclude = [
         'room_type_id',
         'date',
+        'partial_rate_id',
         'rate'
     ];
 
-    public function roomType(){
+    public function roomType()
+    {
         return $this->belongsTo(RoomType::class);
+    }
+
+    public function partialRate()
+    {
+        return $this->belongsTo(PartialRates::class);
     }
 }

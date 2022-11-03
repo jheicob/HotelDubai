@@ -9,7 +9,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class EstateType extends Authenticatable implements Auditable
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
     use \OwenIt\Auditing\Auditable;
 
     protected $fillable = [

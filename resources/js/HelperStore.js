@@ -28,8 +28,8 @@ export const HelperStore = defineStore("HelperStore", () => {
         }
     };
 
-    const getAll = () => {
-        var urlKeeps = `/${url.value}/get`;
+    const getAll = (option = '') => {
+        var urlKeeps = `/${url.value}/get?${option}`;
         axios
             .get(urlKeeps)
             .then((response) => {

@@ -63,6 +63,26 @@
                             v-model="form.rate"
                             class="form-control"
                         />
+
+                        <label for="name" class="form-label"
+                            >Parciales Mínimos</label
+                        >
+                        <select
+                            class="form-select"
+                            aria-label="Default select example"
+                            v-model="form.partial_rate_id"
+                        >
+                            <option selected value="">
+                                Seleccione Parcial
+                            </option>
+                            <option
+                                v-for="keep in partialRates"
+                                :key="keep.id"
+                                :value="keep.id"
+                            >
+                                {{ keep.attributes.name }}
+                            </option>
+                        </select>
                     </div>
                     <div class="modal-footer">
                         <a
@@ -100,6 +120,7 @@ export default {
 
     mounted(){
         this.getRoomType();
+        this.getPartial();
     },
     data() {
         return {
@@ -114,9 +135,21 @@ export default {
             dayWeek: [],
             systemTime: [],
             ShiftSystem: [],
+            partialRates: []
         };
     },
     methods: {
+        getPartial(){
+            let url = '/configuracion/partial-rates/get'
+            axios
+                .get(url)
+                .then((response) => {
+                    this.partialRates = response.data.data
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        },
         createPermission: function () {
             var url = "/tarifas/date-templates/" + this.form.id;
             this.form.date = dateFormat(this.form.date)
@@ -145,6 +178,7 @@ export default {
                 room_type_id: permission.relationships.roomType.id,
                 date: getDateFormat(permission.attributes.date),
                 rate: permission.attributes.rate,
+                partial_rate_id: permission.relationships.partialRate.id
             }
 
         },

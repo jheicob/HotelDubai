@@ -19,25 +19,30 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $room = Room::with([
+            $room = Room::withTrashed()
+                ->IsNotAdmin()
+                ->IsCamarero()
+                ->get();
+
+            $room->transform(function ($value) {
+                $rate = (new RoomService($value));
+                $value->append('rate_current');
+                $value->rate_current = $rate->getRateByConditionals();
+                $value->partial_cost_id = $rate->getPartialByConditionals();
+                return $value;
+            });
+
+            $room->load([
                 'roomStatus',
+                'estateType',
                 'partialCost.roomType',
                 'partialCost.partialRate',
                 'receptionActive.client',
                 'receptionActive.details',
-            ])->withTrashed()
-            ->IsCamarero()
-              ->get();
-
-            $room->transform(function($value){
-                $rate = (new RoomService($value))->getRateByConditionals();
-                $value->append('rate_current');
-                $value->rate_current = $rate;
-                return $value;
-                });
+            ]);
             return RoomResource::collection($room);
         } catch (\Exception $e) {
-            return custom_response_exception($e,__('errors.server.title'),500);
+            return custom_response_exception($e, __('errors.server.title'), 500);
         }
     }
 }

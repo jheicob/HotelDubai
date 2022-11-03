@@ -266,7 +266,7 @@ class FiscalInvoiceService
         self::addLine(config('invoice.commands.printer_invoice'));
     }
 
-    public function setInvoiceId(int $invoice_id)
+    public function setInvoiceId(string $invoice_id)
     {
         $this->invoice_id = $invoice_id;
     }
@@ -276,7 +276,7 @@ class FiscalInvoiceService
      * @param string $filename sin extension
      * @return void
      */
-    public function download(string $filename = '', int $base_divisa = 0)
+    public function download(string $filename = '', float $base_divisa = 0)
     {
         if ($filename == '') {
             $filename = Carbon::now()->format('Y_m_d') . '-' . $this->factura_fiscal;
