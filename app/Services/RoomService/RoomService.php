@@ -30,7 +30,7 @@ class RoomService
         $this->room = $room;
         $this->renew = $renew;
         $this->room_type_id = $this->room->partialCost->room_type_id;
-        $this->partial_min  = $this->room->partialCost->partial_rates_id;
+        $this->partial_min  = $this->room->partialCost->id;
         self::setVars();
     }
 
