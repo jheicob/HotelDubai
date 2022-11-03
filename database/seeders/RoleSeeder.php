@@ -218,7 +218,6 @@ class RoleSeeder extends Seeder
                 'estate.type.getPaginate',
             'room.get',
                 'room.type.getPaginate',
-            'room.updated',
             'room.status.getPaginate',
             'room.free'
         ]);
