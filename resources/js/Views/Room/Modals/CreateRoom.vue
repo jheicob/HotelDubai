@@ -163,7 +163,7 @@
 							class="btn btn-primary text-white btn-icon-split mb-4"
 						>
 							<span class="text font-montserrat font-weight-bold"
-								>Crear Crear Habitación</span
+								>Crear Habitación</span
 							>
 						</button>
 					</div>

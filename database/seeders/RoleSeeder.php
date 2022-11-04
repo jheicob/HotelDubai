@@ -22,8 +22,11 @@ class RoleSeeder extends Seeder
         $supervisor_role    = Role::create(['name' => 'Supervisor']);
 
         $user = User::find(1);
-        $recepcionista = User::firstWhere('email', "recepcionista@c.c");
-        $recepcionista->assignRole('Recepcionista');
+
+        $recepcionista = User::firstWhere('email', "recepcionistaCab@c.c");
+        $recepcionista->assignRole('Recepcionista Cabaña');
+        $recepcionista_ed = User::firstWhere('email', "recepcionistaEd@c.c");
+        $recepcionista_ed->assignRole('Recepcionista Edificio');
 
         $camarero = User::firstWhere('email', "camarero@c.c");
         $camarero->assignRole('Camarero');
