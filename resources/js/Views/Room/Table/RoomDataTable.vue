@@ -71,8 +71,8 @@
 		     </div>
 				
 		</div> 
-			  <div class="card-body">
-				  <div class="row" >
+			  <div class="card-body fondo">
+				  <div class="row" style="opacity:0.9">
 					<RoomsGrid
 						v-for="(item, i) in all" :key="i"
 						:item="item"
@@ -139,5 +139,12 @@ onMounted(() => {
 .global-scroll {
 	height: 300px;
 	overflow-y: scroll;
+}
+
+.fondo {
+	background-image: url('/img/Logo.png');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: 20%;
 }
 </style>
