@@ -17,15 +17,13 @@ class UpdateController extends Controller
             DB::beginTransaction();
 
             $product->update($request->all());
-
+            $product->inventory->update($request->inventory);
             DB::commit();
 
             return custom_response_sucessfull('updated successfull');
-
         } catch (\Exception $e) {
             DB::rollBack();
-            return custom_response_exception($e,__('errors.server.title'),500);
+            return custom_response_exception($e, __('errors.server.title'), 500);
         }
     }
-
 }

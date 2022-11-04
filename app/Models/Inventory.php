@@ -9,7 +9,7 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Inventory extends Model implements Auditable
 {
-    use HasFactory;
+    use HasFactory, HasFactory;
     use AuditingAuditable;
 
     protected $auditInclude = [
@@ -24,8 +24,8 @@ class Inventory extends Model implements Auditable
         'stock'
     ];
 
-    public function product(){
+    public function product()
+    {
         return $this->belongsTo(Product::class);
     }
-
 }

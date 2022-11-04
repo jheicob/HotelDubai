@@ -9,32 +9,33 @@ use OwenIt\Auditing\Contracts\Auditable;
 
 class Product extends Model implements Auditable
 {
-    use SoftDeletes;
+    use SoftDeletes, HasFactory;
     use \OwenIt\Auditing\Auditable;
 
     protected $guarded = ['id'];
 
     protected $auditInclude = [
-          'name',
-          'description',
-          'purchase_price',
-          'sale_price',
-          'visible',
+        'name',
+        'description',
+        'purchase_price',
+        'sale_price',
+        'visible',
     ];
 
     protected $fillable = [
-          'name',
-          'description',
-          'purchase_price',
-          'sale_price',
-          'visible',
+        'name',
+        'description',
+        'purchase_price',
+        'sale_price',
+        'visible',
 
     ];
 
     /**
-     * get inventory belong to product 
+     * get inventory belong to product
      */
-    public function inventory() {
+    public function inventory()
+    {
         return $this->hasOne(Inventory::class);
     }
 }

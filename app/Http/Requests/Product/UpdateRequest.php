@@ -29,10 +29,12 @@ class UpdateRequest extends FormRequest
         return [
             'name' => 'required|string',
             'purchase_price' => 'required|numeric',
-            'sale_proce' => 'required|numeric',
+            'sale_price' => 'required|numeric',
             'description' => 'required|string',
-            'visible'   => 'required|bool'
-
+            'visible'   => 'required|bool',
+            'inventory' => 'required',
+            'inventory.stock' => 'required|integer',
+            'inventory.stock_min' => 'required|integer'
         ];
     }
 }

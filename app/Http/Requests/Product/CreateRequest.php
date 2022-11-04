@@ -29,7 +29,7 @@ class CreateRequest extends FormRequest
         return [
             'name' => 'required|string',
             'purchase_price' => 'required|numeric',
-            'sale_proce' => 'required|numeric',
+            'sale_price' => 'required|numeric',
             'description' => 'required|string',
             'visible'   => 'required|bool',
             'inventory' => 'required',
