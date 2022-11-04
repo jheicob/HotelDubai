@@ -35,5 +35,14 @@ Route::group(
         Route::get('get', [App\Http\Controllers\Invoice\IndexController::class, 'get'])
             ->name('invoice.get')
             ->middleware('permission:invoice.getPaginate');
+
+        Route::get('report-X', [App\Http\Controllers\Invoice\CreateController::class, 'reportX'])
+            ->name('invoice.report.x')
+            ->middleware('permission:invoice.getPaginate');
+ 
+        Route::get('report-Z', [App\Http\Controllers\Invoice\CreateController::class, 'reportZ'])
+            ->name('invoice.report.z')
+            ->middleware('permission:invoice.getPaginate');
+
     }
 );

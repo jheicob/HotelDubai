@@ -17,15 +17,19 @@
 					Facturas
 				</div>
 				<div
-		 			class="text-right btn-group col"
+		 			class="text-right btn-group col-3"
 					role="group"
  					aria-label="Basic example"
  					>
 					 <ButtonComponent
-						 :btnClass="['btn-light']"
-						 :key="i"
-						 @click="filterRoomsByStatus()"
-						 text="Todo"
+						 :btnClass="['btn-info']"
+						 @click="reportX"
+						 text="Reporte X"
+					  />
+					 <ButtonComponent
+						 :btnClass="['btn-info']"
+						 @click="reportZ"
+						 text="Reporte Z"
 					  />
 				</div>
 			  
@@ -121,6 +125,8 @@
 </template>
 
 <script setup>
+
+import ButtonComponent from "@/components/ButtonComponent.vue";
 	// this composition component vue 3
 	import { onMounted } from "vue";
 	//	import CreatePermission from "../Modals/CreateRoomType.vue";
@@ -136,6 +142,12 @@
 	const useStore = InvoiceStore();
 	useHelper.url = "invoice";
 
+const reportX = () =>{
+	window.open('/invoice/report-X')
+}
+const reportZ = () =>{
+	window.open('/invoice/report-Z')
+}
 	onMounted(() => {
 		//		useStore.getRoomTypes();
 

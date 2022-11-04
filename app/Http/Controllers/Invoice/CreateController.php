@@ -12,6 +12,7 @@ use App\Models\Reception;
 use App\Models\ReceptionDetail;
 use App\Services\FiscalInvoice\DebitNoteService;
 use App\Services\FiscalInvoice\CreditNoteService;
+use App\Services\FiscalInvoice\FiscalInvoiceService;
 use App\Services\Invoice\InvoiceService;
 use App\Traits\Configurations\GeneralConfiguration;
 use Carbon\Carbon;
@@ -244,5 +245,17 @@ class CreateController extends Controller
         }
         //       return $payments->sum('quantity');
         return 0;
+    }
+
+    public function reportX(Request $request){
+        $fiscal = new FiscalInvoiceService();
+
+        return $fiscal->reportX();
+    }
+
+    public function reportZ(Request $request){
+        $fiscal = new FiscalInvoiceService();
+
+        return $fiscal->reportZ();
     }
 }

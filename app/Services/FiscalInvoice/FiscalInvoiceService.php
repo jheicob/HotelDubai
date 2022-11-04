@@ -339,4 +339,28 @@ class FiscalInvoiceService
         $string = self::formatString($data);
         self::addLine($string);
     }
+
+    public function reportX(){
+        $line = config('invoice.commands.report_x');
+        self::addLine($line);
+        $filename= 'reporteX.ia2';
+        header('Content-Type: application/plain-text');
+        header("Content-Transfer-Encoding: Binary");
+        header("Content-disposition: attachment; filename=$filename");
+
+        return $this->document;
+
+    }
+
+    public function reportZ(){
+        $line = config('invoice.commands.report_z');
+        self::addLine($line);
+        $filename= 'reporteZ.ia2';
+        header('Content-Type: application/plain-text');
+        header("Content-Transfer-Encoding: Binary");
+        header("Content-disposition: attachment; filename=$filename");
+
+        return $this->document;
+
+    }
 }
