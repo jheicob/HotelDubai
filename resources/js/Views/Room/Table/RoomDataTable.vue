@@ -142,9 +142,10 @@ onMounted(() => {
 }
 
 .fondo {
-	background-image: url('/img/Logo.png');
-	background-repeat: no-repeat;
+	/*background-image: url('/img/Logo.png');
+	background-repe
+	at: no-repeat;
 	background-position: center;
-	background-size: 20%;
+	background-size: 20%;*/
 }
 </style>
