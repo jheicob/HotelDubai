@@ -23,12 +23,13 @@ class DatabaseSeeder extends Seeder
             PartialRateSeeder::class,
             RoomStatuseSeeder::class,
             RoomTypeSeeder::class,
+            PartialCostSeeder::class,
             ShiftSystemSeeder::class,
             ShiftTimeSeeder::class,
             ThemeTypeSeeder::class,
             TypeDocumentSeeder::class,
+            EstateTypeSeeder::class,
             RoomSeeder::class,
-            EstateTypeSeeder::class
         ]);
     }
 }

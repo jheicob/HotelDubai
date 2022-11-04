@@ -180,7 +180,16 @@ class RoleSeeder extends Seeder
                 'invoice.getPaginate',
                 'invoice.get',
                 'invoice.printFiscal',
-                'invoice.cancel'
+                'invoice.cancel',
+
+                'product.index',
+                'product.create',
+                'product.delete',
+                'product.updated',
+                'product.getPaginate',
+                'product.get',
+
+
             ]
         );
 

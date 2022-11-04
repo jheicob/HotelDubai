@@ -43,6 +43,36 @@ Route::group(
         Route::get('report-Z', [App\Http\Controllers\Invoice\CreateController::class, 'reportZ'])
             ->name('invoice.report.z')
             ->middleware('permission:invoice.getPaginate');
+/** routes para Product **/ 
 
+            Route::group(
+            [
+            'prefix'     => 'Product',
+            'middleware'  => 'auth'
+            ], function () {
+
+                Route::get('', [App\Http\Controllers\Product\IndexController::class, 'index'])
+                    ->name('Product.index')
+                    ->middleware('permission:product.index');
+
+                Route::post('create', [App\Http\Controllers\Product\CreateController::class, 'create'])
+                    ->name('Product.create')
+                    ->middleware('permission:product.create');
+
+                Route::delete('delete/{product}', [App\Http\Controllers\Product\DeleteController::class, 'destroy'])
+                    ->name('Product.delete')
+                    ->middleware('permission:product.delete');
+
+                Route::put('{product}', [App\Http\Controllers\Product\UpdateController::class, 'updated'])
+                    ->name('Product.updated')
+                    ->middleware('permission:product.updated');
+
+                Route::get('get', [App\Http\Controllers\Product\IndexController::class, 'get'])
+                    ->name('Product.get')
+                    ->middleware('permission:product.getPaginate');
+            }
+        );
+ 
     }
 );
+

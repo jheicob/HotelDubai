@@ -171,5 +171,14 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'invoice.get']);
         Permission::create(['name' => 'invoice.printFiscal']);
         Permission::create(['name' => 'invoice.cancel']);
+
+
+        Permission::create(['name' => 'product.index']);
+        Permission::create(['name' => 'product.create']);
+        Permission::create(['name' => 'product.delete']);
+        Permission::create(['name' => 'product.updated']);
+        Permission::create(['name' => 'product.getPaginate']);
+        Permission::create(['name' => 'product.get']);
+
     }
 }

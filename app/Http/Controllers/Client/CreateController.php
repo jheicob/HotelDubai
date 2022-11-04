@@ -112,6 +112,7 @@ class CreateController extends Controller
             $reception = $client->receptionActive->first();
 
             $reception->details->map(function ($detail) {
+                $detail->ticket->delete();
                 $detail->delete();
             });
 
