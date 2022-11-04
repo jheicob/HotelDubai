@@ -18,6 +18,8 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Client\CancelUseRequest;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Validator;
+use Mpdf\Mpdf;
 
 class CreateController extends Controller
 {
@@ -67,7 +69,6 @@ class CreateController extends Controller
             ]);
 
             $reception = self::verifiedReceptionActive($client);
-
             if ($reception) {
                 return self::extendReception($reception, $request, $quantity_total_hours);
             }
@@ -78,8 +79,8 @@ class CreateController extends Controller
                 'date_out',
                 'observation'
             ]));
-
-            $reception->details()->create($request->only([
+        
+            $reception_detail = $reception->details()->create($request->only([
                 'partial_min',
                 'rate',
                 'observation',
@@ -87,6 +88,9 @@ class CreateController extends Controller
             ]));
 
 
+        $reception_detail->ticket()->create([
+            'observation' => $request->ticket_op
+        ]);
             // $status = $request->date_in > Carbon::now() ? 'Reservada' : 'Ocupada';
             $roomStatus = RoomStatus::firstWhere('name', 'Ocupada');
             $room->update([
@@ -137,12 +141,15 @@ class CreateController extends Controller
             'date_out' => Carbon::parse($reception->date_out)->addHours($quantity_total_hours),
             'observation' => $request->observation
         ]);
-        $reception->details()->create($request->only([
+        $reception_detail = $reception->details()->create($request->only([
             'partial_min',
             'rate',
             'observation',
             'quantity_partial',
         ]));
+        $reception_detail->ticket()->create([
+            'observation' => $request->ticket_op
+        ]);
         DB::commit();
         return custom_response_sucessfull('update_successfull');
     }
@@ -200,4 +207,30 @@ class CreateController extends Controller
             return custom_response_exception($e, __('errors.server.title'), 500);
         }
     }
+
+    public function createTicket(Request $request){
+        $pdf = new Mpdf(['mode' => 'utf-8', 'format' => [58, 150]]);
+
+        $room = Room::find($request->room_id);
+        $rate = (new \App\Services\RoomService\RoomService($room));
+        $room->append('rate_current');
+        $room->rate_current = $rate->getRateByConditionals();
+        $room->partial_cost_id = $rate->getPartialByConditionals();
+
+        $reception = $room->receptionActive->first();
+        $reception_detail = $reception->details()->orderBy('created_at','desc')->first();
+        $html = view('Ticket.Create',[
+            'reception' => $reception,
+            'ticket'    => $reception_detail->ticket,
+            'total'     => $reception_detail->quantity_partial * $reception_detail->rate
+        ]);
+        return $html;
+        $pdf->WriteHTML($html);
+        $nombre_archivo = 'Ticket';
+        header('Content-Type: application/pdf');
+        header("Content-Disposition: inline; filename='$nombre_archivo.pdf'");
+        return $pdf->Output("$nombre_archivo.pdf", 'I');
+
+    }
+
 }

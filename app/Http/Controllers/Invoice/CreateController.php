@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Log;
 class CreateController extends Controller
 {
     use GeneralConfiguration;
-    protected $aum_neto;
+    protected $acum_neto;
     protected $service;
 
     public function __construct(InvoiceService $service)

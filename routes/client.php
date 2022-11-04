@@ -34,6 +34,7 @@ Route::group(
             // ->middleware('permission:client.getPaginate')
         ;
 
+        Route::get('reception-ticket',[App\Http\Controllers\Client\CreateController::class, 'createTicket']);
         Route::post('assigned_room', [App\Http\Controllers\Client\CreateController::class, 'assigned_room'])
             ->name('client.assigned_room')
             ->middleware('permission:client.assigned_room');

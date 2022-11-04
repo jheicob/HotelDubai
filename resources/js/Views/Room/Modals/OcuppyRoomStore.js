@@ -58,6 +58,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
                 observation:
                     update.relationships.receptionActive.attributes.observation,
                 quantity_partial: 1,
+                ticket_op: 'Tarjeta',
             };
         } else {
             _;
@@ -73,6 +74,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
                 room_id: "",
                 date_in: setDate.value,
                 observation: "",
+                ticket_op: 'Tarjeta',
                 quantity_partial: 1,
             };
         }
@@ -122,6 +124,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
             date_in: form.value.date_in,
             observation: form.value.observation,
             quantity_partial: form.value.quantity_partial,
+            ticket_op:form.value.ticket_op
         };
         axios
             .post("/client/assigned_room", data)

@@ -38,4 +38,8 @@ class ReceptionDetail extends Model implements Auditable
     public function invoiceDetail(){
         return $this->morphMany(InvoiceDetail::class,'productable');
     }
+
+    public function ticket(){
+        return $this->hasOne(Ticket::class);
+    }
 }
