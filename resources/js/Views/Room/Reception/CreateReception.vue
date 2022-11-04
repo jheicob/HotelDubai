@@ -409,14 +409,14 @@
                     <!-- /.table-responsive -->
                     <div class="row justify-content-between">
                         <button
-                            class="btn btn-info col-2"
+                            class="btn btn-info col-1"
                             @click.prevent="store.show = false"
                             >
                             Regresar
-                        </button>
+                    </button>
 
                                                 <a
-                                                    class="btn btn-danger text-white btn-icon-split col-2"
+                                                    class="btn btn-danger text-white btn-icon-split col-1"
                                                     @click="store.cancelUse(item)"
                                                     v-if="store.updated_reception"
                                                     >
@@ -430,7 +430,7 @@
                                                     v-if="
                                                     store.updated_reception
                                                     "
-                                                    class="btn btn-success text-white btn-icon-split col-3"
+                                                    class="btn btn-success text-white btn-icon-split col-1"
                                                     type="button"
                                                     @click.prevent="openModal()"
                                                     >
@@ -442,7 +442,7 @@
                                                     v-on:click.prevent="
                                                     storeAssignedRoom()
                                                     "
-                                                    class="btn btn-primary text-white btn-icon-split col-5"
+                                                    class="btn btn-primary text-white btn-icon-split col-2"
                                                     >
                                                     <span
                                                         class="text font-montserrat font-weight-bold"

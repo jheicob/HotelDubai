@@ -134,7 +134,8 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
                 clearForm();
                 show.value = false;
                 useRoom.getRooms();
-                window.open("/client/reception-ticket?room_id" + item.value.id);
+                let ventana = window.open("/client/reception-ticket?room_id=" + item.value.id).print();
+
                 location.reload();
             })
             .catch((err) => helper.getErrorRequest(err));

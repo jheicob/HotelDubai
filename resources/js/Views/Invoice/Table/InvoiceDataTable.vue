@@ -11,8 +11,25 @@
 		<!-- DataTables Example -->
 		<div class="card mb-3">
 			<div class="card-header">
-				<i class="fas fa-table"></i>
-				Facturas
+				<div class="row justify-content-between ">
+		    	<div class="col-2 my-auto">
+			  		<i class="fas fa-table"></i>
+					Facturas
+				</div>
+				<div
+		 			class="text-right btn-group col"
+					role="group"
+ 					aria-label="Basic example"
+ 					>
+					 <ButtonComponent
+						 :btnClass="['btn-light']"
+						 :key="i"
+						 @click="filterRoomsByStatus()"
+						 text="Todo"
+					  />
+				</div>
+			  
+		     </div>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
