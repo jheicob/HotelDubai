@@ -1,58 +1,102 @@
-<html>
-    <head>
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
-    <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+<style>
+    @page {
+        margin: 0
+    }
+</style>
 
-        </head>
-        <body>    
-            <div class="row">
-                <div class="col text-center">
-                    <h2>{{$reception->room->name}}</h2>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    Cajero:
-                </div>
-                <div class="col">
-                    {{Auth::user()->name}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    Fecha y Hora de Entrada:
-                </div>
-                <div class="col">
-                    {{$reception->date_in}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    Fecha y Hora de Salida:
-                </div>
-                <div class="col">
-                    {{$reception->date_out}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    Total:
-                </div>
-                <div class="col">
-                    {{$total}}
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    Forma de Pago:
-                </div>
-                <div class="col">
-                    {{$ticket->observation}}
-                </div>
-            </div>
-    </body>
+<table style="">
+    <tr>
+        <td colspan="2" align='center'>
+            <p><b>{{ $reception->room->name }}</b></p>
+        </td>
+    </tr>
+    <tr>
+        <td style="height: 10px">
 
-</html>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Cajero:
+        </td>
+        <td>
+            {{ Auth::user()->name }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center">
+            Entrada
+        </td>
+    </tr>
+    <tr>
+
+        <td>
+            Fecha :
+        </td>
+        <td>
+            {{ \Carbon\Carbon::parse($reception->date_in)->format('d-m-Y') }}
+        </td>
+    </tr>
+    <tr>
+
+        <td>
+            Hora :
+        </td>
+        <td>
+            {{ \Carbon\Carbon::parse($reception->date_in)->format('h:i a') }}
+        </td>
+    </tr>
+    <tr>
+        <td style="height: 10px">
+
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2" align="center">
+
+            Salida
+        </td>
+    </tr>
+    <tr>
+        <td>
+            Fecha:
+        </td>
+        <td>
+            {{ \Carbon\Carbon::parse($reception->date_out)->format('d-m-Y') }}
+        </td>
+
+    </tr>
+    <tr>
+        <td>
+            Hora:
+        </td>
+        <td>
+            {{ \Carbon\Carbon::parse($reception->date_out)->format('h:i a') }}
+        </td>
+
+    </tr>
+    <tr>
+        <td style="height: 10px">
+
+        </td>
+    </tr>
+    <tr>
+
+        <td>
+            Total:
+        </td>
+        <td>
+            {{ $total }}
+        </td>
+    </tr>
+
+    <tr>
+
+        <td>
+            Forma de Pago:
+        </td>
+        <td>
+            {{ $ticket->observation }}
+        </td>
+    </tr>
+</table>

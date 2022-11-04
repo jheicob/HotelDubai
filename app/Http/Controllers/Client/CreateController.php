@@ -79,7 +79,7 @@ class CreateController extends Controller
                 'date_out',
                 'observation'
             ]));
-        
+
             $reception_detail = $reception->details()->create($request->only([
                 'partial_min',
                 'rate',
@@ -88,9 +88,9 @@ class CreateController extends Controller
             ]));
 
 
-        $reception_detail->ticket()->create([
-            'observation' => $request->ticket_op
-        ]);
+            $reception_detail->ticket()->create([
+                'observation' => $request->ticket_op
+            ]);
             // $status = $request->date_in > Carbon::now() ? 'Reservada' : 'Ocupada';
             $roomStatus = RoomStatus::firstWhere('name', 'Ocupada');
             $room->update([
@@ -208,8 +208,9 @@ class CreateController extends Controller
         }
     }
 
-    public function createTicket(Request $request){
-        $pdf = new Mpdf(['mode' => 'utf-8', 'format' => [58, 150]]);
+    public function createTicket(Request $request)
+    {
+        $pdf = new Mpdf(['mode' => 'utf-8', 'format' => [58, 80]]);
 
         $room = Room::find($request->room_id);
         $rate = (new \App\Services\RoomService\RoomService($room));
@@ -218,19 +219,17 @@ class CreateController extends Controller
         $room->partial_cost_id = $rate->getPartialByConditionals();
 
         $reception = $room->receptionActive->first();
-        $reception_detail = $reception->details()->orderBy('created_at','desc')->first();
-        $html = view('Ticket.Create',[
+        $reception_detail = $reception->details()->orderBy('created_at', 'desc')->first();
+        $html = view('Ticket.Create', [
             'reception' => $reception,
             'ticket'    => $reception_detail->ticket,
             'total'     => $reception_detail->quantity_partial * $reception_detail->rate
         ]);
-        return $html;
+        // return $html;
         $pdf->WriteHTML($html);
         $nombre_archivo = 'Ticket';
         header('Content-Type: application/pdf');
         header("Content-Disposition: inline; filename='$nombre_archivo.pdf'");
         return $pdf->Output("$nombre_archivo.pdf", 'I');
-
     }
-
 }
