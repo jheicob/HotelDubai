@@ -27,7 +27,8 @@ class DatabaseSeeder extends Seeder
             ShiftTimeSeeder::class,
             ThemeTypeSeeder::class,
             TypeDocumentSeeder::class,
-            RoomSeeder::class
+            RoomSeeder::class,
+            EstateTypeSeeder::class
         ]);
     }
 }

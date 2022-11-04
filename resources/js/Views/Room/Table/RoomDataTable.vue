@@ -72,7 +72,7 @@
 				
 		</div> 
 			  <div class="card-body fondo">
-				  <div class="row" style="opacity:0.9">
+				  <div class="row">
 					<RoomsGrid
 						v-for="(item, i) in all" :key="i"
 						:item="item"

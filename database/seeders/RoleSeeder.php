@@ -16,7 +16,8 @@ class RoleSeeder extends Seeder
     public function run()
     {
         $Admin = Role::create(['name' => 'Admin']);
-        $recepcionista_role = Role::create(['name' => 'Recepcionista']);
+        $recepcionista_cab = Role::create(['name' => 'Recepcionista Cabaña']);
+        $recepcionista_ed = Role::create(['name' => 'Recepcionista Edificio']);
         $camarero_role      = Role::create(['name' => 'Camarero']);
         $supervisor_role    = Role::create(['name' => 'Supervisor']);
 
@@ -180,7 +181,36 @@ class RoleSeeder extends Seeder
             ]
         );
 
-        $recepcionista_role->givePermissionTo([
+        $recepcionista_ed->givePermissionTo([
+            'room.index',
+                'estate.type.getPaginate',
+            'room.getPaginate',
+            'room.get',
+            'room.occuppy',
+            'room.status.getPaginate',
+            'room.changeParcial',
+
+                'partial.cost.getPaginate',
+                'room.type.getPaginate',
+            'room.extend',
+
+            'invoice.index',
+            'invoice.create',
+            'invoice.getPaginate',
+            'invoice.get',
+            'invoice.printFiscal',
+
+            'client.index',
+            'client.create',
+            'client.delete',
+            'client.cancel.room',
+            'client.updated',
+            'client.getPaginate',
+            'client.get',
+            'client.assigned_room',
+
+        ]);
+        $recepcionista_cab->givePermissionTo([
             'room.index',
                 'estate.type.getPaginate',
             'room.getPaginate',
