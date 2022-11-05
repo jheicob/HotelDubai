@@ -20,12 +20,13 @@ class HourTemplateResource extends JsonResource
             'id' => $this->resource->id,
             'attributes' => [
                 'hour'           => $this->resource->hour,
+                'hour_end'  => $this->resource->hour_end,
                 'rate'           => $this->resource->rate,
                 'deleted_at'     => $this->resource->deleted_at,
             ],
             'relationships' => [
-                'roomType'    => $this->whenLoaded('roomType', fn() => RoomTypeResource::make($this->resource->roomType)),
-                'shiftSystem' => $this->whenLoaded('shiftSystem', fn() => ShiftSystemResource::make($this->resource->roomType)),
+                'roomType'    => $this->whenLoaded('roomType', fn () => RoomTypeResource::make($this->resource->roomType)),
+                'shiftSystem' => $this->whenLoaded('shiftSystem', fn () => ShiftSystemResource::make($this->resource->roomType)),
             ],
         ];
     }

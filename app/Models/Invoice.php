@@ -37,7 +37,10 @@ class Invoice extends Model implements Auditable
         'status',
         'total_payment',
     ];
-
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d H:i:s',
+        'updated_at' => 'datetime:Y-m-d H:i:s',
+    ];
     public function client()
     {
         return $this->belongsTo(Client::class);

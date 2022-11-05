@@ -45,6 +45,6 @@ class DayTemplate extends Model implements Auditable
 
     public function partialRate()
     {
-        return $this->belongsTo(PartialRate::class);
+        return $this->belongsTo(PartialRates::class);
     }
 }

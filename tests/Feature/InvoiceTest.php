@@ -2,7 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Inventory;
 use App\Models\Invoice;
+use App\Models\InvoiceDetail;
 use App\Models\Product;
 use App\Models\Reception;
 use App\Models\ReceptionDetail;
@@ -49,11 +51,12 @@ class InvoiceTest extends TestCase
      */
     public function create_successfully()
     {
-        // $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
         $user = User::firstWhere('email', 'testing@c.c');
-        $product = Product::factory()->create();
+        $inventory = Inventory::factory()->create();
+        $product = $inventory->product;
         $stock_current = $product->inventory->stock;
-        $reception = Reception::find(12);
+        $reception = Reception::first();
 
         $response = $this
             ->actingAs($user)
@@ -62,10 +65,11 @@ class InvoiceTest extends TestCase
                 'observation'   => $obs = $this->faker->text(),
                 'products' => [
                     [
-                        'id' => $product,
+                        'id' => $product->id,
                         'quantity' => $quant_prod = 1,
                     ]
                 ],
+                'reception_details' => [],
                 'payments' => [
                     [
                         'type'        => $payment_type = $this->faker->randomElement(['divisa', 'Bs']),
@@ -76,7 +80,7 @@ class InvoiceTest extends TestCase
                     [
                         'type'        => $payment2_type = $this->faker->randomElement(['divisa', 'Bs']),
                         'method'      => $payment2_method = $this->faker->randomElement(['efectivo', 'digital', 'tarjeta']),
-                        'quantity'    => $payment2_quantity = 57,
+                        'quantity'    => $payment2_quantity = 50000,
                         'description' => $payment2_description = $this->faker->text(),
                     ]
                 ]
@@ -93,13 +97,15 @@ class InvoiceTest extends TestCase
 
         $invoice_service = new InvoiceService(new Invoice, new CreditNoteService, new DebitNoteService);
 
-        $this->assertDatabaseHas('invoices', $invoice->toArray());
+        $this->assertModelExists($invoice);
         $this->assertEquals($reception->client_id, $invoice->client_id,);
         $this->assertEquals($obs, $invoice->observation);
         $this->assertEquals($invoice_service->calculateTotalByReceptionDetails($reception), $invoice->total);
 
         // verified invoice details
-        $invoice_details = $invoice->details->where('productable_type', 'like', '%Reception%');     // la recepción tiene 2 elementos
+        $invoice_details = InvoiceDetail::where('productable_type', 'like', '%Reception%')
+            ->where('invoice_id', $invoice->id)
+            ->get();     // la recepción tiene 2 elementos
         $reception_details = $reception->details; // la recepción tiene 2 elementos
 
         $this->assertEquals($invoice_details[0]->productable_id,   $reception_details[0]->id);
@@ -126,8 +132,7 @@ class InvoiceTest extends TestCase
 
         // products
         $product->refresh();
-        $invoice_details_prod = $invoice->details->where('productable_type', 'like', '%Product');     // la recepción tiene 2 elementos
-
+        $invoice_details_prod = $product->invoiceDetail->first();
         $this->assertEquals(abs($quant_prod - $stock_current), $product->inventory->stock);
         $this->assertEquals($product->id, $invoice_details_prod->productable_id);
     }

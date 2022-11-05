@@ -24,6 +24,7 @@ class RoomService
     protected $room_type_id;
     protected $dayName;
     protected $partial_min;
+    protected $bool_date = false;
 
     public function __construct(Room $room, bool $renew = false)
     {
@@ -61,7 +62,7 @@ class RoomService
         $this->acum += self::getRateByDate($this->date);
         $this->acum += self::getRateByDay($this->dayName);
         $this->acum += self::getRateByHour();
-
+        $this->acum += self::getRateOfConditionals();
         return $this->acum;
     }
 
@@ -80,7 +81,9 @@ class RoomService
             ->first();
 
         if ($day_template != '') {
-            self::getPartialCostByRoomTypeAndPartial($day_template->room_type_id, $day_template->partial_rate_id);
+            if (!$this->bool_date) {
+                self::getPartialCostByRoomTypeAndPartial($day_template->room_type_id, $day_template->partial_rate_id);
+            }
             return (int) $day_template->rate;
         }
         return 0;
@@ -124,8 +127,10 @@ class RoomService
             }
         })->filter()->first();
         if ($bool != '') {
-            self::getPartialCostByRoomTypeAndPartial($bool->room_type_id, $bool->partial_rate_id);
+            if (!$this->bool_date) {
 
+                self::getPartialCostByRoomTypeAndPartial($bool->room_type_id, $bool->partial_rate_id);
+            }
             return (int) $bool->rate;
         }
         return 0;
@@ -160,7 +165,16 @@ class RoomService
         if ($partial_cost == '') {
             return $this->room->partial_cost_id;
         }
+        $this->bool_date = true;
         // self::updatePartialCost($partial_cost->id);
         return $this->partial_min = $partial_cost->id;
+    }
+
+    private function getRateOfConditionals()
+    {
+
+        $partial_cost = \App\Models\PartialCost::find($this->partial_min);
+
+        return $partial_cost->rate;
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Requests\Invoice\CreateRequest;
 use App\Models\Client;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
+use App\Models\Product;
 use App\Models\Reception;
 use App\Models\ReceptionDetail;
 use App\Services\FiscalInvoice\DebitNoteService;
@@ -43,8 +44,6 @@ class CreateController extends Controller
                 'total' => $this->service->calculateTotalByReceptionDetails($reception),
                 'date'  => Carbon::now()->format('Y-m-d H:i:s')
             ]);
-            //           $invoice = new Invoice();
-            //dump($request->only(['client_id','total','observation','date']));
             $invoice = Invoice::create($request->only([
                 'client_id',
                 'total',
@@ -54,26 +53,9 @@ class CreateController extends Controller
             $invoice->identify = config('invoice.local') . '-' . $invoice->id;
             $invoice->save();
 
-            $reception->details->map(function ($item) use ($invoice) {
-                $data = [
-                    'price'      => $item->rate,
-                    'quantity'   => $item->quantity_partial,
-                    'invoice_id' => $invoice->id
-                ];
+            self::storeReceptionDetailsInInvoice($reception, $invoice);
 
-                $item->invoiceDetail()->create($data);
-
-                if ($item->time_additional) {
-                    $quantity_aditional = (string) $item->time_additional;
-                    $quantity_aditional = (int) rtrim($quantity_aditional, 'h');
-                    $data2 = [
-                        'price' => $item->price_additional,
-                        'quantity' => $quantity_aditional,
-                        'invoice_id' => $invoice->id,
-                    ];
-                    $item->invoiceDetail()->create($data2);
-                }
-            });
+            self::storeProductsInInvoice($invoice, $request->products);
 
             self::storePayments($invoice, $request->payments);
 
@@ -247,15 +229,60 @@ class CreateController extends Controller
         return 0;
     }
 
-    public function reportX(Request $request){
+    public function reportX(Request $request)
+    {
         $fiscal = new FiscalInvoiceService();
 
         return $fiscal->reportX();
     }
 
-    public function reportZ(Request $request){
+    public function reportZ(Request $request)
+    {
         $fiscal = new FiscalInvoiceService();
 
         return $fiscal->reportZ();
+    }
+
+    private function storeProductsInInvoice(Invoice $invoice, $products)
+    {
+        foreach ($products as $product) {
+            $prod = Product::find($product['id']);
+            $data = [
+                'price'      => $prod->sale_price,
+                'quantity'   => $quantity = $product['quantity'],
+                'invoice_id' => $invoice->id
+            ];
+            $prod->invoiceDetail()->create($data);
+
+            $prod->inventory->stock -= $quantity;
+            if ($prod->inventory->stock < 0) {
+                throw new \Exception('El producto ' . $prod->name . ' No tiene stock en su Inventario');
+            }
+            $prod->inventory->save();
+        }
+    }
+
+    private function storeReceptionDetailsInInvoice(Reception $reception, Invoice $invoice)
+    {
+        $reception->details->map(function ($item) use ($invoice) {
+            $data = [
+                'price'      => $item->rate,
+                'quantity'   => $item->quantity_partial,
+                'invoice_id' => $invoice->id
+            ];
+
+            $item->invoiceDetail()->create($data);
+
+            if ($item->time_additional) {
+                $quantity_aditional = (string) $item->time_additional;
+                $quantity_aditional = (int) rtrim($quantity_aditional, 'h');
+                $data2 = [
+                    'price' => $item->price_additional,
+                    'quantity' => $quantity_aditional,
+                    'invoice_id' => $invoice->id,
+                ];
+                $item->invoiceDetail()->create($data2);
+            }
+        });
     }
 }
