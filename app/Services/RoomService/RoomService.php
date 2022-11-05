@@ -24,6 +24,7 @@ class RoomService
     protected $room_type_id;
     protected $dayName;
     protected $partial_min;
+    protected $partial_init;
     protected $bool_date = false;
 
     public function __construct(Room $room, bool $renew = false)
@@ -31,7 +32,7 @@ class RoomService
         $this->room = $room;
         $this->renew = $renew;
         $this->room_type_id = $this->room->partialCost->room_type_id;
-        $this->partial_min  = $this->room->partialCost->id;
+        $this->partial_min  = $this->partial_init = $this->room->partialCost->id;
         self::setVars();
     }
 
@@ -173,6 +174,7 @@ class RoomService
     private function getRateOfConditionals()
     {
 
+        if($this->partial_init == $this->partial_min) return 0;
         $partial_cost = \App\Models\PartialCost::find($this->partial_min);
 
         return $partial_cost->rate;

@@ -143,12 +143,17 @@ class CreateController extends Controller
         $invoice->details->map(function ($invoice_detail) use ($debit_note) {
             if ($invoice_detail->productable_type == 'App\Models\ReceptionDetail') {
                 $product = ReceptionDetail::find($invoice_detail->productable_id);
+
+            $name_product = 'hab'.$product->reception->room->name . ' ' . $product->partial_min;
+            }else{
+                $product = \App\Models\Product::find($invoice_detail->productable_id);
+
+            $name_product = $product->name;
             }
 
             $iva = 0.16;
             $precio = self::calculatePriceOfProduct($invoice_detail);
 
-            $name_product = $product->reception->observation . ' ' . $product->partial_min;
 
             $debit_note->addProduct(
                 $precio,

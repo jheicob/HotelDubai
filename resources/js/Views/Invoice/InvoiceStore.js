@@ -17,6 +17,11 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         description: "",
     });
 
+    const products = ref([])
+
+    const addProduct = (item) => {
+        products.value.push(item)
+    }
     const addPayment = () => {
         form.value.payments.push(payment.value);
         payment.value = {
@@ -30,6 +35,9 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
     const deletePayment = (index) => {
         form.value.payments.splice(index, 1);
     };
+    const deleteProduct = (index) => {
+        products.value.splice(index,1);
+    }
     const getClientFullName = (client) => {
         return client.attributes.first_name + " " + client.attributes.last_name;
     };
@@ -70,17 +78,31 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         return sum;
     };
 
-    const getAcumTotalByDetails = () => {
-        let sum = 0;
-
+    const acumByDetails = ref(0)
+    const getAcumTotalByDetails = computed(() => {
+        acumByDetails.value = 0
         form.value.reception_details.map((detail) => {
-            sum += parseFloat(detail.rate) * parseInt(detail.quantity_partial);
-            sum +=
+            acumByDetails.value += parseFloat(detail.rate) * parseInt(detail.quantity_partial);
+            acumByDetails.value +=
                 parseFloat(detail.price_additional) *
                 parseInt(detail.time_additional);
         });
-        return sum
-    };
+        return acumByDetails.value
+    })
+
+    const acumByProducts = ref(0)
+
+    const getAcumByProducts = computed(() => {
+        acumByProducts.value =0
+        products.value.map(item => {
+            acumByProducts.value += item.price * item.quantity
+        })
+        return acumByProducts.value
+    })
+
+    const getAcumTotal = computed(() => {
+        return acumByProducts.value + acumByDetails.value
+    })
     const { show } = storeToRefs(reception);
 
     const printInvoice = (igtf) => {
@@ -91,6 +113,7 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
                     .id,
             reception_details: form.value.reception_details,
             payments: form.value.payments,
+            products: products.value
         };
         axios
             .post(url, data)
@@ -143,6 +166,11 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         form,
         getTotalByDetails,
         printInvoice,
-getAcumTotalByDetails 
+getAcumTotalByDetails,
+        products,
+        deleteProduct,
+        addProduct,
+        getAcumByProducts,
+        getAcumTotal
     };
 });

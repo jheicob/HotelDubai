@@ -563,7 +563,7 @@
                                             <th colspan="5">Total</th>
                                             <th>
                                                 {{
-                                                invoice.getAcumTotalByDetails()
+                                                invoice.getAcumTotalByDetails
                                                 }}
                                             </th>
                                         </tr>
@@ -571,7 +571,91 @@
                                 </table>
 
                                 <div class="my-2"></div>
+                                <h3>Productos</h3>
+                                <table class="table text-center">
+                                    <thead>
+                                        <tr>
+                                            <th>Producto</th>
+                                            <th>Descripcion</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio</th>
+                                            <th>SubTotal</th>
+                                            <th>Accion</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(item, i) in invoice.products" :key="i">
+                                            <td>{{item.name}}</td>
+                                            <td>{{item.description}}</td>
+                                            <td>{{item.quantity}}</td>
+                                            <td>{{item.price}}</td>
+                                            <td>{{item.price * item.quantity }}</td>
+                                            <td>
+                                                <i
+                                                    class="fas fa-minus"
+                                                    style="cursor: pointer"
+                                                    @click="
+                                                    invoice.deleteProduct(i)
+                                                    "
+                                                    >
+                                                </i>
+                                            </td>
+
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                <multiselect
+                                                    id="checkedPermissions"
+                                                    v-model="product"
+                                                    :options="ocuppy.products"
+                                                    label="name"
+                                                    track-by="id"
+                                                >
+                                                </multiselect>
+                                            </td>
+                                            <td>
+                                                {{product.description}}
+                                            </td>
+                                            <td>
+                                                <input type="number" min="0" class="form-control" v-model="product.quantity"/>
+                                            </td>
+                                            <td>
+                                                {{product.price}}
+                                            </td>
+                                            <td>
+                                                {{ product.quantity * product.price}}
+                                            </td>
+                                            <td colspan="5">
+                                                <i
+                                                    class="fas fa-plus"
+                                                    style="cursor: pointer"
+                                                    @click="addProductInInvoice"
+                                                    >
+                                                </i>
+                                            </td>
+
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th colspan="5">Total</th>
+                                            <th>
+                                                {{
+                                                invoice.getAcumByProducts
+                                                }}
+                                            </th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <div class="my-2"></div>
+                                <div class="col">
+
                                 <h3>Pagos</h3>
+
+                                </div>
+                                <div class="col">
+                                    Total a Pagar: {{invoice.getAcumTotal}}
+                                </div>
                                 <table class="table text-center">
                                     <thead>
                                         <tr>
@@ -704,7 +788,7 @@
     </div>
 </template>
 <script setup>
-import { onMounted } from "vue";
+import { onMounted,ref } from "vue";
 import { storeToRefs } from "pinia";
 import { receptionStore } from "./ReceptionStore.js";
 import { HelperStore } from "@/HelperStore";
@@ -712,6 +796,7 @@ import { InvoiceStore } from "../../Invoice/InvoiceStore.js";
 import { ocuppyRoomStore } from "../Modals/OcuppyRoomStore";
 import { RoomStore } from "../RoomStore";
 
+	import Multiselect from "vue-multiselect";
 const openModal = () => {
     //    console.log("aqui");
     let details =
@@ -741,7 +826,7 @@ const { getClient, storeAssignedRoom } = ocuppy;
 
 const { form, item, desactiveButton } = storeToRefs(helper);
 
-const { client_exist, type_documents, date, hour } = storeToRefs(ocuppy);
+const { client_exist, type_documents, date, hour, product } = storeToRefs(ocuppy);
 
 const { form: form_invoice } = storeToRefs(invoice);
 
@@ -757,7 +842,16 @@ const opTickets = [
         id:'Otro'
     },
 ]
+const {products: productInvoice} = storeToRefs(invoice)
+
+const addProductInInvoice = () => {
+
+    productInvoice.value.push(ocuppy.product)
+    ocuppy.clearProduct()
+    
+}
 onMounted(() => {
     ocuppy.getTypeDocuments();
+    ocuppy.getProducts()
 });
 </script>

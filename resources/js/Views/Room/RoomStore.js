@@ -242,7 +242,7 @@ const selectColor = (item, countdown) => {
 
 const showPartialAndRate = (item)=>{
 //    console.log(item)
-    let rate = item.relationships.partialCost.attributes.rate
+    let rate = item.attributes.rate_current
     let partial = item.relationships.partialCost.relationships.partialRate.attributes.name
 
     return `${rate} (${partial})`

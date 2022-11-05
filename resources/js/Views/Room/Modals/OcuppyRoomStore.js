@@ -171,13 +171,62 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
             .then((response) => {
                 type_documents.value = response.data.data;
             })
-            .catch((err) => helper.getErrorRequest(err));
+            .catch((err) => helper.geterrorrequest(err));
     };
 
     const getReceptionDetailByItem = (item) => {
         return item.relationships?.receptionActive.details ?? [];
     };
+
+    const products = ref([])
+
+    const getProducts = () => {
+    axios
+            .get("/invoice/Product/get")
+            .then((response) => {
+                products.value = response.data.data.map((item) => {
+                    return {
+                        id: item.id,
+                        name: item.attributes.name,
+                        description: item.attributes.description,
+                        price: item.attributes.sale_price,
+                        quantity: 0
+                    }
+                });
+            })
+            .catch((err) => helper.geterrorrequest(err));
+
+    }
+
+const product = ref({
+    id: '',
+    name: '',
+    description: '',
+    price: 0,
+    quantity: 0
+})
+
+const clearProduct = () => {
+    product.value = {
+    id: '',
+    name: '',
+    description: '',
+    price: 0,
+    quantity: 0
+    }
+}
+
+const setProduct = (id) => {
+    product.value = products.map(item => item.id == id)
+    
+}
+
     return {
+        product,
+        clearProduct,
+        setProduct,
+        products,
+        getProducts,
         getReceptionDetailByItem,
         clearForm,
         date,
