@@ -39,15 +39,16 @@ class CreateRequest extends FormRequest
             // ],
             // 'reception_details.*.time_additional'   => 'nullable|string',
             // 'reception_details.*.price_additional'  => 'nullable|numeric',
-            // 'products'  => 'required|array',
-            // 'products.*.id'   => 'nullable|string',
-            // 'products.*.time_additional'   => 'nullable|string',
-            // 'products.*.price_additional'  => 'nullable|numeric',
+            'products'  => 'nullable|array',
+            'products.*.id'   => 'nullable|exists:products,id',
+            'products.*.quantity'   => 'nullable|integer',
+
             'payments' => 'required|array',
             'payments.*.type'        => 'required|in:divisa,Bs',
             'payments.*.method'      => 'required|in:efectivo,digital,tarjeta',
             'payments.*.quantity'    => 'required|numeric',
             'payments.*.description' => 'required|string',
+
             'total_payment' => new VerifiedTotalPayment($this->client_id)
         ];
     }

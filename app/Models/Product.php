@@ -38,4 +38,8 @@ class Product extends Model implements Auditable
     {
         return $this->hasOne(Inventory::class);
     }
+
+     public function invoiceDetail(){
+        return $this->morphMany(InvoiceDetail::class,'productable');
+    }
 }

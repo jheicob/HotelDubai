@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Invoice;
+use App\Models\Product;
 use App\Models\Reception;
 use App\Models\ReceptionDetail;
 use App\Models\User;
@@ -50,7 +51,8 @@ class InvoiceTest extends TestCase
     {
         // $this->withoutExceptionHandling();
         $user = User::firstWhere('email', 'testing@c.c');
-
+        $product = Product::factory()->create();
+        $stock_current = $product->inventory->stock;
         $reception = Reception::find(12);
 
         $response = $this
@@ -58,13 +60,12 @@ class InvoiceTest extends TestCase
             ->postJson(route('invoice.create'), [
                 'client_id'     => $reception->client_id,
                 'observation'   => $obs = $this->faker->text(),
-                // 'reception_details' => [
-                //     [
-                //         'id' => '2',
-                //         'time_additional' => '',
-                //         'price_additional'=> 0
-                //     ]
-                // ]
+                'products' => [
+                    [
+                        'id' => $product,
+                        'quantity' => $quant_prod = 1,
+                    ]
+                ],
                 'payments' => [
                     [
                         'type'        => $payment_type = $this->faker->randomElement(['divisa', 'Bs']),
@@ -98,7 +99,7 @@ class InvoiceTest extends TestCase
         $this->assertEquals($invoice_service->calculateTotalByReceptionDetails($reception), $invoice->total);
 
         // verified invoice details
-        $invoice_details = $invoice->details;     // la recepción tiene 2 elementos
+        $invoice_details = $invoice->details->where('productable_type', 'like', '%Reception%');     // la recepción tiene 2 elementos
         $reception_details = $reception->details; // la recepción tiene 2 elementos
 
         $this->assertEquals($invoice_details[0]->productable_id,   $reception_details[0]->id);
@@ -122,6 +123,13 @@ class InvoiceTest extends TestCase
         $this->assertEquals($payment2_description, $invoice->payments[1]->description);
 
         $this->assertEquals($payment_quantity + $payment2_quantity, $invoice->total_payment);
+
+        // products
+        $product->refresh();
+        $invoice_details_prod = $invoice->details->where('productable_type', 'like', '%Product');     // la recepción tiene 2 elementos
+
+        $this->assertEquals(abs($quant_prod - $stock_current), $product->inventory->stock);
+        $this->assertEquals($product->id, $invoice_details_prod->productable_id);
     }
 
     /**

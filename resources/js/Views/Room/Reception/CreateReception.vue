@@ -226,7 +226,7 @@
                                                             <input
                                                                 type="text"
                                                                 class="form-control"
-                                                                placeholder="Ingrese RUT"
+                                                                placeholder="Ingrese Apellidos"
                                                                 v-model="
                                                                 form.last_name
                                                                 "
@@ -407,7 +407,7 @@
                         </div>
                     </div>
                     <!-- /.table-responsive -->
-                    <div class="row justify-content-between">
+                    <div class="row justify-content-between mx-5">
                         <button
                             class="btn btn-info col-1"
                             @click.prevent="store.show = false"
