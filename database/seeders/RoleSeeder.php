@@ -189,9 +189,10 @@ class RoleSeeder extends Seeder
                 'product.getPaginate',
                 'product.get',
 
-
-            ]
-        );
+                'configuration.upsert',
+                'configuration.getPaginate',            
+                'configuration.index',
+                ]);
 
         $recepcionista_ed->givePermissionTo([
             'room.index',

@@ -14,6 +14,13 @@ class ConfigurationResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->resource->id,
+            'attributes' => [
+                'env' => $this->resource->env,
+                'fiscal_machine_serial' => $this->resource->fiscal_machine_serial,
+                'exchange_rate' => $this->resource->exchange_rate
+            ]
+        ];
     }
 }

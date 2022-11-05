@@ -22,6 +22,7 @@ class IndexController extends Controller
             $room = Room::withTrashed()
                 ->IsNotAdmin()
                 ->IsCamarero()
+                ->orderBy('name','asc')
                 ->get();
 
             $room->transform(function ($value) {

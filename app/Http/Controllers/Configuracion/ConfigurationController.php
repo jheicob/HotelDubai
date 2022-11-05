@@ -14,7 +14,7 @@ class ConfigurationController extends Controller
 {
     public function view()
     {
-        return view();
+        return view('Configuration.index');
     }
 
     public function index(Request $request)

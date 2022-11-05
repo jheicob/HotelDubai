@@ -1,5 +1,5 @@
 <template>
-    	<div class="col-1 p-0" style="margin:1px;">
+    	<div class="col-1 p-0" style="margin:5px;">
               
         <section 
             class="tile widget-appointments mb-0" 
@@ -7,8 +7,9 @@
             :class='room.selectColor(item,getTimeInMinutesAndSeconds(countdown))' 
             >
             <div class="tile-header dvd dvd-btm">
-                <h1 class="custom-font" style="font-size: 12px;">
-                    {{item.relationships.roomStatus.attributes.name }}
+                <h1 class="custom-font" style="font-size: 16px;">
+                    <!--            {{item.relationships.roomStatus.attributes.name }} -->
+                         {{item.attributes.name}}
                 </h1>
                 
                 <ul class="controls">
@@ -27,7 +28,7 @@
             </div>
              <!-- /tile header -->
 
-             <div style="font-size: 12px" class="text-center dvd dvd-btm pb-2" :style="[showBody == false ? 'display:none':'']">
+             <div style="font-size: 12px" class="text-center dvd dvd-btm pb-2">
                   {{item.relationships.partialCost.relationships.roomType.attributes.name }}
                     <br>
                     {{room.showPartialAndRate(item)}}
@@ -48,11 +49,11 @@
                     </div>
                     
                 <!-- tile body -->
-                <div class="tile-body" style="padding: 1px;">
-            <h4 style="text-align: center;"><i class="fa fa-bed"></i> 
+<!--                <div class="tile-body" style="padding: 1px;">
+                    <h4 style="text-align: center;"><i class="fa fa-bed"></i> 
                         {{item.attributes.name}}
-                    </h4>
-                </div>
+                        </h4> 
+</div> -->
                 <!-- /tile body -->
 
                 <div class="modal fade bs-example-modal-xm" id="myModalCheckOut" role="dialog" aria-labelledby="myModalLabel">

@@ -147,8 +147,8 @@
                                     <a class="dropdown-item text-dark" href="{{ route('partial.cost.index') }}">Costo Por Parciales</a>
                                 @endcan
                                 @can('partial.templates.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('partial.templates.index') }}">Plantillas
-                                        Parciales</a>
+                                    {{--<a class="dropdown-item text-dark" href="{{ route('partial.templates.index') }}">Plantillas
+                                        Parciales</a> --}}
                                 @endcan
                                 @can('date.templates.index')
                                     <a class="dropdown-item text-dark" href="{{ route('date.templates.index') }}">Plantillas Fechas</a>
@@ -172,6 +172,9 @@
                                 <span>Configuracion</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                                @can('configuration.index')
+                                    <a class="dropdown-item text-dark" href="{{ route('configuration.index') }}">Generales</a>
+                                @endcan
                                 @can('room.type.index')
                                     <a class="dropdown-item text-dark" href="{{ route('room.type.index') }}">Tipo Habitacion</a>
                                 @endcan

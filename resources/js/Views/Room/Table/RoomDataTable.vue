@@ -73,15 +73,15 @@
 		</div> 
 			  <div class="card-body fondo">
 				  <div class="row">
-					<RoomsGrid
-						v-for="(item, i) in all" :key="i"
-						:item="item"
-						:footerStyle="[
-							 item.relationships.roomStatus.attributes.color.css ??
-						 	'',
-						 ]"
-						@dblclick="ShowUpdatedModal(item,useStore.setForm)"
-					 />
+						<RoomsGrid
+							v-for="(item, i) in all" :key="i"
+							:item="item"
+							:footerStyle="[
+								 item.relationships.roomStatus.attributes.color.css ??
+								'',
+							 ]"
+							@dblclick="ShowUpdatedModal(item,useStore.setForm)"
+						 />
 				  </div>
 			  </div>
 	  </div>
