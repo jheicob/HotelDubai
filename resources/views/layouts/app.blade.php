@@ -105,6 +105,14 @@
                             </a>
                         </li>
                     @endcan
+                    @can('product.index')
+                         <li class="nav-item">
+                            <a class="nav-link" href="{{ route('Product.index') }}">
+                                <i class="fas fa-boxes"></i>
+                                <span>Productos</span>
+                            </a>
+                        </li>                       
+                    @endcan
 
                     @can('seguridad')
                         <li class="nav-item dropdown">

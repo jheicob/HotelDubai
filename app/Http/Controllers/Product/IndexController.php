@@ -12,18 +12,22 @@ class IndexController extends Controller
 {
     public function index()
     {
-        //return view('DateTemplate.index');
-        return ['view'];
+        return view('Product.index');
+ //       return ['view'];
     }
 
     public function get()
     {
         try {
-            $product = Product::withTrashed()->get();
+            $product = Product::withTrashed()
+                ->with([
+                    'inventory',
+                ])
+                ->get();
 
             return ProductResource::collection($product);
         } catch (\Exception $e) {
-            return custom_response_exception($e,__('errors.server.title'),500);
+            return custom_response_exception($e, __('errors.server.title'), 500);
         }
     }
 }
