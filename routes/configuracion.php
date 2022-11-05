@@ -15,15 +15,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(
     [
-    'prefix'     => 'configuracion',
-    'middleware'  => 'auth'
-    ], function () {
+        'prefix'     => 'configuracion',
+        'middleware'  => 'auth'
+    ],
+    function () {
 
         Route::group(
             [
-            'prefix'     => 'room-type',
-            'middleware'  => 'auth'
-            ], function () {
+                'prefix'     => 'room-type',
+                'middleware'  => 'auth'
+            ],
+            function () {
 
                 Route::get('', [App\Http\Controllers\Configuracion\RoomType\IndexController::class, 'index'])
                     ->name('room.type.index')
@@ -49,9 +51,10 @@ Route::group(
 
         Route::group(
             [
-            'prefix'     => 'theme-type',
-            'middleware'  => 'auth'
-            ], function () {
+                'prefix'     => 'theme-type',
+                'middleware'  => 'auth'
+            ],
+            function () {
 
                 Route::get('', [App\Http\Controllers\Configuracion\ThemeType\IndexController::class, 'index'])
                     ->name('theme.type.index')
@@ -77,9 +80,10 @@ Route::group(
 
         Route::group(
             [
-            'prefix'     => 'estate-type',
-            'middleware'  => 'auth'
-            ], function () {
+                'prefix'     => 'estate-type',
+                'middleware'  => 'auth'
+            ],
+            function () {
 
                 Route::get('', [App\Http\Controllers\Configuracion\EstateType\IndexController::class, 'index'])
                     ->name('estate.type.index')
@@ -105,9 +109,10 @@ Route::group(
 
         Route::group(
             [
-            'prefix'     => 'partial-rates',
-            'middleware'  => 'auth'
-            ], function () {
+                'prefix'     => 'partial-rates',
+                'middleware'  => 'auth'
+            ],
+            function () {
 
                 Route::get('', [App\Http\Controllers\Configuracion\PartialRates\IndexController::class, 'index'])
                     ->name('partial.rates.index')
@@ -133,9 +138,10 @@ Route::group(
 
         Route::group(
             [
-            'prefix'     => 'room-status',
-            'middleware'  => 'auth'
-            ], function () {
+                'prefix'     => 'room-status',
+                'middleware'  => 'auth'
+            ],
+            function () {
 
                 Route::get('', [App\Http\Controllers\Configuracion\RoomStatus\IndexController::class, 'index'])
                     ->name('room.status.index')
@@ -161,9 +167,10 @@ Route::group(
 
         Route::group(
             [
-            'prefix'     => 'day-week',
-            'middleware'  => 'auth'
-            ], function () {
+                'prefix'     => 'day-week',
+                'middleware'  => 'auth'
+            ],
+            function () {
 
                 Route::get('', [App\Http\Controllers\Configuracion\DayWeek\IndexController::class, 'index'])
                     ->name('day.week.index')
@@ -189,9 +196,10 @@ Route::group(
 
         Route::group(
             [
-            'prefix'     => 'system-time',
-            'middleware'  => 'auth'
-            ], function () {
+                'prefix'     => 'system-time',
+                'middleware'  => 'auth'
+            ],
+            function () {
 
                 Route::get('', [App\Http\Controllers\Configuracion\SystemTime\IndexController::class, 'index'])
                     ->name('system.time.index')
@@ -217,9 +225,10 @@ Route::group(
 
         Route::group(
             [
-            'prefix'     => 'shift-system',
-            'middleware'  => 'auth'
-            ], function () {
+                'prefix'     => 'shift-system',
+                'middleware'  => 'auth'
+            ],
+            function () {
 
                 Route::get('', [App\Http\Controllers\Configuracion\ShiftSystem\IndexController::class, 'index'])
                     ->name('shift.system.index')
@@ -242,5 +251,15 @@ Route::group(
                     ->middleware('permission:shift.system.getPaginate');
             }
         );
+
+        Route::get('', [App\Http\Controllers\Configuracion\ConfigurationController::class, 'view'])
+            ->name('configuration.index')
+            ->middleware('permission:configuration.index');
+        Route::get('get', [App\Http\Controllers\Configuracion\ConfigurationController::class, 'index'])
+            ->name('configuration.getPaginate')
+            ->middleware('permission:configuration.getPaginate');
+        Route::post('', [App\Http\Controllers\Configuracion\ConfigurationController::class, 'upSert'])
+            ->name('configuration.upsert')
+            ->middleware('permission:configuration.upsert');
     }
 );
