@@ -14,12 +14,16 @@ class Configuration extends Model implements Auditable
     protected $fillable = [
         'env',
         'fiscal_machine_serial',
-        'exchange_rate'
+        'exchange_rate',
+        'warning_time',
+        'cancel_time'
     ];
 
     protected $auditInclude = [
         'exchange_rate',
         'env',
-        'fiscal_machine_serial'
+        'fiscal_machine_serial',
+        'warning_time',
+        'cancel_time'
     ];
 }

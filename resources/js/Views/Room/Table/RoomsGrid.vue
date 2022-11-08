@@ -188,16 +188,7 @@
     }
 
     const getTimeInMinutesAndSeconds = (millis) => {
-/*        if(!millis){
-            return '';
-        }*//*
-        const hours   = (millis / (1000*60*60)).toFixed(0)
-        const minutes = (millis / (1000*60)).toFixed(0)
-        const seconds = (millis / 1000).toFixed(0)
-//        const seconds = ((millis % 60000) / 1000).toFixed(0)
 
-        return setNumber(hours) + ':' + setNumber(minutes) + ':' + setNumber(seconds)
-      return minutes + ':' + (seconds < 10 ? '0' : '') + seconds*/
  var seconds = (millis / 1000).toFixed(0);
         var minutes = Math.floor(seconds / 60);
         var hours = "00";

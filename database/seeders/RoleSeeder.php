@@ -16,6 +16,7 @@ class RoleSeeder extends Seeder
     public function run()
     {
         $Admin = Role::create(['name' => 'Admin']);
+        $mantenimiento = Role::create(['name' => 'Mantenimiento']);
         $recepcionista_cab = Role::create(['name' => 'Recepcionista Cabaña']);
         $recepcionista_ed = Role::create(['name' => 'Recepcionista Edificio']);
         $camarero_role      = Role::create(['name' => 'Camarero']);
@@ -23,8 +24,8 @@ class RoleSeeder extends Seeder
 
         $user = User::find(1);
 
-        $recepcionista = User::firstWhere('email', "recepcionistaCab@c.c");
-        $recepcionista->assignRole('Recepcionista Cabaña');
+        $recepcionista_cab = User::firstWhere('email', "recepcionistaCab@c.c");
+        $recepcionista_cab->assignRole('Recepcionista Cabaña');
         $recepcionista_ed = User::firstWhere('email', "recepcionistaEd@c.c");
         $recepcionista_ed->assignRole('Recepcionista Edificio');
 
@@ -190,21 +191,22 @@ class RoleSeeder extends Seeder
                 'product.get',
 
                 'configuration.upsert',
-                'configuration.getPaginate',            
+                'configuration.getPaginate',
                 'configuration.index',
-                ]);
+            ]
+        );
 
         $recepcionista_ed->givePermissionTo([
             'room.index',
-                'estate.type.getPaginate',
+            'estate.type.getPaginate',
             'room.getPaginate',
             'room.get',
             'room.occuppy',
             'room.status.getPaginate',
             'room.changeParcial',
 
-                'partial.cost.getPaginate',
-                'room.type.getPaginate',
+            'partial.cost.getPaginate',
+            'room.type.getPaginate',
             'room.extend',
 
             'invoice.index',
@@ -222,20 +224,22 @@ class RoleSeeder extends Seeder
             'client.get',
             'client.assigned_room',
 
+                'product.getPaginate',
         ]);
         $recepcionista_cab->givePermissionTo([
             'room.index',
-                'estate.type.getPaginate',
+            'estate.type.getPaginate',
             'room.getPaginate',
             'room.get',
             'room.occuppy',
             'room.status.getPaginate',
             'room.changeParcial',
 
-                'partial.cost.getPaginate',
-                'room.type.getPaginate',
+            'partial.cost.getPaginate',
+            'room.type.getPaginate',
             'room.extend',
 
+                'product.getPaginate',
             'invoice.index',
             'invoice.create',
             'invoice.getPaginate',
@@ -255,24 +259,36 @@ class RoleSeeder extends Seeder
 
         $camarero_role->givePermissionTo([
             'room.index',
-                'partial.cost.getPaginate',
+            'partial.cost.getPaginate',
             'room.free',
             'room.getPaginate',
-                'estate.type.getPaginate',
+            'estate.type.getPaginate',
             'room.get',
-                'room.type.getPaginate',
+            'room.type.getPaginate',
+            'room.status.getPaginate',
+            'room.free'
+        ]);
+
+        $mantenimiento->givePermissionTo([
+            'room.index',
+            'partial.cost.getPaginate',
+            'room.free',
+            'room.getPaginate',
+            'estate.type.getPaginate',
+            'room.get',
+            'room.type.getPaginate',
             'room.status.getPaginate',
             'room.free'
         ]);
 
         $supervisor_role->givePermissionTo([
             'room.index',
-                'estate.type.getPaginate',
+            'estate.type.getPaginate',
             'room.getPaginate',
             'room.changeParcial',
             'room.get',
-                'partial.cost.getPaginate',
-                'room.type.getPaginate',
+            'partial.cost.getPaginate',
+            'room.type.getPaginate',
             'room.occuppy',
             'room.status.getPaginate',
 
@@ -293,6 +309,7 @@ class RoleSeeder extends Seeder
             'client.get',
             'client.assigned_room',
 
+                'product.getPaginate',
         ]);
     }
 }

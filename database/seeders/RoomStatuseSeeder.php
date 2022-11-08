@@ -26,8 +26,8 @@ class RoomStatuseSeeder extends Seeder
                 'color' => '{"css": "background-color:rgba(22,161,133,1)", "mode": "solid", "color": {"a": 1, "b": 133, "g": 161, "r": 22}}'
             ],
             [
-                'name' => 'Reparación',
-                'description' => 'Reparación',
+                'name' => 'Mantenimiento',
+                'description' => 'Mantenimiento',
                 'color' => '{"css": "background-color:rgba(239,174,77,1)", "mode": "solid", "color": {"a": 1, "b": 77, "g": 174, "r": 239}}'
             ],
             [

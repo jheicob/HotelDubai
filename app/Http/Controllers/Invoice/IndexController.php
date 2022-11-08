@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Invoice;
 use App\Http\Resources\Invoice\InvoiceResource;
+use App\Models\Product;
 use App\Models\ReceptionDetail;
 use Illuminate\Support\Facades\DB;
 
@@ -32,8 +33,11 @@ class IndexController extends Controller
                 $invoic->details->transform(function ($detail) {
                     if ($detail->productable_type == 'App\Models\ReceptionDetail') {
                         $reception_detail = ReceptionDetail::find($detail->productable_id);
+                        $detail['product_name'] = $reception_detail->partial_min;
+                    } else {
+                        $reception_detail = Product::find($detail->productable_id);
+                        $detail['product_name'] = $reception_detail->name;
                     }
-                    $detail['product_name'] = $reception_detail->partial_min;
 
                     return $detail;
                 });
