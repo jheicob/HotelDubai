@@ -1,5 +1,5 @@
 import { defineStore, storeToRefs } from "pinia";
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import axios from "axios";
 import { HelperStore } from "@/HelperStore";
 
@@ -7,22 +7,16 @@ export const ConfigurationStore = defineStore("ConfigurationStore", () => {
     //this var for helper
     const useHelper = HelperStore();
     const config = ref({});
-    const cancel_time = ref({
-        hours: '00',
-        minutes: '00',
-        seconds: '00'
-    })
-    const warning_time = ref({
-        hours: '00',
-        minutes: '00',
-        seconds: '00'
-    })
+    const cancel_time = ref("00:00:00");
+    const warning_time = ref("00:00:00");
 
-    function formatCancelTime(time){
-        let [hours,minutes,seconds] = time.split(':')
+    function formatCancelTime(time) {
+        let [hours, minutes, seconds] = time.split(":");
         cancel_time.value = {
-            hours,minutes,seconds
-        }
+            hours,
+            minutes,
+            seconds,
+        };
     }
 
     const getConfiguration = () => {
@@ -30,14 +24,14 @@ export const ConfigurationStore = defineStore("ConfigurationStore", () => {
         axios
             .get(urlKeeps)
             .then((response) => {
-                let {attributes} = response.data.data 
+                let { attributes } = response.data.data;
                 config.value = {
                     env: attributes.env,
                     fiscal_machine_serial: attributes.fiscal_machine_serial,
                     exchange_rate: attributes.exchange_rate,
                     warning_time: attributes.warning_time,
-                    cancel_time: attributes.cancel_time
-                }
+                    cancel_time: attributes.cancel_time,
+                };
                 formatCancelTime(attributes.cancel_time);
                 response.data.data;
                 $("#dataTable").DataTable().destroy();
@@ -52,11 +46,11 @@ export const ConfigurationStore = defineStore("ConfigurationStore", () => {
     const putConfig = () => {
         useHelper.desactiveButton = true;
 
-        var url = "/configuracion"
+        var url = "/configuracion";
         axios
             .post(url, config.value)
             .then((response) => {
-                location.reload()
+                location.reload();
             })
             .catch((err) => {
                 useHelper.getErrorRequest(err);
@@ -67,6 +61,7 @@ export const ConfigurationStore = defineStore("ConfigurationStore", () => {
         putConfig,
         getConfiguration,
         config,
-        cancel_time
+        cancel_time,
+        warning_time,
     };
 });

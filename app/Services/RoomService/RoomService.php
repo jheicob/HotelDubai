@@ -58,8 +58,6 @@ class RoomService
 
     public function getRateByConditionals()
     {
-
-
         $this->acum += self::getRateByDate($this->date);
         $this->acum += self::getRateByDay($this->dayName);
         $this->acum += self::getRateByHour();
@@ -130,7 +128,7 @@ class RoomService
         if ($bool != '') {
             if (!$this->bool_date) {
 
-                self::getPartialCostByRoomTypeAndPartial($bool->room_type_id, $bool->partial_rate_id);
+                // self::getPartialCostByRoomTypeAndPartial($bool->room_type_id, $bool->partial_rate_id);
             }
             return (int) $bool->rate;
         }
@@ -174,7 +172,7 @@ class RoomService
     private function getRateOfConditionals()
     {
 
-        if($this->partial_init == $this->partial_min) return 0;
+        if ($this->partial_init == $this->partial_min) return 0;
         $partial_cost = \App\Models\PartialCost::find($this->partial_min);
 
         return $partial_cost->rate;

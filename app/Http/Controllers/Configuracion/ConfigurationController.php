@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Configuracion;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ConfigurationRequest;
 use App\Http\Resources\ConfigurationResource;
 use App\Models\Configuration;
 use Exception;
@@ -24,7 +25,7 @@ class ConfigurationController extends Controller
         return ConfigurationResource::make($configuration);
     }
 
-    public function upSert(Request $request)
+    public function upSert(ConfigurationRequest $request)
     {
         try {
             DB::beginTransaction();

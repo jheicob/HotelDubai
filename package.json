@@ -35,6 +35,7 @@
         "toastr": "^2.1.4",
         "ts-loader": "^9.4.1",
         "typescript": "^4.8.4",
+        "vue-input-mask": "^0.0.11",
         "vue-multiselect": "^3.0.0-alpha.2"
     }
 }
