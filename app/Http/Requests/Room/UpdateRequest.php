@@ -29,23 +29,24 @@ class UpdateRequest extends FormRequest
      */
     public function rules()
     {
-        if((Auth::user()->roles->first())->name == 'Camarero'){
+        if (
+            (Auth::user()->roles->first())->name == 'Camarero'
+            || (Auth::user()->roles->first())->name == 'Mantenimiento'
+        ) {
             return [
                 'room_status_id' => [
                     'required',
                     'exists:room_statuses,id',
                     new VerifiedStatusPermissForCamarero()
-               
-                ]
-            ]
-                ;
-        }
-         if((Auth::user()->roles->first())->name == 'Recepcionista'){
-            return [
-            'partial_cost_id' => 'required|exists:partial_costs,id',
 
-            ]
-                ;
+                ]
+            ];
+        }
+        if ((Auth::user()->roles->first())->name == 'Recepcionista') {
+            return [
+                'partial_cost_id' => 'required|exists:partial_costs,id',
+
+            ];
         }
         return [
             'room_status_id' => 'required|exists:room_statuses,id',

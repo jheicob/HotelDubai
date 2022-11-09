@@ -170,6 +170,9 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'invoice.getPaginate']);
         Permission::create(['name' => 'invoice.get']);
         Permission::create(['name' => 'invoice.printFiscal']);
+        Permission::create(['name' => 'invoice.reportX']);
+        Permission::create(['name' => 'invoice.reportZ']);
+
         Permission::create(['name' => 'invoice.cancel']);
 
 
@@ -179,10 +182,9 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'product.updated']);
         Permission::create(['name' => 'product.getPaginate']);
         Permission::create(['name' => 'product.get']);
- 
+
         Permission::create(['name' => 'configuration.upsert']);
         Permission::create(['name' => 'configuration.getPaginate']);
         Permission::create(['name' => 'configuration.index']);
-
     }
 }

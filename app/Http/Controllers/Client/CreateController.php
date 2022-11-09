@@ -17,6 +17,7 @@ use App\Services\RoomService\RoomService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Client\CancelUseRequest;
+use App\Traits\Configurations\GeneralConfiguration;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Mpdf\Mpdf;
@@ -24,6 +25,7 @@ use Mpdf\Mpdf;
 class CreateController extends Controller
 {
 
+    use GeneralConfiguration;
     public function create(CreateRequest $request)
     {
         try {
@@ -52,7 +54,7 @@ class CreateController extends Controller
             $client = Client::find($request->client_id);
             $room = Room::find($request->room_id);
 
-            if($room->room_status_id != 2){
+            if ($room->room_status_id != 2) {
                 throw new \Exception('La Habitación está ocupada');
             }
             $partial_rate = $room->partialCost->partialRate;

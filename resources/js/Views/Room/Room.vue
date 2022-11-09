@@ -19,6 +19,9 @@
 
 	onMounted(() => {});
 	const props = defineProps({
+		role:{
+			type: String,
+		},
 		create: {
 			type: Boolean,
 			default: false,

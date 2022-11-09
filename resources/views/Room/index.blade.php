@@ -10,6 +10,7 @@
             :extend="'{{ Auth::user()->can('room.extend') }}' == 1" 
             :clean="'{{ Auth::user()->can('room.clean') }}' == 1"
             :change_parcial="'{{ Auth::user()->can('room.changeParcial') }}' == 1" 
+            :role="{{(Auth::user()->roles->first())->name}}"
             />
     </div>
 @endsection

@@ -17,11 +17,11 @@
 						<hr class="border border-3 border-danger">
 					</div>
 					<div class="form-floating mb-3 col-6">
-					  <input type="text" class="form-control" id="machine_fiscal" placeholder="AXZ-123">
+					  <input type="text" class="form-control" id="machine_fiscal" placeholder="AXZ-123" v-model="config.fiscal_machine_serial">
 					  <label for="machine_fiscal" class="mx-3">Serial de Máquina Fiscal</label>
 					</div>
 					<div class="form-floating mb-3 col-6">
-					  <input type="text" class="form-control" id="env" placeholder="ED">
+					  <input type="text" class="form-control" id="env" placeholder="ED" v-model="config.env">
 					  <label class="mx-3" for="env">Código de ambiente para impresión</label>
 					</div>
 				</div>
@@ -36,14 +36,35 @@
 						<hr class="border border-3 border-danger">
 					</div>
 					<div class="form-floating mb-3 col-6 mx-auto">
-					  <input type="number" min="0" class="form-control" id="machine_fiscal" placeholder="8.5">
-					  <label for="machine_fiscal" class="mx-3">Tasa de cambio Bs/USD</label>
+					  <input type="text" min="0" class="form-control" id="exchange" placeholder="8.5" v-model="config.exchange_rate">
+					  <label for="exchange" class="mx-3">Tasa de cambio Bs/USD</label>
 					</div>
 				</div>
+<div class="row">
+					<div class="col-5">
+						<hr class="border border-3 border-danger">
+					</div>
+					<div class="col-2 text-center mb-2">
+						Tiempos
+					</div>
+					<div class="col-5">
+						<hr class="border border-3 border-danger">
+					</div>
+					<div class="form-floating mb-3 col-6 mx-auto">
+						<input type="text" class="form-control" id="warning_time" v-model="warning_time">
+					  <label for="warning_time" class="mx-3">Tiempo de Aviso</label>
+					</div>
+					<div class="form-floating mb-3 col-6 mx-auto">
+					  <input type="text" min="0" class="form-control" id="cancel_time" placeholder="8.5" @change="setTimeMask(config.cancel_time)">
+					  <label for="cancel_time" class="mx-3">Tiempo de Cancelación</label>
+					</div>
+
+				</div>
+
 				<hr class="border border-3 border-danger">
 				<div class="row my-4">
 					<div class="col text-center">
-					<button class="btn btn-info col-1" type="button" v-if="useHelper.permiss.upsert">
+					<button class="btn btn-info col-1" type="button" v-if="useHelper.permiss.upsert" @click="store.putConfig">
 							Actualizar
 						</button>
 					</div>
@@ -56,7 +77,7 @@
 <script setup>
 	import {ConfigurationStore} from './ConfigurationStore.js'
 	import { HelperStore } from "../../HelperStore";
-	import {onMounted} from 'vue'
+	import {onMounted, computed, watch,ref} from 'vue'
 	import {storeToRefs} from 'pinia'
 
 	const useHelper = HelperStore();
@@ -68,10 +89,31 @@
 		},
 	});
 
+
+const verifyLength = (type, event) => {
+	console.log('evento',event)
+	if(type == 'Cancel'){
+		if(config.value.cancel_time.length > 8){
+			e.preventDefault()
+			return;
+		};
+	}
+	if(type == 'Warning'){
+			if(config.value.warning_time.length > 8){
+			e.preventDefault()
+			return;
+		};
+	}
+}
+
 	const {config} = storeToRefs(store)
+const warning_time = ref(config.value.warning_time)
 	useHelper.permiss = props;
-	
-onMounted( () => {
-	store.getConfiguration()
-} )
+watch(warning_time,async(nuevo,viejo)=> {
+	console.log('nuevo',nuevo)
+	console.log('viejo',viejo)
+})
+	onMounted( () => {
+		store.getConfiguration()
+	} )
 </script>

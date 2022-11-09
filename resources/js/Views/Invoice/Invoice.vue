@@ -25,10 +25,18 @@
 			type: Boolean,
 			default: false,
 		},
-		cancel:{
+		cancel: {
 			type: Boolean,
-			default: false
-		}
+			default: false,
+		},
+		report_x: {
+			type: Boolean,
+			default: false,
+		},
+		report_z: {
+			type: Boolean,
+			default: false,
+		},
 	});
 
 	useHelper.permiss = props;

@@ -18,17 +18,26 @@ class RoomStatuseSeeder extends Seeder
             [
                 'name' => 'Sucia',
                 'description' => 'Sucia',
-                'color' => '{"css": "background-color:rgba(185,109,9,1)", "mode": "solid", "color": {"a": 1, "b": 9, "g": 109, "r": 185}}'
+                'color' => '{
+                "css": "background-color:rgba(239,174,77,1)",
+                "mode": "solid",
+                "color": {
+                    "a": 1,
+                    "b": 77,
+                    "g": 174,
+                    "r": 239
+                }
+                }'
             ],
             [
                 'name' => 'Disponible',
                 'description' => 'Disponible',
-                'color' => '{"css": "background-color:rgba(22,161,133,1)", "mode": "solid", "color": {"a": 1, "b": 133, "g": 161, "r": 22}}'
+                'color' => '{"css": "background-color:rgba(22,160,133,1)", "mode": "solid", "color": {"a": 1, "b": 133, "g": 161, "r": 22}}'
             ],
             [
-                'name' => 'Reparación',
-                'description' => 'Reparación',
-                'color' => '{"css": "background-color:rgba(239,174,77,1)", "mode": "solid", "color": {"a": 1, "b": 77, "g": 174, "r": 239}}'
+                'name' => 'Mantenimiento',
+                'description' => 'Mantenimiento',
+                'color' => '{"css": "background-color:rgba(123,125,177,1)", "mode": "solid", "color": {"a": 1, "b": 77, "g": 174, "r": 239}}'
             ],
             [
                 'name' => 'Ocupada',

@@ -2,12 +2,14 @@
 
 namespace App\Rules\Client;
 
+use App\Traits\Configurations\GeneralConfiguration;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
 class VerifiedRoleForCancelUseRoom implements Rule
 {
+    use GeneralConfiguration;
     protected $client;
     protected $reception;
     /**
@@ -39,7 +41,7 @@ class VerifiedRoleForCancelUseRoom implements Rule
             case 'Admin':
                 return true;
             case 'Recepcionista':
-                return self::verifiedTimeOut(15);
+                return self::verifiedTimeOut();
             case 'Supervisor':
                 return true;
             default:
@@ -47,9 +49,15 @@ class VerifiedRoleForCancelUseRoom implements Rule
         }
     }
 
-    public function verifiedTimeOut(int $minutes)
+    public function verifiedTimeOut()
     {
-        $time_start = Carbon::parse($this->reception->date_in)->addMinutes($minutes);
+        $conf = $this->getGeneralConfiguration();
+        $times = explode(':', $conf->cancel_time);
+
+        $time_start = Carbon::parse($this->reception->date_in)
+            ->addHours($times[0])
+            ->addMinutes($times[1])
+            ->addSeconds($times[2]);
         $now = Carbon::now();
         if ($now->isAfter($time_start)) return false;
         return true;

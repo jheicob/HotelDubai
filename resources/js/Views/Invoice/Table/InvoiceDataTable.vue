@@ -11,29 +11,30 @@
 		<!-- DataTables Example -->
 		<div class="card mb-3">
 			<div class="card-header">
-				<div class="row justify-content-between ">
-		    	<div class="col-2 my-auto">
-			  		<i class="fas fa-table"></i>
-					Facturas
+				<div class="row justify-content-between">
+					<div class="col-2 my-auto">
+						<i class="fas fa-table"></i>
+						Facturas
+					</div>
+					<div
+						class="text-right btn-group col-3"
+						role="group"
+						aria-label="Basic example"
+					>
+						<ButtonComponent
+							v-if="useHelper.permiss.report_x"
+							:btnClass="['btn-info']"
+							@click="reportX"
+							text="Reporte X"
+						/>
+						<ButtonComponent
+							v-if="useHelper.permiss.report_z"
+							:btnClass="['btn-info']"
+							@click="reportZ"
+							text="Reporte Z"
+						/>
+					</div>
 				</div>
-				<div
-		 			class="text-right btn-group col-3"
-					role="group"
- 					aria-label="Basic example"
- 					>
-					 <ButtonComponent
-						 :btnClass="['btn-info']"
-						 @click="reportX"
-						 text="Reporte X"
-					  />
-					 <ButtonComponent
-						 :btnClass="['btn-info']"
-						 @click="reportZ"
-						 text="Reporte Z"
-					  />
-				</div>
-			  
-		     </div>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
@@ -97,16 +98,23 @@
 										title="Ver Detalle"
 									></i>
 									<i
-										v-on:click.prevent="useStore.printFiscalInvoice(keep)"
+										v-on:click.prevent="
+											useStore.printFiscalInvoice(keep)
+										"
 										class="ico fas fa-print fa-lg text-secondary mr-2"
 										v-if="useStore.isPrintable(keep)"
 										style="cursor: pointer"
 										title="Imprimir"
 									></i>
-	<i
-										v-on:click.prevent="useStore.printFiscalInvoice(keep,true)"
+									<i
+										v-on:click.prevent="
+											useStore.printFiscalInvoice(keep, true)
+										"
 										class="ico fas fa-window-close fa-lg text-secondary mr-2"
-										v-if="useStore.isCancellable(keep) && useHelper.permiss.cancel"
+										v-if="
+											useStore.isCancellable(keep) &&
+											useHelper.permiss.cancel
+										"
 										style="cursor: pointer"
 										title="Devolucion"
 									></i>
@@ -125,8 +133,7 @@
 </template>
 
 <script setup>
-
-import ButtonComponent from "@/components/ButtonComponent.vue";
+	import ButtonComponent from "@/components/ButtonComponent.vue";
 	// this composition component vue 3
 	import { onMounted } from "vue";
 	//	import CreatePermission from "../Modals/CreateRoomType.vue";
@@ -142,12 +149,12 @@ import ButtonComponent from "@/components/ButtonComponent.vue";
 	const useStore = InvoiceStore();
 	useHelper.url = "invoice";
 
-const reportX = () =>{
-	window.open('/invoice/report-X')
-}
-const reportZ = () =>{
-	window.open('/invoice/report-Z')
-}
+	const reportX = () => {
+		window.open("/invoice/report-X");
+	};
+	const reportZ = () => {
+		window.open("/invoice/report-Z");
+	};
 	onMounted(() => {
 		//		useStore.getRoomTypes();
 

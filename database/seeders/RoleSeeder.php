@@ -15,26 +15,20 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        $Admin = Role::create(['name' => 'Admin']);
-        $recepcionista_cab = Role::create(['name' => 'Recepcionista Cabaña']);
-        $recepcionista_ed = Role::create(['name' => 'Recepcionista Edificio']);
+        $Admin              = Role::create(['name' => 'Admin']);
+        $recepcionista_cab  = Role::create(['name' => 'Recepcionista Cabaña']);
+        $recepcionista_ed   = Role::create(['name' => 'Recepcionista Edificio']);
+        $mantenimiento      = Role::create(['name' => 'Mantenimiento']);
         $camarero_role      = Role::create(['name' => 'Camarero']);
         $supervisor_role    = Role::create(['name' => 'Supervisor']);
 
-        $user = User::find(1);
+        (User::find(1))->assignRole('Admin');
+        (User::firstWhere('email', "recepcionistaCab@c.c"))->assignRole('Recepcionista Cabaña');
+        (User::firstWhere('email', "recepcionistaEd@c.c"))->assignRole('Recepcionista Edificio');
+        (User::firstWhere('email', "camarero@c.c"))->assignRole('Camarero');
+        (User::firstWhere('email', "mantenimiento@c.c"))->assignRole('Mantenimiento');
+        (User::firstWhere('email', "supervisor@c.c"))->assignRole('Supervisor');
 
-        $recepcionista = User::firstWhere('email', "recepcionistaCab@c.c");
-        $recepcionista->assignRole('Recepcionista Cabaña');
-        $recepcionista_ed = User::firstWhere('email', "recepcionistaEd@c.c");
-        $recepcionista_ed->assignRole('Recepcionista Edificio');
-
-        $camarero = User::firstWhere('email', "camarero@c.c");
-        $camarero->assignRole('Camarero');
-
-        $supervisor = User::firstWhere('email', "supervisor@c.c");
-        $supervisor->assignRole('Supervisor');
-
-        $user->assignRole('Admin');
         $Admin->givePermissionTo(
             [
                 'seguridad',
@@ -181,6 +175,8 @@ class RoleSeeder extends Seeder
                 'invoice.get',
                 'invoice.printFiscal',
                 'invoice.cancel',
+                'invoice.reportX',
+                'invoice.reportZ',
 
                 'product.index',
                 'product.create',
@@ -190,27 +186,29 @@ class RoleSeeder extends Seeder
                 'product.get',
 
                 'configuration.upsert',
-                'configuration.getPaginate',            
+                'configuration.getPaginate',
                 'configuration.index',
-                ]);
+            ]
+        );
 
         $recepcionista_ed->givePermissionTo([
             'room.index',
-                'estate.type.getPaginate',
+            'estate.type.getPaginate',
             'room.getPaginate',
             'room.get',
             'room.occuppy',
             'room.status.getPaginate',
             'room.changeParcial',
 
-                'partial.cost.getPaginate',
-                'room.type.getPaginate',
+            'partial.cost.getPaginate',
+            'room.type.getPaginate',
             'room.extend',
 
             'invoice.index',
             'invoice.create',
             'invoice.getPaginate',
             'invoice.get',
+            'invoice.reportX',
             'invoice.printFiscal',
 
             'client.index',
@@ -222,25 +220,29 @@ class RoleSeeder extends Seeder
             'client.get',
             'client.assigned_room',
 
+            'product.getPaginate',
         ]);
         $recepcionista_cab->givePermissionTo([
             'room.index',
-                'estate.type.getPaginate',
+            'estate.type.getPaginate',
             'room.getPaginate',
             'room.get',
             'room.occuppy',
             'room.status.getPaginate',
             'room.changeParcial',
 
-                'partial.cost.getPaginate',
-                'room.type.getPaginate',
+            'partial.cost.getPaginate',
+            'room.type.getPaginate',
             'room.extend',
 
+            'product.getPaginate',
             'invoice.index',
             'invoice.create',
             'invoice.getPaginate',
             'invoice.get',
             'invoice.printFiscal',
+            'invoice.reportX',
+
 
             'client.index',
             'client.create',
@@ -255,24 +257,36 @@ class RoleSeeder extends Seeder
 
         $camarero_role->givePermissionTo([
             'room.index',
-                'partial.cost.getPaginate',
+            'partial.cost.getPaginate',
             'room.free',
             'room.getPaginate',
-                'estate.type.getPaginate',
+            'estate.type.getPaginate',
             'room.get',
-                'room.type.getPaginate',
+            'room.type.getPaginate',
+            'room.status.getPaginate',
+            'room.free'
+        ]);
+
+        $mantenimiento->givePermissionTo([
+            'room.index',
+            'partial.cost.getPaginate',
+            'room.free',
+            'room.getPaginate',
+            'estate.type.getPaginate',
+            'room.get',
+            'room.type.getPaginate',
             'room.status.getPaginate',
             'room.free'
         ]);
 
         $supervisor_role->givePermissionTo([
             'room.index',
-                'estate.type.getPaginate',
+            'estate.type.getPaginate',
             'room.getPaginate',
             'room.changeParcial',
             'room.get',
-                'partial.cost.getPaginate',
-                'room.type.getPaginate',
+            'partial.cost.getPaginate',
+            'room.type.getPaginate',
             'room.occuppy',
             'room.status.getPaginate',
 
@@ -283,6 +297,8 @@ class RoleSeeder extends Seeder
             'invoice.getPaginate',
             'invoice.get',
             'invoice.printFiscal',
+            'invoice.reportX',
+            'invoice.reportZ',
 
             'client.index',
             'client.create',
@@ -293,6 +309,7 @@ class RoleSeeder extends Seeder
             'client.get',
             'client.assigned_room',
 
+            'product.getPaginate',
         ]);
     }
 }

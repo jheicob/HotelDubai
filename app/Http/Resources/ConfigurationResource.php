@@ -19,7 +19,9 @@ class ConfigurationResource extends JsonResource
             'attributes' => [
                 'env' => $this->resource->env,
                 'fiscal_machine_serial' => $this->resource->fiscal_machine_serial,
-                'exchange_rate' => $this->resource->exchange_rate
+                'exchange_rate' => $this->resource->exchange_rate,
+                'warning_time' => $this->resource->warning_time,
+                'cancel_time' => $this->resource->cancel_time,
             ]
         ];
     }
