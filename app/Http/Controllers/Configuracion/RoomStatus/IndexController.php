@@ -17,40 +17,55 @@ class IndexController extends Controller
         return view('RoomStatus.index');
     }
 
-    private function isCamarero() {
+    private function isCamarero()
+    {
         $role = Auth::user()->roles->first();
 
         return $role->name == 'Camarero';
+    }
+
+    private function isMantenimiento()
+    {
+        $role = Auth::user()->roles->first();
+
+        return $role->name == 'Mantenimiento';
     }
     public function get()
     {
         try {
             $permissions = RoomStatus::withTrashed()
-                ->when(self::isCamarero(),function(Builder $query){
-                    return $query->where('name','Disponible')
-                                ->orWhere('name','Sucia');
-                })        
+                ->when(self::isCamarero() || self::isMantenimiento(), function (Builder $query) {
+                    return $query->where('name', 'Disponible')
+                        ->orWhere('name', 'Sucia')
+                        ->orWhere('name', 'Mantenimiento');
+                })
+                // ->when(self::isMantenimiento(), function (Builder $query) {
+                //     return $query->where('name', 'Disponible')
+                //         ->orWhere('name', 'Mantenimiento');
+                // })
                 ->get();
 
             return RoomStatusResource::collection($permissions);
         } catch (ValidationException $ex) {
             return response()->json(
                 [
-                'data' => [
-                    'title'  => $ex->getMessage(),
-                    'errors' => collect($ex->errors())->flatten()
-                ]
-                ], Response::HTTP_UNPROCESSABLE_ENTITY
+                    'data' => [
+                        'title'  => $ex->getMessage(),
+                        'errors' => collect($ex->errors())->flatten()
+                    ]
+                ],
+                Response::HTTP_UNPROCESSABLE_ENTITY
             );
         } catch (\Exception $ex) {
             return response()->json(
                 [
-                'data' => [
-                    'code'        => $ex->getCode(),
-                    'title'       => __('errors.server.title'),
-                    'description' => __('errors.server.description'),
-                ]
-                ], Response::HTTP_INTERNAL_SERVER_ERROR
+                    'data' => [
+                        'code'        => $ex->getCode(),
+                        'title'       => __('errors.server.title'),
+                        'description' => __('errors.server.description'),
+                    ]
+                ],
+                Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
     }

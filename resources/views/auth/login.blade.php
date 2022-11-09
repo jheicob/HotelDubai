@@ -19,48 +19,65 @@
 
 </head>
 
-<body class="bg-dark">
+<body class="bg-dark"
+    style="background-position: center;background-image:url('/img/Logo.png');background-repeat: no-repeat;background-size: 300px;">
 
     <div class="container">
-        <div class="card card-login mx-auto mt-5">
-            <div class="card-header">Login</div>
-            <div class="card-body">
+        <div class="card card-login mx-auto mt-5" style="
+    background-color: transparent;
+">
+            <div class="card-header text-center"
+                style="
+            font-weight: bold;
+    background-color: rgba(255,255,255,0.6);
+">Iniciar Sesión
+            </div>
+            <div class="card-body" style="background-color: rgba(255,255,255,.2);">
                 <form method="POST" action="{{ route('login') }}">
                     @csrf
                     <div class="form-group">
                         <div class="form-label-group">
-                            <input type="email" id="inputEmail" class="form-control @error('email') is-invalid @enderror" placeholder="Email address" required="required" autofocus="autofocus" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>                            @error('email')
-                            <span class="invalid-feedback" role="alert">
-                      <strong>{{ $message }}</strong>
-                  </span> @enderror
+                            <input type="email" id="inputEmail"
+                                class="form-control @error('email') is-invalid @enderror" placeholder="Email address"
+                                required="required" autofocus="autofocus" name="email" value="{{ old('email') }}"
+                                required autocomplete="email" autofocus> @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
 
-                            <label for="inputEmail">Email address</label>
+                            <label for="inputEmail">Correo electrónico</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="form-label-group">
-                            <input type="password" id="inputPassword" class="form-control @error('password') is-invalid @enderror" placeholder="Password" name="password" required autocomplete="current-password"> @error('password')
-                            <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span> @enderror
+                            <input type="password" id="inputPassword"
+                                class="form-control @error('password') is-invalid @enderror" placeholder="Password"
+                                name="password" required autocomplete="current-password"> @error('password')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
 
-                            <label for="inputPassword">Password</label>
+                            <label for="inputPassword">Contraseña</label>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="checkbox">
-                            <label>
-                <input type="checkbox" value="remember-me" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                Remember Password
-              </label>
+                            <label style="color:white">
+                                <input type="checkbox" value="remember-me" name="remember" id="remember"
+                                    {{ old('remember') ? 'checked' : '' }}>
+                                Recordar Contraseña
+                            </label>
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">
-            {{ __('Login') }}
-        </button>
+                        {{ __('Login') }}
+                    </button>
                 </form>
                 <div class="text-center">
-                    <a class="d-block small" href="{{ route('password.request') }}">Recuperar Contraseña?</a>
+                    <a class="d-block small" style="color:white" href="{{ route('password.request') }}">Recuperar
+                        Contraseña?</a>
                 </div>
             </div>
         </div>

@@ -16,13 +16,15 @@ class IndexController extends Controller
     {
         return view('Room.index');
     }
-    public function get()
+    public function get(Request $request)
     {
         try {
             $room = Room::withTrashed()
                 ->IsNotAdmin()
                 ->IsCamarero()
-                ->orderBy('name','asc')
+                ->IsMantenimiento()
+                ->filter($request)
+                ->orderBy('name', 'asc')
                 ->get();
 
             $room->transform(function ($value) {

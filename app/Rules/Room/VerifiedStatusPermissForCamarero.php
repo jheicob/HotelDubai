@@ -37,6 +37,10 @@ class VerifiedStatusPermissForCamarero implements Rule
                 $bool = self::getRoomStatusForCamarero();
                 $bool = $bool->where('id', $value)->first();
                 break;
+            case 'Mantenimiento':
+                $bool = self::getRoomStatusForMantenimiento();
+                $bool = $bool->where('id', $value)->first();
+                break;
             default:
                 return false;
         }
@@ -49,6 +53,17 @@ class VerifiedStatusPermissForCamarero implements Rule
     {
         $room_status = RoomStatus::where('name', 'Sucio')
             ->orWhere('name', 'Disponible')
+            ->orWhere('name', 'Mantenimiento')
+            ->get();
+
+        return $room_status;
+    }
+
+    private function  getRoomStatusForMantenimiento()
+    {
+        $room_status = RoomStatus::where('name', 'Sucio')
+            ->orWhere('name', 'Disponible')
+            ->orWhere('name', 'Mantenimiento')
             ->get();
 
         return $room_status;

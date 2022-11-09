@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Configurations\GeneralConfiguration;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -14,6 +15,7 @@ class Room extends Model implements Auditable
 {
     use SoftDeletes, HasFactory;
     use \OwenIt\Auditing\Auditable;
+    use GeneralConfiguration;
 
     // fields to save massive
     protected $fillable = [
@@ -105,7 +107,7 @@ class Room extends Model implements Auditable
         $role = Auth::user()->roles->first();
 
         return $query->when($role->name == 'Mantenimiento', function (Builder $q) {
-            return $q->where('room_status_id', 3); // 1 is Sucia
+            return $q->where('room_status_id', 3); // 3 is Mantenimiento
         });
     }
 
@@ -123,5 +125,32 @@ class Room extends Model implements Auditable
             }
             return $query->whereIn('estate_type_id', $id_estate);
         }
+    }
+
+    public function scopeFilter(Builder $query, $request)
+    {
+        return $query->when($request->room_status_id, function (Builder $q, $room_status_id) {
+            if ($room_status_id == 'culminar') {
+                return $q->whereHas('receptionActive', function (Builder $q) {
+                    $conf_warning = $this->getGeneralConfiguration()->warning_time;
+                    $times = explode(':', $conf_warning);
+                    if (count($times) < 3) {
+                        return;
+                    }
+                    $now = \Carbon\Carbon::now();
+
+                    $end = $now
+                        ->subHours($times[0])
+                        ->subMinutes($times[1])
+                        ->subSeconds($times[2]);
+                    $q->where('date_out', '<=', $end);
+                })
+                    ->where('room_status_id', 4);
+            }
+            $q->where('room_status_id', $room_status_id);
+        })
+            ->when($request->estate_type_id, function (Builder $query, $estateType) {
+                return $query->where('estate_type_id', $estateType);
+            });
     }
 }
