@@ -185,6 +185,13 @@ class RoleSeeder extends Seeder
                 'product.getPaginate',
                 'product.get',
 
+                'repair.index',
+                'repair.create',
+                'repair.delete',
+                'repair.updated',
+                'repair.getPaginate',
+                'repair.get',
+
                 'configuration.upsert',
                 'configuration.getPaginate',
                 'configuration.index',

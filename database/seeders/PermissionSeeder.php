@@ -183,6 +183,13 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'product.getPaginate']);
         Permission::create(['name' => 'product.get']);
 
+        Permission::create(['name' => 'repair.index']);
+        Permission::create(['name' => 'repair.create']);
+        Permission::create(['name' => 'repair.delete']);
+        Permission::create(['name' => 'repair.updated']);
+        Permission::create(['name' => 'repair.getPaginate']);
+        Permission::create(['name' => 'repair.get']);
+
         Permission::create(['name' => 'configuration.upsert']);
         Permission::create(['name' => 'configuration.getPaginate']);
         Permission::create(['name' => 'configuration.index']);

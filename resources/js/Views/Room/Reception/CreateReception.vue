@@ -17,9 +17,9 @@
                                             <h4
                                                 class="text-primary"
                                                 style="
-                                                margin-top: 0px !important;
+                                                    margin-top: 0px !important;
                                                 "
-                                                >
+                                            >
                                                 Nombre:
                                             </h4>
                                         </td>
@@ -30,9 +30,9 @@
                                             <h4
                                                 class="text-primary"
                                                 style="
-                                                margin-top: 0px !important;
+                                                    margin-top: 0px !important;
                                                 "
-                                                >
+                                            >
                                                 Tipo:
                                             </h4>
                                         </td>
@@ -41,12 +41,12 @@
                                                 class="sparkbar"
                                                 data-color="#00a65a"
                                                 data-height="20"
-                                                >
+                                            >
                                                 {{
-                                                item.relationships
-                                                ?.partialCost
-                                                .relationships.roomType
-                                                .attributes.name ?? ""
+                                                    item.relationships
+                                                        ?.partialCost
+                                                        .relationships.roomType
+                                                        .attributes.name ?? ""
                                                 }}
                                             </div>
                                         </td>
@@ -56,25 +56,25 @@
                                             <h4
                                                 class="text-primary"
                                                 style="
-                                                margin-top: 0px !important;
+                                                    margin-top: 0px !important;
                                                 "
-                                                >
+                                            >
                                                 Detalles:
                                             </h4>
                                         </td>
                                         <td>
                                             {{
-                                            item.attributes?.description ??
-                                            ""
+                                                item.attributes?.description ??
+                                                ""
                                             }}
                                         </td>
                                         <td>
                                             <h4
                                                 class="text-primary"
                                                 style="
-                                                margin-top: 0px !important;
+                                                    margin-top: 0px !important;
                                                 "
-                                                >
+                                            >
                                                 Estado:
                                             </h4>
                                         </td>
@@ -83,7 +83,7 @@
                                                 class="sparkbar"
                                                 data-color="#f39c12"
                                                 data-height="20"
-                                                >
+                                            >
                                                 <span
                                                     class="label label-success"
                                                     >DISPONIBLE</span
@@ -105,7 +105,7 @@
                     id="addproduct"
                     action="index.php?view=addproceso"
                     role="form"
-                    >
+                >
                     <div class="box box-info row">
                         <div class="box-body col-md-6">
                             <div class="table-responsive">
@@ -115,7 +115,7 @@
                                             <th
                                                 colspan="4"
                                                 style="text-align: center"
-                                                >
+                                            >
                                                 DATOS DEL CLIENTE
                                             </th>
                                         </tr>
@@ -123,13 +123,11 @@
                                             <tr style="padding: 0px">
                                                 <td colspan="2">
                                                     <div class="row">
-                                                        <div
-                                                            class="col-4"
-                                                            >
+                                                        <div class="col-4">
                                                             <label
                                                                 for="tipo_documento"
                                                                 class="form-label"
-                                                                >
+                                                            >
                                                                 Tipo Documento:
                                                             </label>
 
@@ -137,31 +135,34 @@
                                                                 name="tipo_documento"
                                                                 id="tipo_documento"
                                                                 required
+                                                                :disabled="
+                                                                    store.updated_reception
+                                                                "
                                                                 v-model="
-                                                                form.type_document_id
+                                                                    form.type_document_id
                                                                 "
                                                                 class="form-select"
-                                                                >
+                                                            >
                                                                 <!-- ?php foreach ($tipo_documentos as $tipo_documento) : ?> -->
                                                                 <option
                                                                     value=""
-                                                                    >
+                                                                >
                                                                     Seleccione...
                                                                 </option>
                                                                 <option
                                                                     v-for="(
-                                                                    type_document,
-                                                                    i
+                                                                        type_document,
+                                                                        i
                                                                     ) in ocuppy.type_documents"
                                                                     :key="i"
                                                                     :value="
-                                                                    type_document.id
+                                                                        type_document.id
                                                                     "
-                                                                    >
+                                                                >
                                                                     {{
-                                                                    type_document
-                                                                    .attributes
-                                                                    .name
+                                                                        type_document
+                                                                            .attributes
+                                                                            .name
                                                                     }}
                                                                 </option>
                                                                 <!-- ?php endforeach; ?> -->
@@ -171,34 +172,35 @@
                                                             <label
                                                                 class="form-label"
                                                                 for="documento"
-                                                                >
+                                                            >
                                                                 Documento:
                                                             </label>
                                                             <input
                                                                 type="text"
                                                                 class="form-control"
+                                                                :disabled="
+                                                                    store.updated_reception
+                                                                "
                                                                 name="documento"
                                                                 id="documento"
                                                                 required="required"
                                                                 placeholder="Ingresar documento para buscar"
                                                                 v-model="
-                                                                form.document
+                                                                    form.document
                                                                 "
                                                                 @blur="
-                                                                ocuppy.getClient
+                                                                    ocuppy.getClient
                                                                 "
-                                                                />
+                                                            />
                                                         </div>
                                                         <!-- /.input group -->
                                                     </div>
                                                     <div class="row">
-                                                        <div
-                                                            class="col"
-                                                            >
+                                                        <div class="col">
                                                             <label
                                                                 class="form-label"
                                                                 for="nombre"
-                                                                >
+                                                            >
                                                                 Nombres:
                                                             </label>
                                                             <input
@@ -207,61 +209,66 @@
                                                                 name="nombre"
                                                                 id="nombre"
                                                                 required
+                                                                :disabled="
+                                                                    store.updated_reception
+                                                                "
                                                                 v-model="
-                                                                form.first_name
+                                                                    form.first_name
                                                                 "
                                                                 placeholder="Ingrese nombres"
-                                                                />
+                                                            />
                                                         </div>
                                                         <!-- /.input group -->
-                                                        <div
-                                                            class="col"
-                                                            >
+                                                        <div class="col">
                                                             <label
                                                                 class="form-label"
                                                                 for="apellido"
-                                                                >
+                                                            >
                                                                 Apellidos:
                                                             </label>
                                                             <input
                                                                 type="text"
+                                                                :disabled="
+                                                                    store.updated_reception
+                                                                "
                                                                 class="form-control"
                                                                 placeholder="Ingrese Apellidos"
                                                                 v-model="
-                                                                form.last_name
+                                                                    form.last_name
                                                                 "
                                                                 name="apellido"
                                                                 id="apellido"
-                                                                />
+                                                            />
                                                         </div>
                                                     </div>
-                                                        <div class="row">
-                                                            <div class="col">
+                                                    <div class="row">
+                                                        <div class="col">
                                                             <label
                                                                 class="form-label"
                                                                 for="telefono"
-                                                                >
+                                                            >
                                                                 Teléfono:
                                                             </label>
                                                             <input
                                                                 type="text"
                                                                 class="form-control"
+                                                                :disabled="
+                                                                    store.updated_reception
+                                                                "
                                                                 placeholder="Ingrese teléfono"
                                                                 name="telefono"
                                                                 id="telefono"
                                                                 v-model="
-                                                                form.phone
+                                                                    form.phone
                                                                 "
                                                             />
-                                                            </div>
+                                                        </div>
                                                         <!-- /.input group -->
-                                                        <div
-                                                            class="col"
-                                                            >
+                                                        <div class="col">
                                                             <label
                                                                 class="form-label"
                                                                 for="direccion"
-                                                                >
+                                                            >
                                                                 E-mail:
                                                             </label>
                                                             <input
@@ -269,11 +276,14 @@
                                                                 class="form-control"
                                                                 name="direccion"
                                                                 id="direccion"
+                                                                :disabled="
+                                                                    store.updated_reception
+                                                                "
                                                                 v-model="
-                                                                form.email
+                                                                    form.email
                                                                 "
                                                                 placeholder="Ingrese correo electronico "
-                                                                />
+                                                            />
                                                         </div>
                                                         <!-- /.input group -->
                                                     </div>
@@ -292,7 +302,7 @@
                                         <th
                                             colspan="4"
                                             style="text-align: center"
-                                            >
+                                        >
                                             DATOS DEL ALOJAMIENTO
                                         </th>
                                     </tr>
@@ -303,103 +313,113 @@
                                             <div class="row">
                                                 <div class="col">
                                                     <label class="form-label"
-                                                           >Fecha de Entrada</label
-                                                       >
-                                                       <input
-                                                           v-model="date"
-                                                           type="date"
-                                                           class="form-control"
-                                                           :disabled="
-                                                           !client_exist
-                                                           "
-                                                           />
+                                                        >Fecha de Entrada</label
+                                                    >
+                                                    <input
+                                                        v-model="date"
+                                                        type="date"
+                                                        class="form-control"
+                                                        :disabled="
+                                                            !client_exist
+                                                        "
+                                                    />
                                                 </div>
                                                 <div class="col">
                                                     <label class="form-label"
-                                                           >Hora de Entrada</label
-                                                       >
-                                                       <input
-                                                           v-model="hour"
-                                                           type="time"
-                                                           class="form-control"
-                                                           :disabled="
-                                                           !client_exist
-                                                           "
-                                                           />
+                                                        >Hora de Entrada</label
+                                                    >
+                                                    <input
+                                                        v-model="hour"
+                                                        type="time"
+                                                        class="form-control"
+                                                        :disabled="
+                                                            !client_exist
+                                                        "
+                                                    />
                                                 </div>
                                             </div>
                                             <div class="row">
-                                            <div class="col-8">
-                                                <label class="form-label"
-                                                       >Cantidad de
-                                                       parciales</label
-                                                   >
-                                                   <input
-                                                       v-model="
-                                                       form.quantity_partial
-                                                       "
-                                                       type="number"
-                                                       class="form-control"
-                                                       :disabled="!client_exist"
-                                                       />
-                                                   <div class="row">
-                                                       <div
-                                                           id="emailHelp"
-                                                           class="form-text col"
-                                                           >
-                                                           Parcial mínimo:
-                                                           {{
-                                                           item.attributes
-                                                           ?.rate_current ??
-                                                           ""
-                                                           }}
-                                                       </div>
-                                                       <div
-                                                           id="emailHelp"
-                                                           class="form-text col"
-                                                           >
-                                                           Tarifa: $
-                                                           {{
-                                                           item.relationships
-                                                           ?.partialCost
-                                                           .attributes
-                                                           .rate ?? ""
-                                                           }}
-                                                       </div>
-                                                   </div>
-                                            </div>
-                                            <div class="col">
-                                                <label
-                                                    class="form-label"
-                                                    for="ticket"
+                                                <div class="col-8">
+                                                    <label class="form-label"
+                                                        >Cantidad de
+                                                        parciales</label
                                                     >
-                                                    Tickera
-                                                </label>
-                                                <select class="form-select" id="ticket" v-model="form.ticket_op">
-                                                    <option v-for="(item,i) in opTickets" :value="item.id">
-                                                    {{item.name}}
-                                                    </option>
-
-                                                </select>
-                                            </div>
+                                                    <input
+                                                        v-model="
+                                                            form.quantity_partial
+                                                        "
+                                                        type="number"
+                                                        class="form-control"
+                                                        :disabled="
+                                                            !client_exist
+                                                        "
+                                                    />
+                                                    <div class="row">
+                                                        <div
+                                                            id="emailHelp"
+                                                            class="form-text col"
+                                                        >
+                                                            Parcial mínimo:
+                                                            {{
+                                                                item.attributes
+                                                                    ?.rate_current ??
+                                                                ""
+                                                            }}
+                                                        </div>
+                                                        <div
+                                                            id="emailHelp"
+                                                            class="form-text col"
+                                                        >
+                                                            Tarifa: $
+                                                            {{
+                                                                item
+                                                                    .relationships
+                                                                    ?.partialCost
+                                                                    .attributes
+                                                                    .rate ?? ""
+                                                            }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col">
+                                                    <label
+                                                        class="form-label"
+                                                        for="ticket"
+                                                    >
+                                                        Tickera
+                                                    </label>
+                                                    <select
+                                                        class="form-select"
+                                                        id="ticket"
+                                                        v-model="form.ticket_op"
+                                                    >
+                                                        <option
+                                                            v-for="(
+                                                                item, i
+                                                            ) in opTickets"
+                                                            :key="i"
+                                                            :value="item.id"
+                                                        >
+                                                            {{ item.name }}
+                                                        </option>
+                                                    </select>
+                                                </div>
                                             </div>
                                             <div>
                                                 <label class="form-label"
-                                                       >Observaciones</label
-                                                   >
-                                                   <input
-                                                       v-model="form.observation"
-                                                       type="text"
-                                                       class="form-control"
-                                                       :disabled="!client_exist"
-                                                       />
+                                                    >Observaciones</label
+                                                >
+                                                <input
+                                                    v-model="form.observation"
+                                                    type="text"
+                                                    class="form-control"
+                                                    :disabled="!client_exist"
+                                                />
                                             </div>
 
                                             <div
                                                 class="row justify-content-between mt-4"
-                                                >
-
-                                            </div>
+                                            ></div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -411,45 +431,38 @@
                         <button
                             class="btn btn-info col-1"
                             @click.prevent="store.show = false"
-                            >
+                        >
                             Regresar
-                    </button>
+                        </button>
 
-                                                <a
-                                                    class="btn btn-danger text-white btn-icon-split col-1"
-                                                    @click="store.cancelUse(item)"
-                                                    v-if="store.updated_reception"
-                                                    >
-                                                    <span
-                                                        class="text font-montserrat font-weight-bold"
-                                                        >Cancelar</span
-                                                    >
-                                                </a>
+                        <a
+                            class="btn btn-danger text-white btn-icon-split col-1"
+                            @click="store.cancelUse(item)"
+                            v-if="store.updated_reception"
+                        >
+                            <span class="text font-montserrat font-weight-bold"
+                                >Cancelar</span
+                            >
+                        </a>
 
-                                                <button
-                                                    v-if="
-                                                    store.updated_reception
-                                                    "
-                                                    class="btn btn-success text-white btn-icon-split col-1"
-                                                    type="button"
-                                                    @click.prevent="openModal()"
-                                                    >
-                                                    Facturar
-                                                </button>
+                        <button
+                            v-if="store.updated_reception"
+                            class="btn btn-success text-white btn-icon-split col-1"
+                            type="button"
+                            @click.prevent="openModal()"
+                        >
+                            Facturar
+                        </button>
 
-                                                <button
-                                                    :disabled="desactiveButton"
-                                                    v-on:click.prevent="
-                                                    storeAssignedRoom()
-                                                    "
-                                                    class="btn btn-primary text-white btn-icon-split col-2"
-                                                    >
-                                                    <span
-                                                        class="text font-montserrat font-weight-bold"
-                                                        >Asignar
-                                                        Habitación</span
-                                                    >
-                                                </button>
+                        <button
+                            :disabled="desactiveButton"
+                            v-on:click.prevent="storeAssignedRoom()"
+                            class="btn btn-primary text-white btn-icon-split col-2"
+                        >
+                            <span class="text font-montserrat font-weight-bold"
+                                >Asignar Habitación</span
+                            >
+                        </button>
                     </div>
                 </form>
             </section>
@@ -460,14 +473,14 @@
                 role="dialog"
                 aria-labelledby="exampleModalLabel"
                 aria-hidden="true"
-                >
+            >
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content">
                         <div class="modal-header py-2">
                             <h5
                                 class="modal-title title-page text-secondary"
                                 id="exampleModalLabel"
-                                >
+                            >
                                 Generar Factura
                             </h5>
                             <a
@@ -475,7 +488,7 @@
                                 class="close"
                                 data-dismiss="modal"
                                 aria-label="Close"
-                                >
+                            >
                                 <span aria-hidden="true">&times;</span>
                             </a>
                         </div>
@@ -496,9 +509,9 @@
                                     <tbody>
                                         <tr
                                             v-for="(detail, i) in invoice.form
-                                            .reception_details"
+                                                .reception_details"
                                             :key="i"
-                                            >
+                                        >
                                             <td>
                                                 {{ detail.partial_min ?? "" }}
                                             </td>
@@ -508,23 +521,27 @@
                                             <td>
                                                 <div
                                                     class="input-group mb-3 col-6 mx-auto"
-                                                    >
+                                                >
                                                     <input
                                                         type="number"
                                                         class="form-control"
                                                         v-model="
-                                                        invoice.form
-                                                        .reception_details[
-                                                        i
-                                                        ].time_additional
+                                                            invoice.form
+                                                                .reception_details[
+                                                                i
+                                                            ].time_additional
                                                         "
                                                         aria-describedby="basic-addon2"
                                                         min="0"
-                                                        />
+                                                    />
                                                     <span
                                                         class="input-group-text"
                                                         id="basic-addon2"
-                                                        >x {{detail.partial_min ?? ''}}</span
+                                                        >x
+                                                        {{
+                                                            detail.partial_min ??
+                                                            ""
+                                                        }}</span
                                                     >
                                                 </div>
                                             </td>
@@ -532,28 +549,28 @@
                                                 <input
                                                     class="form-control"
                                                     v-model="
-                                                    invoice.form
-                                                    .reception_details[
-                                                    i
-                                                    ].observation
+                                                        invoice.form
+                                                            .reception_details[
+                                                            i
+                                                        ].observation
                                                     "
-                                                    />
+                                                />
                                             </td>
                                             <td>
                                                 <input
                                                     type="number"
                                                     class="col-4 form-control mx-auto"
                                                     v-model="
-                                                    invoice.form
-                                                    .reception_details[
-                                                    i
-                                                    ].price_additional
+                                                        invoice.form
+                                                            .reception_details[
+                                                            i
+                                                        ].price_additional
                                                     "
-                                                    />
+                                                />
                                             </td>
                                             <td>
                                                 {{
-                                                invoice.getTotalByDetails(i)
+                                                    invoice.getTotalByDetails(i)
                                                 }}
                                             </td>
                                         </tr>
@@ -563,7 +580,7 @@
                                             <th colspan="5">Total</th>
                                             <th>
                                                 {{
-                                                invoice.getAcumTotalByDetails
+                                                    invoice.getAcumTotalByDetails
                                                 }}
                                             </th>
                                         </tr>
@@ -584,23 +601,29 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="(item, i) in invoice.products" :key="i">
-                                            <td>{{item.name}}</td>
-                                            <td>{{item.description}}</td>
-                                            <td>{{item.quantity}}</td>
-                                            <td>{{item.price}}</td>
-                                            <td>{{item.price * item.quantity }}</td>
+                                        <tr
+                                            v-for="(
+                                                item, i
+                                            ) in invoice.products"
+                                            :key="i"
+                                        >
+                                            <td>{{ item.name }}</td>
+                                            <td>{{ item.description }}</td>
+                                            <td>{{ item.quantity }}</td>
+                                            <td>{{ item.price }}</td>
+                                            <td>
+                                                {{ item.price * item.quantity }}
+                                            </td>
                                             <td>
                                                 <i
                                                     class="fas fa-minus"
                                                     style="cursor: pointer"
                                                     @click="
-                                                    invoice.deleteProduct(i)
+                                                        invoice.deleteProduct(i)
                                                     "
-                                                    >
+                                                >
                                                 </i>
                                             </td>
-
                                         </tr>
                                         <tr>
                                             <td>
@@ -614,47 +637,50 @@
                                                 </multiselect>
                                             </td>
                                             <td>
-                                                {{product.description}}
+                                                {{ product.description }}
                                             </td>
                                             <td>
-                                                <input type="number" min="0" class="form-control" v-model="product.quantity"/>
+                                                <input
+                                                    type="number"
+                                                    min="0"
+                                                    class="form-control"
+                                                    v-model="product.quantity"
+                                                />
                                             </td>
                                             <td>
-                                                {{product.price}}
+                                                {{ product.price }}
                                             </td>
                                             <td>
-                                                {{ product.quantity * product.price}}
+                                                {{
+                                                    product.quantity *
+                                                    product.price
+                                                }}
                                             </td>
                                             <td colspan="5">
                                                 <i
                                                     class="fas fa-plus"
                                                     style="cursor: pointer"
                                                     @click="addProductInInvoice"
-                                                    >
+                                                >
                                                 </i>
                                             </td>
-
                                         </tr>
                                     </tbody>
                                     <tfoot>
                                         <tr>
                                             <th colspan="5">Total</th>
                                             <th>
-                                                {{
-                                                invoice.getAcumByProducts
-                                                }}
+                                                {{ invoice.getAcumByProducts }}
                                             </th>
                                         </tr>
                                     </tfoot>
                                 </table>
                                 <div class="my-2"></div>
                                 <div class="col">
-
-                                <h3>Pagos</h3>
-
+                                    <h3>Pagos</h3>
                                 </div>
                                 <div class="col">
-                                    Total a Pagar: {{invoice.getAcumTotal}}
+                                    Total a Pagar: {{ invoice.getAcumTotal }}
                                 </div>
                                 <table class="table text-center">
                                     <thead>
@@ -669,9 +695,9 @@
                                     <tbody>
                                         <tr
                                             v-for="(pay, i) in invoice.form
-                                            .payments"
+                                                .payments"
                                             :key="i"
-                                            >
+                                        >
                                             <td>
                                                 {{ pay.type }}
                                             </td>
@@ -689,9 +715,9 @@
                                                     class="fas fa-minus"
                                                     style="cursor: pointer"
                                                     @click="
-                                                    invoice.deletePayment(i)
+                                                        invoice.deletePayment(i)
                                                     "
-                                                    >
+                                                >
                                                 </i>
                                             </td>
                                         </tr>
@@ -700,14 +726,14 @@
                                                 <select
                                                     class="form-select"
                                                     v-model="
-                                                    invoice.payment.type
+                                                        invoice.payment.type
                                                     "
-                                                    >
+                                                >
                                                     <option value="Bs">
-                                                    Bs
+                                                        Bs
                                                     </option>
                                                     <option value="divisa">
-                                                    Divisa
+                                                        Divisa
                                                     </option>
                                                 </select>
                                             </td>
@@ -715,17 +741,17 @@
                                                 <select
                                                     class="form-select"
                                                     v-model="
-                                                    invoice.payment.method
+                                                        invoice.payment.method
                                                     "
-                                                    >
+                                                >
                                                     <option value="tarjeta">
-                                                    Tarjeta
+                                                        Tarjeta
                                                     </option>
                                                     <option value="efectivo">
-                                                    Efectivo
+                                                        Efectivo
                                                     </option>
                                                     <option value="digital">
-                                                    Digital
+                                                        Digital
                                                     </option>
                                                 </select>
                                             </td>
@@ -734,18 +760,18 @@
                                                     type="number"
                                                     class="form-control"
                                                     v-model="
-                                                    invoice.payment.quantity
+                                                        invoice.payment.quantity
                                                     "
-                                                    />
+                                                />
                                             </td>
                                             <td>
                                                 <input
                                                     class="form-control"
                                                     v-model="
-                                                    invoice.payment
-                                                    .description
+                                                        invoice.payment
+                                                            .description
                                                     "
-                                                    />
+                                                />
                                             </td>
 
                                             <td colspan="5">
@@ -753,7 +779,7 @@
                                                     class="fas fa-plus"
                                                     style="cursor: pointer"
                                                     @click="invoice.addPayment"
-                                                    >
+                                                >
                                                 </i>
                                             </td>
                                         </tr>
@@ -765,7 +791,7 @@
                             <a
                                 class="btn btn-danger text-white btn-icon-split mb-4"
                                 data-dismiss="modal"
-                                >
+                            >
                                 <span
                                     class="text font-montserrat font-weight-bold"
                                     >Cerrar</span
@@ -774,7 +800,7 @@
                             <a
                                 class="btn btn-success text-white btn-icon-split mb-4"
                                 @click="invoice.printInvoice"
-                                >
+                            >
                                 <span
                                     class="text font-montserrat font-weight-bold"
                                     >Facturar</span
@@ -788,7 +814,7 @@
     </div>
 </template>
 <script setup>
-import { onMounted,ref } from "vue";
+import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
 import { receptionStore } from "./ReceptionStore.js";
 import { HelperStore } from "@/HelperStore";
@@ -796,7 +822,7 @@ import { InvoiceStore } from "../../Invoice/InvoiceStore.js";
 import { ocuppyRoomStore } from "../Modals/OcuppyRoomStore";
 import { RoomStore } from "../RoomStore";
 
-	import Multiselect from "vue-multiselect";
+import Multiselect from "vue-multiselect";
 const openModal = () => {
     //    console.log("aqui");
     let details =
@@ -826,32 +852,33 @@ const { getClient, storeAssignedRoom } = ocuppy;
 
 const { form, item, desactiveButton } = storeToRefs(helper);
 
-const { client_exist, type_documents, date, hour, product } = storeToRefs(ocuppy);
+const { client_exist, type_documents, date, hour, product } =
+    storeToRefs(ocuppy);
 
 const { form: form_invoice } = storeToRefs(invoice);
 
 const opTickets = [
     {
-        name:'Tarjeta',
-        id:'Tarjeta'
-    },    {
-        name:'Efectivo',
-        id:'Efectivo'
-    },    {
-        name:'Otro',
-        id:'Otro'
+        name: "Tarjeta",
+        id: "Tarjeta",
     },
-]
-const {products: productInvoice} = storeToRefs(invoice)
+    {
+        name: "Efectivo",
+        id: "Efectivo",
+    },
+    {
+        name: "Otro",
+        id: "Otro",
+    },
+];
+const { products: productInvoice } = storeToRefs(invoice);
 
 const addProductInInvoice = () => {
-
-    productInvoice.value.push(ocuppy.product)
-    ocuppy.clearProduct()
-    
-}
+    productInvoice.value.push(ocuppy.product);
+    ocuppy.clearProduct();
+};
 onMounted(() => {
     ocuppy.getTypeDocuments();
-    ocuppy.getProducts()
+    ocuppy.getProducts();
 });
 </script>

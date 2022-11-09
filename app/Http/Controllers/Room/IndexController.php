@@ -42,6 +42,9 @@ class IndexController extends Controller
                 'partialCost.partialRate',
                 'receptionActive.client',
                 'receptionActive.details',
+                'repairs.maintenanceUser',
+                'repairs.reportUser'
+
             ]);
             return RoomResource::collection($room);
         } catch (\Exception $e) {

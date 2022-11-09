@@ -44,54 +44,23 @@
 							</option>
 						</select>
 
-						<label for="hour" class="form-label">Hora Inicio</label>
-						<div class="form-inline text-center">
+						<div class="form-inline text-center my-3">
+							<label for="hour" class="form-label">Hora Inicio</label>
 							<input
-								class="form-control col-2"
+								class="form-control col-3"
 								name="hour"
-								type="number"
-								min="00"
-								max="12"
-								@keypress="validHour"
-								@blur="validHour"
-								v-model="hour"
+								type="time"
+								v-model="form.hour"
 							/>
-							:
+							<label for="hour" class="form-label ml-3 mr-1"
+								>Hora Fin</label
+							>
 							<input
-								class="form-control col-2"
-								name="minute"
-								type="number"
-								min="00"
-								@keydown="validMinute"
-								@blur="validMinute"
-								max="59"
-								v-model="minute"
-							/>
-						</div>
-						<label for="hour" class="form-label">Hora Fin</label>
-						<div class="form-inline text-center">
-							<input
-								class="form-control col-2"
+								class="form-control col-3"
 								name="hour"
-								type="number"
-								min="00"
-								max="12"
-								@keypress="validHour"
-								@blur="validHour"
-								v-model="hour_end"
+								type="time"
+								v-model="form.hour_end"
 							/>
-							:
-							<input
-								class="form-control col-2"
-								name="minute"
-								type="number"
-								min="00"
-								@keydown="validMinute"
-								@blur="validMinute"
-								max="59"
-								v-model="minute_end"
-							/>
-							Formato de 24 horas
 						</div>
 						<label for="rate" class="form-label">Tarifa</label>
 						<input
@@ -139,9 +108,7 @@
 			return {
 				form: this.getClearFormObject(),
 				hour: "0",
-				minute: "0",
 				hour_end: "0",
-				minute_end: "0",
 				patials: [],
 				roomType: [],
 				dayWeek: [],
@@ -172,8 +139,6 @@
 			},
 			createPermission: function () {
 				var url = "/tarifas/hour-templates/create";
-				this.form.hour = this.formatSetHour();
-				this.form.hour_end = this.formatSetHourEnd();
 				axios
 					.post(url, this.form)
 					.then((response) => {
@@ -188,6 +153,7 @@
 				return {
 					room_type_id: "",
 					hour: "00:00",
+					hour_end: "00:00",
 					rate: "",
 					shift_system_id: "1",
 				};

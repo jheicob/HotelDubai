@@ -140,17 +140,23 @@ class Room extends Model implements Auditable
                     $now = \Carbon\Carbon::now();
 
                     $end = $now
-                        ->subHours($times[0])
-                        ->subMinutes($times[1])
-                        ->subSeconds($times[2]);
+                        ->addHours($times[0])
+                        ->addMinutes($times[1])
+                        ->addSeconds($times[2]);
                     $q->where('date_out', '<=', $end);
                 })
                     ->where('room_status_id', 4);
+                return;
             }
             $q->where('room_status_id', $room_status_id);
         })
             ->when($request->estate_type_id, function (Builder $query, $estateType) {
                 return $query->where('estate_type_id', $estateType);
             });
+    }
+
+    public function repairs()
+    {
+        return $this->hasMany(Repair::class);
     }
 }

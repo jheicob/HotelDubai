@@ -54,9 +54,10 @@ class CreateController extends Controller
             $client = Client::find($request->client_id);
             $room = Room::find($request->room_id);
 
-            if ($room->room_status_id != 2) {
+            if ($room->room_status_id != 2 && $room->receptionActive[0]->client_id != $client->id) {
                 throw new \Exception('La Habitación está ocupada');
             }
+
             $partial_rate = $room->partialCost->partialRate;
             $partial_rate->append('number_hour');
 

@@ -44,43 +44,23 @@
 							</option>
 						</select>
 
-						<label for="hour" class="form-label">Hora</label>
-						<div class="form-inline text-center">
+						<div class="form-inline text-center my-3">
+							<label for="hour" class="form-label">Hora Inicio</label>
 							<input
-								class="form-control col-2"
+								class="form-control col-3"
 								name="hour"
-								type="number"
-								min="00"
-								max="12"
-								@keypress="validHour"
-								@blur="validHour"
-								v-model="hour"
+								type="time"
+								v-model="form.hour"
 							/>
-							:
-							<input
-								class="form-control col-2"
-								name="minute"
-								type="number"
-								min="00"
-								@keydown="validMinute"
-								@blur="validMinute"
-								max="59"
-								v-model="minute"
-							/>
-							<select
-								class="form-select col-2"
-								aria-label="Default select example"
-								v-model="form.shift_system_id"
+							<label for="hour" class="form-label ml-3 mr-1"
+								>Hora Fin</label
 							>
-								<option selected value="">Seleccione...</option>
-								<option
-									v-for="keep in ShiftSystem"
-									:key="keep.id"
-									:value="keep.id"
-								>
-									{{ keep.attributes.name }}
-								</option>
-							</select>
+							<input
+								class="form-control col-3"
+								name="hour"
+								type="time"
+								v-model="form.hour_end"
+							/>
 						</div>
 
 						<label for="rate" class="form-label">Tarifa</label>
@@ -157,7 +137,6 @@
 			},
 			createPermission: function () {
 				var url = "/tarifas/hour-templates/" + this.form.id;
-				this.form.hour = this.formatSetHour();
 
 				axios
 					.put(url, this.form)
@@ -172,11 +151,10 @@
 			UpdateGetPermission(permission) {
 				this.form.id = permission.id;
 				this.form.room_type_id = permission.relationships.roomType.id;
-				this.form.shift_system_id = permission.relationships.shiftSystem.id;
 				this.form.hour = permission.attributes.hour;
+				this.form.hour_end = permission.attributes.hour_end;
 				this.form.rate = permission.attributes.rate;
 				this.getRoomType();
-				this.formatGetHour(this.form.hour);
 				this.getShiftSystem();
 			},
 

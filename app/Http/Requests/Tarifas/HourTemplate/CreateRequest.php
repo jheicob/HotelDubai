@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Tarifas\HourTemplate;
 
 use App\Traits\CustomResponseFormRequestTrait;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateRequest extends FormRequest
@@ -31,6 +32,18 @@ class CreateRequest extends FormRequest
             'hour'         => 'required|regex:/[\d]{2}:[\d]{2}/',
             'hour_end'     => 'required|regex:/[\d]{2}:[\d]{2}/',
             'rate'         => 'required|numeric',
+            'start'        => 'before_or_equal:end',
+            'end'          => 'after_or_equal:start'
         ];
+    }
+
+    public function prepareForValidation()
+    {
+        $hour_start = explode(':', $this->hour);
+        $hour_end = explode(':', $this->hour_end);
+        $this->merge([
+            'start' => Carbon::now()->setHours($hour_start[0])->setMinutes($hour_start[1]),
+            'end'   => Carbon::now()->setHours($hour_end[0])->setMinutes($hour_end[1]),
+        ]);
     }
 }

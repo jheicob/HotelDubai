@@ -278,6 +278,7 @@ export const RoomStore = defineStore("roomStore", () => {
         }
         show.value = true;
         item.value = room;
+
         if (room.relationships.receptionActive != null) {
             //console.log('item')
             updated_reception.value = true;

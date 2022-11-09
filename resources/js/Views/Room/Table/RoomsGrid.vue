@@ -45,16 +45,18 @@
 				<br />
 				<div v-if="reception.isOcupped(item)">
 					<span>
-						in:
+						in:<br />
 						{{ item.relationships.receptionActive?.attributes.date_in ?? "" }}
 						<br />
-						out:
+						out:<br />
 						{{
 							item.relationships.receptionActive?.attributes.date_out ?? ""
 						}}
 					</span>
 					<br />
-					<span>{{ getTimeInMinutesAndSeconds(countdown) }}</span>
+					<span :class="cont_add != '' ? 'fw-bold' : ''">
+						{{ cont_add + getTimeInMinutesAndSeconds(countdown) }}
+					</span>
 				</div>
 				<div v-if="!reception.isOcupped(item)"><br /><br /></div>
 			</div>
@@ -198,14 +200,15 @@
 	});
 
 	const { item } = toRefs(props);
-
+	const cont_add = ref("");
 	const setupCountdownTimer = (date) => {
 		let timer = setInterval(() => {
 			countdown.value = dayjs(date).valueOf() - dayjs().valueOf();
 
 			if (countdown.value <= 0) {
-				countdown.value = 0;
-				clearInterval(timer);
+				cont_add.value = "-";
+				countdown.value = -countdown.value;
+				// clearInterval(timer);
 			}
 		}, 1000);
 	};
