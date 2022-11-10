@@ -16,6 +16,7 @@
 				<select
 					class="form-select"
 					id="room_object"
+					v-model="form.room_destiny"
 					aria-label="Floating label select example"
 				>
 					<option selected>Seleccione Habitación</option>
@@ -42,17 +43,18 @@
 					class="form-control my-4"
 					placeholder="Introduzca un motivo ..."
 					id="motive"
-					v-model="motive"
+					v-model="form.observation"
 				></textarea>
 				<label for="motive" class="mx-3">Motivo</label>
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-2 mx-auto">
+			<div class="col-6 mx-auto">
 				<div class="form-floating">
 					<select
 						class="form-select"
 						id="room_object"
+						v-model="form.motive"
 						aria-label="Floating label select example"
 					>
 						<option selected value="Inconformidad">Inconformidad</option>
@@ -85,19 +87,34 @@
 	const helper = HelperStore();
 	const room = RoomStore();
 	const rooms = ref([]);
-
-	defineProps({
+	const form = ref({
+		room_origin: "",
+		room_destiny: "",
+		motive: "Inconformidad",
+		observation: "",
+	});
+	const props = defineProps({
 		room_id: Number,
 	});
 
 	const motive = ref("");
 	const transferir = () => {
-		axios
-			.post("room/transfer-reception", {
-				room_id,
-				motive,
-			})
-			.then(resp);
+		(form.value.room_origin = props.room_id),
+			axios.post("client/transfer-room", form.value).then((resp) => {
+				$("#transferir").modal("hide");
+
+				let ventana = window
+					.open("/client/reception-ticket?room_id=" + form.value.room_destiny)
+					.print();
+				form.value = {
+					room_origin: "",
+					room_destiny: "",
+					motive: "Inconformidad",
+					observation: "",
+				};
+
+				location.reload();
+			});
 	};
 	const showModal = () => {
 		$("#transferir").modal("show");

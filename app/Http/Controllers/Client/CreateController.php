@@ -251,7 +251,7 @@ class CreateController extends Controller
         try {
             Log::info($request->all());
             $transfer = TransferRoom::create($request->all());
-            $roomStatus_origin = RoomStatus::firstWhere('name', 'Disponible');
+            $roomStatus_origin = RoomStatus::firstWhere('name', 'Sucia');
             if ($request->motive == 'Reparación') {
                 $roomStatus_origin = RoomStatus::firstWhere('name', 'Mantenimiento');
                 Repair::create([
@@ -275,18 +275,20 @@ class CreateController extends Controller
             $new_info = [
                 'room_id' => $room_destiny->id,
                 'date_out' => Carbon::parse($request->date_in)->addHours($quantity_total_hours),
-                'partial_min' => $partial_rate_new,
-                'rate' => $rate,
+
             ];
 
             $room_origin = Room::find($request->room_origin);
             $reception = $room_origin->receptionActive->first();
             $reception->update($new_info);
             $reception_detail = $reception->details->first();
+            $reception_detail->update([
+                'partial_min' => $partial_rate_new,
+                'rate' => $rate
+            ]);
             $reception_detail->ticket()->create([
                 'observation' => $request->observation
             ]);
-            // $status = $request->date_in > Carbon::now() ? 'Reservada' : 'Ocupada';
             $roomStatus = RoomStatus::firstWhere('name', 'Ocupada');
 
             $room_origin->update([
