@@ -34,7 +34,7 @@ Route::group(
             // ->middleware('permission:client.getPaginate')
         ;
 
-        Route::get('reception-ticket',[App\Http\Controllers\Client\CreateController::class, 'createTicket']);
+        Route::get('reception-ticket', [App\Http\Controllers\Client\CreateController::class, 'createTicket']);
         Route::post('assigned_room', [App\Http\Controllers\Client\CreateController::class, 'assigned_room'])
             ->name('client.assigned_room')
             ->middleware('permission:client.assigned_room');
@@ -46,6 +46,10 @@ Route::group(
         Route::get('{client}/cancel-use', [App\Http\Controllers\Client\CreateController::class, 'CancelUse'])
             ->name('client.cancel.room.use')
             ->middleware('permission:client.cancel.room');
+
+        Route::post('transfer-room', [App\Http\Controllers\Client\CreateController::class, 'transferRoom'])
+            ->name('transfer.room')
+            ->middleware('permission:client.assigned_room');
     }
 );
 

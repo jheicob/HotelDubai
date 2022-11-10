@@ -29,8 +29,8 @@ class ConfigurationRequest extends FormRequest
             "env"                   => "required|string",
             "fiscal_machine_serial" => "required|string",
             "exchange_rate"         => 'required|numeric',
-            "warning_time"          => "required|regex:/[\d]{2}:[\d]{2}:[\d]{2}/",
-            "cancel_time"           => "required|regex:/[\d]{2}:[\d]{2}:[\d]{2}/"
+            "warning_time"          => "required|regex:/^[\d]{2}:[\d]{2}:[\d]{2}$/",
+            "cancel_time"           => "required|regex:/^[\d]{2}:[\d]{2}:[\d]{2}$/"
         ];
     }
 }

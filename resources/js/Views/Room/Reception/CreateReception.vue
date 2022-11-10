@@ -454,6 +454,7 @@
                             Facturar
                         </button>
 
+                        <TransferirHabVue :room_id="item.id" />
                         <button
                             :disabled="desactiveButton"
                             v-on:click.prevent="storeAssignedRoom()"
@@ -821,8 +822,9 @@ import { HelperStore } from "@/HelperStore";
 import { InvoiceStore } from "../../Invoice/InvoiceStore.js";
 import { ocuppyRoomStore } from "../Modals/OcuppyRoomStore";
 import { RoomStore } from "../RoomStore";
-
 import Multiselect from "vue-multiselect";
+import TransferirHabVue from "./TransferirHab.vue";
+
 const openModal = () => {
     //    console.log("aqui");
     let details =

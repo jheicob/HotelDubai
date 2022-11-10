@@ -17,8 +17,13 @@ use App\Services\RoomService\RoomService;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Client\CancelUseRequest;
+use App\Http\Requests\Client\TransferRoomRequest;
+use App\Models\Repair;
+use App\Models\TransferRoom;
 use App\Traits\Configurations\GeneralConfiguration;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use Mpdf\Mpdf;
 
@@ -238,5 +243,64 @@ class CreateController extends Controller
         header('Content-Type: application/pdf');
         header("Content-Disposition: inline; filename='$nombre_archivo.pdf'");
         return $pdf->Output("$nombre_archivo.pdf", 'I');
+    }
+
+    public function transferRoom(TransferRoomRequest $request)
+    {
+        DB::beginTransaction();
+        try {
+            Log::info($request->all());
+            $transfer = TransferRoom::create($request->all());
+            $roomStatus_origin = RoomStatus::firstWhere('name', 'Disponible');
+            if ($request->motive == 'Reparación') {
+                $roomStatus_origin = RoomStatus::firstWhere('name', 'Mantenimiento');
+                Repair::create([
+                    'room_id'       => $request->room_origin,
+                    'report_user'   => Auth::user()->id,
+                    'description'   => $request->observation,
+                    'report_date'   => Carbon::now(),
+                ]);
+            }
+            $room_destiny = Room::find($request->room_destiny);
+            $partial_rate = $room_destiny->partialCost->partialRate;
+            $partial_rate->append('number_hour');
+
+            $room_service = (new RoomService($room_destiny));
+            $rate = $room_service->getRateByConditionals();
+            $partialCost_new = $room_service->getPartialByConditionals();
+            $partial_rate_new = \App\Models\PartialCost::find($partialCost_new)->partialRate->name;
+
+            $quantity_total_hours = $request->quantity_partial * $partial_rate->number_hour;
+
+            $new_info = [
+                'room_id' => $room_destiny->id,
+                'date_out' => Carbon::parse($request->date_in)->addHours($quantity_total_hours),
+                'partial_min' => $partial_rate_new,
+                'rate' => $rate,
+            ];
+
+            $room_origin = Room::find($request->room_origin);
+            $reception = $room_origin->receptionActive->first();
+            $reception->update($new_info);
+            $reception_detail = $reception->details->first();
+            $reception_detail->ticket()->create([
+                'observation' => $request->observation
+            ]);
+            // $status = $request->date_in > Carbon::now() ? 'Reservada' : 'Ocupada';
+            $roomStatus = RoomStatus::firstWhere('name', 'Ocupada');
+
+            $room_origin->update([
+                'room_status_id' => $roomStatus_origin->id,
+            ]);
+
+            $room_destiny->update([
+                'room_status_id' => $roomStatus->id,
+            ]);
+            DB::commit();
+            return;
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return custom_response_exception($e, __('errors.server.title'), 500);
+        }
     }
 }

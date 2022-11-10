@@ -29,9 +29,9 @@ class CreateRepairsTable extends Migration
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
             $table->string('description');
-            $table->string('observation');
+            $table->string('observation')->nullable();
             $table->dateTime('report_date');
-            $table->dateTime('maintenance_date');
+            $table->dateTime('maintenance_date')->nullable();
             $table->timestamps();
         });
     }
