@@ -168,5 +168,37 @@ Route::group(
                     ->middleware('permission:day.templates.getPaginate');
             }
         );
+
+
+        /** routes para RangeTemplate **/
+
+        Route::group(
+            [
+                'prefix'     => 'RangeTemplate',
+                'middleware'  => 'auth'
+            ],
+            function () {
+
+                Route::get('', [App\Http\Controllers\RangeTemplate\IndexController::class, 'index'])
+                    ->name('range.template.index')
+                    ->middleware('permission:range.template.index');
+
+                Route::post('create', [App\Http\Controllers\RangeTemplate\CreateController::class, 'create'])
+                    ->name('range.template.create')
+                    ->middleware('permission:range.template.create');
+
+                Route::delete('delete/{id}', [App\Http\Controllers\RangeTemplate\DeleteController::class, 'destroy'])
+                    ->name('range.template.delete')
+                    ->middleware('permission:range.template.delete');
+
+                Route::put('{rangetemplate}', [App\Http\Controllers\RangeTemplate\UpdateController::class, 'updated'])
+                    ->name('range.template.updated')
+                    ->middleware('permission:range.template.updated');
+
+                Route::get('get', [App\Http\Controllers\RangeTemplate\IndexController::class, 'get'])
+                    ->name('range.template.get')
+                    ->middleware('permission:range.template.getPaginate');
+            }
+        );
     }
 );

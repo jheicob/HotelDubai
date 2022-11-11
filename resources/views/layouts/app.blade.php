@@ -148,9 +148,9 @@
                                     <a class="dropdown-item text-dark" href="{{ route('partial.cost.index') }}">Costo Por
                                         Parciales</a>
                                 @endcan
-                                @can('partial.templates.index')
-                                    {{-- <a class="dropdown-item text-dark" href="{{ route('partial.templates.index') }}">Plantillas
-                                        Parciales</a> --}}
+                                @can('range.template.index')
+                                    <a class="dropdown-item text-dark" href="{{ route('range.template.index') }}">Plantillas
+                                        por Rango</a>
                                 @endcan
                                 @can('date.templates.index')
                                     <a class="dropdown-item text-dark" href="{{ route('date.templates.index') }}">Plantillas

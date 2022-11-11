@@ -6,6 +6,7 @@ use App\Models\ClientRoom;
 use App\Models\DateTemplate;
 use App\Models\DayTemplate;
 use App\Models\HourTemplate;
+use App\Models\RangeTemplate;
 use App\Models\Room;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -58,11 +59,30 @@ class RoomService
 
     public function getRateByConditionals()
     {
+        $this->acum += self::getRateByRange();
         $this->acum += self::getRateByDate($this->date);
         $this->acum += self::getRateByDay($this->dayName);
         $this->acum += self::getRateByHour();
         $this->acum += self::getRateOfConditionals();
         return $this->acum;
+    }
+
+    private function getRateByRange(): int
+    {
+        // falta mostrar todo lo que se esta aplicando para mostrarlo en el detalle de ñla habitacion
+
+        $day_template = RangeTemplate::where('room_type_id', $this->room_type_id)
+            ->where('date_start', '<=', $this->now)
+            ->where('date_end', '>=', $this->now)
+            ->first();
+
+        if ($day_template != '') {
+            if (!$this->bool_date) {
+                self::getPartialCostByRoomTypeAndPartial($day_template->room_type_id, $day_template->partial_rate_id);
+            }
+            return (int) $day_template->rate;
+        }
+        return 0;
     }
 
     private function getRateByDay($dayNameCurrent): int

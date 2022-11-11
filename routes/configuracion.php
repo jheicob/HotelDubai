@@ -252,6 +252,8 @@ Route::group(
             }
         );
 
+
+
         Route::get('', [App\Http\Controllers\Configuracion\ConfigurationController::class, 'view'])
             ->name('configuration.index')
             ->middleware('permission:configuration.index');

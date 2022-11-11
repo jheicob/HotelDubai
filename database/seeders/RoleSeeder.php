@@ -198,6 +198,13 @@ class RoleSeeder extends Seeder
                 'configuration.upsert',
                 'configuration.getPaginate',
                 'configuration.index',
+
+                'range.template.index',
+                'range.template.create',
+                'range.template.delete',
+                'range.template.updated',
+                'range.template.getPaginate',
+                'range.template.get',
             ]
         );
 

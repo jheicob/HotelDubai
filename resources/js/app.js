@@ -24,12 +24,13 @@ import dayweek from "./Views/DayWeek/DayWeek.vue";
 import systemtime from "./Views/SystemTime/SystemTime.vue";
 import shiftsystem from "./Views/ShiftSystem/ShiftSystem.vue";
 import datetemplate from "./Views/Tarifas/DateTemplate/DateTemplate.vue";
+import rangetemplate from "./Views/Tarifas/RangeTemplate/RangeTemplate.vue";
 import Room from "./Views/Room/Room.vue";
 import HourTemplate from "./Views/Tarifas/HourTemplate/HourTemplate.vue";
 import DayTemplate from "./Views/Tarifas/DayTemplate/DayTemplate.vue";
 import Invoice from "./Views/Invoice/Invoice.vue";
 import Product from "./Views/Product/Product.vue";
-import Configuration from "./Views/Configuration/Configuration.vue"
+import Configuration from "./Views/Configuration/Configuration.vue";
 
 const app = createApp({});
 app.use(createPinia());
@@ -67,7 +68,9 @@ app.component("DayTemplate", DayTemplate);
 app.component("room", Room);
 app.component("invoice", Invoice);
 app.component("product", Product);
-app.component('configuration',Configuration);
+app.component("configuration", Configuration);
+app.component("range-template", rangetemplate);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
