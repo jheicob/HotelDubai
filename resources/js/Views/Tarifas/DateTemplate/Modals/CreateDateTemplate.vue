@@ -112,6 +112,7 @@
 <script>
 import axios from "axios";
 import { dateFormat } from "./helper";
+import dayjs from 'dayjs'
 export default {
     name: "CreateDateTemplate",
     components: {},
@@ -144,7 +145,7 @@ export default {
         },
         createPermission() {
             var url = "/tarifas/date-templates/create";
-            this.form.date = dateFormat(this.form.date)
+            this.form.date = dayjs(this.form.date).format('DD/MM')
             axios
                 .post(url, this.form)
                 .then((response) => {

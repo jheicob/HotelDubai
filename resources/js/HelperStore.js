@@ -72,7 +72,7 @@ export const HelperStore = defineStore("HelperStore", () => {
             .finally(() => (desactiveButton.value = false));
     };
 
-    const putItem = (callback, idModal = "#exampleModal2") => {
+    const putItem = (callback, op='',idModal = "#exampleModal2") => {
         desactiveButton.value = true;
         let url_put = `/${url.value}/${form.value.id}`;
         axios
@@ -80,10 +80,11 @@ export const HelperStore = defineStore("HelperStore", () => {
             .then((response) => {
                 form.value = callback();
                 $(idModal).modal("hide");
-                getAll();
+                getAll(op);
             })
             .catch((error) => getErrorRequest(error))
             .finally(() => (desactiveButton.value = false));
+        return true;
     };
 
     const clearForm = (callback) => {

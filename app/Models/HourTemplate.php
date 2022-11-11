@@ -44,4 +44,8 @@ class HourTemplate extends Model implements Auditable
     {
         return $this->belongsTo(EstateType::class);
     }
+
+    public function partialRate(){
+        return $this->belongsTo(PartialRates::class);
+    }
 }

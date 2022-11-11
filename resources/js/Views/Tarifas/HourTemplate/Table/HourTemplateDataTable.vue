@@ -42,6 +42,7 @@
 								<th>Hora Inicio</th>
 								<th>Hora fin</th>
 								<th>Tarifa</th>
+								<th>Parcial Min</th>
 								<th>Accion</th>
 							</tr>
 						</thead>
@@ -52,6 +53,8 @@
 								<th>Hora Inicio</th>
 								<th>Hora fin</th>
 								<th>Tarifa</th>
+
+								<th>Parcial Min</th>
 								<th>Accion</th>
 							</tr>
 						</tfoot>
@@ -70,6 +73,10 @@
 								<td>
 									{{ keep.attributes.rate }}
 								</td>
+								<td>
+									{{ keep.relationships.partialRate.attributes.name }}
+								</td>
+
 								<td>
 									<i
 										v-on:click.prevent="UpdatedPermission(keep)"

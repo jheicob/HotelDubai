@@ -28,13 +28,13 @@
 						</a>
 					</div>
 					<div class="modal-body">
-						<label for="name" class="form-label">Tipo Habitacion</label>
+						<label for="name" class="form-label">tipo habitacion</label>
 						<select
 							class="form-select"
-							aria-label="Default select example"
+							aria-label="default select example"
 							v-model="form.room_type_id"
 						>
-							<option selected value="">Seleccione Tipo Habitacion</option>
+							<option selected value="">seleccione tipo habitacion</option>
 							<option
 								v-for="keep in roomType"
 								:key="keep.id"
@@ -70,6 +70,22 @@
 							type="number"
 							v-model="form.rate"
 						/>
+						<label for="name" class="form-label">Parcial Minimo</label>
+						<select
+							class="form-select"
+							aria-label="default select example"
+							v-model="form.partial_rate_id"
+						>
+							<option selected value="">seleccione Parcial Minimo</option>
+							<option
+								v-for="keep in partialRates"
+								:key="keep.id"
+								:value="keep.id"
+							>
+								{{ keep.attributes.name }}
+							</option>
+						</select>
+
 					</div>
 					<div class="modal-footer">
 						<a
@@ -108,6 +124,7 @@
 				hour: "0",
 				minute: "0",
 				patials: [],
+				partialRates:[],
 				roomType: [],
 				dayWeek: [],
 				systemTime: [],
@@ -153,9 +170,11 @@
 				this.form.room_type_id = permission.relationships.roomType.id;
 				this.form.hour = permission.attributes.hour;
 				this.form.hour_end = permission.attributes.hour_end;
+				this.form.partial_rate_id = permission.relationships.partialRate.id;
 				this.form.rate = permission.attributes.rate;
 				this.getRoomType();
-				this.getShiftSystem();
+//				this.getShiftSystem();
+				this.getPartialRate()
 			},
 
 			getRoomType: function () {
@@ -167,7 +186,15 @@
 					})
 					.catch((err) => {});
 			},
-
+			getPartialRate(){
+				let url='/configuracion/partial-rates/get'
+				axios
+					.get(url)
+					.then(res => {
+						this.partialRates = res.data.data
+					})
+					
+			},
 			getShiftSystem: function () {
 				var urlKeeps = "/configuracion/shift-system/get";
 				axios
@@ -183,6 +210,7 @@
 					hour: "00:00",
 					rate: "",
 					shift_system_id: "1",
+					partial_rate_id:'',
 				};
 			},
 		},

@@ -18,8 +18,7 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $hourtemplate = HourTemplate::with(['roomType','shiftSystem'])->withTrashed()->get();
-
+            $hourtemplate = HourTemplate::with(['roomType','partialRate','shiftSystem'])->withTrashed()->get();
             return HourTemplateResource::collection($hourtemplate);
         } catch (\Exception $e) {
             return custom_response_exception($e,__('errors.server.title'),500);

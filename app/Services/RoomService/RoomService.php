@@ -128,7 +128,6 @@ class RoomService
         $date_template = DateTemplate::where('date', $dateCurrent)
             ->where('room_type_id', $this->room_type_id)
             ->first();
-
         if ($date_template != '') {
             self::getPartialCostByRoomTypeAndPartial($date_template->room_type_id, $date_template->partial_rate_id);
 
@@ -176,6 +175,8 @@ class RoomService
 
     public function getPartialByConditionals()
     {
+        $this->bool_date =false;
+        self::getRateByHour();
         return $this->partial_min;
     }
 

@@ -27,6 +27,7 @@ class HourTemplateResource extends JsonResource
             'relationships' => [
                 'roomType'    => $this->whenLoaded('roomType', fn () => RoomTypeResource::make($this->resource->roomType)),
                 'shiftSystem' => $this->whenLoaded('shiftSystem', fn () => ShiftSystemResource::make($this->resource->roomType)),
+                'partialRate' => $this->whenloaded('partialRate', fn () => RoomTypeResource::make($this->resource->partialRate))
             ],
         ];
     }

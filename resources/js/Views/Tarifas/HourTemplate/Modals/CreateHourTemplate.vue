@@ -69,6 +69,23 @@
 							type="number"
 							v-model="form.rate"
 						/>
+<label for="name" class="form-label">Parcial Minimo</label>
+						<select
+							class="form-select"
+							aria-label="default select example"
+							v-model="form.partial_rate_id"
+						>
+							<option selected value="">seleccione Parcial Minimo</option>
+							<option
+								v-for="keep in partialRates"
+								:key="keep.id"
+								:value="keep.id"
+							>
+								{{ keep.attributes.name }}
+							</option>
+						</select>
+
+
 					</div>
 					<div class="modal-footer">
 						<a
@@ -102,6 +119,7 @@
 
 		created() {
 			this.getRoomType();
+			this.getPartialRate()
 			this.getShiftSystem();
 		},
 		data() {
@@ -110,6 +128,7 @@
 				hour: "0",
 				hour_end: "0",
 				patials: [],
+				partialRates:[],
 				roomType: [],
 				dayWeek: [],
 				systemTime: [],
@@ -149,12 +168,22 @@
 					})
 					.catch((error) => {});
 			},
+getPartialRate(){
+				let url='/configuracion/partial-rates/get'
+				axios
+					.get(url)
+					.then(res => {
+						this.partialRates = res.data.data
+					})
+					
+			},
 			getClearFormObject() {
 				return {
 					room_type_id: "",
 					hour: "00:00",
 					hour_end: "00:00",
 					rate: "",
+					partial_rates_id: '',
 					shift_system_id: "1",
 				};
 			},

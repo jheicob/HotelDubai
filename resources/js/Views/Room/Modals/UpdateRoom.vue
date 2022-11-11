@@ -225,21 +225,21 @@
 	const { form, desactiveButton } = storeToRefs(useHelper);
 
 	function updateRoom() {
-		new Promise(() => {
-			putItem(formatForm);
+let option = `room_status_id=${useStore.btn_room_status_id ?? ''}&estate_type_id=${useStore.estate_type_id}`;
+
+			putItem(formatForm,option);
 
 			if (useStore.answer_repair) {
-				axios.put("room/repair", useStore.form_repair).then(() => {
-					form_repair.value = {
-						room_id: "",
-						description: "",
-						observation: "",
-					};
-				});
+				axios
+					.put("room/repair", useStore.form_repair)
+					.then(() => {
+						form_repair.value = {
+							room_id: "",
+							description: "",
+							observation: "",	
+						};
+					});
 			}
-
-			useStore.filterRoomsByEstateType(useStore.estate_type_id);
-		});
 	}
 	onMounted(() => {
 		getPartialCost();
