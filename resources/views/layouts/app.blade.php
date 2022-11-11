@@ -39,19 +39,20 @@
     </style>
 </head>
 
-<body id="page-top" >
+<body id="page-top">
 
     <div>
         <main>
             <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
-                <a class="navbar-brand mr-1" href="{{route('room.index')}}">
-                    <img src="/img/Logo.png" alt="Logo" width="24" height="24" class="d-inline-block align-text-top">
+                <a class="navbar-brand mr-1" href="{{ route('room.index') }}">
+                    <img src="/img/Logo.png" alt="Logo" width="24" height="24"
+                        class="d-inline-block align-text-top">
                     Hotel Dubai
                 </a>
                 <div class="mx-3"></div>
 
                 <!-- Navbar Search -->
-               
+
                 <!-- Navbar -->
                 <ul class="navbar-nav ml-auto ml-md-0">
                     {{-- <li class="nav-item dropdown no-arrow mx-1">
@@ -80,7 +81,7 @@
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
 --}}
-  @can('users.index')
+                    @can('users.index')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('users.index') }}">
                                 <i class="fas fa-users"></i>
@@ -106,12 +107,12 @@
                         </li>
                     @endcan
                     @can('product.index')
-                         <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('Product.index') }}">
                                 <i class="fas fa-boxes"></i>
                                 <span>Productos</span>
                             </a>
-                        </li>                       
+                        </li>
                     @endcan
 
                     @can('seguridad')
@@ -144,20 +145,24 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                                 @can('partial.cost.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('partial.cost.index') }}">Costo Por Parciales</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('partial.cost.index') }}">Costo Por
+                                        Parciales</a>
                                 @endcan
                                 @can('partial.templates.index')
-                                    {{--<a class="dropdown-item text-dark" href="{{ route('partial.templates.index') }}">Plantillas
+                                    {{-- <a class="dropdown-item text-dark" href="{{ route('partial.templates.index') }}">Plantillas
                                         Parciales</a> --}}
                                 @endcan
                                 @can('date.templates.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('date.templates.index') }}">Plantillas Fechas</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('date.templates.index') }}">Plantillas
+                                        Fechas</a>
                                 @endcan
                                 @can('day.templates.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('day.templates.index') }}">Plantillas Días</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('day.templates.index') }}">Plantillas
+                                        Días</a>
                                 @endcan
                                 @can('hour.templates.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('hour.templates.index') }}">Plantillas Horas</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('hour.templates.index') }}">Plantillas
+                                        Horas</a>
                                 @endcan
 
                             </div>
@@ -176,45 +181,69 @@
                                     <a class="dropdown-item text-dark" href="{{ route('configuration.index') }}">Generales</a>
                                 @endcan
                                 @can('room.type.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('room.type.index') }}">Tipo Habitacion</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('room.type.index') }}">Tipo
+                                        Habitacion</a>
                                 @endcan
                                 {{-- @can('theme.type.index')
                                     <a class="dropdown-item" href="{{ route('theme.type.index') }}">Tipo Tematica</a>
                                 @endcan --}}
                                 @can('estate.type.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('estate.type.index') }}">Tipo inmueble</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('estate.type.index') }}">Tipo
+                                        inmueble</a>
                                 @endcan
                                 @can('partial.rates.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('partial.rates.index') }}">Tarifas Parciales</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('partial.rates.index') }}">Tarifas
+                                        Parciales</a>
                                 @endcan
                                 @can('room.status.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('room.status.index') }}">Estado Habitaciones</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('room.status.index') }}">Estado
+                                        Habitaciones</a>
                                 @endcan
                                 @can('day.week.index')
                                     <a class="dropdown-item text-dark" href="{{ route('day.week.index') }}">Dia Semana</a>
                                 @endcan
                                 @can('system.time.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('system.time.index') }}">Horas Sistema</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('system.time.index') }}">Horas
+                                        Sistema</a>
                                 @endcan
                                 @can('shift.system.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('shift.system.index') }}">Turnos Sistema</a>
+                                    <a class="dropdown-item text-dark" href="{{ route('shift.system.index') }}">Turnos
+                                        Sistema</a>
                                 @endcan
 
                             </div>
                         </li>
                     @endcan
 
-</ul>
-<div class="col"></div>
-<ul class="navbar-nav ml-auto ml-md-0">
+                    @can('client.report')
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-clipboard-list"></i>
+                                <span>Reportes</span>
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                                @can('configuration.index')
+                                    <a target="_blank" id="client_report" class="dropdown-item text-dark"
+                                        href="{{ route('client.report') }}">Clientes</a>
+                                @endcan
+                            </div>
+                        </li>
+
+                    @endcan
+
+                </ul>
+                <div class="col"></div>
+                <ul class="navbar-nav ml-auto ml-md-0">
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            {{Auth::user()->name}}
+                            {{ Auth::user()->name }}
                             <i class="fas fa-user-circle fa-fw"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" style="color:black" href="{{ route('profile.index') }}">Perfil</a>
+                            <a class="dropdown-item" style="color:black"
+                                href="{{ route('profile.index') }}">Perfil</a>
                             <a class="dropdown-item" style="color:black"
                                 href="{{ route('password.index') }}">Contraseña</a>
                             <div class="dropdown-divider"></div>
@@ -289,12 +318,11 @@
     <script src="{{ asset('js/admin/sb-admin.min.js') }}"></script>
 
     <!-- Demo scripts for this page-->
-    <script src="{{ asset('js/admin/demo/datatables-demo.js') }}"></script>    
+    <script src="{{ asset('js/admin/demo/datatables-demo.js') }}"></script>
     <script src="{{ asset('js/admin/demo/chart-area-demo.js') }}"></script>
     <script>
-       
         const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
-const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+        const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
     </script>
 </body>
 

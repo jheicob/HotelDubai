@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Client extends Model implements Auditable
 {
-    use SoftDeletes,HasFactory;
+    use SoftDeletes, HasFactory;
     use \OwenIt\Auditing\Auditable;
 
     protected $guarded = ['id'];
@@ -34,31 +34,38 @@ class Client extends Model implements Auditable
         'type_document_id'
     ];
 
-    public function scopeFilter(Builder $query,$request){
+    public function typeDocument()
+    {
+        return $this->belongsTo(TypeDocument::class);
+    }
+    public function scopeFilter(Builder $query, $request)
+    {
         return $query
-                ->when($request->document,function(Builder $q,$document){
-                    return $q->where('document',$document);
-                });
+            ->when($request->document, function (Builder $q, $document) {
+                return $q->where('document', $document);
+            });
     }
 
     // get the rooms of user
     public function rooms()
     {
         return $this->belongsToMany(Room::class)
-                    ->using(ClientRoom::class)
-                    ->withPivot(['date_in',
-                    'date_out',
-                    'partial_min',
-                    'rate',
-                    'observation',
-                    'quantity_partial',
-                    'time_additional',
-                    'price_additional',
-                    'invoiced'])
-                ;
+            ->using(ClientRoom::class)
+            ->withPivot([
+                'date_in',
+                'date_out',
+                'partial_min',
+                'rate',
+                'observation',
+                'quantity_partial',
+                'time_additional',
+                'price_additional',
+                'invoiced'
+            ]);
     }
 
-    public function receptions(){
+    public function receptions()
+    {
         return $this->hasMany(Reception::class);
     }
 
@@ -67,28 +74,32 @@ class Client extends Model implements Auditable
      *
      * @return void
      */
-    public function roomActive(){
+    public function roomActive()
+    {
         return $this->belongsToMany(Room::class)
-                    ->using(ClientRoom::class)
-                    ->withPivot(['date_in',
-                    'date_out',
-                    'partial_min',
-                    'rate',
-                    'observation',
-                    'quantity_partial',
-                    'time_additional',
-                    'price_additional',
-                    'invoiced'])
-                    ->wherePivot('invoiced',false)
-                    ;
+            ->using(ClientRoom::class)
+            ->withPivot([
+                'date_in',
+                'date_out',
+                'partial_min',
+                'rate',
+                'observation',
+                'quantity_partial',
+                'time_additional',
+                'price_additional',
+                'invoiced'
+            ])
+            ->wherePivot('invoiced', false);
     }
 
-    public function receptionActive(){
+    public function receptionActive()
+    {
         return $this->hasMany(Reception::class)
-                ->where('invoiced',false);
+            ->where('invoiced', false);
     }
 
-    public function getFullNameAttribute(){
+    public function getFullNameAttribute()
+    {
         return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
     }
 }

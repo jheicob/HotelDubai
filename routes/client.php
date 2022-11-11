@@ -50,6 +50,10 @@ Route::group(
         Route::post('transfer-room', [App\Http\Controllers\Client\CreateController::class, 'transferRoom'])
             ->name('transfer.room')
             ->middleware('permission:client.assigned_room');
+
+        Route::get('report', [App\Http\Controllers\Client\ReportController::class, 'report'])
+            ->name('client.report')
+            ->middleware('permission:client.report');
     }
 );
 

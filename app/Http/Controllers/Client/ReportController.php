@@ -13,9 +13,8 @@ class ReportController extends Controller
     {
         $pdf = new Mpdf();
 
-        $clients = Client::all();
+        $clients = Client::with('typeDocument')->get();
         $html = view('client.report', ['clients' => $clients]);
-
         $pdf->WriteHTML($html);
         $nombre_archivo = 'Reporte-Clientes';
         header('Content-Type: application/pdf');
