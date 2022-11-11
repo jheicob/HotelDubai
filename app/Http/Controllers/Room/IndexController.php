@@ -21,7 +21,7 @@ class IndexController extends Controller
         try {
             $room = Room::withTrashed()
                 ->IsNotAdmin()
-                ->IsCamarero()
+                // ->IsCamarero()
                 ->IsMantenimiento()
                 ->filter($request)
                 ->orderBy('name', 'asc')
@@ -42,8 +42,7 @@ class IndexController extends Controller
                 'partialCost.partialRate',
                 'receptionActive.client',
                 'receptionActive.details',
-                'repairs.maintenanceUser',
-                'repairs.reportUser'
+                'inRepair'
 
             ]);
             return RoomResource::collection($room);

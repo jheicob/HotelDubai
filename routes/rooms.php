@@ -24,8 +24,7 @@ Route::group(
             ->name('room.delete')
             ->middleware('permission:room.delete');
 
-        Route::put('{room}', [App\Http\Controllers\Room\UpdateController::class, 'updated'])
-            ->name('room.updated');
+
         Route::post('{room}/change-status', [App\Http\Controllers\Room\UpdateController::class, 'changeStatus'])
             ->name('room.change.status')
             ->middleware('permission:room.updated');
@@ -34,6 +33,13 @@ Route::group(
         Route::get('get', [App\Http\Controllers\Room\IndexController::class, 'get'])
             ->name('room.get')
             ->middleware('permission:room.getPaginate');
+
+        Route::put('repair', [App\Http\Controllers\Room\UpdateController::class, 'repair'])
+            ->name('room.repair')
+            ->middleware('permission:room.free');
+
+        Route::put('{room}', [App\Http\Controllers\Room\UpdateController::class, 'updated'])
+            ->name('room.updated');
     }
 );
 

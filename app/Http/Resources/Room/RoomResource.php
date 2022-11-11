@@ -26,22 +26,31 @@ class RoomResource extends JsonResource
             'attributes' => [
                 'name'  => $this->resource->name,
                 'description' => $this->resource->description,
-                'rate_current' => $this->whenAppended('rate_current',fn () => $this->resource->rate_current),
+                'rate_current' => $this->whenAppended('rate_current', fn () => $this->resource->rate_current),
                 'deleted_at'     => $this->resource->deleted_at,
             ],
             'relationships' => [
-                'roomStatus' => $this->whenLoaded('roomStatus', function() {
+                'roomStatus' => $this->whenLoaded('roomStatus', function () {
                     return RoomStatusResource::make($this->resource->roomStatus);
                 }),
-                'partialCost' => $this->whenLoaded('partialCost', function() {
+                'partialCost' => $this->whenLoaded('partialCost', function () {
                     return PartialCostResource::make($this->resource->partialCost);
                 }),
-                'estateType' => $this->whenLoaded('estateType', function() {
+                'estateType' => $this->whenLoaded('estateType', function () {
                     return RoomTypeResource::make($this->resource->estateType);
                 }),
-                'receptionActive' => $this->whenLoaded('receptionActive', function() {
-                    if($this->resource->receptionActive->first()){
+                'receptionActive' => $this->whenLoaded('receptionActive', function () {
+                    if ($this->resource->receptionActive->first()) {
                         return ReceptionResource::make($this->resource->receptionActive->first());
+                    }
+                    return null;
+                }),
+                'repairs' => $this->whenLoaded('repairs', function () {
+                    return RepairResource::collection($this->resource->repairs);
+                }),
+                'inRepair' => $this->whenLoaded('inRepair', function () {
+                    if ($this->resource->inRepair) {
+                        return RepairResource::make($this->resource->inRepair);
                     }
                     return null;
                 }),
@@ -49,5 +58,4 @@ class RoomResource extends JsonResource
             ],
         ];
     }
-
 }

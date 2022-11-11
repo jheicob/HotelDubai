@@ -144,6 +144,8 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'room.clean']);
         Permission::create(['name' => 'room.extend']);
         Permission::create(['name' => 'room.changeParcial']);
+        Permission::create(['name' => 'room.in_repair']);
+        Permission::create(['name' => 'room.repair']);
 
 
 

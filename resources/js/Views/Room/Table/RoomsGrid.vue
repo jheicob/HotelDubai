@@ -1,5 +1,5 @@
 <template>
-	<div class="col-1 p-0" style="margin: 5px">
+	<div class="col-1 p-0" style="margin: 1px">
 		<section
 			class="tile widget-appointments mb-0"
 			@click="showBody = !showBody"

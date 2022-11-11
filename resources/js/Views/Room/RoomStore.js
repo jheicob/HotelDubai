@@ -35,6 +35,7 @@ export const RoomStore = defineStore("roomStore", () => {
             partial_cost_id: "",
             room_status_id: "",
             estate_type_id: "",
+            repair: "",
         };
     };
 
@@ -42,7 +43,7 @@ export const RoomStore = defineStore("roomStore", () => {
         room_type_id.value =
             item.relationships.partialCost.relationships.roomType.id;
         getPartialCost();
-
+        formatRepair(item);
         return {
             id: item.id,
             name: item.attributes.name,
@@ -51,7 +52,26 @@ export const RoomStore = defineStore("roomStore", () => {
             partial_cost_id: item.relationships.partialCost.id,
             room_status_id: item.relationships.roomStatus.id,
             estate_type_id: item.relationships.estateType?.id ?? "",
+            repair: item.relationships.inRepair,
         };
+    };
+
+    const answer_repair = ref(false);
+    const form_repair = ref({
+        room_id: "",
+        description: "",
+        observation: "",
+    });
+
+    const formatRepair = (item) => {
+        let repair = item.relationships.inRepair;
+        form_repair.value.room_id = item.id;
+        if (!repair) return;
+        answer_repair.value = true;
+        form_repair.value.description =
+            item.relationships.inRepair.attributes.description;
+        form_repair.value.observation =
+            item.relationships.inRepair.attributes.observation;
     };
 
     const getRoomType = () => {
@@ -321,5 +341,7 @@ export const RoomStore = defineStore("roomStore", () => {
         estateTypes,
         filterRoomsByEstateType,
         estate_type_id,
+        answer_repair,
+        form_repair,
     };
 });

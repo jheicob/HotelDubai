@@ -159,4 +159,10 @@ class Room extends Model implements Auditable
     {
         return $this->hasMany(Repair::class);
     }
+
+    public function inRepair()
+    {
+        return $this->hasOne(Repair::class)
+            ->whereNull('maintenance_date');
+    }
 }

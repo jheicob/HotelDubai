@@ -19,8 +19,7 @@
 
 </head>
 
-<body class="bg-dark"
-    style="background-position: center;background-image:url('/img/Logo.png');background-repeat: no-repeat;background-size: 300px;">
+<body class="">
 
     <div class="container">
         <div class="card card-login mx-auto mt-5" style="
@@ -64,7 +63,7 @@
                     </div>
                     <div class="form-group">
                         <div class="checkbox">
-                            <label style="color:white">
+                            <label style="color:dark">
                                 <input type="checkbox" value="remember-me" name="remember" id="remember"
                                     {{ old('remember') ? 'checked' : '' }}>
                                 Recordar Contraseña
@@ -76,8 +75,9 @@
                     </button>
                 </form>
                 <div class="text-center">
-                    <a class="d-block small" style="color:white" href="{{ route('password.request') }}">Recuperar
+                    <a class="d-block small" style="color:dark" href="{{ route('password.request') }}">Recuperar
                         Contraseña?</a>
+                    <img src="img/Logo.png">
                 </div>
             </div>
         </div>

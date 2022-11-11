@@ -19,8 +19,9 @@
 
 	onMounted(() => {});
 	const props = defineProps({
-		role:{
+		role: {
 			type: String,
+			default: "",
 		},
 		create: {
 			type: Boolean,
@@ -51,6 +52,14 @@
 			default: false,
 		},
 		change_parcial: {
+			type: Boolean,
+			default: false,
+		},
+		in_repair: {
+			type: Boolean,
+			default: false,
+		},
+		repair: {
 			type: Boolean,
 			default: false,
 		},

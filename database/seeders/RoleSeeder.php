@@ -150,6 +150,8 @@ class RoleSeeder extends Seeder
                 'room.free',
                 'room.changeParcial',
                 'room.extend',
+                'room.in_repair',
+                'room.repair',
 
                 'day.templates.index',
                 'day.templates.create',
@@ -271,7 +273,8 @@ class RoleSeeder extends Seeder
             'room.get',
             'room.type.getPaginate',
             'room.status.getPaginate',
-            'room.free'
+            'room.free', 'room.in_repair',
+
         ]);
 
         $mantenimiento->givePermissionTo([
@@ -283,7 +286,8 @@ class RoleSeeder extends Seeder
             'room.get',
             'room.type.getPaginate',
             'room.status.getPaginate',
-            'room.free'
+            'room.free',
+            'room.repair',
         ]);
 
         $supervisor_role->givePermissionTo([

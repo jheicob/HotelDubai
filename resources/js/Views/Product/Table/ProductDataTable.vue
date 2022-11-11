@@ -40,11 +40,12 @@
 								<th>ID</th>
 								<th>Nombre</th>
 								<th>Descripcion</th>
-                                <th>Precio Compra</th>
-                                <th>Precio Venta</th>
-		                        <th>Visible Factura</th>	
+								<th>Precio Compra</th>
+								<th>Precio Venta</th>
+								<th>Visible Factura</th>
 								<th>Disponibles</th>
-		                        <th>Stock mínimo</th>
+								<th>Stock mínimo</th>
+								<th>Código de Barra</th>
 
 								<th>Accion</th>
 							</tr>
@@ -55,10 +56,12 @@
 								<th>Nombre</th>
 								<th>Descripcion</th>
 								<th>Precio Compra</th>
-                                <th>Precio Venta</th>
-		                        <th>Visible Factura</th>
-		                        <th>Disponibles</th>
-		                        <th>Stock mínimo</th>
+								<th>Precio Venta</th>
+								<th>Visible Factura</th>
+								<th>Disponibles</th>
+								<th>Stock mínimo</th>
+								<th>Código de Barra</th>
+
 								<th>Accion</th>
 							</tr>
 						</tfoot>
@@ -69,9 +72,17 @@
 								<td>{{ keep.attributes.description }}</td>
 								<td>{{ keep.attributes.purchase_price }}</td>
 								<td>{{ keep.attributes.sale_price }}</td>
-								<td>{{ keep.attributes.visible == true ? 'Sí' : 'No'}}</td>
-								<td>{{ keep.relationships.inventory.attributes.stock }}</td>								
-								<td>{{ keep.relationships.inventory.attributes.stock_min}}</td>								
+								<td>
+									{{ keep.attributes.visible == true ? "Sí" : "No" }}
+								</td>
+								<td>
+									{{ keep.relationships.inventory.attributes.stock }}
+								</td>
+								<td>
+									{{
+										keep.relationships.inventory.attributes.stock_min
+									}}
+								</td>
 								<td>
 									<i
 										v-on:click.prevent="
