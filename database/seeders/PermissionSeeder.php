@@ -203,5 +203,10 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'configuration.upsert']);
         Permission::create(['name' => 'configuration.getPaginate']);
         Permission::create(['name' => 'configuration.index']);
+
+        Permission::create(['name' => 'notification.room.ocuppy']);
+        Permission::create(['name' => 'notification.room.sucia']);
+        Permission::create(['name' => 'notification.room.maintenance']);
+        Permission::create(['name' => 'notification.room.disponible']);
     }
 }

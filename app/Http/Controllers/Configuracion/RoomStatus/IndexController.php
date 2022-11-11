@@ -35,9 +35,7 @@ class IndexController extends Controller
         try {
             $permissions = RoomStatus::withTrashed()
                 ->when(self::isCamarero() || self::isMantenimiento(), function (Builder $query) {
-                    return $query->where('name', 'Disponible')
-                        ->orWhere('name', 'Sucia')
-                        ->orWhere('name', 'Mantenimiento');
+                    return $query->where('name', '<>', 'Ocupada');
                 })
                 // ->when(self::isMantenimiento(), function (Builder $query) {
                 //     return $query->where('name', 'Disponible')

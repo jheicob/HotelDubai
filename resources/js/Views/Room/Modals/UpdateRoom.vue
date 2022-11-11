@@ -136,7 +136,7 @@
 								</option>
 							</select>
 						</div>
-						<div class="form-check" v-if="useHelper.permiss.repair">
+						<div class="form-check" v-if="useHelper.permiss.in_repair">
 							<input
 								class="form-check-input"
 								type="checkbox"
@@ -237,6 +237,8 @@
 					};
 				});
 			}
+
+			useStore.filterRoomsByEstateType(useStore.estate_type_id);
 		});
 	}
 	onMounted(() => {

@@ -205,10 +205,19 @@ class RoleSeeder extends Seeder
                 'range.template.updated',
                 'range.template.getPaginate',
                 'range.template.get',
+
+                'notification.room.ocuppy',
+                'notification.room.sucia',
+                'notification.room.maintenance',
+                'notification.room.disponible',
             ]
         );
 
         $recepcionista_ed->givePermissionTo([
+            'notification.room.sucia',
+            'notification.room.maintenance',
+            'notification.room.disponible',
+
             'room.index',
             'estate.type.getPaginate',
             'room.getPaginate',
@@ -240,6 +249,10 @@ class RoleSeeder extends Seeder
             'product.getPaginate',
         ]);
         $recepcionista_cab->givePermissionTo([
+            'notification.room.sucia',
+            'notification.room.maintenance',
+            'notification.room.disponible',
+
             'room.index',
             'estate.type.getPaginate',
             'room.getPaginate',
@@ -273,6 +286,10 @@ class RoleSeeder extends Seeder
         ]);
 
         $camarero_role->givePermissionTo([
+            'notification.room.ocuppy',
+            'notification.room.sucia',
+            'notification.room.disponible',
+
             'room.index',
             'partial.cost.getPaginate',
             'room.free',
@@ -286,6 +303,9 @@ class RoleSeeder extends Seeder
         ]);
 
         $mantenimiento->givePermissionTo([
+            'notification.room.ocuppy',
+            'notification.room.maintenance',
+
             'room.index',
             'partial.cost.getPaginate',
             'room.free',
@@ -299,6 +319,11 @@ class RoleSeeder extends Seeder
         ]);
 
         $supervisor_role->givePermissionTo([
+            'notification.room.ocuppy',
+            'notification.room.sucia',
+            'notification.room.maintenance',
+            'notification.room.disponible',
+
             'room.index',
             'estate.type.getPaginate',
             'room.getPaginate',
@@ -329,8 +354,15 @@ class RoleSeeder extends Seeder
             'client.assigned_room',
 
             'client.report',
-
+            'product.index',
+            'product.create',
+            'product.delete',
+            'product.updated',
             'product.getPaginate',
+            'product.get',
+            'room.free',
+            'room.repair',
+            'room.in_repair',
         ]);
     }
 }

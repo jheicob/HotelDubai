@@ -24,6 +24,7 @@ class RangeTemplateResource extends JsonResource
                 'date_start' => $this->resource->date_start,
                 'date_end' => $this->resource->date_end,
                 'rate' => $this->resource->rate,
+                'deleted_at' => $this->resource->deleted_at,
             ],
             'relationships' => [
                 'roomType'    => $this->whenLoaded('roomType', fn () => RoomTypeResource::make($this->resource->roomType)),

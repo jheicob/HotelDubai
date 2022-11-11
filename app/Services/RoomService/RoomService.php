@@ -59,12 +59,21 @@ class RoomService
 
     public function getRateByConditionals()
     {
-        $this->acum += self::getRateByRange();
-        $this->acum += self::getRateByDate($this->date);
-        $this->acum += self::getRateByDay($this->dayName);
-        $this->acum += self::getRateByHour();
-        $this->acum += self::getRateOfConditionals();
-        return $this->acum;
+
+        $rate = $this->acum;
+
+        $rate = self::getRateByDate($this->date);
+        if ($rate == 0) {
+            $rate = self::getRateByRange();
+        }
+        if ($rate == 0) {
+            $rate = self::getRateByDay($this->dayName);
+        }
+        if ($rate == 0) {
+            $rate = self::getRateByHour();
+        }
+
+        return $rate == 0 ? $this->acum : $rate;
     }
 
     private function getRateByRange(): int
@@ -148,7 +157,7 @@ class RoomService
         if ($bool != '') {
             if (!$this->bool_date) {
 
-                // self::getPartialCostByRoomTypeAndPartial($bool->room_type_id, $bool->partial_rate_id);
+                self::getPartialCostByRoomTypeAndPartial($bool->room_type_id, $bool->partial_rate_id);
             }
             return (int) $bool->rate;
         }
@@ -186,6 +195,7 @@ class RoomService
         }
         $this->bool_date = true;
         // self::updatePartialCost($partial_cost->id);
+        // dump($partial_cost->id);
         return $this->partial_min = $partial_cost->id;
     }
 

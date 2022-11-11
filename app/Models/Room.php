@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Events\CrateNotificationEvent;
 use App\Traits\Configurations\GeneralConfiguration;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
@@ -34,6 +35,14 @@ class Room extends Model implements Auditable
         'description',
         'name'
     ];
+
+    public static function booted()
+    {
+        static::updated(function ($room) {
+
+            event(new CrateNotificationEvent($room->name, $room->roomStatus->name));
+        });
+    }
 
     public function roomStatus()
     {

@@ -10,6 +10,6 @@
             :change_parcial="'{{ Auth::user()->can('room.changeParcial') }}' == 1"
             :repair="'{{ Auth::user()->can('room.repair') }}' == 1"
             :in_repair="'{{ Auth::user()->can('room.in_repair') }}' == 1"
-            :role="{{ Auth::user()->roles->first()->name }}" />
+            :role="'{{ Auth::user()->roles->first()->name }}'" />
     </div>
 @endsection

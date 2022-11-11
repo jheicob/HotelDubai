@@ -223,7 +223,7 @@
                                 <span>Reportes</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                                @can('configuration.index')
+                                @can('client.report')
                                     <a target="_blank" id="client_report" class="dropdown-item text-dark"
                                         href="{{ route('client.report') }}">Clientes</a>
                                 @endcan
