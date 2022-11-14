@@ -461,7 +461,7 @@
                             class="btn btn-primary text-white btn-icon-split col-2"
                         >
                             <span class="text font-montserrat font-weight-bold"
-                                >Asignar Habitación</span
+                                >{{store.updated_reception ? 'Extender Tiempo' : 'Asignar Habitación'}}</span
                             >
                         </button>
                     </div>

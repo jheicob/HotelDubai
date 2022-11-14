@@ -92,8 +92,8 @@
 
     <tr>
 
-        <td>
-            Forma de Pago:
+        <td >
+           Obs. / <br> Forma de Pago:
         </td>
         <td>
             {{ $ticket->observation }}

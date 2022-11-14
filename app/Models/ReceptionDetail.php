@@ -40,6 +40,6 @@ class ReceptionDetail extends Model implements Auditable
     }
 
     public function ticket(){
-        return $this->hasOne(Ticket::class);
+        return $this->hasOne(Ticket::class)->orderBy('created_at','desc');
     }
 }
