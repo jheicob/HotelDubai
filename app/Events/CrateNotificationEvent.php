@@ -10,13 +10,14 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
-class CrateNotificationEvent
+class CrateNotificationEvent implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    protected $room_name;
-    protected $status;
+    public $room_name;
+    public $status_new;
     /**
      * Create a new event instance.
      *
@@ -24,17 +25,21 @@ class CrateNotificationEvent
      */
     public function __construct($room_name, $status)
     {
+        Log::info('evento:');
+        Log::info($room_name);
+        Log::info($status);
+
         $this->room_name = $room_name;
-        $this->status    = $status;
+        $this->status_new    = $status;
     }
 
     public function broadcastOn()
     {
-        return ['my-channel'];
+        return ['notification'];
     }
 
     public function broadcastAs()
     {
-        return 'my-event';
+        return 'notification';
     }
 }

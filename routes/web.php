@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,3 +19,8 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+Route::get('notifications', [NotificationController::class,'index'])
+    ->name('notifications');
+    Route::put('notifications/{id}', [NotificationController::class,'clear'])
+    ->name('notifications.clear');

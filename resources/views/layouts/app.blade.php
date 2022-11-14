@@ -22,7 +22,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
-
+    <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
     <!-- Page level plugin CSS-->
     <link href="{{ asset('vendor/datatables/dataTables.bootstrap4.css') }}" rel="stylesheet">
 
@@ -41,7 +41,7 @@
 
 <body id="page-top">
 
-    <div>
+    <div id="app">
         <main>
             <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
                 <a class="navbar-brand mr-1" href="{{ route('room.index') }}">
@@ -80,7 +80,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">Something else here</a>
                         </div>
---}}
+                    --}}
                     @can('users.index')
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('users.index') }}">
@@ -231,10 +231,11 @@
                         </li>
 
                     @endcan
-
+                        
                 </ul>
                 <div class="col"></div>
                 <ul class="navbar-nav ml-auto ml-md-0">
+                    <room-notification></room-notification>
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -323,6 +324,57 @@
     <script>
         const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
         const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
+    </script>
+
+    {{-- <script src="https://js.pusher.com/7.2/pusher.min.js"></script> --}}
+    <script>
+    // Enable pusher logging - don't include this in production
+   
+    // Pusher.logToConsole = true;
+
+    // var pusher = new Pusher('4d221fa1e35970a97f38', {
+    //     cluster: 'sa1'
+    // });
+
+    // var channel = pusher.subscribe('notification');
+    // channel.bind('notification', function(data) {
+    //     let {room_name,status_new} = (JSON.stringify(data));
+    //     setNotification(room_name,status_new)
+    // });
+    // var notification = new Array();
+
+    // function setNotification(room_name,status_new) {
+    //     notification.push(`
+    //                 <p>La habitación: ${room_name} pasó a estado: ${status_new}</p>
+    //             `)
+    // }
+    // function getN() {
+    //     let string = ''
+    //     notification.forEach(element => {
+    //         string += element
+    //     });
+    //     return string
+    // }
+
+    // async function getNotifications(){
+    //     try{
+    //          let res = await axios.get('notifications')
+    //         notification += await res.data.map(item => {
+    //             console.log(item)
+    //             setNotification(item.room_name,item.status_new)
+    //         })
+
+    //         return notification;
+    //     }catch(err){
+    //         console.log(err)
+    //     }
+
+    // }
+
+    // $(document).ready(async function () {
+    //     await getNotifications()
+    //     $('#app2').append(getN())    
+    // });
     </script>
 </body>
 

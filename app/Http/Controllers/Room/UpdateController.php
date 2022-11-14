@@ -22,7 +22,6 @@ class UpdateController extends Controller
             DB::beginTransaction();
 
             $room->update($request->all());
-
             DB::commit();
 
             return custom_response_sucessfull('updated successfull');

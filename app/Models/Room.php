@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use OwenIt\Auditing\Contracts\Auditable;
 
 class Room extends Model implements Auditable
@@ -39,8 +41,13 @@ class Room extends Model implements Auditable
     public static function booted()
     {
         static::updated(function ($room) {
-
-            event(new CrateNotificationEvent($room->name, $room->roomStatus->name));
+            
+            \App\Events\CrateNotificationEvent::dispatch($room->name, $room->roomStatus->name);
+            RoomNotification::create([
+                'room_name' => $room->name,
+                'status_new'=> $room->roomStatus->name,
+                'message'   => '',
+            ]);
         });
     }
 

@@ -3,8 +3,9 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-//require('./bootstrap');
-import "./bootstrap";
+require('./bootstrap');
+//import "./bootstrap";
+
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import permissions from "./Views/Permissions/Permissions.vue";
@@ -31,9 +32,11 @@ import DayTemplate from "./Views/Tarifas/DayTemplate/DayTemplate.vue";
 import Invoice from "./Views/Invoice/Invoice.vue";
 import Product from "./Views/Product/Product.vue";
 import Configuration from "./Views/Configuration/Configuration.vue";
+import Notification from './Views/Notificaction/Notification.vue'
 
 const app = createApp({});
 app.use(createPinia());
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -70,6 +73,7 @@ app.component("invoice", Invoice);
 app.component("product", Product);
 app.component("configuration", Configuration);
 app.component("range-template", rangetemplate);
+app.component("room-notification", Notification);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -78,3 +82,4 @@ app.component("range-template", rangetemplate);
  */
 
 app.mount("#app");
+
