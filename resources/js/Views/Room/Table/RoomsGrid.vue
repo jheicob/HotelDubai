@@ -206,13 +206,17 @@ dayjs.extend(isSameOrAfter)
 	const cont_add = ref("");
 
 	const temp_state = ref("");
+
 	const isWarningTime = () => {
 		if(item.value.relationships.receptionActive == null) return false;
 		let date =
 			dayjs(item.value.relationships.receptionActive.attributes.date_out)
+			
 		if(temp_state.value == ''){
-	
-				temp_state.value = config.config.warning_time.split(':');
+				let warning_time = config.config.warning_time
+				if(warning_time){
+					temp_state.value = warning_time.split(':');
+				}
 		}
 
 		date = date
