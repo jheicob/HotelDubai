@@ -31,6 +31,8 @@ export const ConfigurationStore = defineStore("ConfigurationStore", () => {
                     exchange_rate: attributes.exchange_rate,
                     warning_time: attributes.warning_time,
                     cancel_time: attributes.cancel_time,
+                    color_past_time:    attributes.color_past_time,
+                    color_warning_time: attributes.color_warning_time,
                 };
                 formatCancelTime(attributes.cancel_time);
                 response.data.data;

@@ -3,7 +3,7 @@
 		<section
 			class="tile widget-appointments mb-0"
 			@click="showBody = !showBody"
-			:style="[item.relationships.roomStatus.attributes.color.css, 'color:white']"
+			:style="[getGridColor(item.relationships.roomStatus.attributes.color.css), 'color:white']"
 		>
 			<div
 				class="tile-header dvd dvd-btm"
@@ -167,17 +167,20 @@
 	import { receptionStore } from "../Reception/ReceptionStore.js";
 	import { storeToRefs } from "pinia";
 	import dayjs from "dayjs";
-
+	import { ConfigurationStore } from "../../Configuration/ConfigurationStore";
+	const config = ConfigurationStore();
 	const helper = HelperStore();
 	const room = RoomStore();
 	const reception = receptionStore();
 	const countdown = ref(0);
 	// const {countdown, date_out} = storeToRefs(reception);
-
+	var isSameOrAfter = require('dayjs/plugin/isSameOrAfter')
+dayjs.extend(isSameOrAfter)
 	onMounted(() => {
 		let date =
 			item.value.relationships.receptionActive?.attributes.date_out ?? dayjs();
-		setupCountdownTimer(date);
+		let ocuped = item.value.relationships.receptionActive != null;
+		setupCountdownTimer(date, ocuped);
 	});
 
 	const updateItem = () => {
@@ -201,7 +204,36 @@
 
 	const { item } = toRefs(props);
 	const cont_add = ref("");
-	const setupCountdownTimer = (date) => {
+
+	const temp_state = ref("");
+	const isWarningTime = () => {
+		if(item.value.relationships.receptionActive == null) return false;
+		let date =
+			dayjs(item.value.relationships.receptionActive.attributes.date_out)
+		if(temp_state.value == ''){
+	
+				temp_state.value = config.config.warning_time.split(':');
+		}
+
+		date = date
+				.subtract(parseInt(temp_state.value[0]),'h')
+				.subtract(parseInt(temp_state.value[1]),'m')
+				.subtract(parseInt(temp_state.value[2]),'s')
+				return dayjs().isSameOrAfter(date)
+	}
+	const getGridColor = (color) => {
+
+		if(cont_add.value == '-'){
+			let color = config.config.color_past_time.css ?? 'white'
+			return color
+		}else if(isWarningTime()){
+			let color = config.config.color_warning_time?.css ?? 'white'
+			return color
+		}
+		return color;
+	}
+	const setupCountdownTimer = (date,ocuped) => {
+		if(!ocuped) return 0;
 		let timer = setInterval(() => {
 			countdown.value = dayjs(date).valueOf() - dayjs().valueOf();
 

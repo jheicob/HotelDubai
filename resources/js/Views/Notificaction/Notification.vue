@@ -40,7 +40,7 @@ const { notification } = storeToRefs(store);
 onMounted(() => {
     store.getNotifications();
 
-    Pusher.logToConsole = true;
+    // Pusher.logToConsole = true;
 
     var pusher = new Pusher("4d221fa1e35970a97f38", {
         cluster: "sa1",

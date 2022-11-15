@@ -126,6 +126,9 @@
 	import { RoomStore } from "../RoomStore";
 	import { storeToRefs } from "pinia";
 	import { onMounted, ref } from "vue";
+	import { ConfigurationStore } from "../../Configuration/ConfigurationStore";
+	const config = ConfigurationStore();
+
 	const useHelper = HelperStore();
 	const useStore = RoomStore();
 
@@ -140,6 +143,7 @@
 
 	onMounted(() => {
 		useHelper.getAll();
+		config.getConfiguration()
 		useStore.getRoomStatus();
 	});
 </script>

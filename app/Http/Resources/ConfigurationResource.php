@@ -22,6 +22,8 @@ class ConfigurationResource extends JsonResource
                 'exchange_rate' => $this->resource->exchange_rate,
                 'warning_time' => $this->resource->warning_time,
                 'cancel_time' => $this->resource->cancel_time,
+                'color_warning_time' => $this->resource->color_warning_time,
+                'color_past_time' => $this->resource->color_past_time,
             ]
         ];
     }

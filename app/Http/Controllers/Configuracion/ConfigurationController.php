@@ -37,16 +37,7 @@ class ConfigurationController extends Controller
             return response()->json(Response::HTTP_OK);
         } catch (\Exception $ex) {
             DB::rollBack();
-            return response()->json(
-                [
-                    'data' => [
-                        'code'        => $ex->getCode(),
-                        'title'       => __('errors.server.title'),
-                        'description' => __('errors.server.description'),
-                    ]
-                ],
-                Response::HTTP_INTERNAL_SERVER_ERROR
-            );
+            return custom_response_exception($ex,__('errors.server.title'),500);
         }
     }
 }

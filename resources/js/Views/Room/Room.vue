@@ -14,10 +14,13 @@
 	import { onMounted } from "vue";
 	import { receptionStore } from "./Reception/ReceptionStore.js";
 	import CreateReception from "./Reception/CreateReception.vue";
+	
 	const useHelper = HelperStore();
 	const reception = receptionStore();
 
-	onMounted(() => {});
+	onMounted(() => {
+		
+	});
 	const props = defineProps({
 		role: {
 			type: String,

@@ -81,6 +81,7 @@
                             >Tiempo de Aviso (HH:mm:ss)</label
                         >
                     </div>
+                    
                     <div class="form-floating mb-3 col-6 mx-auto">
                         <input
                             type="text"
@@ -89,14 +90,48 @@
                             id="cancel_time"
                             placeholder="8.5"
                             v-model="config.cancel_time"
+
                             @blur="verifyCancelTime"
                         />
                         <label for="cancel_time" class="mx-3"
                             >Tiempo de Cancelación (HH:mm:ss)</label
                         >
                     </div>
+
+                    <div class=" mb-3 col-6 mx-auto">
+                        <ColorPicker 
+                            id="color_warning_time"
+                            v-model="config.color_warning_time"
+                            mode="solid" 
+                            @colorChanged="getColorW"
+
+                            />
+                        <label for="cancel_time" class="mx-3"
+                            >Color Marca de Aviso</label
+                        >
+                        <div style="margin:1px;height:20px;" :style="config.color_warning_time?.css ?? ''" >
+
+                        </div>
+                    </div>
+                    <div class="mb-3 col-6 mx-auto">
+                        <ColorPicker 
+                            mode="solid" 
+                            @colorChanged="getColorC"
+
+                            id="color_past_time"
+                            
+                            v-model="config.color_past_time"
+                            />
+                            
+                            <label for="color_past_time" class="mx-3"
+                            >Color Tiempo Pasado</label
+                            >
+                            <div style="margin:1px;height:20px; ;" :style="config.color_past_time?.css ?? ''" >
+                        </div>
+                    </div>
                 </div>
 
+               
                 <hr class="border border-3 border-danger" />
                 <div class="row my-4">
                     <div class="col text-center">
@@ -120,7 +155,10 @@ import { ConfigurationStore } from "./ConfigurationStore.js";
 import { HelperStore } from "../../HelperStore";
 import { onMounted, computed, watch, ref } from "vue";
 import { storeToRefs } from "pinia";
+import ColorPicker from "@mcistudio/vue-colorpicker";
 import InputMask from "vue-input-mask";
+
+
 const useHelper = HelperStore();
 const store = ConfigurationStore();
 const props = defineProps({
@@ -169,6 +207,12 @@ const { config } = storeToRefs(store);
 // const warning_time = ref(config.value.warning_time);
 useHelper.permiss = props;
 
+const getColorC = (color) => {
+    config.value.color_past_time = color
+}
+const getColorW = (color) => {
+    config.value.color_warning_time = color
+}
 onMounted(() => {
     store.getConfiguration();
 });
