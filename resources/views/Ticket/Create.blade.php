@@ -1,6 +1,13 @@
 <style>
     @page {
-        margin: 0
+        margin: 0 5px
+    }
+    body{
+        font-size: 12px;
+        text-align: center
+    }
+    table{
+        width: 100%
     }
 </style>
 
@@ -17,10 +24,15 @@
     </tr>
     <tr>
         <td>
-            Cajero:
+            Cajero: 
         </td>
         <td>
             {{ Auth::user()->name }}
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            ...........................................................
         </td>
     </tr>
     <tr>
@@ -46,9 +58,10 @@
             {{ \Carbon\Carbon::parse($reception->date_in)->format('h:i a') }}
         </td>
     </tr>
+    
     <tr>
-        <td style="height: 10px">
-
+        <td colspan="2">
+            ...........................................................
         </td>
     </tr>
     <tr>
@@ -57,6 +70,7 @@
             Salida
         </td>
     </tr>
+   
     <tr>
         <td>
             Fecha:
@@ -76,17 +90,18 @@
 
     </tr>
     <tr>
-        <td style="height: 10px">
-
+        <td colspan="2">
+            ...........................................................
         </td>
     </tr>
+    
     <tr>
 
         <td>
             Total:
         </td>
-        <td>
-            {{ $total }}
+        <td >
+         <b>   {{ $total }}</b>
         </td>
     </tr>
 
