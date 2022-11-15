@@ -57,6 +57,13 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         client_id: "",
         reception_details: [],
         payments: [],
+        client:{
+			id: '',
+			document: '',
+			type_document_id: '',
+			first_name:'',
+			last_name:'',
+		},
     });
 
     const generateInvoice = (room) => {
@@ -65,6 +72,11 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         form.value[]
     }*/
     };
+
+    const createInvoiceOnlyProducts = () =>
+    {
+
+    }
 
     const getTotalByDetails = (position) => {
         let item = form.value.reception_details[position];
@@ -166,7 +178,7 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         form,
         getTotalByDetails,
         printInvoice,
-getAcumTotalByDetails,
+        getAcumTotalByDetails,
         products,
         deleteProduct,
         addProduct,

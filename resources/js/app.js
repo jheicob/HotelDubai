@@ -33,7 +33,7 @@ import Invoice from "./Views/Invoice/Invoice.vue";
 import Product from "./Views/Product/Product.vue";
 import Configuration from "./Views/Configuration/Configuration.vue";
 import Notification from './Views/Notificaction/Notification.vue'
-
+import CreateInvoice from "./Views/Invoice/Modals/CreateInvoice.vue"
 const app = createApp({});
 app.use(createPinia());
 
@@ -74,7 +74,7 @@ app.component("product", Product);
 app.component("configuration", Configuration);
 app.component("range-template", rangetemplate);
 app.component("room-notification", Notification);
-
+app.component("create-invoice",CreateInvoice);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

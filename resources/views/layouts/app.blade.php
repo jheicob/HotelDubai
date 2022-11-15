@@ -229,7 +229,10 @@
                                 @endcan
                             </div>
                         </li>
+                    @endcan
 
+                    @can('invoice.create')
+                        <create-invoice />
                     @endcan
                         
                 </ul>

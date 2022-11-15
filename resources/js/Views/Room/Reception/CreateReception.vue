@@ -588,7 +588,7 @@
                                     </tfoot>
                                 </table>
 
-                                <div class="my-2"></div>
+                                <!-- <div class="my-2"></div>
                                 <h3>Productos</h3>
                                 <table class="table text-center">
                                     <thead>
@@ -675,14 +675,12 @@
                                             </th>
                                         </tr>
                                     </tfoot>
-                                </table>
+                                </table> -->
                                 <div class="my-2"></div>
                                 <div class="col">
                                     <h3>Pagos</h3>
                                 </div>
-                                <div class="col">
-                                    Total a Pagar: {{ invoice.getAcumTotal }}
-                                </div>
+                                
                                 <table class="table text-center">
                                     <thead>
                                         <tr>
@@ -842,6 +840,8 @@ const openModal = () => {
             price_additional: detail.attributes.rate ?? 0,
         });
     });
+    payment.value.quantity = invoice.getAcumTotalByDetails
+
     $("#exampleModal23").modal("show");
 };
 
@@ -857,7 +857,7 @@ const { form, item, desactiveButton } = storeToRefs(helper);
 const { client_exist, type_documents, date, hour, product } =
     storeToRefs(ocuppy);
 
-const { form: form_invoice } = storeToRefs(invoice);
+const { form: form_invoice, payment } = storeToRefs(invoice);
 
 const opTickets = [
     {

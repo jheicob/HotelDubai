@@ -4,6 +4,7 @@ namespace App\Http\Requests\Invoice;
 
 use App\Rules\Invoice\VerifiedReceptionDetailOfClient;
 use App\Rules\Invoice\VerifiedTotalPayment;
+use App\Rules\verifiedSumTotalProducts;
 use App\Traits\CustomResponseFormRequestTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -28,7 +29,7 @@ class CreateRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $data = [
             'client_id'     => 'required|exists:clients,id',
             // 'reception_details'  => 'required|array',
             // 'reception_details.*.id'   => [
@@ -49,8 +50,14 @@ class CreateRequest extends FormRequest
             'payments.*.quantity'    => 'required|numeric',
             'payments.*.description' => 'required|string',
 
-            'total_payment' => new VerifiedTotalPayment($this->client_id)
-        ];
+            ];
+            if($this->reception_details && count($this->reception_details)>0){
+                $data['total_payment'] = new VerifiedTotalPayment($this->client_id);
+            }
+            if($this->products && count($this->products)>0){
+                $data['total_payment'] = new verifiedSumTotalProducts($this->products);
+            }
+        return $data;
     }
 
     public function prepareForValidation()

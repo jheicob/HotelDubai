@@ -15,6 +15,7 @@
     <tr>
         <td colspan="2" align='center'>
             <p><b>{{ $reception->room->name }}</b></p>
+            <p><b>{{ $reception->room->partialCost->roomType->name }}</b></p>
         </td>
     </tr>
     <tr>

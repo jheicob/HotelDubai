@@ -36,14 +36,21 @@ class CreateController extends Controller
             DB::beginTransaction();
 
             $client = Client::find($request->client_id);
-
-            $reception = $client->receptionActive->first();
-
-            self::VerifiedAndUpdateAdditionalReceptionDetails($reception, $request->reception_details);
+            $total_invoice = 0;
+            if($request->reception_details && count($request->reception_details) > 0 ) {
+                $reception = $client->receptionActive->first();
+                self::VerifiedAndUpdateAdditionalReceptionDetails($reception, $request->reception_details);
+                $total_invoice += $this->service->calculateTotalByReceptionDetails($reception);
+            }
+            if($request->products && count($request->products) > 0 ) {
+                $total_invoice += self::getTotalAcumOfProducts($request->products);
+            }
             $request->merge([
-                'total' => $this->service->calculateTotalByReceptionDetails($reception),
+                'total' => $total_invoice,
                 'date'  => Carbon::now()->format('Y-m-d H:i:s')
             ]);
+
+
             $invoice = Invoice::create($request->only([
                 'client_id',
                 'total',
@@ -53,16 +60,21 @@ class CreateController extends Controller
             $invoice->identify = config('invoice.local') . '-' . $invoice->id;
             $invoice->save();
 
-            self::storeReceptionDetailsInInvoice($reception, $invoice);
+            if($request->reception_details && count($request->reception_details) > 0 ) {
+                self::storeReceptionDetailsInInvoice($reception, $invoice);
+                $reception->update(['invoiced' => true]);
+                $roomStatus = \App\Models\RoomStatus::firstWhere('name', 'Sucia');
+                $reception->room->update(['room_status_id' => $roomStatus->id]);
+            }
 
-            self::storeProductsInInvoice($invoice, $request->products);
+            if($request->products && count($request->products) > 0 ) {
+                self::storeProductsInInvoice($invoice, $request->products);
+            }
 
             self::storePayments($invoice, $request->payments);
 
             // $invoice_details = $invoice->details()->create()
-            $reception->update(['invoiced' => true]);
-            $roomStatus = \App\Models\RoomStatus::firstWhere('name', 'Sucia');
-            $reception->room->update(['room_status_id' => $roomStatus->id]);
+           
             DB::commit();
 
             return custom_response_sucessfull([
@@ -289,5 +301,16 @@ class CreateController extends Controller
                 $item->invoiceDetail()->create($data2);
             }
         });
+    }
+
+    private function getTotalAcumOfProducts($products): float
+    {
+        $acum = 0;
+
+        foreach($products as $product){
+            $acum += $product['price'] * $product['quantity'];
+        }
+        return $acum;
+
     }
 }
