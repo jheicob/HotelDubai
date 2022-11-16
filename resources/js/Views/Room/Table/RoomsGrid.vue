@@ -3,7 +3,10 @@
 		<section
 			class="tile widget-appointments mb-0"
 			@click="showBody = !showBody"
-			:style="[getGridColor(item.relationships.roomStatus.attributes.color.css), 'color:white']"
+			:style="[
+				getGridColor(item.relationships.roomStatus.attributes.color.css),
+				'color:white',
+			]"
 		>
 			<div
 				class="tile-header dvd dvd-btm"
@@ -174,8 +177,8 @@
 	const reception = receptionStore();
 	const countdown = ref(0);
 	// const {countdown, date_out} = storeToRefs(reception);
-	var isSameOrAfter = require('dayjs/plugin/isSameOrAfter')
-dayjs.extend(isSameOrAfter)
+	var isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
+	dayjs.extend(isSameOrAfter);
 	onMounted(() => {
 		let date =
 			item.value.relationships.receptionActive?.attributes.date_out ?? dayjs();
@@ -208,36 +211,35 @@ dayjs.extend(isSameOrAfter)
 	const temp_state = ref("");
 
 	const isWarningTime = () => {
-		if(item.value.relationships.receptionActive == null) return false;
-		let date =
-			dayjs(item.value.relationships.receptionActive.attributes.date_out)
-			
-		if(temp_state.value == ''){
-				let warning_time = config.config.warning_time
-				if(warning_time){
-					temp_state.value = warning_time.split(':');
-				}
+		if (item.value.relationships.receptionActive == null) return false;
+		let date = dayjs(item.value.relationships.receptionActive.attributes.date_out);
+
+		if (temp_state.value == "") {
+			let warning_time = config.config.warning_time;
+			if (warning_time) {
+				temp_state.value = warning_time.split(":");
+			}
 		}
 
 		date = date
-				.subtract(parseInt(temp_state.value[0]),'h')
-				.subtract(parseInt(temp_state.value[1]),'m')
-				.subtract(parseInt(temp_state.value[2]),'s')
-				return dayjs().isSameOrAfter(date)
-	}
+			.subtract(parseInt(temp_state.value[0]), "h")
+			.subtract(parseInt(temp_state.value[1]), "m")
+			.subtract(parseInt(temp_state.value[2]), "s");
+		return dayjs().isSameOrAfter(date);
+	};
 	const getGridColor = (color) => {
-
-		if(cont_add.value == '-'){
-			let color = config.config.color_past_time.css ?? 'white'
-			return color
-		}else if(isWarningTime()){
-			let color = config.config.color_warning_time?.css ?? 'white'
-			return color
+		if (cont_add.value == "-") {
+			let color = config.config.color_past_time.css ?? "white";
+			return color;
 		}
+		// else if (isWarningTime()) {
+		// 	let color = config.config.color_warning_time?.css ?? 'white'
+		// 	return color
+		// }
 		return color;
-	}
-	const setupCountdownTimer = (date,ocuped) => {
-		if(!ocuped) return 0;
+	};
+	const setupCountdownTimer = (date, ocuped) => {
+		if (!ocuped) return 0;
 		let timer = setInterval(() => {
 			countdown.value = dayjs(date).valueOf() - dayjs().valueOf();
 
