@@ -22,7 +22,7 @@ class IndexController extends Controller
             $room = Room::withTrashed()
                 ->IsNotAdmin()
                 // ->IsCamarero()
-                ->IsMantenimiento()
+                // ->IsMantenimiento()
                 ->filter($request)
                 ->orderBy('name', 'asc')
                 ->get();

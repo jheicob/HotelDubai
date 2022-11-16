@@ -67,9 +67,12 @@ export const RoomStore = defineStore("roomStore", () => {
         let repair = item.relationships.inRepair;
         form_repair.value.room_id = item.id;
         if (!repair) return;
+
         answer_repair.value = true;
+
         form_repair.value.description =
             item.relationships.inRepair.attributes.description;
+
         form_repair.value.observation =
             item.relationships.inRepair.attributes.observation;
     };

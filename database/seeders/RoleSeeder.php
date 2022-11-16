@@ -217,6 +217,7 @@ class RoleSeeder extends Seeder
             'notification.room.sucia',
             'notification.room.maintenance',
             'notification.room.disponible',
+            'configuration.getPaginate',
 
             'room.index',
             'estate.type.getPaginate',
@@ -252,6 +253,7 @@ class RoleSeeder extends Seeder
             'notification.room.sucia',
             'notification.room.maintenance',
             'notification.room.disponible',
+            'configuration.getPaginate',
 
             'room.index',
             'estate.type.getPaginate',
@@ -289,6 +291,7 @@ class RoleSeeder extends Seeder
             'notification.room.ocuppy',
             'notification.room.sucia',
             'notification.room.disponible',
+            'configuration.getPaginate',
 
             'room.index',
             'partial.cost.getPaginate',
@@ -305,6 +308,7 @@ class RoleSeeder extends Seeder
         $mantenimiento->givePermissionTo([
             'notification.room.ocuppy',
             'notification.room.maintenance',
+            'configuration.getPaginate',
 
             'room.index',
             'partial.cost.getPaginate',
@@ -323,6 +327,7 @@ class RoleSeeder extends Seeder
             'notification.room.sucia',
             'notification.room.maintenance',
             'notification.room.disponible',
+            'configuration.getPaginate',
 
             'room.index',
             'estate.type.getPaginate',

@@ -41,11 +41,11 @@ class Room extends Model implements Auditable
     public static function booted()
     {
         static::updated(function ($room) {
-            
+
             \App\Events\CrateNotificationEvent::dispatch($room->name, $room->roomStatus->name);
             RoomNotification::create([
                 'room_name' => $room->name,
-                'status_new'=> $room->roomStatus->name,
+                'status_new' => $room->roomStatus->name,
                 'message'   => '',
             ]);
         });
@@ -159,7 +159,17 @@ class Room extends Model implements Auditable
                         ->addHours($times[0])
                         ->addMinutes($times[1])
                         ->addSeconds($times[2]);
-                    $q->where('date_out', '<=', $end);
+                    //
+                    $q->where('date_out', '<=', $end)
+                        ->where('date_out', '>=', $now);
+                })
+                    ->where('room_status_id', 4);
+                return;
+            }
+            if ($room_status_id == 'terminado') {
+                return $q->whereHas('receptionActive', function (Builder $q) {
+                    $now = \Carbon\Carbon::now();
+                    $q->where('date_out', '<=', $now);
                 })
                     ->where('room_status_id', 4);
                 return;

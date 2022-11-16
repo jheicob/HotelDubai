@@ -48,15 +48,15 @@ class CreateRequest extends FormRequest
             'payments.*.type'        => 'required|in:divisa,Bs',
             'payments.*.method'      => 'required|in:efectivo,digital,tarjeta',
             'payments.*.quantity'    => 'required|numeric',
-            'payments.*.description' => 'required|string',
+            'payments.*.description' => 'nullable|string',
 
-            ];
-            if($this->reception_details && count($this->reception_details)>0){
-                $data['total_payment'] = new VerifiedTotalPayment($this->client_id);
-            }
-            if($this->products && count($this->products)>0){
-                $data['total_payment'] = new verifiedSumTotalProducts($this->products);
-            }
+        ];
+        if ($this->reception_details && count($this->reception_details) > 0) {
+            $data['total_payment'] = new VerifiedTotalPayment($this->client_id);
+        }
+        if ($this->products && count($this->products) > 0) {
+            $data['total_payment'] = new verifiedSumTotalProducts($this->products);
+        }
         return $data;
     }
 

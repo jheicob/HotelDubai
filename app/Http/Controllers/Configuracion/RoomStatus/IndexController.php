@@ -34,13 +34,13 @@ class IndexController extends Controller
     {
         try {
             $permissions = RoomStatus::withTrashed()
-                ->when(self::isCamarero() || self::isMantenimiento(), function (Builder $query) {
+                ->when(self::isCamarero(), function (Builder $query) {
                     return $query->where('name', '<>', 'Ocupada');
                 })
-                // ->when(self::isMantenimiento(), function (Builder $query) {
-                //     return $query->where('name', 'Disponible')
-                //         ->orWhere('name', 'Mantenimiento');
-                // })
+                ->when(self::isMantenimiento(), function (Builder $query) {
+                    return $query->where('name', 'Sucia')
+                        ->orWhere('name', 'Mantenimiento');
+                })
                 ->get();
 
             return RoomStatusResource::collection($permissions);
