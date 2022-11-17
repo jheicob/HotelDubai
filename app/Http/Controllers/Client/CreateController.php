@@ -59,16 +59,19 @@ class CreateController extends Controller
 
             $client = Client::find($request->client_id);
             $room = Room::find($request->room_id);
-
+            Log::info('as');
             if ($room->room_status_id != 2 && $room->receptionActive[0]->client_id != $client->id) {
                 throw new \Exception('La Habitación está ocupada');
             }
 
             $partial_rate = $room->partialCost->partialRate;
             $partial_rate->append('number_hour');
+            Log::info('as1');
 
             $room_service = (new RoomService($room));
+            Log::info('a2');
             $rate = $room_service->getRateByConditionals();
+            Log::info('as3');
             $partialCost_new = $room_service->getPartialByConditionals();
             $partial_rate_new = \App\Models\PartialCost::find($partialCost_new)->partialRate->name;
 
@@ -79,11 +82,15 @@ class CreateController extends Controller
                 'partial_min' => $partial_rate_new,
                 'rate' => $rate,
             ]);
+            Log::info('as5');
 
             $reception = self::verifiedReceptionActive($client);
             if ($reception) {
+            Log::info('v1');
+
                 return self::extendReception($reception, $request, $quantity_total_hours);
             }
+            Log::info('z1');
 
             $reception = $client->receptions()->create($request->only([
                 'room_id',
@@ -91,6 +98,7 @@ class CreateController extends Controller
                 'date_out',
                 'observation'
             ]));
+            Log::info('z2');
 
             $reception_detail = $reception->details()->create($request->only([
                 'partial_min',
@@ -164,7 +172,6 @@ class CreateController extends Controller
             'observation' => $request->ticket_op
         ]);
 
-        $invoice = Invoice::where('client_id', $reception->client_id)->where('invoiced',false)->first();
         DB::commit();
         return custom_response_sucessfull('update_successfull');
     }

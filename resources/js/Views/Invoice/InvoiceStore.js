@@ -113,6 +113,20 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         return acumByProducts.value
     })
 
+    const getAcumByPayments = computed(() => {
+        let acum = 0;
+        form.value.payments.map(pago => {
+
+            acum += pago.quantity
+        })
+        return acum
+    })
+
+    const verifyEqualPaymentAndAcum = computed(() => {
+
+        return getAcumByPayments.value >= getAcumTotal.value
+    })
+
     const getAcumTotal = computed(() => {
         return acumByProducts.value + acumByDetails.value
     })
@@ -200,6 +214,7 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         getAcumByProducts,
         getAcumTotal,
         click_in_invoice,
-        setClient
+        setClient,
+        verifyEqualPaymentAndAcum
     };
 });

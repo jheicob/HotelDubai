@@ -743,23 +743,23 @@
 							<a
 								class="btn btn-danger text-white btn-icon-split mb-4"
 								data-dismiss="modal"
+
 							>
 								<span class="text font-montserrat font-weight-bold"
 									>Cerrar</span
 								>
 							</a>
-							<a
+							<button
+                                type="button"
 								class="btn btn-success text-white btn-icon-split mb-4"
 								@click="invoiceOrExtend"
+                                :disabled="!invoice.verifyEqualPaymentAndAcum"
 							>
-								<span class="text font-montserrat font-weight-bold"
-									>
                                     {{
-                                    store.updated_reception
+                                    click_in_invoice
 									? "Facturar"
-									: "Guardar"}}</span
-								>
-							</a>
+									: "Guardar"}}
+							</button>
 						</div>
 					</div>
 				</div>
@@ -782,12 +782,16 @@
         payment.value.quantity = invoice.getAcumTotalByDetails
     }
     const countPayment = ref(0);
+
+
     const getPayment = () => {
         form_invoice.value.payments = []
         let payment_invoice = item.value.relationships.receptionActive.relationships.client.relationships.invoiceNoPrint.relationships.payments;
         countPayment.value = payment_invoice.length;
+
         payment_invoice.map(payment_i => {
             form_invoice.value.payments.push({
+                id:payment_i.id,
                 description: payment_i.attributes.description,
                 method: payment_i.attributes.method,
                 quantity: payment_i.attributes.quantity,
@@ -825,7 +829,7 @@
         let detail = item.value.relationships.partialCost;
 
         form_invoice.value.reception_details.push({
-            id: detail.id,
+            id: null,
             partial_min: detail.relationships.partialRate.attributes.name,
             rate: detail.attributes.rate,
             quantity_partial: 1,
@@ -840,9 +844,10 @@
 	};
 
     const invoiceOrExtend = () => {
+
         if(click_in_invoice.value){
-            console.log('qa ')
-            console.log('invoice')
+
+            form_invoice.value.client_id = item.value.relationships.receptionActive.relationships.client.id
 
             return invoice.printInvoice()
         }
@@ -854,10 +859,10 @@
 
     }
 	const openModal = () => {
-        if(ocuppy.updated_reception){
+        invoice_click.value = click_in_invoice.value = true
+        if(click_in_invoice.value){
             getPayment()
         }
-        invoice_click.value = click_in_invoice.value = true
 		//    console.log("aqui");
 		let details = item.value.relationships.receptionActive.relationships.details;
 		//    console.log(details);

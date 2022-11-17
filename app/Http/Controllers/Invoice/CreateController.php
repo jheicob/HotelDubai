@@ -34,7 +34,6 @@ class CreateController extends Controller
     {
         try {
             DB::beginTransaction();
-
             $client = Client::find($request->client_id);
             $total_invoice = 0;
             if($request->reception_details && count($request->reception_details) > 0 ) {
@@ -45,18 +44,24 @@ class CreateController extends Controller
             if($request->products && count($request->products) > 0 ) {
                 $total_invoice += self::getTotalAcumOfProducts($request->products);
             }
+
             $request->merge([
                 'total' => $total_invoice,
                 'date'  => Carbon::now()->format('Y-m-d H:i:s')
             ]);
 
+            if($client->invoiceNoPrint){
+                $invoice = $client->invoiceNoPrint;
+                $client->invoiceNoPrint->update(($request->only('total')));
+            }else{
+                $invoice = Invoice::create($request->only([
+                    'client_id',
+                    'total',
+                    'observation',
+                    'date'
+                ]));
+            }
 
-            $invoice = Invoice::create($request->only([
-                'client_id',
-                'total',
-                'observation',
-                'date'
-            ]));
             $invoice->identify = config('invoice.local') . '-' . $invoice->id;
             $invoice->save();
 
@@ -119,8 +124,10 @@ class CreateController extends Controller
     {
         $acum = 0;
         foreach ($payments as $payment) {
-            $acum += $payment['quantity'];
-            $invoice->payments()->create($payment);
+            if(!array_key_exists('id',$payment)){
+                $acum += $payment['quantity'];
+                $invoice->payments()->create($payment);
+            }
         }
         $invoice->update(['total_payment' => $acum]);
     }
@@ -284,24 +291,27 @@ class CreateController extends Controller
     private function storeReceptionDetailsInInvoice(Reception $reception, Invoice $invoice)
     {
         $reception->details->map(function ($item) use ($invoice) {
-            $data = [
-                'price'      => $item->rate,
-                'quantity'   => $item->quantity_partial,
-                'invoice_id' => $invoice->id
-            ];
-
-            $item->invoiceDetail()->create($data);
-
-            if ($item->time_additional) {
-                $quantity_aditional = (string) $item->time_additional;
-                $quantity_aditional = (int) rtrim($quantity_aditional, 'h');
-                $data2 = [
-                    'price' => $item->price_additional,
-                    'quantity' => $quantity_aditional,
-                    'invoice_id' => $invoice->id,
+            Log::info($item->invoiceDetail);
+            if(count($item->invoiceDetail) == 0){
+                $data = [
+                    'price'      => $item->rate,
+                    'quantity'   => $item->quantity_partial,
+                    'invoice_id' => $invoice->id
                 ];
-                $item->invoiceDetail()->create($data2);
+
+                $item->invoiceDetail()->create($data);
             }
+
+        if ($item->time_additional) {
+            $quantity_aditional = (string) $item->time_additional;
+            $quantity_aditional = (int) rtrim($quantity_aditional, 'h');
+            $data2 = [
+                'price' => $item->price_additional,
+                'quantity' => $quantity_aditional,
+                'invoice_id' => $invoice->id,
+            ];
+            $item->invoiceDetail()->create($data2);
+        }
         });
     }
 
