@@ -92,6 +92,11 @@ class Client extends Model implements Auditable
             ->wherePivot('invoiced', false);
     }
 
+    public function invoiceNoPrint() {
+        return $this->hasOne(Invoice::class)
+                    ->where('status','Sin Imprimir');
+    }
+
     public function receptionActive()
     {
         return $this->hasMany(Reception::class)

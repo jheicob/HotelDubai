@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Client;
 
+use App\Http\Resources\Invoice\InvoiceResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ClientResource extends JsonResource
@@ -25,11 +26,9 @@ class ClientResource extends JsonResource
                 'type_document_id' => $this->resource->type_document_id
             ],
             'relationships' => [
-                /*
-                    'relation' => $this->whenLoaded('relation', function() {
-                        return relationResource::make($this->resource->relation);
-                    }),
-                */
+                'invoiceNoPrint' => $this->whenLoaded('invoiceNoPrint', function() {
+                    return InvoiceResource::make($this->resource->invoiceNoPrint);
+                }),
             ],
         ];
     }

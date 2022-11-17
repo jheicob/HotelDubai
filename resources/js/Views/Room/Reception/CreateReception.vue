@@ -301,7 +301,7 @@
 												</div>
 											</div>
 											<div class="row">
-												<div class="col-8">
+												<div class="col-8" v-if="false">
 													<label class="form-label"
 														>Cantidad de parciales</label
 													>
@@ -335,7 +335,7 @@
 														</div>
 													</div>
 												</div>
-												<div class="col">
+												<div class="col" v-if="false">
 													<label
 														class="form-label"
 														for="ticket"
@@ -459,6 +459,7 @@
 									<thead>
 										<tr>
 											<th>Parciales</th>
+                                            <th>cantidad por parcial</th>
 											<th>Precio x Parcial</th>
 											<th>Parcial Adicional</th>
 											<th>Observacion</th>
@@ -475,21 +476,33 @@
 											<td>
 												{{ detail.partial_min ?? "" }}
 											</td>
+                                            <td>
+												<input
+                                                    type="number"
+                                                    class="form-control"
+                                                    :disabled="invoice.form.reception_details.length != i+1 || click_in_invoice"
+                                                    v-model="detail.quantity_partial"
+                                                    @change="setPayment"
+                                                    />
+											</td>
 											<td>
 												{{ detail.rate ?? "" }}
 											</td>
 											<td>
 												<div
-													class="input-group mb-3 col-6 mx-auto"
+													class="input-group mb-3 col mx-auto"
 												>
 													<input
 														type="number"
 														class="form-control"
+                                                        :disabled="!store.updated_reception || !click_in_invoice "
+
 														v-model="
 															invoice.form
 																.reception_details[i]
 																.time_additional
 														"
+                                                    @change="setPayment"
 														aria-describedby="basic-addon2"
 														min="0"
 													/>
@@ -506,6 +519,8 @@
 											<td>
 												<input
 													class="form-control"
+                                                    :disabled="!store.updated_reception || !click_in_invoice "
+                                                    @change="setPayment"
 													v-model="
 														invoice.form.reception_details[i]
 															.observation
@@ -515,7 +530,11 @@
 											<td>
 												<input
 													type="number"
-													class="col-4 form-control mx-auto"
+													class="col form-control mx-auto"
+                                                    :disabled="!store.updated_reception || !click_in_invoice "
+
+                                                    @change="setPayment"
+
 													v-model="
 														invoice.form.reception_details[i]
 															.price_additional
@@ -537,9 +556,9 @@
 									</tfoot>
 								</table>
 
-								<!-- <div class="my-2"></div>
-                                <h3>Productos</h3>
-                                <table class="table text-center">
+								<div class="my-2"></div>
+                                <h3 v-show="click_in_invoice">Pagos Extra</h3>
+                                <table class="table text-center" v-show="click_in_invoice">
                                     <thead>
                                         <tr>
                                             <th>Producto</th>
@@ -624,7 +643,7 @@
                                             </th>
                                         </tr>
                                     </tfoot>
-                                </table> -->
+                                </table>
 								<div class="my-2"></div>
 								<div class="col">
 									<h3>Pagos</h3>
@@ -661,6 +680,7 @@
 												<i
 													class="fas fa-minus"
 													style="cursor: pointer"
+                                                    v-if="countPayment < i +1"
 													@click="invoice.deletePayment(i)"
 												>
 												</i>
@@ -730,10 +750,14 @@
 							</a>
 							<a
 								class="btn btn-success text-white btn-icon-split mb-4"
-								@click="invoice.printInvoice"
+								@click="invoiceOrExtend"
 							>
 								<span class="text font-montserrat font-weight-bold"
-									>Facturar</span
+									>
+                                    {{
+                                    store.updated_reception
+									? "Facturar"
+									: "Guardar"}}</span
 								>
 							</a>
 						</div>
@@ -744,7 +768,7 @@
 	</div>
 </template>
 <script setup>
-	import { onMounted, ref } from "vue";
+	import { onMounted, ref , watch} from "vue";
 	import { storeToRefs } from "pinia";
 	import { receptionStore } from "./ReceptionStore.js";
 	import { HelperStore } from "@/HelperStore";
@@ -754,12 +778,38 @@
 	import Multiselect from "vue-multiselect";
 	import TransferirHabVue from "./TransferirHab.vue";
 
+    const setPayment = () => {
+        payment.value.quantity = invoice.getAcumTotalByDetails
+    }
+    const countPayment = ref(0);
+    const getPayment = () => {
+        form_invoice.value.payments = []
+        let payment_invoice = item.value.relationships.receptionActive.relationships.client.relationships.invoiceNoPrint.relationships.payments;
+        countPayment.value = payment_invoice.length;
+        payment_invoice.map(payment_i => {
+            form_invoice.value.payments.push({
+                description: payment_i.attributes.description,
+                method: payment_i.attributes.method,
+                quantity: payment_i.attributes.quantity,
+                type:   payment_i.attributes.type,
+
+            })
+        })
+    }
+
 	const asignarHab = () => {
+        invoice_click.value = click_in_invoice.value = false
 		//    console.log("aqui");
 
 		form_invoice.value.reception_details = [];
+
 		if (item.value.relationships.receptionActive) {
-			let details = item.value.relationships.receptionActive.relationships.details;
+            getPayment()
+			let details = item.value
+                            .relationships
+                            .receptionActive.relationships
+                            .details;
+
 			details.map((detail) => {
 				form_invoice.value.reception_details.push({
 					id: detail.id,
@@ -771,25 +821,43 @@
 					price_additional: detail.attributes.rate ?? 0,
 				});
 			});
-		} else {
-			let detail = item.value.relationships.partialCost;
-
-			form_invoice.value.reception_details.push({
-				id: detail.id,
-				partial_min: detail.relationships.partialRate.attributes.name,
-				rate: detail.attributes.rate,
-				quantity_partial: 1,
-				observation: "",
-				time_additional: 0,
-				price_additional: 0,
-			});
 		}
+        let detail = item.value.relationships.partialCost;
+
+        form_invoice.value.reception_details.push({
+            id: detail.id,
+            partial_min: detail.relationships.partialRate.attributes.name,
+            rate: detail.attributes.rate,
+            quantity_partial: 1,
+            observation: "",
+            time_additional: 0,
+            price_additional: 0,
+        });
 		//    console.log(details);
 		payment.value.quantity = invoice.getAcumTotalByDetails;
 
 		$("#exampleModal23").modal("show");
 	};
+
+    const invoiceOrExtend = () => {
+        if(click_in_invoice.value){
+            console.log('qa ')
+            console.log('invoice')
+
+            return invoice.printInvoice()
+        }
+        console.log('asign')
+
+        let i = form_invoice.value.reception_details.length
+        form.value.quantity_partial = form_invoice.value.reception_details[i-1].quantity_partial
+        return storeAssignedRoom()
+
+    }
 	const openModal = () => {
+        if(ocuppy.updated_reception){
+            getPayment()
+        }
+        invoice_click.value = click_in_invoice.value = true
 		//    console.log("aqui");
 		let details = item.value.relationships.receptionActive.relationships.details;
 		//    console.log(details);
@@ -819,9 +887,9 @@
 
 	const { form, item, desactiveButton } = storeToRefs(helper);
 
-	const { client_exist, type_documents, date, hour, product } = storeToRefs(ocuppy);
+	const { client_exist, type_documents, date, hour, product , click_in_invoice} = storeToRefs(ocuppy);
 
-	const { form: form_invoice, payment } = storeToRefs(invoice);
+	const { form: form_invoice, payment,click_in_invoice: invoice_click } = storeToRefs(invoice);
 
 	const opTickets = [
 		{

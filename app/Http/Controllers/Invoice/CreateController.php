@@ -60,21 +60,23 @@ class CreateController extends Controller
             $invoice->identify = config('invoice.local') . '-' . $invoice->id;
             $invoice->save();
 
-            if($request->reception_details && count($request->reception_details) > 0 ) {
+            if($request->reception_details && count($request->reception_details) > 0) {
                 self::storeReceptionDetailsInInvoice($reception, $invoice);
+            }
+            if($request->products && count($request->products) > 0 ) {
+                self::storeProductsInInvoice($invoice, $request->products);
+            }
+            if($request->click_in_invoice){
                 $reception->update(['invoiced' => true]);
                 $roomStatus = \App\Models\RoomStatus::firstWhere('name', 'Sucia');
                 $reception->room->update(['room_status_id' => $roomStatus->id]);
-            }
 
-            if($request->products && count($request->products) > 0 ) {
-                self::storeProductsInInvoice($invoice, $request->products);
             }
 
             self::storePayments($invoice, $request->payments);
 
             // $invoice_details = $invoice->details()->create()
-           
+
             DB::commit();
 
             return custom_response_sucessfull([

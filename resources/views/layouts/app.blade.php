@@ -148,6 +148,11 @@
                                     <a class="dropdown-item text-dark" href="{{ route('partial.cost.index') }}">Costo Por
                                         Parciales</a>
                                 @endcan
+                                @can('extra-guest.index')
+                                    <a class="dropdown-item text-dark" href="{{ route('ExtraGuest.index') }}">
+                                        Extra Huesped
+                                    </a>
+                                @endcan
                                 @can('range.template.index')
                                     <a class="dropdown-item text-dark" href="{{ route('range.template.index') }}">Plantillas
                                         por Rango</a>
@@ -178,7 +183,8 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                                 @can('configuration.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('configuration.index') }}">Generales</a>
+                                    <a class="dropdown-item text-dark"
+                                        href="{{ route('configuration.index') }}">Generales</a>
                                 @endcan
                                 @can('room.type.index')
                                     <a class="dropdown-item text-dark" href="{{ route('room.type.index') }}">Tipo
@@ -234,7 +240,7 @@
                     @can('invoice.create')
                         <create-invoice />
                     @endcan
-                        
+
                 </ul>
                 <div class="col"></div>
                 <ul class="navbar-nav ml-auto ml-md-0">
@@ -331,53 +337,53 @@
 
     {{-- <script src="https://js.pusher.com/7.2/pusher.min.js"></script> --}}
     <script>
-    // Enable pusher logging - don't include this in production
-   
-    // Pusher.logToConsole = true;
+        // Enable pusher logging - don't include this in production
 
-    // var pusher = new Pusher('4d221fa1e35970a97f38', {
-    //     cluster: 'sa1'
-    // });
+        // Pusher.logToConsole = true;
 
-    // var channel = pusher.subscribe('notification');
-    // channel.bind('notification', function(data) {
-    //     let {room_name,status_new} = (JSON.stringify(data));
-    //     setNotification(room_name,status_new)
-    // });
-    // var notification = new Array();
+        // var pusher = new Pusher('4d221fa1e35970a97f38', {
+        //     cluster: 'sa1'
+        // });
 
-    // function setNotification(room_name,status_new) {
-    //     notification.push(`
+        // var channel = pusher.subscribe('notification');
+        // channel.bind('notification', function(data) {
+        //     let {room_name,status_new} = (JSON.stringify(data));
+        //     setNotification(room_name,status_new)
+        // });
+        // var notification = new Array();
+
+        // function setNotification(room_name,status_new) {
+        //     notification.push(`
     //                 <p>La habitación: ${room_name} pasó a estado: ${status_new}</p>
     //             `)
-    // }
-    // function getN() {
-    //     let string = ''
-    //     notification.forEach(element => {
-    //         string += element
-    //     });
-    //     return string
-    // }
+        // }
+        // function getN() {
+        //     let string = ''
+        //     notification.forEach(element => {
+        //         string += element
+        //     });
+        //     return string
+        // }
 
-    // async function getNotifications(){
-    //     try{
-    //          let res = await axios.get('notifications')
-    //         notification += await res.data.map(item => {
-    //             console.log(item)
-    //             setNotification(item.room_name,item.status_new)
-    //         })
+        // async function getNotifications(){
+        //     try{
+        //          let res = await axios.get('notifications')
+        //         notification += await res.data.map(item => {
+        //             console.log(item)
+        //             setNotification(item.room_name,item.status_new)
+        //         })
 
-    //         return notification;
-    //     }catch(err){
-    //         console.log(err)
-    //     }
+        //         return notification;
+        //     }catch(err){
+        //         console.log(err)
+        //     }
 
-    // }
+        // }
 
-    // $(document).ready(async function () {
-    //     await getNotifications()
-    //     $('#app2').append(getN())    
-    // });
+        // $(document).ready(async function () {
+        //     await getNotifications()
+        //     $('#app2').append(getN())
+        // });
     </script>
 </body>
 

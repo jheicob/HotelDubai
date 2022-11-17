@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use OwenIt\Auditing\Contracts\Auditable;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+
 class Reception extends Model implements Auditable
 {
     use HasFactory;
@@ -49,4 +51,12 @@ class Reception extends Model implements Auditable
         return $this->belongsTo(Room::class);
     }
 
+    public function scopeFilter(Builder $query, $request){
+        return $query
+            ->when($request->room_type_id, function(Builder $q,$room_type_id){
+                return $q->whereHas('room', function(Builder $q) use ($room_type_id){
+                    $q->where('room_type_id', $room_type_id);
+                });
+            });
+    }
 }

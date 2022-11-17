@@ -18,6 +18,7 @@ use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use App\Http\Requests\Client\CancelUseRequest;
 use App\Http\Requests\Client\TransferRoomRequest;
+use App\Models\Invoice;
 use App\Models\Repair;
 use App\Models\TransferRoom;
 use App\Traits\Configurations\GeneralConfiguration;
@@ -162,6 +163,8 @@ class CreateController extends Controller
         $reception_detail->ticket()->create([
             'observation' => $request->ticket_op
         ]);
+
+        $invoice = Invoice::where('client_id', $reception->client_id)->where('invoiced',false)->first();
         DB::commit();
         return custom_response_sucessfull('update_successfull');
     }

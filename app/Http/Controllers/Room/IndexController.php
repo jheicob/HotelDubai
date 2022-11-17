@@ -40,7 +40,8 @@ class IndexController extends Controller
                 'estateType',
                 'partialCost.roomType',
                 'partialCost.partialRate',
-                'receptionActive.client',
+                'receptionActive.client.invoiceNoPrint.details',
+                'receptionActive.client.invoiceNoPrint.payments',
                 'receptionActive.details',
                 'inRepair'
 

@@ -22,11 +22,24 @@ class InvoiceDetailResource extends JsonResource
                 'productable_type' => $this->resource->productable_type,
                 'price' => $this->resource->price,
                 'quantity' => $this->resource->quantity,
-                'product_name' => $this->resource->product_name
+                'product_name' =>  self::getProductName()
             ],
             'relationships' => [
 
             ],
         ];
+    }
+
+    private function getProductName(){
+        $field = 'name';
+        if(strpos($this->resource->productable_type,'App\Models\ReceptionDetai') !== false){
+            $field = 'partial_min';
+        }else
+        if(strpos($this->resource->productable_type,'App\Models\Product') !== false){
+            $field = 'name';
+        }else{
+            return $this->resource->description;
+        }
+        return $this->resource->productable_type::find($this->resource->productable_id)->$field;
     }
 }

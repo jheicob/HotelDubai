@@ -18,7 +18,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
     const client = ref({});
     const date = ref(moment().format("YYYY-MM-DD"));
     const hour = ref(moment().format("HH:mm"));
-
+    const click_in_invoice = ref(false);
     const reception_update = ref(false);
 
     const clearForm = (update = false) => {
@@ -117,6 +117,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
     };
 
     const { show } = storeToRefs(reception);
+
     const assigRoom = () => {
         let data = {
             client_id: form.value.client_id,
@@ -131,15 +132,25 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
             .then((response) => {
                 //
                 $("#showOcuppyRoom").modal("hide");
-                clearForm();
+                invoice.setClient(form.value.client_id)
                 show.value = false;
-                useRoom.getRooms();
-                let ventana = window.open("/client/reception-ticket?room_id=" + item.value.id).print();
+                console.log('Ya aisgnado');
+                if(!click_in_invoice.value){
+                    console.log('ahora facturando');
+                    invoice.printInvoice()
+                    let ventana = window.open("/client/reception-ticket?room_id=" + item.value.id).print();
+                }
 
+            })
+            .then(() => {
+                useRoom.getRooms();
+                clearForm();
                 location.reload();
+
             })
             .catch((err) => helper.getErrorRequest(err));
     };
+
     const storeAssignedRoom = () => {
         if (!form.value.client_id) {
             storeClient();
@@ -218,7 +229,7 @@ const clearProduct = () => {
 
 const setProduct = (id) => {
     product.value = products.map(item => item.id == id)
-    
+
 }
 
     return {
@@ -236,5 +247,6 @@ const setProduct = (id) => {
         client_exist,
         getTypeDocuments,
         type_documents,
+        click_in_invoice
     };
 });

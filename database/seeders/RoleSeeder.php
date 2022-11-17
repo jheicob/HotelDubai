@@ -210,6 +210,13 @@ class RoleSeeder extends Seeder
                 'notification.room.sucia',
                 'notification.room.maintenance',
                 'notification.room.disponible',
+
+                'extra-guest.index',
+                'extra-guest.create',
+                'extra-guest.delete',
+                'extra-guest.updated',
+                'extra-guest.getPaginate',
+                'extra-guest.get',
             ]
         );
 

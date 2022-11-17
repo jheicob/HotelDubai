@@ -16,6 +16,7 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         quantity: 0,
         description: "",
     });
+    const click_in_invoice = ref(false);
 
     const products = ref([])
 
@@ -117,23 +118,37 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
     })
     const { show } = storeToRefs(reception);
 
-    const printInvoice = (igtf) => {
-        let url = "invoice/create";
-        let data = {
-            client_id:
-                helper.item.relationships.receptionActive.relationships.client
-                    .id,
-            reception_details: form.value.reception_details,
-            payments: form.value.payments,
-            products: products.value
-        };
+    const setClient = (client_id) => {
+        form.value.client_id = client_id;
+
+    }
+    const printInvoice = () => {
+        console.log('preparando factura');
+
+            let url = "invoice/create";
+            let data = {
+                client_id: form.value.client_id,
+                reception_details: form.value.reception_details,
+                payments: form.value.payments,
+                products: products.value,
+                click_in_invoice : click_in_invoice.value,
+            };
+        console.log('data factura',data);
+
         axios
             .post(url, data)
             .then((res) => {
-                let id = res.data.message.id;
-                window.open("/invoice/printFiscal/" + id);
+                console.log('facturado');
+                if(click_in_invoice.value){
+                console.log('imprimiendo factura');
+
+                    let id = res.data.message.id;
+                    window.open("/invoice/printFiscal/" + id);
+                    location.reload();
+                }
                 show.value = false;
                 location.reload();
+
                 $("#exampleModal23").modal("hide");
             })
             .catch((err) => helper.getErrorRequest(err));
@@ -183,6 +198,8 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         deleteProduct,
         addProduct,
         getAcumByProducts,
-        getAcumTotal
+        getAcumTotal,
+        click_in_invoice,
+        setClient
     };
 });

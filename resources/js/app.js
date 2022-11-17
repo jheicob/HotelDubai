@@ -3,7 +3,7 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-require('./bootstrap');
+require("./bootstrap");
 //import "./bootstrap";
 
 import { createApp } from "vue";
@@ -32,8 +32,9 @@ import DayTemplate from "./Views/Tarifas/DayTemplate/DayTemplate.vue";
 import Invoice from "./Views/Invoice/Invoice.vue";
 import Product from "./Views/Product/Product.vue";
 import Configuration from "./Views/Configuration/Configuration.vue";
-import Notification from './Views/Notificaction/Notification.vue'
-import CreateInvoice from "./Views/Invoice/Modals/CreateInvoice.vue"
+import Notification from "./Views/Notificaction/Notification.vue";
+import CreateInvoice from "./Views/Invoice/Modals/CreateInvoice.vue";
+import ExtraGuest from "./Views/ExtraGuest/ExtraGuest.vue";
 const app = createApp({});
 app.use(createPinia());
 
@@ -74,7 +75,8 @@ app.component("product", Product);
 app.component("configuration", Configuration);
 app.component("range-template", rangetemplate);
 app.component("room-notification", Notification);
-app.component("create-invoice",CreateInvoice);
+app.component("create-invoice", CreateInvoice);
+app.component("extra-guest", ExtraGuest);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -82,4 +84,3 @@ app.component("create-invoice",CreateInvoice);
  */
 
 app.mount("#app");
-

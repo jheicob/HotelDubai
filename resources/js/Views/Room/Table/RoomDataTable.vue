@@ -65,6 +65,11 @@
 							@click="filterRoomsByStatus('culminar')"
 							text="Por Culminar"
 						/>
+                        <ButtonComponent
+							:btnClass="['btn-light']"
+							@click="filterRoomsByStatus('terminado')"
+							text="Culminado"
+						/>
 					</div>
 					<div class="col-2">
 						<a
