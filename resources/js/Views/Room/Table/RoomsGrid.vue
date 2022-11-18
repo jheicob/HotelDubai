@@ -33,7 +33,7 @@
 			</div>
 			<!-- /tile header -->
 
-			<div style="font-size: 12px" class="text-center dvd dvd-btm pb-2">
+			<div style="font-size: 13px" class="text-center dvd dvd-btm pb-2">
 				<div v-if="!reception.isOcupped(item)">
 					<br />
 					<br />

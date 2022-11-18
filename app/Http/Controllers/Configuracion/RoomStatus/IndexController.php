@@ -28,7 +28,7 @@ class IndexController extends Controller
     {
         $role = Auth::user()->roles->first();
 
-        return $role->name == 'Mantenimiento';
+        return $role->name == 'Fuera de Servicio';
     }
     public function get()
     {
@@ -39,7 +39,7 @@ class IndexController extends Controller
                 })
                 ->when(self::isMantenimiento(), function (Builder $query) {
                     return $query->where('name', 'Sucia')
-                        ->orWhere('name', 'Mantenimiento');
+                        ->orWhere('name', 'Fuera de Servicio');
                 })
                 ->get();
 

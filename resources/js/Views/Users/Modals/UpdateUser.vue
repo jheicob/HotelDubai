@@ -64,7 +64,6 @@
 							v-model="store.form.role_id"
 							id="checkedPermissions"
 							:options="role_store.roles"
-							:multiple="true"
 							label="name"
 							track-by="id"
 						>

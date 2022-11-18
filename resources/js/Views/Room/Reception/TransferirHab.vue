@@ -99,7 +99,7 @@
 
 	const motive = ref("");
 	const transferir = () => {
-		(form.value.room_origin = props.room_id),
+		form.value.room_origin = props.room_id
 			axios.post("client/transfer-room", form.value).then((resp) => {
 				$("#transferir").modal("hide");
 

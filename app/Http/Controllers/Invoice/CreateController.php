@@ -168,14 +168,20 @@ class CreateController extends Controller
         $debit_note->includeFirstLineDataCompany($full_name, $document);
 
         $invoice->details->map(function ($invoice_detail) use ($debit_note) {
+
             if ($invoice_detail->productable_type == 'App\Models\ReceptionDetail') {
                 $product = ReceptionDetail::find($invoice_detail->productable_id);
 
             $name_product = 'hab'.$product->reception->room->name . ' ' . $product->partial_min;
-            }else{
+            }else
+            if($invoice_detail->productable_type == 'App\Models\Product')
+            {
                 $product = \App\Models\Product::find($invoice_detail->productable_id);
 
             $name_product = $product->name;
+            }else{
+
+                $name_product = $invoice_detail->description;
             }
 
             $iva = 0.16;

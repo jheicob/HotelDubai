@@ -53,7 +53,7 @@ class VerifiedStatusPermissForCamarero implements Rule
     {
         $room_status = RoomStatus::where('name', 'Sucio')
             ->orWhere('name', 'Disponible')
-            ->orWhere('name', 'Mantenimiento')
+            ->orWhere('name', 'Fuera de Servicio')
             ->get();
 
         return $room_status;
@@ -63,7 +63,7 @@ class VerifiedStatusPermissForCamarero implements Rule
     {
         $room_status = RoomStatus::where('name', 'Sucio')
             ->orWhere('name', 'Disponible')
-            ->orWhere('name', 'Mantenimiento')
+            ->orWhere('name', 'Fuera de Servicio')
             ->get();
 
         return $room_status;

@@ -266,8 +266,9 @@ class CreateController extends Controller
             Log::info($request->all());
             $transfer = TransferRoom::create($request->all());
             $roomStatus_origin = RoomStatus::firstWhere('name', 'Sucia');
+
             if ($request->motive == 'Reparación') {
-                $roomStatus_origin = RoomStatus::firstWhere('name', 'Mantenimiento');
+                $roomStatus_origin = RoomStatus::firstWhere('name', 'Fuera de Servicio');
                 Repair::create([
                     'room_id'       => $request->room_origin,
                     'report_user'   => Auth::user()->id,
@@ -275,8 +276,18 @@ class CreateController extends Controller
                     'report_date'   => Carbon::now(),
                 ]);
             }
+            $room_origin = Room::find($request->room_origin);
+
+            $reception_origin = $room_origin->receptionActive->first();
+            if($reception_origin->details->count() > 1){
+                throw new \Exception('Esta habitación ya tiene varias recepciones, debe cancelar o facturar y abrir una nueva');
+            }
+
+            $request['quantity_partial'] = $reception_origin->details[0]->quantity_partial;
+            $request['date_in'] = $reception_origin->date_in;
             $room_destiny = Room::find($request->room_destiny);
             $partial_rate = $room_destiny->partialCost->partialRate;
+
             $partial_rate->append('number_hour');
 
             $room_service = (new RoomService($room_destiny));
@@ -292,7 +303,6 @@ class CreateController extends Controller
 
             ];
 
-            $room_origin = Room::find($request->room_origin);
             $reception = $room_origin->receptionActive->first();
             $reception->update($new_info);
             $reception_detail = $reception->details->first();

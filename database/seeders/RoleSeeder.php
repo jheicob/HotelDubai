@@ -227,6 +227,7 @@ class RoleSeeder extends Seeder
             'notification.room.maintenance',
             'notification.room.disponible',
             'configuration.getPaginate',
+            'extra-guest.getPaginate',
 
             'room.index',
             'estate.type.getPaginate',
@@ -263,6 +264,7 @@ class RoleSeeder extends Seeder
             'notification.room.maintenance',
             'notification.room.disponible',
             'configuration.getPaginate',
+            'extra-guest.getPaginate',
 
             'room.index',
             'estate.type.getPaginate',
@@ -377,6 +379,55 @@ class RoleSeeder extends Seeder
             'room.free',
             'room.repair',
             'room.in_repair',
+            'extra-guest.getPaginate',
+
+            'tarifas',
+                'partial.cost.index',
+                'partial.cost.create',
+                'partial.cost.delete',
+                'partial.cost.updated',
+                'partial.cost.getPaginate',
+                'partial.cost.get',
+
+
+
+                'range.template.index',
+                'range.template.create',
+                'range.template.delete',
+                'range.template.updated',
+                'range.template.getPaginate',
+                'range.template.get',
+
+                'day.templates.index',
+                'day.templates.create',
+                'day.templates.delete',
+                'day.templates.updated',
+                'day.templates.getPaginate',
+                'day.templates.get',
+
+                'date.templates.index',
+                'date.templates.create',
+                'date.templates.delete',
+                'date.templates.updated',
+                'date.templates.getPaginate',
+                'date.templates.get',
+
+                'hour.templates.index',
+                'hour.templates.create',
+                'hour.templates.delete',
+                'hour.templates.updated',
+                'hour.templates.getPaginate',
+                'hour.templates.get',
+
+
+                'extra-guest.index',
+                'extra-guest.create',
+                'extra-guest.delete',
+                'extra-guest.updated',
+                'extra-guest.getPaginate',
+                'extra-guest.get',
+
+
         ]);
 
         $user_role->givePermissionTo([
