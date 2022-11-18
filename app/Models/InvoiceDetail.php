@@ -17,11 +17,13 @@ class InvoiceDetail extends Model implements Auditable
         'productable_type',
         'price',
         'quantity',
+        'description',
     ];
 
     protected $auditInclude = [
         'invoice_id',
         'productable_id',
+        'description',
         'productable_type',
         'price',
         'quantity',

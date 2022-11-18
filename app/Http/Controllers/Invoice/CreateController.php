@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Invoice\CreateRequest;
 use App\Models\Client;
+use App\Models\ExtraGuest;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
+use App\Models\InvoiceDetail;
 use App\Models\Product;
 use App\Models\Reception;
 use App\Models\ReceptionDetail;
@@ -34,13 +36,17 @@ class CreateController extends Controller
     {
         try {
             DB::beginTransaction();
+            Log::info('creando factura');
             $client = Client::find($request->client_id);
+
             $total_invoice = 0;
+
             if($request->reception_details && count($request->reception_details) > 0 ) {
                 $reception = $client->receptionActive->first();
                 self::VerifiedAndUpdateAdditionalReceptionDetails($reception, $request->reception_details);
                 $total_invoice += $this->service->calculateTotalByReceptionDetails($reception);
             }
+
             if($request->products && count($request->products) > 0 ) {
                 $total_invoice += self::getTotalAcumOfProducts($request->products);
             }
@@ -50,7 +56,7 @@ class CreateController extends Controller
                 'date'  => Carbon::now()->format('Y-m-d H:i:s')
             ]);
 
-            if($client->invoiceNoPrint){
+            if($client->invoiceNoPrint && count($request->reception_details) > 0) {
                 $invoice = $client->invoiceNoPrint;
                 $client->invoiceNoPrint->update(($request->only('total')));
             }else{
@@ -272,26 +278,49 @@ class CreateController extends Controller
     private function storeProductsInInvoice(Invoice $invoice, $products)
     {
         foreach ($products as $product) {
-            $prod = Product::find($product['id']);
-            $data = [
-                'price'      => $prod->sale_price,
-                'quantity'   => $quantity = $product['quantity'],
-                'invoice_id' => $invoice->id
-            ];
-            $prod->invoiceDetail()->create($data);
+            if($product['type'] == 'Product'){
+                $prod = Product::find($product['id']);
+                $data = [
+                    'price'      => $prod->sale_price,
+                    'quantity'   => $quantity = $product['quantity'],
+                    'invoice_id' => $invoice->id,
+                    'description' => $product['description'],
+                ];
+                $prod->invoiceDetail()->create($data);
 
-            $prod->inventory->stock -= $quantity;
-            if ($prod->inventory->stock < 0) {
-                throw new \Exception('El producto ' . $prod->name . ' No tiene stock en su Inventario');
+                $prod->inventory->stock -= $quantity;
+                if ($prod->inventory->stock < 0) {
+                    throw new \Exception('El producto ' . $prod->name . ' No tiene stock en su Inventario');
+                }
+                $prod->inventory->save();
             }
-            $prod->inventory->save();
+            if($product['type'] == 'ExtraGuest'){
+                $prod = ExtraGuest::find($product['id']);
+                $data = [
+                    'price'      => $prod->rate,
+                    'quantity'   => $quantity = $product['quantity'],
+                    'invoice_id' => $invoice->id,
+                    'description' => $product['description'].'-'.$prod->name,
+
+                ];
+                $prod->invoiceDetail()->create($data);
+            }
+            if($product['type'] == ''){
+                $data = [
+                    'price'      => $product['price'],
+                    'quantity'   => $quantity = $product['quantity'],
+                    'invoice_id' => $invoice->id,
+                    'description' => $product['description'],
+                ];
+                InvoiceDetail::create($data);
+            }
         }
     }
 
     private function storeReceptionDetailsInInvoice(Reception $reception, Invoice $invoice)
     {
         $reception->details->map(function ($item) use ($invoice) {
-            Log::info($item->invoiceDetail);
+
             if(count($item->invoiceDetail) == 0){
                 $data = [
                     'price'      => $item->rate,

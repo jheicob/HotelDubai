@@ -47,5 +47,11 @@ class UserSeeder extends Seeder
             'email' => "mantenimiento@c.c",
             'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
         ]);
+
+        User::create([
+            'name' => 'Usuario',
+            'email' => "usuario@c.c",
+            'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
+        ]);
     }
 }

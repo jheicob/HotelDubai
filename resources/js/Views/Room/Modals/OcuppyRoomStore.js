@@ -145,7 +145,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
             .then(() => {
                 useRoom.getRooms();
                 clearForm();
-                location.reload();
+                // location.reload();
 
             })
             .catch((err) => helper.getErrorRequest(err));
@@ -191,19 +191,50 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
 
     const products = ref([])
 
+    const click_in_bodegon = ref(false)
     const getProducts = () => {
+
+        let url,desc,type = ''
+        if(click_in_bodegon.value){
+            url = '/invoice/Product/get'
+            type = 'Product'
+        }else{
+            url = "/configuracion/ExtraGuest/get"
+            desc = 'huesped Extra'
+            type = 'ExtraGuest'
+        }
     axios
-            .get("/invoice/Product/get")
+            .get(url)
             .then((response) => {
                 products.value = response.data.data.map((item) => {
+                    let description = item.attributes?.description ?? desc
+                    let price = 0
+                    if(click_in_bodegon.value){
+                        price = item.attributes.sale_price
+                    }else{
+                        price = item.attributes.rate
+                    }
                     return {
                         id: item.id,
                         name: item.attributes.name,
-                        description: item.attributes.description,
-                        price: item.attributes.sale_price,
+                        type: type,
+                        description: description,
+                        price: price,
                         quantity: 0
                     }
                 });
+                if(!click_in_bodegon.value){
+
+                    products.value.push({
+                        id: 0,
+                        name: 'Otro',
+                        type: '',
+                        description: '',
+                        price: 0,
+                        quantity: 0
+                    })
+                }
+
             })
             .catch((err) => helper.geterrorrequest(err));
 
@@ -247,6 +278,7 @@ const setProduct = (id) => {
         client_exist,
         getTypeDocuments,
         type_documents,
-        click_in_invoice
+        click_in_invoice,
+        click_in_bodegon
     };
 });

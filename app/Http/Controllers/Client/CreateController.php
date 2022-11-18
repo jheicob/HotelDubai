@@ -135,7 +135,11 @@ class CreateController extends Controller
                 $detail->ticket->delete();
                 $detail->delete();
             });
-
+            $invoice = $client->invoiceNoPrint;
+            $invoice->details->map(function ($detail) {
+                $detail->delete();
+            });
+            $invoice->delete();
             $room = $reception->room;
             $room->update(['room_status_id' => 2]);
             $reception->delete();

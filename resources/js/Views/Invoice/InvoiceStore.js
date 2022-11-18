@@ -128,7 +128,7 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
     })
 
     const getAcumTotal = computed(() => {
-        return acumByProducts.value + acumByDetails.value
+        return getAcumByProducts.value + getAcumTotalByDetails.value
     })
     const { show } = storeToRefs(reception);
 
@@ -158,7 +158,6 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
 
                     let id = res.data.message.id;
                     window.open("/invoice/printFiscal/" + id);
-                    location.reload();
                 }
                 show.value = false;
                 location.reload();

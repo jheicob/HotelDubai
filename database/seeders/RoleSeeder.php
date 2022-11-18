@@ -21,6 +21,7 @@ class RoleSeeder extends Seeder
         $mantenimiento      = Role::create(['name' => 'Mantenimiento']);
         $camarero_role      = Role::create(['name' => 'Camarero']);
         $supervisor_role    = Role::create(['name' => 'Supervisor']);
+        $user_role          = Role::create(['name' => 'Usuario']);
 
         (User::find(1))->assignRole('Admin');
         (User::firstWhere('email', "recepcionistaCab@c.c"))->assignRole('Recepcionista Cabaña');
@@ -28,6 +29,7 @@ class RoleSeeder extends Seeder
         (User::firstWhere('email', "camarero@c.c"))->assignRole('Camarero');
         (User::firstWhere('email', "mantenimiento@c.c"))->assignRole('Mantenimiento');
         (User::firstWhere('email', "supervisor@c.c"))->assignRole('Supervisor');
+        (User::firstWhere('email', "usuario@c.c"))->assignRole('Usuario');
 
         $Admin->givePermissionTo(
             [
@@ -375,6 +377,20 @@ class RoleSeeder extends Seeder
             'room.free',
             'room.repair',
             'room.in_repair',
+        ]);
+
+        $user_role->givePermissionTo([
+                'room.getPaginate',
+                'room.get',
+            'room.index',
+            'configuration.getPaginate',
+            'room.type.getPaginate',
+            'room.status.getPaginate',
+            'room.status.get', 'estate.type.getPaginate',
+            'estate.type.get','partial.rates.getPaginate',
+            'partial.rates.get',
+            'partial.cost.getPaginate',
+            'partial.cost.get',
         ]);
     }
 }

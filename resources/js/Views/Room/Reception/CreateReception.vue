@@ -557,8 +557,8 @@
 								</table>
 
 								<div class="my-2"></div>
-                                <h3 v-show="click_in_invoice">Pagos Extra</h3>
-                                <table class="table text-center" v-show="click_in_invoice">
+                                <h3 >Pagos Extra</h3>
+                                <table class="table text-center">
                                     <thead>
                                         <tr>
                                             <th>Producto</th>
@@ -606,7 +606,14 @@
                                                 </multiselect>
                                             </td>
                                             <td>
-                                                {{ product.description }}
+                                                <span v-if="product.name != 'Otro'">
+                                                    {{ product.description }}
+                                                </span>
+                                                <input
+                                                    v-else
+                                                    type="text"
+                                                    v-model="product.description"
+                                                    />
                                             </td>
                                             <td>
                                                 <input
@@ -617,7 +624,16 @@
                                                 />
                                             </td>
                                             <td>
-                                                {{ product.price }}
+                                                <span v-if="product.name != 'Otro'">
+
+                                                    {{ product.price }}
+                                                </span>
+                                                <input
+                                                    v-else
+                                                    type="number"
+                                                    min="0"
+                                                    v-model="product.price"
+                                                    />
                                             </td>
                                             <td>
                                                 {{
@@ -802,6 +818,9 @@
     }
 
 	const asignarHab = () => {
+        click_in_bodegon.value= false
+		ocuppy.getProducts();
+
         invoice_click.value = click_in_invoice.value = false
 		//    console.log("aqui");
 
@@ -859,6 +878,8 @@
 
     }
 	const openModal = () => {
+        click_in_bodegon.value= false
+		ocuppy.getProducts();
         invoice_click.value = click_in_invoice.value = true
         if(click_in_invoice.value){
             getPayment()
@@ -892,7 +913,7 @@
 
 	const { form, item, desactiveButton } = storeToRefs(helper);
 
-	const { client_exist, type_documents, date, hour, product , click_in_invoice} = storeToRefs(ocuppy);
+	const { client_exist, type_documents, date, hour, product , click_in_invoice,click_in_bodegon} = storeToRefs(ocuppy);
 
 	const { form: form_invoice, payment,click_in_invoice: invoice_click } = storeToRefs(invoice);
 
@@ -915,9 +936,10 @@
 	const addProductInInvoice = () => {
 		productInvoice.value.push(ocuppy.product);
 		ocuppy.clearProduct();
+    payment.value.quantity = invoice.getAcumTotal;
+
 	};
 	onMounted(() => {
 		ocuppy.getTypeDocuments();
-		ocuppy.getProducts();
 	});
 </script>

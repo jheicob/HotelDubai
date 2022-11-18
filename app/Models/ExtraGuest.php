@@ -18,4 +18,9 @@ class ExtraGuest extends Model implements Auditable
         'name',
         'rate'
     ];
+
+
+    public function invoiceDetail(){
+        return $this->morphMany(InvoiceDetail::class,'productable');
+    }
 }

@@ -41,7 +41,7 @@ class CreateRequest extends FormRequest
             // 'reception_details.*.time_additional'   => 'nullable|string',
             // 'reception_details.*.price_additional'  => 'nullable|numeric',
             'products'  => 'nullable|array',
-            'products.*.id'   => 'nullable|exists:products,id',
+            // 'products.*.id'   => 'nullable|exists:products,id',
             'products.*.quantity'   => 'nullable|integer',
 
             'payments' => 'required|array',

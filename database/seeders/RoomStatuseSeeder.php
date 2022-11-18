@@ -35,8 +35,8 @@ class RoomStatuseSeeder extends Seeder
                 'color' => '{"css": "background-color:rgba(22,160,133,1)", "mode": "solid", "color": {"a": 1, "b": 133, "g": 161, "r": 22}}'
             ],
             [
-                'name' => 'Mantenimiento',
-                'description' => 'Mantenimiento',
+                'name' => 'Fuera de Servicio',
+                'description' => 'Fuera de Servicio',
                 'color' => '{"css": "background-color:rgba(123,125,177,1)", "mode": "solid", "color": {"a": 1, "b": 77, "g": 174, "r": 239}}'
             ],
             [

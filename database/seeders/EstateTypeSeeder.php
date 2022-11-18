@@ -33,7 +33,10 @@ class EstateTypeSeeder extends Seeder
                 $role->estateTypes()->sync([$ed->id]);
             } else
                 if (
-                $role->name == 'Supervisor' || $role->name == 'Camarero' || $role->name == 'Mantenimiento'
+                $role->name == 'Supervisor'
+                || $role->name == 'Camarero'
+                || $role->name == 'Fuera de Servicio'
+                || $role->name == 'Usuario'
             ) {
                 $role->estateTypes()->sync([
                     $cab->id,

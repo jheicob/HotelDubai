@@ -328,6 +328,9 @@ const clearForm = () => {
     form.value.payments = [];
 };
 const showBodegonModal = () => {
+    click_in_bodegon.value = true;
+    ocuppy.getProducts();
+
 	form.value = {
         reception_details: "",
 		client_id:'',
@@ -344,7 +347,7 @@ const showBodegonModal = () => {
     $("#bodegon").modal("show");
 };
 const { products: productInvoice, form, payment } = storeToRefs(store);
-const { client_exist, type_documents, date, hour, product } =
+const { client_exist, type_documents, date, hour, product,click_in_bodegon } =
     storeToRefs(ocuppy);
 
 const addProductInInvoice = () => {
@@ -392,7 +395,7 @@ const printInvoice = () => {
                 location.reload();
                 $("#bodegon").modal("hide");
             })
-            .catch((err) => helper.getErrorRequest(err));
+            .catch((err) => useHelper.getErrorRequest(err));
     };
 
 const getClient = () => {
@@ -422,8 +425,8 @@ const getClient = () => {
         .catch((err) => helper.getErrorRequest(err));
 };
 onMounted(() => {
-    ocuppy.getProducts();
+
     ocuppy.getTypeDocuments();
-	
+
 });
 </script>
