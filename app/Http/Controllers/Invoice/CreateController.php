@@ -253,9 +253,15 @@ class CreateController extends Controller
     {
         $payments = $invoice->payments->where('type', 'divisa');
         $sum = 0;
+        $total = $invoice->total;
+
         if ($payments->count() > 0) {
             $sum = $payments->sum('quantity');
-            return round(($sum / 1.03), 2); // el 3% del igtf 103
+            if($sum > $invoice->total){
+                return $invoice->total;
+            }
+            return $sum;
+            // return round(($sum / 1.03), 2); // el 3% del igtf 103
         }
         //       return $payments->sum('quantity');
         return 0;
@@ -284,7 +290,7 @@ class CreateController extends Controller
                     'price'      => $prod->sale_price,
                     'quantity'   => $quantity = $product['quantity'],
                     'invoice_id' => $invoice->id,
-                    'description' => $product['description'],
+                    'description' => $prod->name,
                 ];
                 $prod->invoiceDetail()->create($data);
 
