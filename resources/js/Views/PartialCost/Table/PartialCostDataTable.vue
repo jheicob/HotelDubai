@@ -16,19 +16,26 @@
       </div>
       <div class="card-body">
         <div class="table-responsive">
-          <div class="col text-right">
-            <a
-              data-toggle="modal"
-              v-on:click.prevent="CreatePermission()"
-              v-if="create"
-              class="btn btn-primary text-white btn-icon-split mb-4"
-            >
-              <i class="fas fa-check"></i>
-              <span class="text font-montserrat font-weight-bold"
-                >Crear Costo Parciales habiatacion</span
-              >
-            </a>
-          </div>
+            <div class="row">
+
+                <MultiUpdate v-if="updated" />
+
+                <div class="col text-right">
+                  <a
+                    data-toggle="modal"
+                    v-on:click.prevent="CreatePermission()"
+                    v-if="create"
+                    class="btn btn-primary text-white btn-icon-split mb-4"
+                  >
+                    <i class="fas fa-check"></i>
+                    <span class="text font-montserrat font-weight-bold"
+                      >Crear Costo Parciales habiatacion</span
+                    >
+                  </a>
+                </div>
+
+            </div>
+
           <table
             class="table table-bordered"
             id="dataTable"
@@ -98,12 +105,14 @@
 import axios from "axios";
 import CreatePermission from "../Modals/CreatePartialCost.vue";
 import UpdatePermission from "../Modals/UpdatePartialCost.vue";
+import MultiUpdate from "../Modals/MultiUpdate.vue";
 
 export default {
   name: "PartialCostDataTable",
   components: {
     CreatePermission,
     UpdatePermission,
+    MultiUpdate
   },
   props: {
     create: {
@@ -162,6 +171,7 @@ export default {
     GetCreatedPermission: function () {
       this.getKeeps();
     },
+
   },
 };
 </script>

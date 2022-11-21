@@ -245,6 +245,7 @@ class RoomTest extends TestCase
         $user = User::firstWhere('email', 'testing@c.c');
         $room_types = RoomType::all()->random(5)->transform(fn($item) => $item->id);
         $partial_rates = PartialRates::all()->random(5)->transform(fn($item) => $item->id);
+
         $response = $this
             ->actingAs($user)
             ->postJson(route('partial.cost.multiupdate'), [

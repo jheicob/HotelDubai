@@ -60,8 +60,8 @@ class UpdatedController extends Controller
                     ],['rate' => $request->rate]);
                 }
             }
-            return Response::HTTP_OK;
             DB::commit();
+            return Response::HTTP_OK;
         }catch (\Exception $e){
             DB::rollBack();
             return custom_response_exception($e,'Server Error');
