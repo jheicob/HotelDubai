@@ -192,6 +192,7 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         //helper.getAll()
         location.reload();
     };
+
     return {
         isPrintable,
         isCancellable,
@@ -214,6 +215,7 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         getAcumTotal,
         click_in_invoice,
         setClient,
-        verifyEqualPaymentAndAcum
+        verifyEqualPaymentAndAcum,
+        getAcumByPayments
     };
 });

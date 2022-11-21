@@ -353,7 +353,7 @@ const { client_exist, type_documents, date, hour, product,click_in_bodegon } =
 const addProductInInvoice = () => {
     productInvoice.value.push(ocuppy.product);
     ocuppy.clearProduct();
-    payment.value.quantity = store.getAcumByProducts;
+    payment.value.quantity = store.getAcumByProducts- store.getAcumByPayments;
 };
 
 const storeClient = () => {

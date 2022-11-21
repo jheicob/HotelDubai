@@ -290,6 +290,9 @@ class CreateController extends Controller
     private function storeProductsInInvoice(Invoice $invoice, $products)
     {
         foreach ($products as $product) {
+            if($product['type'] == 'InvoiceDetail') {
+                continue;
+            }
             if($product['type'] == 'Product'){
                 $prod = Product::find($product['id']);
                 $data = [
@@ -331,13 +334,14 @@ class CreateController extends Controller
 
     private function storeReceptionDetailsInInvoice(Reception $reception, Invoice $invoice)
     {
-        $reception->details->map(function ($item) use ($invoice) {
+        $reception->details->map(function ($item) use ($invoice,$reception) {
 
             if(count($item->invoiceDetail) == 0){
                 $data = [
                     'price'      => $item->rate,
                     'quantity'   => $item->quantity_partial,
-                    'invoice_id' => $invoice->id
+                    'invoice_id' => $invoice->id,
+                    'description' => 'hab. '.$reception->room->name.' '.$item->partial_min,
                 ];
 
                 $item->invoiceDetail()->create($data);
@@ -350,6 +354,7 @@ class CreateController extends Controller
                 'price' => $item->price_additional,
                 'quantity' => $quantity_aditional,
                 'invoice_id' => $invoice->id,
+                'description' => 'Adicional hab. '.$reception->room->name.' '.$item->partial_min
             ];
             $item->invoiceDetail()->create($data2);
         }

@@ -820,7 +820,7 @@
 	const asignarHab = () => {
         click_in_bodegon.value= false
 		ocuppy.getProducts();
-
+        setProducts()
         invoice_click.value = click_in_invoice.value = false
 		//    console.log("aqui");
 
@@ -857,7 +857,7 @@
             price_additional: 0,
         });
 		//    console.log(details);
-		payment.value.quantity = invoice.getAcumTotalByDetails;
+		payment.value.quantity = invoice.getAcumTotal - invoice.getAcumByPayments;
 
 		$("#exampleModal23").modal("show");
 	};
@@ -878,6 +878,8 @@
 
     }
 	const openModal = () => {
+        setProducts()
+
         click_in_bodegon.value= false
 		ocuppy.getProducts();
         invoice_click.value = click_in_invoice.value = true
@@ -899,7 +901,7 @@
 				price_additional: detail.attributes.rate ?? 0,
 			});
 		});
-		payment.value.quantity = invoice.getAcumTotalByDetails;
+		payment.value.quantity = invoice.getAcumTotal- invoice.getAcumByPayments;
 
 		$("#exampleModal23").modal("show");
 	};
@@ -915,7 +917,7 @@
 
 	const { client_exist, type_documents, date, hour, product , click_in_invoice,click_in_bodegon} = storeToRefs(ocuppy);
 
-	const { form: form_invoice, payment,click_in_invoice: invoice_click } = storeToRefs(invoice);
+	const { form: form_invoice, payment,click_in_invoice: invoice_click, products } = storeToRefs(invoice);
 
 	const opTickets = [
 		{
@@ -936,9 +938,26 @@
 	const addProductInInvoice = () => {
 		productInvoice.value.push(ocuppy.product);
 		ocuppy.clearProduct();
-    payment.value.quantity = invoice.getAcumTotal;
+    payment.value.quantity = invoice.getAcumTotal - invoice.getAcumByPayments;
 
 	};
+
+    const setProducts = () => {
+        let details_invoice = item.value.relationships.receptionActive.relationships.client.relationships.invoiceNoPrint.relationships.details;
+
+        details_invoice.map(detail_invoice => {
+            if(detail_invoice.attributes.productable_type != 'App\\Models\\ReceptionDetail'){
+                products.value.push({
+                    id: item.id,
+                    description: detail_invoice.attributes.product_name,
+                    name: detail_invoice.attributes.productable_type == 'App\\Models\\ExtraGuest' ? 'huesped Extra' : 'Otro',
+                    type: 'InvoiceDetail',
+                    price: detail_invoice.attributes.price,
+                    quantity:detail_invoice.attributes.quantity
+                })
+            }
+        })
+    }
 	onMounted(() => {
 		ocuppy.getTypeDocuments();
 	});

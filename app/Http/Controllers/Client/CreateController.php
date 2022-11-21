@@ -239,15 +239,39 @@ class CreateController extends Controller
         $pdf = new Mpdf(['mode' => 'utf-8', 'format' => [58, 80]]);
 
         $room = Room::find($request->room_id);
+
         $rate = (new \App\Services\RoomService\RoomService($room));
-        $room->append('rate_current');
+        // $room->append('rate_current');
         $room->rate_current = $rate->getRateByConditionals();
         $room->partial_cost_id = $rate->getPartialByConditionals();
 
         $reception = $room->receptionActive->first();
+        $invoice   = $reception->client->invoiceNoPrint;
         $reception_detail = $reception->details()->orderBy('created_at', 'desc')->first();
+
+        $type_payment = '';
+        $type_payment2 = '';
+        $type_payment3 = '';
+
+        foreach ($invoice->payments as $payment) {
+            if($type_payment == '' && $type_payment2 == '') {
+                $type_payment = $payment->type;
+                $type_payment2 = $payment->type;
+                $type_payment3 = $type_payment;
+            }
+            $type_payment = $payment->type;
+            if ($type_payment != $type_payment2){
+                $type_payment3 = 'mixto';
+                break;
+            }
+            if ($type_payment == $type_payment2){
+                $type_payment2 = $payment->type;
+            }
+        }
         $html = view('Ticket.Create', [
+            'invoice'   => $invoice,
             'reception' => $reception,
+            'type_payment' => $type_payment3,
             'ticket'    => $reception_detail->ticket,
             'total'     => $reception_detail->quantity_partial * $reception_detail->rate
         ]);

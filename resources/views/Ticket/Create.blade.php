@@ -25,7 +25,7 @@
     </tr>
     <tr>
         <td>
-            Cajero: 
+            Cajero:
         </td>
         <td>
             {{ Auth::user()->name }}
@@ -59,7 +59,7 @@
             {{ \Carbon\Carbon::parse($reception->date_in)->format('h:i a') }}
         </td>
     </tr>
-    
+
     <tr>
         <td colspan="2">
             ...........................................................
@@ -71,7 +71,7 @@
             Salida
         </td>
     </tr>
-   
+
     <tr>
         <td>
             Fecha:
@@ -95,14 +95,14 @@
             ...........................................................
         </td>
     </tr>
-    
+
     <tr>
 
         <td>
             Total:
         </td>
         <td >
-         <b>   {{ $total }}</b>
+         <b>   {{ $invoice->total }}</b>
         </td>
     </tr>
 
@@ -112,7 +112,7 @@
            Obs. / <br> Forma de Pago:
         </td>
         <td>
-            {{ $ticket->observation }}
+          {{$type_payment}}
         </td>
     </tr>
 </table>
