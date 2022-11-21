@@ -37,6 +37,9 @@ class ReportController extends Controller
                                 });
                             });
                         })
+                        ->when($request->room_id,function(Builder $query) use ($request){
+                            $query->whereIn('room_id',$request->room_id);
+                        })
                         ->when($request->client_id,function(Builder $query) use ($request){
                             $query->whereIn('client_id',$request->client_id);
                         })
