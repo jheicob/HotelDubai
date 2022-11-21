@@ -107,4 +107,9 @@ class Client extends Model implements Auditable
     {
         return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
     }
+
+    public function receptionClosed(){
+        return $this->hasMany(Reception::class)
+                    ->where('invoiced',1);
+    }
 }
