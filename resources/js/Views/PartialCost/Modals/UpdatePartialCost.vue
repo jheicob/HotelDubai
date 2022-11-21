@@ -118,8 +118,8 @@ export default {
     },
     UpdateGetPermission(permission) {
       this.form.rate = permission.attributes.rate;
-      this.form.partial_rates_id = permission.relationships.roomType.id;
-      this.form.room_type_id = permission.relationships.partialRate.id;
+      this.form.partial_rates_id = permission.relationships.partialRate.id;
+      this.form.room_type_id = permission.relationships.roomType.id;
       this.form.id = permission.id;
       this.getPartial();
       this.getRoomType();

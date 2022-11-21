@@ -237,4 +237,31 @@ class RoomTest extends TestCase
 
         $this->assertNotEquals($partial_cost_current, $partial_cost_new);
     }
+
+    /**
+     * @test
+     */
+    public function multiselect_for_update_partial_cost(){
+        $user = User::firstWhere('email', 'testing@c.c');
+        $room_types = RoomType::all()->random(5)->transform(fn($item) => $item->id);
+        $partial_rates = PartialRates::all()->random(5)->transform(fn($item) => $item->id);
+        $response = $this
+            ->actingAs($user)
+            ->postJson(route('partial.cost.multiupdate'), [
+                'room_types' => $room_types,
+                'partial_rates' => $partial_rates,
+                'rate'  => $rate = 1
+            ]);
+
+        foreach($room_types as $room_type){
+            foreach($partial_rates as $partial_rate){
+
+                $partial_cost = PartialCost::where([
+                    ['room_type_id',$room_type],
+                    ['partial_rates_id',$partial_rate]
+                ])->first();
+                $this->assertEquals($rate,$partial_cost->rate);
+            }
+        }
+    }
 }

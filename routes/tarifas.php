@@ -43,6 +43,10 @@ Route::group(
                     ->name('partial.cost.updated')
                     ->middleware('permission:partial.cost.updated');
 
+                Route::post('multiupdate', [App\Http\Controllers\Tarifas\PartialCost\UpdatedController::class, 'multiupdate'])
+                    ->name('partial.cost.multiupdate')
+                    ->middleware('permission:partial.cost.updated');
+
                 Route::get('get', [App\Http\Controllers\Tarifas\PartialCost\IndexController::class, 'get'])
                     ->name('partial.cost.get')
                     ->middleware('permission:partial.cost.getPaginate');

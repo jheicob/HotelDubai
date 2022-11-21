@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tarifas\PartialCost;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Tarifas\PartialCost\MultiupdateRequest;
 use App\Models\PartialCost;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
@@ -43,6 +44,27 @@ class UpdatedController extends Controller
                 ]
                 ], Response::HTTP_INTERNAL_SERVER_ERROR
             );
+        }
+    }
+
+    public function multiupdate(MultiupdateRequest $request){
+        try{
+            DB::beginTransaction();
+
+            $new = [];
+            foreach($request->room_types as $room_type){
+                foreach($request->partial_rates as $partial_rate){
+                    PartialCost::updateOrCreate([
+                        'room_type_id' => $room_type,
+                        'partial_rates_id' => $partial_rate
+                    ],['rate' => $request->rate]);
+                }
+            }
+            return Response::HTTP_OK;
+            DB::commit();
+        }catch (\Exception $e){
+            DB::rollBack();
+            return custom_response_exception($e,'Server Error');
         }
     }
 }
