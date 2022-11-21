@@ -20,6 +20,10 @@ Route::group(
             ->name('room.report')
             ->middleware('permission:room.index');
 
+        Route::get('report/room-type', [App\Http\Controllers\Room\CreateController::class, 'reportRoomType'])
+            ->name('room.report.roomType')
+            ->middleware('permission:room.index');
+
         Route::post('create', [App\Http\Controllers\Room\CreateController::class, 'create'])
             ->name('room.create')
             ->middleware('permission:room.create');

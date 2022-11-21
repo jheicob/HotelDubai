@@ -38,7 +38,7 @@
                 <form method="POST" action="{{ route('login') }}" >
                     @csrf
 
-                    <login :remember="{{old('remember') ?? false}}"></login>
+                    <login ></login>
 
                     <button type="submit" class="btn btn-primary btn-block">
                         {{ __('Login') }}
