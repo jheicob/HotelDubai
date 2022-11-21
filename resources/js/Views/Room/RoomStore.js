@@ -13,6 +13,7 @@ export const RoomStore = defineStore("roomStore", () => {
     const useHelper = HelperStore();
     useHelper.url = "room";
 
+    const login_option = ref('')
     const estate_type_id = ref("");
     const roomType = ref([]);
     const partialCost = ref([]);
@@ -24,7 +25,8 @@ export const RoomStore = defineStore("roomStore", () => {
     const { all, item } = storeToRefs(useHelper);
     const { customRequest } = useHelper;
     const getRooms = () => {
-        useHelper.getAll();
+        let op = login_option.value?? ''
+        useHelper.getAll(`estate_type_id=${op}`);
     };
 
     const formatForm = () => {
@@ -346,5 +348,6 @@ export const RoomStore = defineStore("roomStore", () => {
         estate_type_id,
         answer_repair,
         form_repair,
+        login_option
     };
 });

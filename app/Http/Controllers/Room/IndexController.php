@@ -43,6 +43,8 @@ class IndexController extends Controller
                 'receptionActive.client.invoiceNoPrint.details',
                 'receptionActive.client.invoiceNoPrint.payments',
                 'receptionActive.details',
+                'receptionActive.companions.client',
+                'receptionActive.companions.extraGuest',
                 'inRepair'
 
             ]);

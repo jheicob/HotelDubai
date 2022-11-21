@@ -6,9 +6,11 @@ import { RoomStore } from "../RoomStore";
 import { receptionStore } from "../Reception/ReceptionStore";
 import dayjs from "dayjs";
 import { InvoiceStore } from "../../Invoice/InvoiceStore";
+import { CompanionStore } from "../Reception/CompanionsStore";
 
 export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
     const helper = HelperStore();
+    const companion = CompanionStore()
     const useRoom = RoomStore();
     const reception = receptionStore();
     const invoice = InvoiceStore();
@@ -126,6 +128,9 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
             observation: form.value.observation,
             quantity_partial: form.value.quantity_partial,
             ticket_op: form.value.ticket_op,
+
+            companions:companion.companions
+
         };
         axios
             .post("/client/assigned_room", data)
@@ -134,11 +139,9 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
                 $("#showOcuppyRoom").modal("hide");
                 invoice.setClient(form.value.client_id)
                 show.value = false;
-                console.log('Ya aisgnado');
                 if(!click_in_invoice.value){
-                    console.log('ahora facturando');
                     invoice.printInvoice()
-                    let ventana = window.open("/client/reception-ticket?room_id=" + item.value.id).print();
+                    // let ventana = window.open("/client/reception-ticket?room_id=" + item.value.id).print();
                 }
 
             })

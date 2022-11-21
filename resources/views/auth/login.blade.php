@@ -17,59 +17,29 @@
     <!-- Custom styles for this template-->
     <link href="{{ asset('css/admin/sb-admin.css') }}" rel="stylesheet">
 
+    <script src="{{ asset('js/app.js') }}" defer></script>
+
+
 </head>
 
 <body class="">
 
-    <div class="container">
+    <div class="container" id="app">
         <div class="card card-login mx-auto mt-5" style="
-    background-color: transparent;
-">
+            background-color: transparent;
+        ">
             <div class="card-header text-center"
                 style="
             font-weight: bold;
     background-color: rgba(255,255,255,0.6);
 ">Iniciar Sesión
             </div>
-            <div class="card-body" style="background-color: rgba(255,255,255,.2);">
-                <form method="POST" action="{{ route('login') }}">
+            <div class="card-body" style="background-color: rgba(255,255,255,.2);" >
+                <form method="POST" action="{{ route('login') }}" >
                     @csrf
-                    <div class="form-group">
-                        <div class="form-label-group">
-                            <input type="email" id="inputEmail"
-                                class="form-control @error('email') is-invalid @enderror" placeholder="Email address"
-                                required="required" autofocus="autofocus" name="email" value="{{ old('email') }}"
-                                required autocomplete="email" autofocus> @error('email')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
 
-                            <label for="inputEmail">Correo electrónico</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="form-label-group">
-                            <input type="password" id="inputPassword"
-                                class="form-control @error('password') is-invalid @enderror" placeholder="Password"
-                                name="password" required autocomplete="current-password"> @error('password')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                    <login :remember="{{old('remember') ?? false}}"></login>
 
-                            <label for="inputPassword">Contraseña</label>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="checkbox">
-                            <label style="color:dark">
-                                <input type="checkbox" value="remember-me" name="remember" id="remember"
-                                    {{ old('remember') ? 'checked' : '' }}>
-                                Recordar Contraseña
-                            </label>
-                        </div>
-                    </div>
                     <button type="submit" class="btn btn-primary btn-block">
                         {{ __('Login') }}
                     </button>

@@ -86,10 +86,11 @@ class CreateController extends Controller
 
             $reception = self::verifiedReceptionActive($client);
             if ($reception) {
-            Log::info('v1');
+                Log::info('v1');
 
                 return self::extendReception($reception, $request, $quantity_total_hours);
             }
+
             Log::info('z1');
 
             $reception = $client->receptions()->create($request->only([
@@ -98,6 +99,9 @@ class CreateController extends Controller
                 'date_out',
                 'observation'
             ]));
+            if(count($request->companions) > 0) {
+                self::storeCompanions($reception,$request->companions);
+            }
             Log::info('z2');
 
             $reception_detail = $reception->details()->create($request->only([
@@ -176,6 +180,7 @@ class CreateController extends Controller
             'observation' => $request->ticket_op
         ]);
 
+        self::storeCompanions($reception,$request->companions);
         DB::commit();
         return custom_response_sucessfull('update_successfull');
     }
@@ -351,6 +356,20 @@ class CreateController extends Controller
         } catch (\Exception $e) {
             DB::rollBack();
             return custom_response_exception($e, __('errors.server.title'), 500);
+        }
+    }
+
+    private function storeCompanions(Reception $reception, array $companions){
+
+        foreach($companions as $companion){
+
+            if(!$companion['id']){
+                $reception->companions()->create([
+                    'client_id' =>$companion['client_id'],
+                    'extra_guest_id' =>$companion['extra_guest_id'],
+                ]);
+            }
+
         }
     }
 }

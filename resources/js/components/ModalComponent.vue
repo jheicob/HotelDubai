@@ -7,7 +7,7 @@
 		aria-labelledby="exampleModalLabel"
 		aria-hidden="true"
 	>
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog" :class="size != '' ? `modal-${size}` : ''" role="document">
 			<div class="modal-content">
 				<div class="modal-header py-2" v-if="title">
 					<slot name="title" id="exampleModalLabel">Titulo</slot>
@@ -47,6 +47,10 @@
 			type: Boolean,
 			default: false,
 		},
+        size:{
+            type: String,
+            default: "",
+        }
 	});
 </script>
 <style></style>

@@ -16,6 +16,25 @@ class IndexController extends Controller
         return view('EstateType.index');
     }
 
+    public function getPublic(){
+        try {
+
+            $permissions = EstateType::withTrashed()->get();
+
+            return RoomTypeResource::collection($permissions);
+        } catch (\Exception $ex) {
+            return response()->json(
+                [
+                'data' => [
+                    'code'        => $ex->getCode(),
+                    'title'       => __('errors.server.title'),
+                    'description' => __('errors.server.description'),
+                ]
+                ], Response::HTTP_INTERNAL_SERVER_ERROR
+            );
+        }
+    }
+
     public function get()
     {
         try {
@@ -31,15 +50,6 @@ class IndexController extends Controller
             }
 
             return RoomTypeResource::collection($permissions);
-        } catch (ValidationException $ex) {
-            return response()->json(
-                [
-                'data' => [
-                    'title'  => $ex->getMessage(),
-                    'errors' => collect($ex->errors())->flatten()
-                ]
-                ], Response::HTTP_UNPROCESSABLE_ENTITY
-            );
         } catch (\Exception $ex) {
             return response()->json(
                 [

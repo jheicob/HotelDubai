@@ -34,6 +34,9 @@ class ReceptionResource extends JsonResource
                 'details' => $this->whenLoaded('details', function() {
                     return ReceptionDetailResource::collection($this->resource->details);
                 }),
+                'companions' => $this->whenLoaded('companions', function() {
+                    return CompanionResource::collection($this->resource->companions);
+                })
             ],
         ];
     }

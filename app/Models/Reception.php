@@ -59,4 +59,8 @@ class Reception extends Model implements Auditable
                 });
             });
     }
+
+    public function companions(){
+        return $this->hasMany(Companion::class);
+    }
 }

@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::get('configuration/EstateType', [App\Http\Controllers\Configuracion\EstateType\IndexController::class, 'getPublic'])
+->name('estate.type.get');
+
 Route::group(
     [
         'prefix'     => 'configuracion',

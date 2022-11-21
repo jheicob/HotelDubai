@@ -357,6 +357,9 @@
 													</select>
 												</div>
 											</div>
+                                            <div class="row col-4 mx-auto my-3">
+                                                <CompanionsVue />
+                                            </div>
 											<div>
 												<label class="form-label"
 													>Observaciones</label
@@ -585,6 +588,7 @@
                                             </td>
                                             <td>
                                                 <i
+                                                    v-if="item.block === false"
                                                     class="fas fa-minus"
                                                     style="cursor: pointer"
                                                     @click="
@@ -793,10 +797,14 @@
 	import { RoomStore } from "../RoomStore";
 	import Multiselect from "vue-multiselect";
 	import TransferirHabVue from "./TransferirHab.vue";
+    import CompanionsVue from "./Companions.vue";
+    import {CompanionStore} from "./CompanionsStore"
+    import { ExtraGuestStore } from "../../ExtraGuest/ExtraGuestStore";
 
     const setPayment = () => {
         payment.value.quantity = invoice.getAcumTotalByDetails
     }
+    const companion = CompanionStore()
     const countPayment = ref(0);
 
 
@@ -820,7 +828,9 @@
 	const asignarHab = () => {
         click_in_bodegon.value= false
 		ocuppy.getProducts();
-        setProducts()
+        if(item.value.relationships.receptionActive){
+            setProducts()
+        }
         invoice_click.value = click_in_invoice.value = false
 		//    console.log("aqui");
 
@@ -945,10 +955,12 @@
     const setProducts = () => {
         let details_invoice = item.value.relationships.receptionActive.relationships.client.relationships.invoiceNoPrint.relationships.details;
 
-        details_invoice.map(detail_invoice => {
+        products.value = []
+        let det = [];
+         details_invoice.forEach(detail_invoice => {
             if(detail_invoice.attributes.productable_type != 'App\\Models\\ReceptionDetail'){
                 products.value.push({
-                    id: item.id,
+                    id: detail_invoice.id,
                     description: detail_invoice.attributes.product_name,
                     name: detail_invoice.attributes.productable_type == 'App\\Models\\ExtraGuest' ? 'huesped Extra' : 'Otro',
                     type: 'InvoiceDetail',
@@ -958,7 +970,12 @@
             }
         })
     }
+
+    const guests = ExtraGuestStore()
+
 	onMounted(() => {
 		ocuppy.getTypeDocuments();
+        guests.getRoomTypes() // get extra guests
+
 	});
 </script>

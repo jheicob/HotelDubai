@@ -147,7 +147,8 @@
 	};
 
 	onMounted(() => {
-		useHelper.getAll();
+        let op = useStore.login_option?? ''
+        useHelper.getAll(`estate_type_id=${op}`);
 		config.getConfiguration()
 		useStore.getRoomStatus();
 	});

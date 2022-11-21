@@ -35,8 +35,11 @@ import Configuration from "./Views/Configuration/Configuration.vue";
 import Notification from "./Views/Notificaction/Notification.vue";
 import CreateInvoice from "./Views/Invoice/Modals/CreateInvoice.vue";
 import ExtraGuest from "./Views/ExtraGuest/ExtraGuest.vue";
+import Login from "./Views/Auth/Login.vue"
+
 const app = createApp({});
 app.use(createPinia());
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -77,6 +80,8 @@ app.component("range-template", rangetemplate);
 app.component("room-notification", Notification);
 app.component("create-invoice", CreateInvoice);
 app.component("extra-guest", ExtraGuest);
+app.component("login", Login);
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

@@ -159,6 +159,10 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
                     let id = res.data.message.id;
                     window.open("/invoice/printFiscal/" + id);
                 }
+                if(!click_in_invoice.value){
+                    let ventana = window.open("/client/reception-ticket?room_id=" + item.value.id).print();
+                }
+
                 show.value = false;
                 location.reload();
 
