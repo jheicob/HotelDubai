@@ -47,6 +47,8 @@ class ReportController extends Controller
 
                     })
                     ->get();
+
+
         $html = view('client.report', [
             'clients' => $clients,
             'date_start' => $request->date_start,

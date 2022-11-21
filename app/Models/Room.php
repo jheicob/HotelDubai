@@ -191,4 +191,9 @@ class Room extends Model implements Auditable
         return $this->hasOne(Repair::class)
             ->whereNull('maintenance_date');
     }
+
+    public function receptionClosed(){
+        return $this->hasMany(Reception::class)
+                    ->where('invoiced',1);
+    }
 }
