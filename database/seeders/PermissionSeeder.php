@@ -215,5 +215,9 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'notification.room.sucia']);
         Permission::create(['name' => 'notification.room.maintenance']);
         Permission::create(['name' => 'notification.room.disponible']);
+
+        Permission::create(['name' => 'room.report']);
+        Permission::create(['name' => 'roomType.report']);
+        Permission::create(['name' => 'reception.report']);
     }
 }

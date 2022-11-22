@@ -219,6 +219,10 @@ class RoleSeeder extends Seeder
                 'extra-guest.updated',
                 'extra-guest.getPaginate',
                 'extra-guest.get',
+
+                'room.report',
+                'roomType.report',
+                'reception.report',
             ]
         );
 
@@ -427,6 +431,9 @@ class RoleSeeder extends Seeder
             'extra-guest.getPaginate',
             'extra-guest.get',
 
+            'room.report',
+            'roomType.report',
+            'reception.report',
 
         ]);
 
