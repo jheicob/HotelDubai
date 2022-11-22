@@ -29,19 +29,6 @@ class IndexController extends Controller
                 ->orderBy('id', 'desc')
                 ->get();
 
-            $invoice->map(function ($invoic) {
-                $invoic->details->transform(function ($detail) {
-                    if ($detail->productable_type == 'App\Models\ReceptionDetail') {
-                        $reception_detail = ReceptionDetail::find($detail->productable_id);
-                        $detail['product_name'] = $reception_detail->partial_min;
-                    } else {
-                        $reception_detail = Product::find($detail->productable_id);
-                        $detail['product_name'] = $reception_detail->name;
-                    }
-
-                    return $detail;
-                });
-            });
 
             return InvoiceResource::collection($invoice);
         } catch (\Exception $e) {
