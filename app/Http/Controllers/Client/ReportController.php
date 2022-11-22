@@ -28,7 +28,9 @@ class ReportController extends Controller
                         ])
                     ->whereHas('receptionClosed',function(Builder $query) use ($request){
                         $query->when($request->date_start && $request->date_out,function(Builder $q) use ($request){
-                            $q->whereBetween('created_at', [$request->date_start, $request->date_end]);
+                            $q->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end]);
+
+                            // $q->whereBetween('created_at', [$request->date_start, $request->date_end]);
                         })
                         ->when($request->room_type_id,function(Builder $query) use ($request){
                                 $query->whereHas('room',function(Builder $query) use ($request){

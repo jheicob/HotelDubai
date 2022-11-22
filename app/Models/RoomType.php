@@ -31,4 +31,8 @@ class RoomType extends Authenticatable implements Auditable
     {
         return $this->hasMany(PartialCost::class);
     }
+
+    public function room(){
+        return $this->hasOneThrough(Room::class,PartialCost::class);
+    }
 }

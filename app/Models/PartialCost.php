@@ -25,6 +25,10 @@ class PartialCost extends Authenticatable implements Auditable
         "rate",
     ];
 
+
+    public function rooms(){
+        return $this->hasMany(Room::class);
+    }
     public function roomType()
     {
         return $this->belongsTo(RoomType::class, 'room_type_id');
