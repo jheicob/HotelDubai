@@ -25,7 +25,7 @@
                     <td align='center'>
                         {{ $roomType->room->estateType->name}}
                     </td>
-                    <td align='center'>{{$init_date->format('m-d-Y')}}</td>
+                    <td align='center'>{{$init_date->format('d-m-Y')}}</td>
                     <td align='center' width="35px">
                         {{ $receptions_counts
                             ->where('room_type_id',$roomType->id)

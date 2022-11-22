@@ -79,6 +79,7 @@ class CreateController extends Controller
             }
             if($request->click_in_invoice){
                 $reception->update(['invoiced' => true]);
+                $invoice->update(['date' => $reception->date_out]);
                 $roomStatus = \App\Models\RoomStatus::firstWhere('name', 'Sucia');
                 $reception->room->update(['room_status_id' => $roomStatus->id]);
 

@@ -241,7 +241,7 @@ class CreateController extends Controller
 
     public function createTicket(Request $request)
     {
-        $pdf = new Mpdf(['mode' => 'utf-8', 'format' => [58, 80]]);
+        $pdf = new Mpdf(['mode' => 'utf-8', 'format' => [58, 200]]);
 
         $room = Room::find($request->room_id);
 

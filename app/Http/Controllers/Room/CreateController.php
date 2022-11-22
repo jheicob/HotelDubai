@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Room\CreateRequest;
 use App\Models\EstateType;
+use App\Models\Invoice;
+use App\Models\InvoicePayment;
+use App\Models\PartialCost;
 use App\Models\Reception;
 use Illuminate\Support\Facades\DB;
 use App\Models\Room;
@@ -73,14 +76,24 @@ class CreateController extends Controller
             ->orderByDesc('reception_closed_count')
             ->get();
 
-        $receptionsCounts = Reception::select([
+            $receptionsCounts = Reception::select([
                 'room_id',
-                'date_out as date_out_f',
-                // DB::raw('count(room_id) as count'),
+                // 'date_out as date_out_f',
                 DB::raw('date_format(date_out, "%d-%m-%Y") as date_out_f')
             ])
+            ->addSelect([
+                'estate_type_id' => Room::select('estate_type_id')
+                                            ->whereColumn('receptions.room_id','rooms.id')
+                                            ->limit(1),
+                'room_type_id' => PartialCost::select('room_type_id')
+                                    ->join('rooms', 'rooms.partial_cost_id', '=', 'partial_costs.id')
+                                    ->whereColumn('rooms.id','receptions.room_id')
+                                    ->limit(1)
+            ])
+            ->where('invoiced',1)
+            ->has('room')
+            ->has('room.partialCost')
             ->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
-            // ->groupBy(['room_id', 'date_out_f'])
             ->get();
 
         // return $receptionsCounts;
@@ -129,10 +142,10 @@ class CreateController extends Controller
             ->whereHas('partialCost', function (Builder $query) use ($request) {
                 $query->whereHas('rooms', function (Builder $query) use ($request) {
                     $query->whereHas('receptionClosed', function (Builder $query) use ($request) {
-                        // dd($request->all());
+
                         $query
                             ->when($request->date_start && $request->date_out, function (Builder $q) use ($request) {
-                                $q->whereBetween('date_out', [$request->date_start, $request->date_end]);
+                                $q->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end]);
                             });
                     });
 
@@ -153,18 +166,24 @@ class CreateController extends Controller
             // ->orderByDesc('reception_closed_count')
             ->get();
 
-        $receptionsCounts = Reception::select([
+            $receptionsCounts = Reception::select([
                 'room_id',
-                'partial_costs.room_type_id',
-                'rooms.estate_type_id',
-                'date_out as date_out_f',
-                // DB::raw('count(room_id) as count'),
+                // 'date_out as date_out_f',
                 DB::raw('date_format(date_out, "%d-%m-%Y") as date_out_f')
             ])
-            ->join('rooms', 'rooms.id', '=', 'receptions.room_id')
-            ->join('partial_costs', 'partial_costs.id', '=', 'rooms.partial_cost_id')
+            ->addSelect([
+                'estate_type_id' => Room::select('estate_type_id')
+                                            ->whereColumn('receptions.room_id','rooms.id')
+                                            ->limit(1),
+                'room_type_id' => PartialCost::select('room_type_id')
+                                    ->join('rooms', 'rooms.partial_cost_id', '=', 'partial_costs.id')
+                                    ->whereColumn('rooms.id','receptions.room_id')
+                                    ->limit(1)
+            ])
+            ->where('invoiced',1)
+            ->has('room')
+            ->has('room.partialCost')
             ->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
-            // ->groupBy(['room_id', 'date_out_f'])
             ->get();
 
         // return $receptionsCounts;
@@ -190,7 +209,7 @@ class CreateController extends Controller
 
 
     public function reportReception(Request $request){
-        $pdf = new Mpdf();
+        $pdf = new Mpdf(['orientation' => 'L']);
         if (!$request->date_start) {
             $request['date_start'] = Reception::min('date_out');
         }
@@ -198,49 +217,52 @@ class CreateController extends Controller
             $request['date_end'] = Reception::max('date_out');
         }
         // dd($request->all());
-        $receptions = Reception::with([
-                    'room.estateType',
-                    'invoiceDetail.invoice.payments'
-                ])
-            ->where('invoiced',1)
-            ->when($request->date_start && $request->date_out, function (Builder $q) use ($request) {
-                    $q->whereBetween('date_out', [$request->date_start, $request->date_end]);
-                })
 
-            ->when($request->room_type_id, function (Builder $query) use ($request) {
-                $query->whereHas('room', function (Builder $query) use ($request) {
-                    $query->whereHas('partialCost', function (Builder $query) use ($request) {
-                        $query->whereIn('room_type_id', $request->room_type_id);
-                    });
-                });
-            })
-            ->when($request->estate_type_id, function (Builder $query) use ($request) {
-                $query->whereHas('room', function (Builder $query) use ($request) {
-                    $query->whereIn('estate_type_id', $request->estate_type_id);
-                });
-            })
+        $invoices = Invoice::where('status','Impreso')
+            ->when($request->date_start && $request->date_out, function (Builder $q) use ($request) {
+                    $q->whereBetween(DB::raw('date_format(date, "%d-%m-%Y")'), [$request->date_start, $request->date_end]);
+                })
             ->get();
+
+        $payments = InvoicePayment::addSelect([
+                        'date_invoice' => Invoice::select(DB::raw('date_format(date, "%d-%m-%Y")'))
+                                            ->whereColumn('invoice_id','=','invoices.id')
+                                            ->limit(1)
+                    ])
+                    ->whereHas('invoice',function(Builder $query) use ($request){
+                        $query->whereBetween(DB::raw('date_format(date, "%d-%m-%Y")'), [$request->date_start, $request->date_end]);
+                    })
+                    ->orderBy('date_invoice','asc')
+                    ->get();
 
         $receptionsCounts = Reception::select([
                 'room_id',
-                'partial_costs.room_type_id',
-                'rooms.estate_type_id',
-                'date_out as date_out_f',
-                // DB::raw('count(room_id) as count'),
+                // 'date_out as date_out_f',
                 DB::raw('date_format(date_out, "%d-%m-%Y") as date_out_f')
             ])
-            ->join('rooms', 'rooms.id', '=', 'receptions.room_id')
-            ->join('partial_costs', 'partial_costs.id', '=', 'rooms.partial_cost_id')
+            ->addSelect([
+                'estate_type_id' => Room::select('estate_type_id')
+                                            ->whereColumn('receptions.room_id','rooms.id')
+                                            ->limit(1),
+                'room_type_id' => PartialCost::select('room_type_id')
+                                    ->join('rooms', 'rooms.partial_cost_id', '=', 'partial_costs.id')
+                                    ->whereColumn('rooms.id','receptions.room_id')
+                                    ->limit(1)
+            ])
+            ->where('invoiced',1)
+            ->has('room')
+            ->has('room.partialCost')
             ->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
-            // ->groupBy(['room_id', 'date_out_f'])
             ->get();
 
         // return $receptionsCounts;
-        return $receptions;
+        // return $payments;
+        // return $invoices;
 
         $diff_in_days = Carbon::parse($request->date_start)->diffInDays(Carbon::parse($request->date_end));
-        $html = view('RoomType.report', [
-            'receptions' => $receptions,
+        $html = view('Invoice.report', [
+            'invoices' => $invoices,
+            'payments' => $payments,
             'date_start' => $request->date_start,
             'init_date' => Carbon::parse($request->date_start),
             'date_end' => $request->date_end,

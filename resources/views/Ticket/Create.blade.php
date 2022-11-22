@@ -95,7 +95,21 @@
             ...........................................................
         </td>
     </tr>
-
+    <tr>
+        <td colspan="2" align="center">
+            Productos
+        </td>
+    </tr>
+    @foreach ($invoice->details as $invoiceDetail)
+    <tr>
+        <td>
+            {{$invoiceDetail->description}}, <br> {{$invoiceDetail->quantity}} und * {{$invoiceDetail->price}}
+        </td>
+        <td>
+         <b>   {{ $invoiceDetail->quantity * $invoiceDetail->price }}</b>
+        </td>
+    </tr>
+    @endforeach
     <tr>
 
         <td>
@@ -105,14 +119,24 @@
          <b>   {{ $invoice->total }}</b>
         </td>
     </tr>
-
     <tr>
-
-        <td >
-           Obs. / <br> Forma de Pago:
-        </td>
-        <td>
-          {{$type_payment}}
+        <td colspan="2">
+            ...........................................................
         </td>
     </tr>
+    <tr>
+        <td colspan="2" align="center">
+            Pagos
+        </td>
+    </tr>
+    @foreach ($invoice->payments as $invoicePayment)
+    <tr>
+        <td >
+           {{$invoicePayment->type}} - {{$invoicePayment->method}}
+        </td>
+        <td>
+          {{$invoicePayment->quantity}}
+        </td>
+    </tr>
+    @endforeach
 </table>
