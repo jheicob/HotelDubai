@@ -187,4 +187,72 @@ class CreateController extends Controller
         header("Content-Disposition: inline; filename='$nombre_archivo.pdf'");
         return $pdf->Output("$nombre_archivo.pdf", 'I');
     }
+
+
+    public function reportReception(Request $request){
+        $pdf = new Mpdf();
+        if (!$request->date_start) {
+            $request['date_start'] = Reception::min('date_out');
+        }
+        if (!$request->date_end) {
+            $request['date_end'] = Reception::max('date_out');
+        }
+        // dd($request->all());
+        $receptions = Reception::with([
+                    'room.estateType',
+                    'invoiceDetail.invoice.payments'
+                ])
+            ->where('invoiced',1)
+            ->when($request->date_start && $request->date_out, function (Builder $q) use ($request) {
+                    $q->whereBetween('date_out', [$request->date_start, $request->date_end]);
+                })
+
+            ->when($request->room_type_id, function (Builder $query) use ($request) {
+                $query->whereHas('room', function (Builder $query) use ($request) {
+                    $query->whereHas('partialCost', function (Builder $query) use ($request) {
+                        $query->whereIn('room_type_id', $request->room_type_id);
+                    });
+                });
+            })
+            ->when($request->estate_type_id, function (Builder $query) use ($request) {
+                $query->whereHas('room', function (Builder $query) use ($request) {
+                    $query->whereIn('estate_type_id', $request->estate_type_id);
+                });
+            })
+            ->get();
+
+        $receptionsCounts = Reception::select([
+                'room_id',
+                'partial_costs.room_type_id',
+                'rooms.estate_type_id',
+                'date_out as date_out_f',
+                // DB::raw('count(room_id) as count'),
+                DB::raw('date_format(date_out, "%d-%m-%Y") as date_out_f')
+            ])
+            ->join('rooms', 'rooms.id', '=', 'receptions.room_id')
+            ->join('partial_costs', 'partial_costs.id', '=', 'rooms.partial_cost_id')
+            ->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
+            // ->groupBy(['room_id', 'date_out_f'])
+            ->get();
+
+        // return $receptionsCounts;
+        return $receptions;
+
+        $diff_in_days = Carbon::parse($request->date_start)->diffInDays(Carbon::parse($request->date_end));
+        $html = view('RoomType.report', [
+            'receptions' => $receptions,
+            'date_start' => $request->date_start,
+            'init_date' => Carbon::parse($request->date_start),
+            'date_end' => $request->date_end,
+            'estateTypes' => EstateType::all(),
+            'receptions_counts' => $receptionsCounts,
+            'diff_in_days' => $diff_in_days +1
+        ]);
+        // return $html;
+        $pdf->WriteHTML($html);
+        $nombre_archivo = 'Reporte-Habitaciones';
+        header('Content-Type: application/pdf');
+        header("Content-Disposition: inline; filename='$nombre_archivo.pdf'");
+        return $pdf->Output("$nombre_archivo.pdf", 'I');
+    }
 }

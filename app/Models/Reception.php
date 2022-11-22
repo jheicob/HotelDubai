@@ -63,4 +63,10 @@ class Reception extends Model implements Auditable
     public function companions(){
         return $this->hasMany(Companion::class);
     }
+
+    public function invoiceDetail(){
+        return $this->hasOneThrough(InvoiceDetail::class,ReceptionDetail::class,'reception_id','productable_id')
+                    ->where('productable_type','App\\Models\\ReceptionDetail')
+                        ;
+    }
 }
