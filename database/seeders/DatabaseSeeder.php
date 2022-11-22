@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             TypeDocumentSeeder::class,
             EstateTypeSeeder::class,
             RoomSeeder::class,
+            ExtraGuestSeeder::class,
         ]);
     }
 }
