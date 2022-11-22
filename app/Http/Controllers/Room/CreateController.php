@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Room;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Room\CreateRequest;
+use App\Models\EstateType;
 use App\Models\Reception;
 use Illuminate\Support\Facades\DB;
 use App\Models\Room;
@@ -155,6 +156,7 @@ class CreateController extends Controller
         $receptionsCounts = Reception::select([
                 'room_id',
                 'partial_costs.room_type_id',
+                'rooms.estate_type_id',
                 'date_out as date_out_f',
                 // DB::raw('count(room_id) as count'),
                 DB::raw('date_format(date_out, "%d-%m-%Y") as date_out_f')
@@ -174,6 +176,7 @@ class CreateController extends Controller
             'date_start' => $request->date_start,
             'init_date' => Carbon::parse($request->date_start),
             'date_end' => $request->date_end,
+            'estateTypes' => EstateType::all(),
             'receptions_counts' => $receptionsCounts,
             'diff_in_days' => $diff_in_days +1
         ]);

@@ -56,33 +56,28 @@
     @endforeach
 </table>
 
-<table align="center" style="width:220px">
-    {{-- <tr>
+<table align="center" style="width:220px; margin-top:35px">
+    <tr>
         <td colspan="2" align="center">
             Totales
         </td>
     </tr>
 
+    @foreach ($estateTypes as $stateType)
     <tr>
         <td align="center">
-            Clientes
+            {{$stateType->name}}
         </td>
         <td align="center">
-
-            {{count($clients)}}
+            {{$receptions_counts
+                ->where('estate_type_id',$stateType->id)
+                ->count()}}
         </td>
     </tr>
-    <tr>
-        <td align="center">
+    @endforeach
 
-            Cant. Acompañantes
-        </td>
-        <td align="center">
-
-            {{$count_companions}}
-        </td>
-    </tr> --}}
 </table>
+
 @endsection
 
 <style>
