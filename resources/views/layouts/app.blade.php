@@ -224,6 +224,9 @@
                     @can('reports')
                         <reports
                             :client_report=" '{{Auth::user()->can('client.report')}}' == 1"
+                            :room_type_report=" '{{Auth::user()->can('roomType.report')}}' == 1"
+                            :room_report=" '{{Auth::user()->can('room.report')}}' == 1"
+                            :reception_report=" '{{Auth::user()->can('reception.report')}}' == 1"
                         />
                     @endcan
 
