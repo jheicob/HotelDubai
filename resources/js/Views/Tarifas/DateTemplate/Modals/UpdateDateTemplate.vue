@@ -83,6 +83,26 @@
                                 {{ keep.attributes.name }}
                             </option>
                         </select>
+                        <div class="row">
+                            <div class="col">
+                                <label for="rate" class="form-label">Hora de Inicio</label>
+                                <input
+                                    class="form-control"
+                                    name="rate"
+                                    type="time"
+                                    v-model="form.hour_start"
+                                />
+                            </div>
+                            <div class="col">
+                                <label for="rate" class="form-label">Hora de Fin</label>
+                                <input
+                                    class="form-control"
+                                    name="rate"
+                                    type="time"
+                                    v-model="form.hour_end"
+                                />
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <a
@@ -170,6 +190,8 @@ export default {
                 room_type_id:'',
                 date:'',
                 rate:'',
+                hour_end: '',
+                hour_start: '',
             }
         },
         UpdateGetPermission(permission) {
@@ -179,7 +201,9 @@ export default {
                 room_type_id: permission.relationships.roomType.id,
                 date: getDateFormat(permission.attributes.date),
                 rate: permission.attributes.rate,
-                partial_rate_id: permission.relationships.partialRate.id
+                partial_rate_id: permission.relationships.partialRate.id,
+                hour_end: permission.attributes.hour_end,
+                hour_start: permission.attributes.hour_start,
             }
 
         },

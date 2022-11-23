@@ -55,7 +55,8 @@ class ReportController extends Controller
             'clients' => $clients,
             'date_start' => $request->date_start,
             'date_end' => $request->date_end,
-            'count_companions' => 0
+            'count_companions' => 0,
+            'title_report' => 'Reporte de Clientes'
         ]);
         $pdf->WriteHTML($html);
         $nombre_archivo = 'Reporte-Clientes';

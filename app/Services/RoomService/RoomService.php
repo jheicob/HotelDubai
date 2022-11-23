@@ -62,12 +62,12 @@ class RoomService
 
         $rate = $this->acum;
 
-        $rate = self::getRateByDate($this->date);
+        $rate = self::getRateByDay($this->dayName);
         if ($rate == 0) {
             $rate = self::getRateByRange();
         }
         if ($rate == 0) {
-            $rate = self::getRateByDay($this->dayName);
+            $rate = self::getRateByDate($this->date);
         }
         if ($rate == 0) {
             $rate = self::getRateByHour();
@@ -109,10 +109,12 @@ class RoomService
             ->first();
 
         if ($day_template != '') {
-            if (!$this->bool_date) {
-                self::getPartialCostByRoomTypeAndPartial($day_template->room_type_id, $day_template->partial_rate_id);
+            if(self::verifyHourOfRegister($day_template->hour_start, $day_template->hour_end)) {
+                if (!$this->bool_date) {
+                    self::getPartialCostByRoomTypeAndPartial($day_template->room_type_id, $day_template->partial_rate_id);
+                }
+                return (int) $day_template->rate;
             }
-            return (int) $day_template->rate;
         }
         return 0;
     }
@@ -129,11 +131,27 @@ class RoomService
             ->where('room_type_id', $this->room_type_id)
             ->first();
         if ($date_template != '') {
-            self::getPartialCostByRoomTypeAndPartial($date_template->room_type_id, $date_template->partial_rate_id);
+            if(self::verifyHourOfRegister($date_template->hour_start, $date_template->hour_end)) {
+                self::getPartialCostByRoomTypeAndPartial($date_template->room_type_id, $date_template->partial_rate_id);
 
-            return (int) $date_template->rate;
+                return (int) $date_template->rate;
+            }
         }
         return 0;
+    }
+
+
+    private function verifyHourOfRegister(string $hour_init,string $hour_end){
+        $init = explode(':',$hour_init);
+        $end = explode(':',$hour_end);
+
+        if(
+            $this->now >= Carbon::now()->setHour($init[0])->setMinute($init[1])
+            && $this->now <= Carbon::now()->setHour($end[0])->setMinute($end[1])
+        ){
+            return true;
+        }
+        return false;
     }
 
     private function getRateByHour(): int
@@ -176,7 +194,11 @@ class RoomService
     public function getPartialByConditionals()
     {
         $this->bool_date =false;
-        self::getRateByHour();
+        self::getRateByDay($this->dayName);
+        if ($this->bool_date ) {
+            self::getRateByDate($this->date);
+        }
+
         return $this->partial_min;
     }
 

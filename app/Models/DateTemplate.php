@@ -18,13 +18,17 @@ class DateTemplate extends Model implements Auditable
         'room_type_id',
         'partial_rate_id',
         'date',
-        'rate'
+        'rate',
+        'hour_start',
+        'hour_end'
     ];
     protected $auditInclude = [
         'room_type_id',
         'date',
         'partial_rate_id',
-        'rate'
+        'rate',
+        'hour_start',
+        'hour_end'
     ];
 
     public function roomType()

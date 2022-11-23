@@ -59,7 +59,26 @@
 								{{ keep.attributes.name }}
 							</option>
 						</select>
-
+                        <div class="row">
+                            <div class="col">
+                                <label for="rate" class="form-label">Hora de Inicio</label>
+                                <input
+                                    class="form-control"
+                                    name="rate"
+                                    type="time"
+                                    v-model="form.hour_start"
+                                />
+                            </div>
+                            <div class="col">
+                                <label for="rate" class="form-label">Hora de Fin</label>
+                                <input
+                                    class="form-control"
+                                    name="rate"
+                                    type="time"
+                                    v-model="form.hour_end"
+                                />
+                            </div>
+                        </div>
 						<label for="rate" class="form-label">Tarifa</label>
 						<input
 							class="form-control"
@@ -129,6 +148,8 @@
 				this.form.room_type_id = permission.relationships.roomType.id;
 				this.form.day_week_id = permission.relationships.dayWeek.id;
 				this.form.rate = permission.attributes.rate;
+				this.form.hour_start = permission.attributes.hour_start;
+				this.form.hour_end = permission.attributes.hour_end;
 				this.getRoomType();
 				this.getDayWeek();
 			},
@@ -157,6 +178,8 @@
 					room_type_id: "",
 					day_week_id: "",
 					rate: "",
+                    hour_end: '',
+                    hour_start: '',
 				};
 			},
 		},

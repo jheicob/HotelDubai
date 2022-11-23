@@ -83,7 +83,26 @@
                                 {{ keep.attributes.name }}
                             </option>
                         </select>
-
+                        <div class="row">
+                            <div class="col">
+                                <label for="rate" class="form-label">Hora de Inicio</label>
+                                <input
+                                    class="form-control"
+                                    name="rate"
+                                    type="time"
+                                    v-model="form.hour_start"
+                                />
+                            </div>
+                            <div class="col">
+                                <label for="rate" class="form-label">Hora de Fin</label>
+                                <input
+                                    class="form-control"
+                                    name="rate"
+                                    type="time"
+                                    v-model="form.hour_end"
+                                />
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <a
@@ -161,7 +180,9 @@ export default {
                 room_type_id: "",
                 rate: "",
                 date: "",
-                partial_rate_id: ''
+                partial_rate_id: '',
+                hour_end: '',
+                hour_start: '',
             };
         },
         getRoomType(){

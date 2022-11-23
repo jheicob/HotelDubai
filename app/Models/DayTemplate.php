@@ -19,6 +19,8 @@ class DayTemplate extends Model implements Auditable
         'day_week_id',
         'partial_rate_id',
         'rate',
+        'hour_start',
+        'hour_end'
     ];
 
     protected $auditInclude = [
@@ -26,6 +28,8 @@ class DayTemplate extends Model implements Auditable
         'partial_rate_id',
         'day_week_id',
         'rate',
+        'hour_start',
+        'hour_end'
     ];
 
     public function roomType()

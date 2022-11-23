@@ -106,7 +106,9 @@ class CreateController extends Controller
             'init_date' => Carbon::parse($request->date_start),
             'date_end' => $request->date_end,
             'receptions_counts' => $receptionsCounts,
-            'diff_in_days' => $diff_in_days +1
+            'diff_in_days' => $diff_in_days +1,
+            'title_report' => 'Reporte de Habitaciones'
+
         ]);
         // return $html;
         $pdf->WriteHTML($html);
@@ -197,7 +199,9 @@ class CreateController extends Controller
             'date_end' => $request->date_end,
             'estateTypes' => EstateType::all(),
             'receptions_counts' => $receptionsCounts,
-            'diff_in_days' => $diff_in_days +1
+            'diff_in_days' => $diff_in_days +1,
+            'title_report' => 'Reporte de Tipo de Habitaciones'
+
         ]);
         // return $html;
         $pdf->WriteHTML($html);
@@ -268,7 +272,9 @@ class CreateController extends Controller
             'date_end' => $request->date_end,
             'estateTypes' => EstateType::all(),
             'receptions_counts' => $receptionsCounts,
-            'diff_in_days' => $diff_in_days +1
+            'diff_in_days' => $diff_in_days +1,
+            'title_report' => 'Reporte de Recepciones'
+
         ]);
         // return $html;
         $pdf->WriteHTML($html);

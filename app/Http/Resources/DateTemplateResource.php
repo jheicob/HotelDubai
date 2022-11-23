@@ -19,6 +19,8 @@ class DateTemplateResource extends JsonResource
             'attributes' => [
                 'date'           => $this->resource->date,
                 'rate'           => $this->resource->rate,
+                'hour_start'           => $this->resource->hour_start,
+                'hour_end'           => $this->resource->hour_end,
                 'deleted_at'     => $this->resource->deleted_at,
             ],
             'relationships' => [

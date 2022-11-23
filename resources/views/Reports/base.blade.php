@@ -17,6 +17,7 @@
 <br>
 <h2 align="center">Hotel Dubai</h2>
 <br>
+<h2 align="center">{{$title_report}}</h2>
 <h3 align='center'>
     Desde: <span style="font-weight: normal">{{$date_start}}</span> . Hasta: <span style="font-weight: normal">{{$date_end}}</span>
 </h3>

@@ -40,6 +40,8 @@
 								<th>ID</th>
 								<th>Tipo Habitacion</th>
 								<th>Día</th>
+                                <th>Hora Inicio</th>
+                                <th>Hora Fin</th>
 								<th>Tarifa</th>
 								<th>Accion</th>
 							</tr>
@@ -49,6 +51,8 @@
 								<th>ID</th>
 								<th>Tipo Habitacion</th>
 								<th>Día</th>
+                                <th>Hora Inicio</th>
+                                <th>Hora Fin</th>
 								<th>Tarifa</th>
 								<th>Accion</th>
 							</tr>
@@ -61,6 +65,12 @@
 								</td>
 								<td>
 									{{ keep.relationships.dayWeek.attributes.name }}
+								</td>
+                                <td>
+									{{ keep.attributes.hour_start }}
+								</td>
+                                <td>
+									{{ keep.attributes.hour_end}}
 								</td>
 								<td>
 									{{ keep.attributes.rate }}

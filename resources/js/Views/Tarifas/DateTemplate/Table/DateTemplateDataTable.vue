@@ -40,8 +40,10 @@
                                 <th>ID</th>
                                 <th>Tipo Habitacion</th>
                                 <th>Fecha</th>
-                                <th>Tarifa</th>
                                 <th>Parcial</th>
+                                <th>Hora Inicio</th>
+                                <th>Hora Finl</th>
+                                <th>Tarifa</th>
                                 <th>Accion</th>
                             </tr>
                         </thead>
@@ -50,8 +52,10 @@
                                 <th>ID</th>
                                 <th>Tipo Habitacion</th>
                                 <th>Fecha</th>
-                                <th>Tarifa</th>
                                 <th>Parcial</th>
+                                <th>Hora Inicio</th>
+                                <th>Hora Finl</th>
+                                <th>Tarifa</th>
                                 <th>Accion</th>
                             </tr>
                         </tfoot>
@@ -65,8 +69,10 @@
                                     }}
                                 </td>
                                 <td>{{ keep.attributes.date }}</td>
-                                <td>{{ keep.attributes.rate }}</td>
                                 <td>{{ keep.relationships.partialRate.attributes.name }}</td>
+                                <td>{{ keep.attributes.hour_start }}</td>
+                                <td>{{ keep.attributes.hour_end}}</td>
+                                <td>{{ keep.attributes.rate }}</td>
                                 <td>
                                     <i
                                         v-on:click.prevent="
