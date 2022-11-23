@@ -143,6 +143,10 @@ class CreateController extends Controller
             $invoice->details->map(function ($detail) {
                 $detail->delete();
             });
+
+            $reception->companions->map(function($companion){
+                $companion->delete();
+            });
             $invoice->delete();
             $room = $reception->room;
             $room->update(['room_status_id' => 2]);
