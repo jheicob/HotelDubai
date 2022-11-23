@@ -14,10 +14,12 @@
 	import { onMounted } from "vue";
 	import { receptionStore } from "./Reception/ReceptionStore.js";
 	import CreateReception from "./Reception/CreateReception.vue";
-
+    import { storeToRefs } from "pinia";
+    import { RoomStore } from "./RoomStore";
 	const useHelper = HelperStore();
 	const reception = receptionStore();
 
+    const {login_option,estate_type_id} = storeToRefs(RoomStore())
 	onMounted(() => {
 
 	});
@@ -66,7 +68,11 @@
 			type: Boolean,
 			default: false,
 		},
+        estate_type_id: {
+            type: String,
+            default: "",
+        }
 	});
-
+    login_option.value = estate_type_id.value = props.estate_type_id
 	useHelper.permiss = props;
 </script>

@@ -18,11 +18,11 @@
             <label for="inputPassword">Contraseña</label>
         </div>
     </div>
-    <!-- <div class="form-group">
+    <div class="form-group">
             <select
                 id="typeEstate"
                 class="form-control"
-                required
+                name="estate_type_id"
                 v-model="login_option"
                 >
                 <option v-for="(type,i) in typeEstates" :key="i" :value="type.id">
@@ -30,7 +30,7 @@
                 </option>
             </select>
             <label for="typeEstate">Tipo de Inmueble</label>
-    </div> -->
+    </div>
     <div class="form-group">
         <div class="checkbox">
             <label style="color:dark">
