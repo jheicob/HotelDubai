@@ -308,11 +308,11 @@ class CreateController extends Controller
             $room_origin = Room::find($request->room_origin);
 
             $reception_origin = $room_origin->receptionActive->first();
-            if($reception_origin->details->count() > 1){
-                throw new \Exception('Esta habitación ya tiene varias recepciones, debe cancelar o facturar y abrir una nueva');
-            }
+            // if($reception_origin->details->count() > 1){
+            //     throw new \Exception('Esta habitación ya tiene varias recepciones, debe cancelar o facturar y abrir una nueva');
+            // }
 
-            $request['quantity_partial'] = $reception_origin->details[0]->quantity_partial;
+            $request['quantity_partial'] = $reception_origin->details[$reception_origin->details->count()-1]->quantity_partial;
             $request['date_in'] = $reception_origin->date_in;
             $room_destiny = Room::find($request->room_destiny);
             $partial_rate = $room_destiny->partialCost->partialRate;
@@ -339,6 +339,7 @@ class CreateController extends Controller
                 'partial_min' => $partial_rate_new,
                 'rate' => $rate
             ]);
+
             $reception_detail->ticket()->create([
                 'observation' => $request->observation
             ]);

@@ -178,7 +178,13 @@ class Room extends Model implements Auditable
         })
             ->when($request->estate_type_id, function (Builder $query, $estateType) {
                 return $query->where('estate_type_id', $estateType);
-            });
+            })
+            ->when($request->room_type_id,function (Builder $builder, $roomType){
+                $builder->whereHas('partialCost',function(Builder $q) use ($roomType){
+                    $q->where('room_type_id',$roomType);
+                });
+            })
+            ;
     }
 
     public function repairs()

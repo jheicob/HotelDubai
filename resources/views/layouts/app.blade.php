@@ -221,20 +221,10 @@
                         </li>
                     @endcan
 
-                    @can('client.report')
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-clipboard-list"></i>
-                                <span>Reportes</span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                                @can('client.report')
-                                    <a target="_blank" id="client_report" class="dropdown-item text-dark"
-                                        href="{{ route('client.report') }}">Clientes</a>
-                                @endcan
-                            </div>
-                        </li>
+                    @can('reports')
+                        <reports
+                            :client_report=" '{{Auth::user()->can('client.report')}}' == 1"
+                        />
                     @endcan
 
                     @can('invoice.create')

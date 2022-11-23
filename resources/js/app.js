@@ -36,7 +36,7 @@ import Notification from "./Views/Notificaction/Notification.vue";
 import CreateInvoice from "./Views/Invoice/Modals/CreateInvoice.vue";
 import ExtraGuest from "./Views/ExtraGuest/ExtraGuest.vue";
 import Login from "./Views/Auth/Login.vue"
-
+import Report from "./Views/Reports/Report.vue"
 const app = createApp({});
 app.use(createPinia());
 
@@ -81,6 +81,7 @@ app.component("room-notification", Notification);
 app.component("create-invoice", CreateInvoice);
 app.component("extra-guest", ExtraGuest);
 app.component("login", Login);
+app.component("reports", Report);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

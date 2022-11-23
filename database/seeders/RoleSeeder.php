@@ -223,6 +223,7 @@ class RoleSeeder extends Seeder
                 'room.report',
                 'roomType.report',
                 'reception.report',
+                'reports',
             ]
         );
 
@@ -299,7 +300,6 @@ class RoleSeeder extends Seeder
             'client.getPaginate',
             'client.get',
             'client.assigned_room',
-
         ]);
 
         $camarero_role->givePermissionTo([
@@ -355,6 +355,7 @@ class RoleSeeder extends Seeder
             'room.status.getPaginate',
 
             'room.extend',
+            'reports',
 
             'invoice.index',
             'invoice.create',

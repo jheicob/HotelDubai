@@ -117,16 +117,17 @@
 			});
 	};
 	const showModal = () => {
+		getRooms();
 		$("#transferir").modal("show");
 	};
 
 	const getRooms = () => {
-		axios.get("/room/get?room_status_id=2").then((res) => {
+        let room_type_id = helper.item.relationships.partialCost.relationships.roomType.id
+		axios.get("/room/get?room_status_id=2&room_type_id="+room_type_id).then((res) => {
 			rooms.value = res.data.data;
 		});
 	};
 	onMounted(() => {
-		getRooms();
 	});
 </script>
 
