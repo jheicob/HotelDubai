@@ -161,7 +161,7 @@
 
     const setColorFilterPast = computed(()=>{
         if(config.config.color_past_time){
-            let past_color = JSON.parse(config.config.color_past_time)
+            let past_color = config.config.color_past_time
             return past_color?.css.replace('background-','')
         }
         return ''
@@ -170,7 +170,7 @@
 
     const setColorFilterWarning = computed(() => {
         if(config.config.color_warning_time){
-            let warning_color = JSON.parse(config.config.color_warning_time)
+            let warning_color = config.config.color_warning_time
             return warning_color?.css.replace('background-','')
         }
         return ''

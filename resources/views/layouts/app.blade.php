@@ -237,7 +237,7 @@
                 </ul>
                 <div class="col"></div>
                 <ul class="navbar-nav ml-auto ml-md-0">
-                    <room-notification :pusher_key="'{{ env('PUSHER_APP_KEY') }}'" />
+                    <room-notification :pusher_key="'{{ env('PUSHER_APP_KEY') }}'"></room-notification>
                     <li class="nav-item dropdown no-arrow">
                         <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
