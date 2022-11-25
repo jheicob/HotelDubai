@@ -39,7 +39,5 @@ class Configuration extends Model implements Auditable
         'cancel_time' => 'string',
         'color_warning_time' => 'json',
         'color_past_time' => 'json'
-
-
     ];
 }

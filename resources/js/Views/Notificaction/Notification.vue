@@ -33,9 +33,14 @@
 import { NotificationStore } from "./NotificationStore";
 import { onMounted } from "vue";
 import { storeToRefs } from "pinia";
+import { HelperStore } from "../../HelperStore";
+import { RoomStore } from "../Room/RoomStore";
+
+const room = RoomStore()
+const helper = HelperStore();
 const store = NotificationStore();
 
-const { notification } = storeToRefs(store);
+const { notification,update_rooms } = storeToRefs(store);
 
 onMounted(() => {
     store.getNotifications();
@@ -47,9 +52,18 @@ onMounted(() => {
     });
 
     var channel = pusher.subscribe("notification");
+
     channel.bind("notification", function (data) {
         console.log("new_event", data);
         notification.value.push(data);
+        if(helper.permiss.in_view_rooms){
+            console.log('evento');
+            new Promise((res,rej) =>{
+                room.getRooms()
+            })
+            update_rooms.value = true
+
+        }
     });
 
     var channel = Echo.channel("notification").listen(

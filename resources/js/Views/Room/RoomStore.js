@@ -6,8 +6,10 @@ import { HelperStore } from "../../HelperStore";
 import { ocuppyRoomStore } from "./Modals/OcuppyRoomStore";
 import { receptionStore } from "./Reception/ReceptionStore";
 import dayjs from "dayjs";
-
+import { NotificationStore } from "../Notificaction/NotificationStore";
 export const RoomStore = defineStore("roomStore", () => {
+    const notification = NotificationStore()
+    const {update_rooms} =storeToRefs(notification)
     const OcuppyRoom = ocuppyRoomStore();
     const reception = receptionStore();
     const useHelper = HelperStore();
@@ -24,9 +26,11 @@ export const RoomStore = defineStore("roomStore", () => {
     const btn_room_status_id = ref("");
     const { all, item } = storeToRefs(useHelper);
     const { customRequest } = useHelper;
-    const getRooms = () => {
+
+    function getRooms(){
         let op = login_option.value?? ''
-        useHelper.getAll(`estate_type_id=${op}`);
+        useHelper.getAll(`estate_type_id=${op}`)
+
     };
 
     const formatForm = () => {

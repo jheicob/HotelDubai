@@ -61,15 +61,21 @@
 							>
 						</ButtonComponent>
 						<ButtonComponent
-							:btnClass="['btn-light']"
+							:btnClass="['btn-light','fw-bold']"
 							@click="filterRoomsByStatus('culminar')"
-							text="Por Culminar"
-						/>
+
+						>
+                        <span
+                        :style="[setColorFilterPast]"
+                        >Por Culminar</span>
+                    </ButtonComponent>
                         <ButtonComponent
-							:btnClass="['btn-light']"
+							:btnClass="['btn-light','fw-bold']"
 							@click="filterRoomsByStatus('terminado')"
-							text="Culminado"
-						/>
+                            :style="setColorFilterWarning"
+						>
+                        Culminado
+                    </ButtonComponent>
 					</div>
 					<div class="col-2">
 						<a
@@ -130,7 +136,7 @@
 	import RoomsGrid from "./RoomsGrid.vue";
 	import { RoomStore } from "../RoomStore";
 	import { storeToRefs } from "pinia";
-	import { onMounted, ref } from "vue";
+	import { onMounted, ref, computed } from "vue";
 	import { ConfigurationStore } from "../../Configuration/ConfigurationStore";
 	const config = ConfigurationStore();
 
@@ -152,6 +158,23 @@
 		config.getConfiguration()
 		useStore.getRoomStatus();
 	});
+
+    const setColorFilterPast = computed(()=>{
+        if(config.config.color_past_time){
+            let past_color = JSON.parse(config.config.color_past_time)
+            return past_color?.css.replace('background-','')
+        }
+        return ''
+        return config.config.color_past_time?.css ?? ''
+    })
+
+    const setColorFilterWarning = computed(() => {
+        if(config.config.color_warning_time){
+            let warning_color = JSON.parse(config.config.color_warning_time)
+            return warning_color?.css.replace('background-','')
+        }
+        return ''
+    })
 </script>
 <style>
 	.global-scroll {

@@ -4,7 +4,8 @@ import axios from "axios";
 
 export const NotificationStore = defineStore('NotificationsStore', () => {
     const notification = ref([])
-
+    const update_rooms = ref(false);
+    const cont_rooms = ref(0)
 
     const getNotifications = () => {
         axios.get('/notifications')
@@ -20,10 +21,9 @@ export const NotificationStore = defineStore('NotificationsStore', () => {
     }
     return {
         notification,
-        event,
         getNotifications,
-        removeNotification
-
-
+        removeNotification,
+        update_rooms,
+        cont_rooms,
     }
 })

@@ -71,7 +71,11 @@
         estate_type_id: {
             type: String,
             default: "",
-        }
+        },
+        in_view_rooms: {
+            type: Boolean,
+            default: false,
+            }
 	});
     login_option.value = estate_type_id.value = props.estate_type_id
 	useHelper.permiss = props;

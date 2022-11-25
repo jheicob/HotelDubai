@@ -161,7 +161,7 @@
 </template>
 
 <script setup>
-	import { ref, computed, toRefs, onMounted } from "vue";
+	import { ref, computed, toRefs, onMounted, watch, onUpdated } from "vue";
 	import CardComponent from "@/components/CardComponent.vue";
 	import { HelperStore } from "@/HelperStore";
 	import { RoomStore } from "../RoomStore";
@@ -171,20 +171,47 @@
 	import { storeToRefs } from "pinia";
 	import dayjs from "dayjs";
 	import { ConfigurationStore } from "../../Configuration/ConfigurationStore";
+    import { NotificationStore } from "../../Notificaction/NotificationStore";
+
+    const notification = NotificationStore();
+
+    const {update_rooms,cont_rooms} = storeToRefs(notification)
+
+    onUpdated(() => {
+        if(update_rooms.value){
+            console.log('recibido',helper.all.length);
+            let date =
+			    item.value.relationships.receptionActive?.attributes.date_out ?? dayjs();
+            let ocuped = item.value.relationships.receptionActive != null;
+
+            setupCountdownTimer(date, ocuped);
+            cont_rooms.value ++;
+
+            if(cont_rooms.value >= helper.all.length){
+                update_rooms.value = false;
+                cont_rooms.value = 0
+            }
+        }
+    })
+
 	const config = ConfigurationStore();
 	const helper = HelperStore();
 	const room = RoomStore();
 	const reception = receptionStore();
 	const countdown = ref(0);
+
 	// const {countdown, date_out} = storeToRefs(reception);
 	var isSameOrAfter = require("dayjs/plugin/isSameOrAfter");
 	dayjs.extend(isSameOrAfter);
+
 	onMounted(() => {
 		let date =
 			item.value.relationships.receptionActive?.attributes.date_out ?? dayjs();
 		let ocuped = item.value.relationships.receptionActive != null;
 		setupCountdownTimer(date, ocuped);
 	});
+
+
 
 	const updateItem = () => {
 		if (helper.permiss.updated) {
