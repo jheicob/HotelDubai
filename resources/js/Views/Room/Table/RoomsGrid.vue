@@ -187,7 +187,7 @@
             setupCountdownTimer(date, ocuped);
             cont_rooms.value ++;
 
-            if(cont_rooms.value >= helper.all.length){
+            if(cont_rooms.value >= helper.all.length*3){
                 update_rooms.value = false;
                 cont_rooms.value = 0
             }

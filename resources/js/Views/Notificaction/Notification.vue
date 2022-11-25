@@ -42,20 +42,29 @@ const store = NotificationStore();
 
 const { notification,update_rooms } = storeToRefs(store);
 
+const props = defineProps({
+        pusher_key: {
+            type:String,
+            default:''
+        }
+    })
+
 onMounted(() => {
     store.getNotifications();
 
     // Pusher.logToConsole = true;
 
-    var pusher = new Pusher("4d221fa1e35970a97f38", {
+    var pusher = new Pusher(props.pusher_key, {
         cluster: "sa1",
     });
+
 
     var channel = pusher.subscribe("notification");
 
     channel.bind("notification", function (data) {
-        console.log("new_event", data);
+
         notification.value.push(data);
+
         if(helper.permiss.in_view_rooms){
             console.log('evento');
             new Promise((res,rej) =>{
@@ -70,5 +79,7 @@ onMounted(() => {
         "notification",
         (data) => {}
     );
+
+
 });
 </script>
