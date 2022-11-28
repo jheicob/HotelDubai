@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Room;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Room\RepairRequest;
+use App\Http\Requests\Room\UpdateMasiveRequest;
 use App\Http\Requests\Room\UpdateRequest;
 use App\Models\Repair;
 use Illuminate\Support\Facades\DB;
 use App\Models\Room;
 use Carbon\Carbon;
 use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Auth;
 
 class UpdateController extends Controller
@@ -79,4 +81,29 @@ class UpdateController extends Controller
             return custom_response_exception($e, __('errors.server.title'), 500);
         }
     }
+
+    public function updateMasive(UpdateMasiveRequest $request){
+        try{
+            DB::beginTransaction();
+
+            $rooms = Room::when($request->room_id,function(Builder $q,$rooms_id){
+                $q->whereIn('id',$rooms_id);
+            })
+            ->whereHas('partialCost',function(Builder $q) use ($request){
+                $q->where('room_type_id',$request->room_type_id);
+            })
+            ->get();
+
+            $rooms->map(function($room) use ($request){
+                $room->update($request->only('partial_cost_id'));
+            });
+
+            DB::commit();
+            return;
+        }catch(\Exception $e){
+            DB::rollBack();
+            return custom_response_exception($e, __('errors.server.title'), 500);
+        }
+    }
+
 }

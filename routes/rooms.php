@@ -50,6 +50,9 @@ Route::group(
             ->name('room.repair')
             ->middleware('permission:room.free');
 
+            Route::put('update-masive', [App\Http\Controllers\Room\UpdateController::class, 'updateMasive'])
+            ->name('room.updateMasive');
+
         Route::put('{room}', [App\Http\Controllers\Room\UpdateController::class, 'updated'])
             ->name('room.updated');
     }

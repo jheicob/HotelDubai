@@ -12,10 +12,10 @@
 		<div class="card mb-3">
 			<div class="card-header p-0">
 				<div class="row justify-content-between">
-					<div class="col-2 my-auto">
+					<div class="col-1 my-auto p-0 ml-4">
 						<i class="fas fa-table"></i>
 						<select
-							class="mx-3"
+							class="ml-3"
 							@change="getAllWithFilter"
 							v-model="estate_type_id"
 						>
@@ -77,7 +77,8 @@
                         Culminado
                     </ButtonComponent>
 					</div>
-					<div class="col-2">
+                    <ActualizarMasivo />
+					<div class="col-2 my-auto">
 						<a
 							data-toggle="modal"
 							v-on:click.prevent="ShowCreateModal()"
@@ -138,6 +139,8 @@
 	import { storeToRefs } from "pinia";
 	import { onMounted, ref, computed } from "vue";
 	import { ConfigurationStore } from "../../Configuration/ConfigurationStore";
+    import ActualizarMasivo from "../Modals/ActualizarMasivo.vue";
+
 	const config = ConfigurationStore();
 
 	const useHelper = HelperStore();
