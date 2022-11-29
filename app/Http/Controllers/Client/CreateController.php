@@ -290,7 +290,7 @@ class CreateController extends Controller
 
         $cont = 1;
         foreach ($invoice->details as $detail) {
-            if ($detail->price !== 0) {
+            if ($detail->price != 0) {
                 $notFiscal->addLineNoFiscal('(' . $cont . ')' . $detail->description);
                 $notFiscal->addLineNoFiscal($detail->quantity . ' und *' . $detail->price . '.........' . $detail->quantity * $detail->price);
                 $cont++;
