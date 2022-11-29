@@ -100,8 +100,8 @@ class CreateController extends Controller
                 'date_out',
                 'observation'
             ]));
-            if(count($request->companions) > 0) {
-                self::storeCompanions($reception,$request->companions);
+            if (count($request->companions) > 0) {
+                self::storeCompanions($reception, $request->companions);
             }
             Log::info('z2');
 
@@ -145,7 +145,7 @@ class CreateController extends Controller
                 $detail->delete();
             });
 
-            $reception->companions->map(function($companion){
+            $reception->companions->map(function ($companion) {
                 $companion->delete();
             });
             $invoice->delete();
@@ -185,7 +185,7 @@ class CreateController extends Controller
             'observation' => $request->ticket_op
         ]);
 
-        self::storeCompanions($reception,$request->companions);
+        self::storeCompanions($reception, $request->companions);
         DB::commit();
         return custom_response_sucessfull('update_successfull');
     }
@@ -264,41 +264,43 @@ class CreateController extends Controller
         $type_payment3 = '';
 
         foreach ($invoice->payments as $payment) {
-            if($type_payment == '' && $type_payment2 == '') {
+            if ($type_payment == '' && $type_payment2 == '') {
                 $type_payment = $payment->type;
                 $type_payment2 = $payment->type;
                 $type_payment3 = $type_payment;
             }
             $type_payment = $payment->type;
-            if ($type_payment != $type_payment2){
+            if ($type_payment != $type_payment2) {
                 $type_payment3 = 'mixto';
                 break;
             }
-            if ($type_payment == $type_payment2){
+            if ($type_payment == $type_payment2) {
                 $type_payment2 = $payment->type;
             }
         }
         $notFiscal = new \App\Services\FiscalInvoice\NotFiscalDocumentService();
 
-        $notFiscal->addLineNoFiscal($reception->room->name,'negrita_centrado');
-        $notFiscal->addLineNoFiscal($reception->room->partialCost->roomType->name,'negrita_centrado');
-        $notFiscal->addLineNoFiscal('Cajero:'. Auth::user()->name);
-        $notFiscal->addLineNoFiscal('Fecha y Hora de Entrada:'.\Carbon\Carbon::parse($reception->date_in)->format('d-m-Y H:i'));
-        $notFiscal->addLineNoFiscal('Fecha y Hora de Salida:'.\Carbon\Carbon::parse($reception->date_in)->format('d-m-Y H:i'));
-        $notFiscal->addLineNoFiscal('---------','centrado');
-        $notFiscal->addLineNoFiscal('Productos','negrita_centrado');
+        $notFiscal->addLineNoFiscal($reception->room->name, 'negrita_centrado');
+        $notFiscal->addLineNoFiscal($reception->room->partialCost->roomType->name, 'negrita_centrado');
+        $notFiscal->addLineNoFiscal('Cajero:' . Auth::user()->name);
+        $notFiscal->addLineNoFiscal('Fecha y Hora de Entrada:' . \Carbon\Carbon::parse($reception->date_in)->format('d-m-Y H:i'));
+        $notFiscal->addLineNoFiscal('Fecha y Hora de Salida:' . \Carbon\Carbon::parse($reception->date_in)->format('d-m-Y H:i'));
+        $notFiscal->addLineNoFiscal('---------', 'centrado');
+        $notFiscal->addLineNoFiscal('Productos', 'negrita_centrado');
 
         $cont = 1;
-        foreach($invoice->details as $detail){
-            $notFiscal->addLineNoFiscal('('.$cont.')'.$detail->description);
-            $notFiscal->addLineNoFiscal($detail->quantity.' und *'. $detail->price.'.........'.$detail->quantity * $detail->price);
-            $cont++;
+        foreach ($invoice->details as $detail) {
+            if ($detail->price !== 0) {
+                $notFiscal->addLineNoFiscal('(' . $cont . ')' . $detail->description);
+                $notFiscal->addLineNoFiscal($detail->quantity . ' und *' . $detail->price . '.........' . $detail->quantity * $detail->price);
+                $cont++;
+            }
         }
-        $notFiscal->addLineNoFiscal('---------','centrado');
-        $notFiscal->addLineNoFiscal('Pagos','negrita_centrado');
+        $notFiscal->addLineNoFiscal('---------', 'centrado');
+        $notFiscal->addLineNoFiscal('Pagos', 'negrita_centrado');
 
-        foreach($invoice->payments as $payment) {
-            $notFiscal->addLineNoFiscal($payment->type . ' - '.$payment->method.'.........'.$payment->quantity);
+        foreach ($invoice->payments as $payment) {
+            $notFiscal->addLineNoFiscal($payment->type . ' - ' . $payment->method . '.........' . $payment->quantity);
         }
         return $notFiscal->download();
 
@@ -340,7 +342,7 @@ class CreateController extends Controller
             //     throw new \Exception('Esta habitación ya tiene varias recepciones, debe cancelar o facturar y abrir una nueva');
             // }
 
-            $request['quantity_partial'] = $reception_origin->details[$reception_origin->details->count()-1]->quantity_partial;
+            $request['quantity_partial'] = $reception_origin->details[$reception_origin->details->count() - 1]->quantity_partial;
             $request['date_in'] = $reception_origin->date_in;
             $room_destiny = Room::find($request->room_destiny);
             $partial_rate = $room_destiny->partialCost->partialRate;
@@ -388,17 +390,17 @@ class CreateController extends Controller
         }
     }
 
-    private function storeCompanions(Reception $reception, array $companions){
+    private function storeCompanions(Reception $reception, array $companions)
+    {
 
-        foreach($companions as $companion){
+        foreach ($companions as $companion) {
 
-            if(!$companion['id']){
+            if (!$companion['id']) {
                 $reception->companions()->create([
-                    'client_id' =>$companion['client_id'],
-                    'extra_guest_id' =>$companion['extra_guest_id'],
+                    'client_id' => $companion['client_id'],
+                    'extra_guest_id' => $companion['extra_guest_id'],
                 ]);
             }
-
         }
     }
 }
