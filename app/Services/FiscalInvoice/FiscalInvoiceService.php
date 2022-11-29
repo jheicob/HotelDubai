@@ -206,6 +206,7 @@ class FiscalInvoiceService
         self::addLine($string);
     }
 
+
     /**
      * Add line to head in fiscal invoice
      *
@@ -270,6 +271,7 @@ class FiscalInvoiceService
     {
         $this->invoice_id = $invoice_id;
     }
+
     /**
      * download file
      *

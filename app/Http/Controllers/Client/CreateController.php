@@ -21,6 +21,7 @@ use App\Http\Requests\Client\TransferRoomRequest;
 use App\Models\Invoice;
 use App\Models\Repair;
 use App\Models\TransferRoom;
+use App\Services\FiscalInvoice\NotFiscalDocument;
 use App\Traits\Configurations\GeneralConfiguration;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -277,11 +278,34 @@ class CreateController extends Controller
                 $type_payment2 = $payment->type;
             }
         }
+        $notFiscal = new \App\Services\FiscalInvoice\NotFiscalDocumentService();
+
+        $notFiscal->addLineNoFiscal($reception->room->name,'negrita_centrado');
+        $notFiscal->addLineNoFiscal($reception->room->partialCost->roomType->name,'negrita_centrado');
+        $notFiscal->addLineNoFiscal('Cajero:'. Auth::user()->name);
+        $notFiscal->addLineNoFiscal('Fecha y Hora de Entrada:'.\Carbon\Carbon::parse($reception->date_in)->format('d-m-Y H:i'));
+        $notFiscal->addLineNoFiscal('Fecha y Hora de Salida:'.\Carbon\Carbon::parse($reception->date_in)->format('d-m-Y H:i'));
+        $notFiscal->addLineNoFiscal('---------','centrado');
+        $notFiscal->addLineNoFiscal('Productos','negrita_centrado');
+
+        $cont = 1;
+        foreach($invoice->details as $detail){
+            $notFiscal->addLineNoFiscal('('.$cont.')'.$detail->description);
+            $notFiscal->addLineNoFiscal($detail->quantity.' und *'. $detail->price.'.........'.$detail->quantity * $detail->price);
+            $cont++;
+        }
+        $notFiscal->addLineNoFiscal('---------','centrado');
+        $notFiscal->addLineNoFiscal('Pagos','negrita_centrado');
+
+        foreach($invoice->payments as $payment) {
+            $notFiscal->addLineNoFiscal($payment->type . ' - '.$payment->method.'.........'.$payment->quantity);
+        }
+        return $notFiscal->download();
+
         $html = view('Ticket.Create', [
             'invoice'   => $invoice,
             'reception' => $reception,
             'type_payment' => $type_payment3,
-            'ticket'    => $reception_detail->ticket,
             'total'     => $reception_detail->quantity_partial * $reception_detail->rate
         ]);
         // return $html;

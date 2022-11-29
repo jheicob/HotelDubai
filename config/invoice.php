@@ -31,13 +31,17 @@ return [
 
     // comandos necesarios para el funcionamiento correcto de la factura fiscal
     'commands' => [
-        'report_x' => '49|0|X Reporte X',
-        'report_z' => '49|0|Z Reporte Z',
+        'report_x' => '49|0|X',
+        'report_z' => '49|0|Z',
         // datos del cliente o adicionales que se muestran antes del producto
         'head' => 69,
 
         // comentario de la factura
         'comment' => 40,
+        'doc_no_fiscal' => [
+            'insertar' => '38|0',
+            'cerrar' => '38|1',
+        ],
 
         'products' => [
             'include' => '64|PV*',
