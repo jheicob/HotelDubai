@@ -284,7 +284,7 @@ class CreateController extends Controller
         $notFiscal->addLineNoFiscal($reception->room->partialCost->roomType->name, 'negrita_centrado');
         $notFiscal->addLineNoFiscal('Cajero:' . Auth::user()->name);
         $notFiscal->addLineNoFiscal('Fecha y Hora de Entrada:' . \Carbon\Carbon::parse($reception->date_in)->format('d-m-Y H:i'));
-        $notFiscal->addLineNoFiscal('Fecha y Hora de Salida:' . \Carbon\Carbon::parse($reception->date_in)->format('d-m-Y H:i'));
+        $notFiscal->addLineNoFiscal('Fecha y Hora de Salida:' . \Carbon\Carbon::parse($reception->date_out)->format('d-m-Y H:i'));
         $notFiscal->addLineNoFiscal('---------', 'centrado');
         $notFiscal->addLineNoFiscal('Productos', 'negrita_centrado');
 
