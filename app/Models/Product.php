@@ -20,6 +20,7 @@ class Product extends Model implements Auditable
         'purchase_price',
         'sale_price',
         'visible',
+        'slash_code'
     ];
 
     protected $fillable = [
@@ -28,6 +29,7 @@ class Product extends Model implements Auditable
         'purchase_price',
         'sale_price',
         'visible',
+        'slash_code'
 
     ];
 

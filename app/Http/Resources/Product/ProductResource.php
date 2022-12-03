@@ -22,6 +22,7 @@ class ProductResource extends JsonResource
                 'purchase_price' => $this->resource->purchase_price,
                 'sale_price' => $this->resource->sale_price,
                 'visible' => $this->resource->visible,
+                'slash_code' => $this->resource->slash_code,
             ],
             'relationships' => [
                 'inventory' => $this->whenLoaded('inventory', fn () => InventoryResource::make($this->resource->inventory))

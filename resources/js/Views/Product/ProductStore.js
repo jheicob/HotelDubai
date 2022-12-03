@@ -68,6 +68,7 @@ export const RoomTypeStore = defineStore("ProductStore", () => {
         useHelper.form = {
             name: '',
             description: '',
+            slash_code:'',
             purchase_price: 0,
             sale_price: 0,
             visible: true,
@@ -88,7 +89,8 @@ export const RoomTypeStore = defineStore("ProductStore", () => {
         useHelper.form.id = reg.id;
         useHelper.form.purchase_price= reg.attributes.purchase_price,
         useHelper.form.sale_price= reg.attributes.sale_price,
-            useHelper.form.visible= reg.attributes.visible == 1,
+        useHelper.form.visible= reg.attributes.visible == 1,
+        useHelper.form.slash_code= reg.attributes.slash_code,
         inventory.value.stock = reg.relationships.inventory.attributes.stock
         inventory.value.stock_min = reg.relationships.inventory.attributes.stock_min
     };

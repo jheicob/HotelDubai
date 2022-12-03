@@ -83,7 +83,7 @@
 										keep.relationships.inventory?.attributes.stock_min ?? ''
 									}}
 								</td>
-								<td></td>
+								<td>{{ keep.attributes.slash_code}}</td>
 								<td>
 									<i
 										v-on:click.prevent="
