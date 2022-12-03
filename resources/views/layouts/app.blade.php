@@ -136,43 +136,6 @@
                         </li>
                     @endcan
 
-                    @can('tarifas')
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-percent"></i>
-                                <span>Tarifas</span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-                                @can('partial.cost.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('partial.cost.index') }}">Costo Por
-                                        Parciales</a>
-                                @endcan
-                                @can('extra-guest.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('ExtraGuest.index') }}">
-                                        Extra Huesped
-                                    </a>
-                                @endcan
-                                @can('range.template.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('range.template.index') }}">Plantillas
-                                        por Rango</a>
-                                @endcan
-                                @can('date.templates.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('date.templates.index') }}">Plantillas
-                                        Fechas</a>
-                                @endcan
-                                @can('day.templates.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('day.templates.index') }}">Plantillas
-                                        Días</a>
-                                @endcan
-                                @can('hour.templates.index')
-                                    <a class="dropdown-item text-dark" href="{{ route('hour.templates.index') }}">Plantillas
-                                        Horas</a>
-                                @endcan
-
-                            </div>
-                        </li>
-                    @endcan
 
                     @can('configuracion')
                         <li class="nav-item dropdown">
@@ -216,7 +179,39 @@
                                     <a class="dropdown-item text-dark" href="{{ route('shift.system.index') }}">Turnos
                                         Sistema</a>
                                 @endcan
+                                <a class="nav-link dropdown-toggle text-dark" href="#" id="pagesDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{-- <i class="fas fa-percent"></i> --}}
+                                <span>Tarifas</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pagesDropdown">
+                                @can('partial.cost.index')
+                                    <a class="dropdown-item text-dark" href="{{ route('partial.cost.index') }}">Costo Por
+                                        Parciales</a>
+                                @endcan
+                                @can('extra-guest.index')
+                                    <a class="dropdown-item text-dark" href="{{ route('ExtraGuest.index') }}">
+                                        Extra Huesped
+                                    </a>
+                                @endcan
+                                @can('range.template.index')
+                                    <a class="dropdown-item text-dark" href="{{ route('range.template.index') }}">Plantillas
+                                        por Rango</a>
+                                @endcan
+                                @can('date.templates.index')
+                                    <a class="dropdown-item text-dark" href="{{ route('date.templates.index') }}">Plantillas
+                                        Fechas</a>
+                                @endcan
+                                @can('day.templates.index')
+                                    <a class="dropdown-item text-dark" href="{{ route('day.templates.index') }}">Plantillas
+                                        Días</a>
+                                @endcan
+                                @can('hour.templates.index')
+                                    <a class="dropdown-item text-dark" href="{{ route('hour.templates.index') }}">Plantillas
+                                        Horas</a>
+                                @endcan
 
+                            </div>
                             </div>
                         </li>
                     @endcan
@@ -227,11 +222,11 @@
                             :room_type_report=" '{{Auth::user()->can('roomType.report')}}' == 1"
                             :room_report=" '{{Auth::user()->can('room.report')}}' == 1"
                             :reception_report=" '{{Auth::user()->can('reception.report')}}' == 1"
-                        />
+                        ></reports>
                     @endcan
 
                     @can('invoice.create')
-                        <create-invoice />
+                        <create-invoice></create-invoice>
                     @endcan
 
                 </ul>
