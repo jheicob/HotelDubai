@@ -18,8 +18,11 @@ class IndexController extends Controller
 
     public function getPublic(){
         try {
-
-            $permissions = EstateType::withTrashed()->get();
+            if(isAdmin()){
+                $permissions = EstateType::withTrashed()->get();
+            }else{
+                $permissions = EstateType::all();
+            }
 
             return RoomTypeResource::collection($permissions);
         } catch (\Exception $ex) {

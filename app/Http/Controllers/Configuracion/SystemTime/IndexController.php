@@ -18,8 +18,11 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $permissions = SystemTime::withTrashed()->get();
-
+            if(isAdmin()){
+                $permissions = SystemTime::withTrashed()->get();
+            }else{
+                $permissions = SystemTime::all();
+            }
             return RoomTypeResource::collection($permissions);
         } catch (ValidationException $ex) {
             return response()->json(

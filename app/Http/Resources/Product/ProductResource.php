@@ -23,6 +23,7 @@ class ProductResource extends JsonResource
                 'sale_price' => $this->resource->sale_price,
                 'visible' => $this->resource->visible,
                 'slash_code' => $this->resource->slash_code,
+                'deleted_at' => $this->resource->deleted_at,
             ],
             'relationships' => [
                 'inventory' => $this->whenLoaded('inventory', fn () => InventoryResource::make($this->resource->inventory))

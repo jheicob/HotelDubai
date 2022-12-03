@@ -19,13 +19,14 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $rangetemplate = RangeTemplate::withTrashed()
-                ->with([
+            $rangetemplate = RangeTemplate::with([
                     'partialRate',
                     'roomType'
-                ])
-                ->get();
-
+                ]);
+                if(isAdmin()){
+                    $rangetemplate = $rangetemplate->withTrashed();
+                }
+                $rangetemplate = $rangetemplate->get();
             return RangeTemplateResource::collection($rangetemplate);
         } catch (\Exception $e) {
             return custom_response_exception($e, __('errors.server.title'), 500);

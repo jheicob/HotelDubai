@@ -15,12 +15,15 @@ class IndexController extends Controller
     {
         return view('permissions.index');
     }
-    
+
     public function get()
     {
         try {
-            $permissions = Permission::get();
-
+            if(isAdmin()){
+                $permissions = Permission::withTrashed()->get();
+            }else{
+                $permissions = Permission::all();
+            }
             return PermissionResource::collection($permissions);
         } catch (ValidationException $ex) {
             return response()->json([

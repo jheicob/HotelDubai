@@ -115,7 +115,7 @@
                                 <tr>
                                     <th>Producto</th>
                                     <th>Descripcion</th>
-                                    <th>Cantidad</th>
+                                    <th class="col-2">Cantidad</th>
                                     <th>Precio</th>
                                     <th>SubTotal</th>
                                     <th>Accion</th>

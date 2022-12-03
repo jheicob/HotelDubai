@@ -25,10 +25,11 @@ class IndexController extends Controller
                 'details',
                 'payments'
             ])
-                ->withTrashed()
-                ->orderBy('id', 'desc')
-                ->get();
-
+                ->orderBy('id', 'desc');
+            if(isAdmin()){
+                $invoice = $invoice->withTrashed();
+            }
+            $invoice = $invoice->get();
 
             return InvoiceResource::collection($invoice);
         } catch (\Exception $e) {

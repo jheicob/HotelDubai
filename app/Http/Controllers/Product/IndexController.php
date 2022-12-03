@@ -19,11 +19,13 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $product = Product::withTrashed()
-                ->with([
+            $product = Product::with([
                     'inventory',
-                ])
-                ->get();
+                ]);
+            if(isAdmin()){
+                $product = $product->withTrashed();
+            }
+            $product = $product->get();
 
             return ProductResource::collection($product);
         } catch (\Exception $e) {

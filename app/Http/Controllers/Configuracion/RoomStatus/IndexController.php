@@ -33,15 +33,18 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $permissions = RoomStatus::withTrashed()
-                ->when(self::isCamarero(), function (Builder $query) {
+            $permissions = RoomStatus::when(self::isCamarero(), function (Builder $query) {
                     return $query->where('name', '<>', 'Ocupada');
                 })
                 ->when(self::isMantenimiento(), function (Builder $query) {
                     return $query->where('name', 'Sucia')
                         ->orWhere('name', 'Fuera de Servicio');
-                })
-                ->get();
+                });
+
+            if(isAdmin()){
+                $permissions = $permissions->withTrashed();
+            }
+            $permissions = $permissions->get();
 
             return RoomStatusResource::collection($permissions);
         } catch (ValidationException $ex) {

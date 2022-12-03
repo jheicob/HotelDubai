@@ -19,8 +19,11 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $permissions = ThemeType::withTrashed()->get();
-
+            if(isAdmin()){
+                $permissions = ThemeType::withTrashed()->get();
+            }else{
+                $permissions = ThemeType::all();
+            }
             return RoomTypeResource::collection($permissions);
         } catch (ValidationException $ex) {
             return response()->json(

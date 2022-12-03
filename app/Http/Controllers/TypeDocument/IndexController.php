@@ -19,8 +19,11 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $typedocument = TypeDocument::withTrashed()->get();
-
+            if(isAdmin()){
+                $typedocument = TypeDocument::withTrashed()->get();
+            }else{
+                $typedocument = TypeDocument::all();
+            }
             return TypeDocumentResource::collection($typedocument);
         } catch (\Exception $e) {
             return custom_response_exception($e,__('errors.server.title'),500);

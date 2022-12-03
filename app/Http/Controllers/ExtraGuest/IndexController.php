@@ -19,8 +19,11 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $extraguest = ExtraGuest::withTrashed()->get();
-
+            if(isAdmin()){
+                $extraguest = ExtraGuest::withTrashed()->get();
+            }else{
+                $extraguest = ExtraGuest::all();
+            }
             return ExtraGuestResource::collection($extraguest);
         } catch (\Exception $e) {
             return custom_response_exception($e,__('errors.server.title'),500);

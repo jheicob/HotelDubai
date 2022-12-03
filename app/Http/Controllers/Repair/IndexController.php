@@ -19,8 +19,11 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $repair = Repair::withTrashed()->get();
-
+            if(isAdmin()){
+                $repair = Repair::withTrashed()->get();
+            }else{
+                $repair = Repair::all();
+            }
             return RepairResource::collection($repair);
         } catch (\Exception $e) {
             return custom_response_exception($e,__('errors.server.title'),500);

@@ -75,3 +75,14 @@ if (!function_exists('custom_response_error')) {
     }
 }
 
+if (!function_exists('isAdmin')) {
+
+    /**
+     * return if the user is admin
+     * @return bool
+     */
+    function isAdmin():bool
+    {
+        return auth()->user()->roles[0]->name == 'Admin';
+    }
+}

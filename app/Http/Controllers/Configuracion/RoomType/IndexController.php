@@ -18,8 +18,11 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $permissions = RoomType::withTrashed()->get();
-
+            if(isAdmin()){
+                $permissions = RoomType::withTrashed()->get();
+            }else{
+                $permissions = RoomType::all();
+            }
             return RoomTypeResource::collection($permissions);
         } catch (ValidationException $ex) {
             return response()->json(

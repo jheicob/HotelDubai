@@ -19,8 +19,11 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $permissions = PartialRates::withTrashed()->get();
-
+            if(isAdmin()){
+                $permissions = PartialRates::withTrashed()->get();
+            }else{
+                $permissions = PartialRates::all();
+            }
             return RoomTypeResource::collection($permissions);
         } catch (ValidationException $ex) {
             return response()->json(

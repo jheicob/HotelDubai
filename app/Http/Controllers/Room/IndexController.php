@@ -19,13 +19,15 @@ class IndexController extends Controller
     public function get(Request $request)
     {
         try {
-            $room = Room::withTrashed()
-                ->IsNotAdmin()
+            $room = Room::IsNotAdmin()
                 // ->IsCamarero()
                 // ->IsMantenimiento()
                 ->filter($request)
-                ->orderBy('name', 'asc')
-                ->get();
+                ->orderBy('name', 'asc');
+            if(isAdmin()){
+                $room = $room->withTrashed();
+            }
+            $room = $room->get();
 
             $room->transform(function ($value) {
                 $rate = (new RoomService($value));

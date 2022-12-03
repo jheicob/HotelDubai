@@ -21,9 +21,11 @@ class IndexController extends Controller
         try {
             $permissions = PartialCost::with(['roomType','partialRate'])
                             ->filter($request)
-                            ->withTrashed()
-                            ->get();
-
+                            ;
+            if(isAdmin()){
+                $permissions = $permissions->withTrashed();
+            }
+            $permissions = $permissions->get();
             return PartialCostResource::collection($permissions);
         } catch (ValidationException $ex) {
             return response()->json(

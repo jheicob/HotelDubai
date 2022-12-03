@@ -18,8 +18,11 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $permissions = ShiftSystem::withTrashed()->get();
-
+            if(isAdmin()){
+                $permissions = ShiftSystem::withTrashed()->get();
+            }else{
+                $permissions = ShiftSystem::all();
+            }
             return RoomTypeResource::collection($permissions);
         } catch (ValidationException $ex) {
             return response()->json(

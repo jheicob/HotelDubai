@@ -20,7 +20,11 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $users = User::with('roles.permissions')->withTrashed()->get();
+            $users = User::with('roles.permissions');
+            if(isAdmin()){
+                $users = $users->withTrashed();
+            }
+            $users = $users->get();
 
             return UserResource::collection($users);
         } catch (ValidationException $ex) {
