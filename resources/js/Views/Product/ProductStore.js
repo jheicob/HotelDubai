@@ -3,7 +3,7 @@ import { ref } from "vue";
 import axios from "axios";
 import { HelperStore } from "@/HelperStore";
 
-export const RoomTypeStore = defineStore("RoomTypeStore", () => {
+export const RoomTypeStore = defineStore("ProductStore", () => {
     //this var for helper
     const useHelper = HelperStore();
 
@@ -11,10 +11,13 @@ export const RoomTypeStore = defineStore("RoomTypeStore", () => {
 
     const getRoomTypes = () => {
         var urlKeeps = "/invoice/Product/get";
+        console.log('consultando productos')
         axios
             .get(urlKeeps)
             .then((response) => {
+
                 all.value = response.data.data;
+                console.log('estos son los porudctos',all.value)
                 $("#dataTable").DataTable().destroy();
                 this.$nextTick(function () {
                     $("#dataTable").DataTable({

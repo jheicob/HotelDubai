@@ -76,11 +76,11 @@
 									{{ keep.attributes.visible == true ? "Sí" : "No" }}
 								</td>
 								<td>
-									{{ keep.relationships.inventory.attributes.stock }}
+									{{ keep.relationships.inventory?.attributes.stock ?? ''}}
 								</td>
 								<td>
 									{{
-										keep.relationships.inventory.attributes.stock_min
+										keep.relationships.inventory?.attributes.stock_min ?? ''
 									}}
 								</td>
 								<td></td>

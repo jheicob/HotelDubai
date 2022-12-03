@@ -7,8 +7,9 @@ use App\Models\Invoice;
 
 class CreditNoteService extends FiscalInvoiceService
 {
-    protected $limitLineHead = 65;
+    protected $limitLineHead  = 65;
     protected $factura_fiscal = 'devolucion';
+
     /**
      * add as first line the data of company for credit note
      * @return void

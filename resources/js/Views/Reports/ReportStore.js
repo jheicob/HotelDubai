@@ -71,7 +71,7 @@ export const ReportStore = defineStore("ReportStore",() => {
 
     const getEstateTypes = () => {
         axios
-            .get('configuracion/estate-type/get')
+            .get('/configuracion/estate-type/get')
             .then(res => {
                 estateTypes.value = res.data.data
             })
