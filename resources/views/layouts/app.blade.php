@@ -149,6 +149,10 @@
                                     <a class="dropdown-item text-dark"
                                         href="{{ route('configuration.index') }}">Generales</a>
                                 @endcan
+                                @can('FiscalMachines.index')
+                                    <a class="dropdown-item text-dark"
+                                        href="{{ route('FiscalMachines.index') }}">Impresoras Fiscales</a>
+                                @endcan
                                 @can('room.type.index')
                                     <a class="dropdown-item text-dark" href="{{ route('room.type.index') }}">Tipo
                                         Habitacion</a>
@@ -182,7 +186,7 @@
                                 <a class="nav-link dropdown-toggle text-dark" href="#" id="pagesDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 {{-- <i class="fas fa-percent"></i> --}}
-                                <span>Tarifas</span>
+                                <span>Plantillas</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="pagesDropdown">
                                 @can('partial.cost.index')

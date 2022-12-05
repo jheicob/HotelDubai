@@ -288,6 +288,37 @@ Route::group(
         );
 
 
+/** routes para FiscalMachines **/
+
+Route::group(
+    [
+    'prefix'     => 'FiscalMachines',
+    'middleware'  => 'auth'
+    ], function () {
+
+        Route::get('', [App\Http\Controllers\FiscalMachines\IndexController::class, 'index'])
+            ->name('FiscalMachines.index')
+            ->middleware('permission:FiscalMachines.index');
+
+        Route::post('create', [App\Http\Controllers\FiscalMachines\CreateController::class, 'create'])
+            ->name('FiscalMachines.create')
+            ->middleware('permission:FiscalMachines.create');
+
+        Route::delete('delete/{id}', [App\Http\Controllers\FiscalMachines\DeleteController::class, 'destroy'])
+            ->name('FiscalMachines.delete')
+            ->middleware('permission:FiscalMachines.delete');
+
+        Route::put('{FiscalMachines}', [App\Http\Controllers\FiscalMachines\UpdateController::class, 'updated'])
+            ->name('FiscalMachines.updated')
+            ->middleware('permission:FiscalMachines.updated');
+
+        Route::get('get', [App\Http\Controllers\FiscalMachines\IndexController::class, 'get'])
+            ->name('FiscalMachines.get')
+            ->middleware('permission:FiscalMachines.getPaginate');
+    }
+);
+
+
         Route::get('', [App\Http\Controllers\Configuracion\ConfigurationController::class, 'view'])
             ->name('configuration.index')
             ->middleware('permission:configuration.index');

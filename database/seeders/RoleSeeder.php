@@ -224,6 +224,13 @@ class RoleSeeder extends Seeder
                 'roomType.report',
                 'reception.report',
                 'reports',
+
+                'FiscalMachines.index',
+                'FiscalMachines.create',
+                'FiscalMachines.delete',
+                'FiscalMachines.updated',
+                'FiscalMachines.getPaginate',
+                'FiscalMachines.get',
             ]
         );
 
@@ -435,6 +442,13 @@ class RoleSeeder extends Seeder
             'room.report',
             'roomType.report',
             'reception.report',
+
+            'FiscalMachines.index',
+            'FiscalMachines.create',
+            'FiscalMachines.delete',
+            'FiscalMachines.updated',
+            'FiscalMachines.getPaginate',
+            'FiscalMachines.get',
 
         ]);
 

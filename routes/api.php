@@ -18,8 +18,8 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
- 
-/** routes para ExtraGuest **/ 
+
+/** routes para ExtraGuest **/
 
             Route::group(
             [
@@ -48,4 +48,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
                     ->middleware('permission:ExtraGuest.getPaginate');
             }
         );
-        
