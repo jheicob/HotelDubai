@@ -26,6 +26,14 @@
                         <label for="name" class="form-label">Código de Barra</label>
                         <input type="name" id="name" class="form-control form-control-user mb-3" autofocus name="name"
                             v-model="useHelper.form.slash_code" />
+
+                        <label for="name" class="form-label">Categoria del producto</label>
+                        <select class="form-select" v-model="useHelper.form.product_category_id">
+                            <option v-for="item in categoryStore.all" :key="item.id" :value="item.id">
+                                {{item.attributes.name}}
+                            </option>
+                        </select>
+
                         <div class="row">
                             <div class="col">
                                 <label for="purchase_price" class="form-label">Precio Compra</label>
@@ -82,11 +90,15 @@
 import { onMounted } from "vue";
 import { RoomTypeStore } from "../ProductStore";
 import { HelperStore } from "@/HelperStore";
+import { RoomTypeStore as category } from "../../ProductCategory/ProductCategoryStore"
 
+const categoryStore = category()
 const useStore = RoomTypeStore();
 const useHelper = HelperStore();
 
 onMounted(() => {
     useStore.clearForm();
+    categoryStore.getRoomTypes()
+
 });
 </script>

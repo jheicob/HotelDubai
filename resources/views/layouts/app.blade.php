@@ -107,13 +107,24 @@
                         </li>
                     @endcan
                     @can('product.index')
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('Product.index') }}">
-                                <i class="fas fa-boxes"></i>
-                                <span>Productos</span>
-                            </a>
-                        </li>
-                    @endcan
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-boxes"></i>
+                            <span>Inventario</span>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+                            @can('configuration.index')
+                                <a class="dropdown-item text-dark"
+                                    href="{{ route('Product.index') }}">Productos</a>
+                            @endcan
+                            @can('configuration.index')
+                                <a class="dropdown-item text-dark"
+                                    href="{{ route('ProductCategory.index') }}">Categorias</a>
+                            @endcan
+                        </div>
+                    </li>
+                @endcan
 
                     @can('seguridad')
                         <li class="nav-item dropdown">

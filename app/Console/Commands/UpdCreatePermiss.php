@@ -42,35 +42,34 @@ class UpdCreatePermiss extends Command
     {
         $this->info('Creando/Actualizando permisos de maquina fiscal');
 
-        Permission::create(['name'=>'FiscalMachines.index']);
-        Permission::create(['name'=>'FiscalMachines.create']);
-        Permission::create(['name'=>'FiscalMachines.delete']);
-        Permission::create(['name'=>'FiscalMachines.updated']);
-        Permission::create(['name'=>'FiscalMachines.getPaginate']);
-        Permission::create(['name'=>'FiscalMachines.get']);
+        $permiss_news = [
+            'inventory',
+            'FiscalMachines.index',
+            'FiscalMachines.create',
+            'FiscalMachines.delete',
+            'FiscalMachines.updated',
+            'FiscalMachines.getPaginate',
+            'FiscalMachines.get',
 
+            'ProductCategory.index',
+            'ProductCategory.create',
+            'ProductCategory.delete',
+            'ProductCategory.updated',
+            'ProductCategory.getPaginate',
+            'ProductCategory.get',
+        ];
+        foreach($permiss_news as $new){
+            if(!Permission::firstWhere('name',$new)){
+                Permission::create(['name'=>$new]);
+            }
+        }
+        unset($permiss_news[0]);
         $this->info('Asignando permisos para el Testing y el Supervisor');
 
         $roles = Role::all();
 
-        $roles->map(function($role){
-            $role->givePermissionTo([
-                'FiscalMachines.index',
-                'FiscalMachines.create',
-                'FiscalMachines.delete',
-                'FiscalMachines.updated',
-                'FiscalMachines.getPaginate',
-                'FiscalMachines.get',
-            ]);
-
-            $role->givePermissionTo([
-                'FiscalMachines.index',
-                'FiscalMachines.create',
-                'FiscalMachines.delete',
-                'FiscalMachines.updated',
-                'FiscalMachines.getPaginate',
-                'FiscalMachines.get',
-            ]);
+        $roles->map(function($role) use ($permiss_news){
+            $role->givePermissionTo($permiss_news);
         });
 
         $this->info('permisos terminados');

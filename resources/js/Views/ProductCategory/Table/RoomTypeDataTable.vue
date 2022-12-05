@@ -5,14 +5,14 @@
 			<li class="breadcrumb-item">
 				<a href="#">Dashboard</a>
 			</li>
-			<li class="breadcrumb-item active">Productos</li>
+			<li class="breadcrumb-item active">Categorias de Producto</li>
 		</ol>
 
 		<!-- DataTables Example -->
 		<div class="card mb-3">
 			<div class="card-header">
 				<i class="fas fa-table"></i>
-				Data Productos
+				Data Categoria Productos
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
@@ -25,7 +25,7 @@
 						>
 							<i class="fas fa-check"></i>
 							<span class="text font-montserrat font-weight-bold"
-								>Crear Producto</span
+								>Crear Categoria</span
 							>
 						</a>
 					</div>
@@ -40,13 +40,6 @@
 								<th>ID</th>
 								<th>Nombre</th>
 								<th>Descripcion</th>
-								<th>Precio Compra</th>
-								<th>Precio Venta</th>
-								<th>Categoria</th>
-								<th>Disponibles</th>
-								<th>Stock mínimo</th>
-								<th>Código de Barra</th>
-
 								<th>Accion</th>
 							</tr>
 						</thead>
@@ -55,13 +48,6 @@
 								<th>ID</th>
 								<th>Nombre</th>
 								<th>Descripcion</th>
-								<th>Precio Compra</th>
-								<th>Precio Venta</th>
-								<th>Categoria</th>
-								<th>Disponibles</th>
-								<th>Stock mínimo</th>
-								<th>Código de Barra</th>
-
 								<th>Accion</th>
 							</tr>
 						</tfoot>
@@ -70,23 +56,6 @@
 								<td>{{ keep.id }}</td>
 								<td>{{ keep.attributes.name }}</td>
 								<td>{{ keep.attributes.description }}</td>
-								<td>{{ keep.attributes.purchase_price }}</td>
-								<td>{{ keep.attributes.sale_price }}</td>
-								<!-- <td>
-									{{ keep.attributes.visible == true ? "Sí" : "No" }}
-								</td> -->
-                                <td>
-									{{ keep.relationships.category?.attributes.name ?? ''}}
-								</td>
-								<td>
-									{{ keep.relationships.inventory?.attributes.stock ?? ''}}
-								</td>
-								<td>
-									{{
-										keep.relationships.inventory?.attributes.stock_min ?? ''
-									}}
-								</td>
-								<td>{{ keep.attributes.slash_code}}</td>
 								<td>
 									<i
 										v-on:click.prevent="
@@ -124,14 +93,14 @@
 <script setup>
 	// this composition component vue 3
 	import { onMounted } from "vue";
-	import CreatePermission from "../Modals/CreateProduct.vue";
-	import UpdatePermission from "../Modals/UpdateProduct.vue";
+	import CreatePermission from "../Modals/CreateRoomType.vue";
+	import UpdatePermission from "../Modals/UpdateRoomType.vue";
 
 	//import store of component
-	import { RoomTypeStore } from "../ProductStore";
+	import { RoomTypeStore } from "../ProductCategoryStore";
 
 	// import helperStore
-	import { HelperStore } from "@/HelperStore";
+	import { HelperStore } from "../../../HelperStore";
 
 	const useHelper = HelperStore();
 	const useStore = RoomTypeStore();

@@ -20,7 +20,8 @@ class Product extends Model implements Auditable
         'purchase_price',
         'sale_price',
         'visible',
-        'slash_code'
+        'slash_code',
+        'product_category_id'
     ];
 
     protected $fillable = [
@@ -29,7 +30,8 @@ class Product extends Model implements Auditable
         'purchase_price',
         'sale_price',
         'visible',
-        'slash_code'
+        'slash_code',
+        'product_category_id'
 
     ];
 
@@ -43,5 +45,9 @@ class Product extends Model implements Auditable
 
      public function invoiceDetail(){
         return $this->morphMany(InvoiceDetail::class,'productable');
+    }
+
+    public function category() {
+        return $this->belongsTo(ProductCategory::class,'product_category_id');
     }
 }

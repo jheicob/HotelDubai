@@ -320,6 +320,35 @@ Route::group(
 );
 
 
+/** routes para ProductCategory **/
+Route::group(
+    [
+    'prefix'     => 'ProductCategory',
+    'middleware'  => 'auth'
+    ], function () {
+
+        Route::get('', [App\Http\Controllers\ProductCategory\IndexController::class, 'index'])
+            ->name('ProductCategory.index')
+            ->middleware('permission:ProductCategory.index');
+
+        Route::post('create', [App\Http\Controllers\ProductCategory\CreateController::class, 'create'])
+            ->name('ProductCategory.create')
+            ->middleware('permission:ProductCategory.create');
+
+        Route::delete('delete/{ProductCategory}', [App\Http\Controllers\ProductCategory\DeleteController::class, 'destroy'])
+            ->name('ProductCategory.delete')
+            ->middleware('permission:ProductCategory.delete');
+
+        Route::put('{ProductCategory}', [App\Http\Controllers\ProductCategory\UpdateController::class, 'updated'])
+            ->name('ProductCategory.updated')
+            ->middleware('permission:ProductCategory.updated');
+
+        Route::get('get', [App\Http\Controllers\ProductCategory\IndexController::class, 'get'])
+            ->name('ProductCategory.get')
+            ->middleware('permission:ProductCategory.getPaginate');
+    }
+);
+
         Route::get('', [App\Http\Controllers\Configuracion\ConfigurationController::class, 'view'])
             ->name('configuration.index')
             ->middleware('permission:configuration.index');

@@ -12,14 +12,19 @@ class IndexController extends Controller
 {
     public function index()
     {
-        //return view('DateTemplate.index');
-        return ['view'];
+        return view('ProductCategory.index');
+        // return ['view'];
     }
 
     public function get()
     {
         try {
-            $productcategory = ProductCategory::withTrashed()->get();
+            if(isAdmin()){
+                $productcategory = ProductCategory::withTrashed()->get();
+            }else{
+                $productcategory = ProductCategory::all();
+
+            }
 
             return ProductCategoryResource::collection($productcategory);
         } catch (\Exception $e) {

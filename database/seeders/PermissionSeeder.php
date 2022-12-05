@@ -220,5 +220,19 @@ class PermissionSeeder extends Seeder
         Permission::create(['name' => 'room.report']);
         Permission::create(['name' => 'roomType.report']);
         Permission::create(['name' => 'reception.report']);
+
+        Permission::create(['name' => 'FiscalMachines.index']);
+        Permission::create(['name' => 'FiscalMachines.create']);
+        Permission::create(['name' => 'FiscalMachines.delete']);
+        Permission::create(['name' => 'FiscalMachines.updated']);
+        Permission::create(['name' => 'FiscalMachines.getPaginate']);
+        Permission::create(['name' => 'FiscalMachines.get']);
+
+        Permission::create(['name' => 'ProductCategory.index']);
+        Permission::create(['name' => 'ProductCategory.create']);
+        Permission::create(['name' => 'ProductCategory.delete']);
+        Permission::create(['name' => 'ProductCategory.updated']);
+        Permission::create(['name' => 'ProductCategory.getPaginate']);
+        Permission::create(['name' => 'ProductCategory.get']);
     }
 }

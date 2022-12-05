@@ -1,23 +1,20 @@
-import { defineStore, storeToRefs } from "pinia";
+import { defineStore } from "pinia";
 import { ref } from "vue";
 import axios from "axios";
 import { HelperStore } from "@/HelperStore";
 
-export const RoomTypeStore = defineStore("ProductStore", () => {
+export const RoomTypeStore = defineStore("ProductCategoryStore", () => {
     //this var for helper
     const useHelper = HelperStore();
 
     const all = ref([]);
 
     const getRoomTypes = () => {
-        var urlKeeps = "/invoice/Product/get";
-        console.log('consultando productos')
+        var urlKeeps = "/configuracion/ProductCategory/get";
         axios
             .get(urlKeeps)
             .then((response) => {
-
                 all.value = response.data.data;
-                console.log('estos son los porudctos',all.value)
                 $("#dataTable").DataTable().destroy();
                 this.$nextTick(function () {
                     $("#dataTable").DataTable({
@@ -29,7 +26,7 @@ export const RoomTypeStore = defineStore("ProductStore", () => {
     };
 
     const deleteRoomType = (keep) => {
-        var url = "/invoice/Product/delete/" + keep.id;
+        var url = "/configuracion/room-type/delete/" + keep.id;
         axios.delete(url).then((response) => {
             getRoomTypes();
         });
@@ -38,17 +35,12 @@ export const RoomTypeStore = defineStore("ProductStore", () => {
     const ShowCreateModal = () => {
         $("#exampleModal").modal("show");
     };
-    const {form} = storeToRefs(useHelper)
+
     const storeRoomType = () => {
         useHelper.desactiveButton = true;
-        const {stock, stock_min} = inventory.value
-        form.value.inventory ={
-            stock,
-            stock_min
-        }
-        var url = "/invoice/Product/create";
+        var url = "/configuracion/ProductCategory/create";
         axios
-            .post(url, form.value)
+            .post(url, useHelper.form)
             .then((response) => {
                 $("#exampleModal").modal("hide");
                 clearForm();
@@ -60,20 +52,12 @@ export const RoomTypeStore = defineStore("ProductStore", () => {
             .finally(() => (useHelper.desactiveButton = false));
     };
 
-    const inventory = ref({
-        stock: 0,
-        stock_min: 0
-    })
     const clearForm = () => {
         useHelper.form = {
-            name: '',
-            description: '',
-            slash_code:'',
-            purchase_price: 0,
-            sale_price: 0,
-            product_category_id: '',
-            visible: true,
+            name: null,
+            description: null,
         };
+
         if (useHelper.id) {
             useHelper.id = null;
         }
@@ -88,27 +72,14 @@ export const RoomTypeStore = defineStore("ProductStore", () => {
         useHelper.form.name = reg.attributes.name;
         useHelper.form.description = reg.attributes.description;
         useHelper.form.id = reg.id;
-        useHelper.form.purchase_price= reg.attributes.purchase_price,
-        useHelper.form.sale_price= reg.attributes.sale_price,
-        useHelper.form.visible= reg.attributes.visible == 1,
-        useHelper.form.product_category_id= reg.relationships.category.id,
-        useHelper.form.slash_code= reg.attributes.slash_code,
-        inventory.value.stock = reg.relationships.inventory.attributes.stock
-        inventory.value.stock_min = reg.relationships.inventory.attributes.stock_min
     };
 
     const putRoomType = () => {
         useHelper.desactiveButton = true;
 
-        var url = "/invoice/Product/" + useHelper.form.id;
-        const {stock, stock_min} = inventory.value
-        form.value.inventory ={
-            stock,
-            stock_min
-        }
-
+        var url = "/configuracion/ProductCategory/" + useHelper.form.id;
         axios
-            .put(url, form.value)
+            .put(url, useHelper.form)
             .then((response) => {
                 clearForm();
                 $("#exampleModal2").modal("hide");
@@ -127,7 +98,6 @@ export const RoomTypeStore = defineStore("ProductStore", () => {
         ShowUpdateModel,
         storeRoomType,
         clearForm,
-        putRoomType,
-        inventory
+        putRoomType
     };
 });

@@ -11,12 +11,12 @@ use App\Models\ProductCategory;
 class UpdateController extends Controller
 {
 
-    public function updated(UpdateRequest $request, ProductCategory $productcategory)
+    public function updated(UpdateRequest $request, ProductCategory $ProductCategory)
     {
         try {
             DB::beginTransaction();
 
-            $productcategory->update($request->all());
+            $ProductCategory->update($request->all());
 
             DB::commit();
 

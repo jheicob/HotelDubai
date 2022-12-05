@@ -11,7 +11,7 @@ class AddPermissionToRoleCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'command:name';
+    protected $signature = 'add:name';
 
     /**
      * The console command description.

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Product;
 
+use App\Http\Resources\ProductCategory\ProductCategoryResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductResource extends JsonResource
@@ -26,8 +27,8 @@ class ProductResource extends JsonResource
                 'deleted_at' => $this->resource->deleted_at,
             ],
             'relationships' => [
-                'inventory' => $this->whenLoaded('inventory', fn () => InventoryResource::make($this->resource->inventory))
-            ],
+                'inventory' => $this->whenLoaded('inventory', fn () => InventoryResource::make($this->resource->inventory)),
+                'category'  => $this->whenLoaded('category',fn() => ProductCategoryResource::make($this->resource->category))            ],
         ];
     }
 }

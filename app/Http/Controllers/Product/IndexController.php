@@ -21,6 +21,7 @@ class IndexController extends Controller
         try {
             $product = Product::with([
                     'inventory',
+                    'category'
                 ]);
             if(isAdmin()){
                 $product = $product->withTrashed();

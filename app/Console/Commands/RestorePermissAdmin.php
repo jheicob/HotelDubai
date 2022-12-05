@@ -241,12 +241,20 @@ class RestorePermissAdmin extends Command
             'reception.report',
             'reports',
 
+            'inventory',
             'FiscalMachines.index',
             'FiscalMachines.create',
             'FiscalMachines.delete',
             'FiscalMachines.updated',
             'FiscalMachines.getPaginate',
             'FiscalMachines.get',
+
+            'ProductCategory.index',
+            'ProductCategory.create',
+            'ProductCategory.delete',
+            'ProductCategory.updated',
+            'ProductCategory.getPaginate',
+            'ProductCategory.get',
         ]);
         $this->info('listo');
         return 0;

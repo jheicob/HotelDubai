@@ -17,6 +17,9 @@ class ProductCategoryResource extends JsonResource
         return [
             'id' => $this->resource->id,
             'attributes' => [
+                'name' => $this->resource->name,
+                'description' => $this->resource->description,
+                'deleted_at' => $this->resource->deleted_at
                 /*
                   'attribute'           => $this->resource->attribute,
                 */

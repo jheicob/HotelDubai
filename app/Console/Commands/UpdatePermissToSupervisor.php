@@ -141,6 +141,21 @@ class UpdatePermissToSupervisor extends Command
             'extra-guest.updated',
             'extra-guest.getPaginate',
             'extra-guest.get',
+
+            'inventory',
+            'FiscalMachines.index',
+            'FiscalMachines.create',
+            'FiscalMachines.delete',
+            'FiscalMachines.updated',
+            'FiscalMachines.getPaginate',
+            'FiscalMachines.get',
+
+            'ProductCategory.index',
+            'ProductCategory.create',
+            'ProductCategory.delete',
+            'ProductCategory.updated',
+            'ProductCategory.getPaginate',
+            'ProductCategory.get',
         ]);
         $this->info('listo');
         return 0;
