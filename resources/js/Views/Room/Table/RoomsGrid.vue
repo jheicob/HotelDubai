@@ -24,7 +24,7 @@
                         </a>-->
 
 						<a href="#" @click="room.showCreateReception(item)">
-							<i class="fa fa-arrow-circle-left text-white"></i>
+                            <i class="fas fa-receipt text-white"></i>
 						</a>
 						<!-- <a  data-toggle="modal" data-target="#myModalTarifa<?php echo $habitacion->id; ?>">
                         <i class="fa fa-arrow-circle-left"></i>  </a> -->
