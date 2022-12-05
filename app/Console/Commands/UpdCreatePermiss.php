@@ -51,25 +51,27 @@ class UpdCreatePermiss extends Command
 
         $this->info('Asignando permisos para el Testing y el Supervisor');
 
-        $admin = Role::firstWhere('name','Admin');
-        $supervisor = Role::firstWhere('name','Supervisor');
+        $roles = Role::all();
 
-        $admin->givePermissionTo([
-            'FiscalMachines.index',
-            'FiscalMachines.create',
-            'FiscalMachines.delete',
-            'FiscalMachines.updated',
-            'FiscalMachines.getPaginate',
-            'FiscalMachines.get',
-        ]);
-        $supervisor->givePermissionTo([
-            'FiscalMachines.index',
-            'FiscalMachines.create',
-            'FiscalMachines.delete',
-            'FiscalMachines.updated',
-            'FiscalMachines.getPaginate',
-            'FiscalMachines.get',
-        ]);
+        $roles->map(function($role){
+            $role->givePermissionTo([
+                'FiscalMachines.index',
+                'FiscalMachines.create',
+                'FiscalMachines.delete',
+                'FiscalMachines.updated',
+                'FiscalMachines.getPaginate',
+                'FiscalMachines.get',
+            ]);
+
+            $role->givePermissionTo([
+                'FiscalMachines.index',
+                'FiscalMachines.create',
+                'FiscalMachines.delete',
+                'FiscalMachines.updated',
+                'FiscalMachines.getPaginate',
+                'FiscalMachines.get',
+            ]);
+        });
 
         $this->info('permisos terminados');
         return 0;

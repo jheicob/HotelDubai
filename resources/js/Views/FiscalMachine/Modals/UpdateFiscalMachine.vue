@@ -7,7 +7,7 @@
                 <div class="modal-content">
                     <div class="modal-header py-2">
                         <h5 class="modal-title title-page text-secondary" id="exampleModalLabel">
-                            Modificar Tipo Habitacion
+                            Modificar Maquina Fiscal
                         </h5>
                         <a type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -40,7 +40,7 @@
                         </a>
                         <button :disabled="useHelper.desactiveButton" v-on:click.prevent="useStore.putFiscalMachines()"
                             class="btn btn-primary text-white btn-icon-split mb-4">
-                            <span class="text font-montserrat font-weight-bold">Modificar Tipo Habitacion</span>
+                            <span class="text font-montserrat font-weight-bold">Modificar Maquina Fiscal</span>
                         </button>
                     </div>
                 </div>

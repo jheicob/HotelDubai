@@ -757,6 +757,9 @@
 										</tr>
 									</tbody>
 								</table>
+                                <div class="justify-content-end mt-3 row" v-if="click_in_invoice">
+                                    <SelectCaja class="col-3"></SelectCaja>
+                                </div>
 							</div>
 						</div>
 						<div class="modal-footer">
@@ -773,7 +776,7 @@
                                 type="button"
 								class="btn btn-success text-white btn-icon-split mb-4"
 								@click="invoiceOrExtend"
-                                :disabled="!invoice.verifyEqualPaymentAndAcum"
+                                :disabled="activarBoton()"
 							>
                                     {{
                                     click_in_invoice
@@ -800,7 +803,14 @@
     import CompanionsVue from "./Companions.vue";
     import {CompanionStore} from "./CompanionsStore"
     import { ExtraGuestStore } from "../../ExtraGuest/ExtraGuestStore";
+import SelectCaja from "../Modals/SelectCaja.vue";
 
+const activarBoton = () => {
+    if(!click_in_invoice.value){
+        return !invoice.verifyEqualPaymentAndAcum
+    }
+    return (!invoice.verifyEqualPaymentAndAcum || !helper.caja_fiscal)
+}
     const setPayment = () => {
         payment.value.quantity = invoice.getAcumTotalByDetails
     }

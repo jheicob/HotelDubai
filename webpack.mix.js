@@ -17,3 +17,7 @@ mix.js('resources/js/app.js', 'public/js')
     .alias({
         '@': "./resources/js"
     });
+    mix.browserSync({
+        proxy: 'localhost',
+        open: false,
+    });

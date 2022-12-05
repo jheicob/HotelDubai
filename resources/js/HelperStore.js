@@ -16,6 +16,7 @@ export const HelperStore = defineStore("HelperStore", () => {
     const url = ref("");
     const all = ref([]);
     const item = ref({});
+    const caja_fiscal = ref('');
 
     const getErrorRequest = (err) => {
         if (err.response?.status == 422) {
@@ -125,6 +126,7 @@ export const HelperStore = defineStore("HelperStore", () => {
         ShowUpdatedModal,
         desactiveButton,
         permiss,
+        caja_fiscal,
         getErrorRequest,
         getAll,
         deleteItem,

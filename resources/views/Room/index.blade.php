@@ -12,6 +12,7 @@
             :in_repair="'{{ Auth::user()->can('room.in_repair') }}' == 1"
             :role="'{{ Auth::user()->roles->first()->name }}'"
             :estate_type_id="'{{session('estate_type_id')}}'"
+            :fiscal_machine_id="'{{session('fiscal_machines')}}'"
             :in_view_rooms="true"
             />
     </div>

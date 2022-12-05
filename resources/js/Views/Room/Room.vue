@@ -75,7 +75,11 @@
         in_view_rooms: {
             type: Boolean,
             default: false,
-            }
+            },
+        fiscal_machine_id:{
+            type: String,
+            default: "",
+        }
 	});
     login_option.value = estate_type_id.value = props.estate_type_id
 	useHelper.permiss = props;

@@ -16,6 +16,17 @@ class IndexController extends Controller
         // return ['view'];
     }
 
+    public function getPublic(Request $request){
+        try {
+
+            $fiscalmachines = FiscalMachine::filter($request)->get();
+
+            return FiscalMachinesResource::collection($fiscalmachines);
+        } catch (\Exception $e) {
+            return custom_response_exception($e,__('errors.server.title'),500);
+        }
+    }
+
     public function get()
     {
         try {

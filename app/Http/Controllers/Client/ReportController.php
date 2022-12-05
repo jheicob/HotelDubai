@@ -9,11 +9,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Mpdf\Mpdf;
 Use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
+
 class ReportController extends Controller
 {
     public function report(Request $request)
     {
-        $pdf = new Mpdf();
+        $pdf = new Mpdf(['tempDir'=>storage_path('tempdir')]);
         if(!$request->date_start){
             $request['date_start'] = Reception::min('date_out');
         }

@@ -19,17 +19,32 @@
         </div>
     </div>
     <div class="form-group">
+        <label for="typeEstate">Tipo de Inmueble</label>
             <select
                 id="typeEstate"
                 class="form-control"
                 name="estate_type_id"
                 v-model="login_option"
+                @change="getFiscalMachines"
                 >
                 <option v-for="(type,i) in typeEstates" :key="i" :value="type.id">
                     {{type.name}}
                 </option>
             </select>
-            <label for="typeEstate">Tipo de Inmueble</label>
+    </div>
+    <div class="form-group">
+        <label for="typeEstate">Caja</label>
+            <select
+                id="fiscal_machines"
+                class="form-control"
+                name="fiscal_machines"
+                v-model="caja_fiscal"
+                >
+                <option value="">Seleccione...</option>
+                <option v-for="(type,i) in fiscal_machines" :key="i" :value="type.id">
+                    {{type.name}}
+                </option>
+            </select>
     </div>
     <div class="form-group">
         <div class="checkbox">
@@ -59,7 +74,7 @@
     const room = RoomStore()
     const helper = HelperStore()
 
-    const {login_option} = storeToRefs(room)
+    const {login_option,caja_fiscal} = storeToRefs(room)
 
     const typeEstates = ref([])
     const getTypeEstate = () => {
@@ -79,6 +94,20 @@
             .catch(error => helper.getErrorRequest(error))
     }
 
+    const fiscal_machines = ref([])
+
+    const getFiscalMachines = () => {
+        fiscal_machines.value = []
+        axios
+            .get('configuration/fiscal-machines?estate_type_id='+login_option.value)
+            .then(res => {
+                fiscal_machines.value = res.data.data.map(item => ({
+                    name: item.attributes.name,
+                    id: item.id,
+                }))
+            })
+            .catch(error => helper.getErrorRequest(error))
+    }
     onMounted(() => {
         login_option.value= ''
         getTypeEstate()

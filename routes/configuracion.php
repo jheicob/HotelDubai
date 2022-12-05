@@ -15,7 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('configuration/EstateType', [App\Http\Controllers\Configuracion\EstateType\IndexController::class, 'getPublic'])
 ->name('estate.type.get');
-
+Route::get('configuration/fiscal-machines', [App\Http\Controllers\FiscalMachines\IndexController::class, 'getPublic'])
+    ->name('FiscalMachines.index');
 Route::group(
     [
         'prefix'     => 'configuracion',

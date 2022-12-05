@@ -13,6 +13,7 @@ export const RoomStore = defineStore("roomStore", () => {
     const OcuppyRoom = ocuppyRoomStore();
     const reception = receptionStore();
     const useHelper = HelperStore();
+    const caja_fiscal = ref('');
     useHelper.url = "room";
 
     const login_option = ref('')
@@ -352,6 +353,7 @@ export const RoomStore = defineStore("roomStore", () => {
         estate_type_id,
         answer_repair,
         form_repair,
-        login_option
+        login_option,
+        caja_fiscal
     };
 });

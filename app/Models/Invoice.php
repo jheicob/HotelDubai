@@ -24,6 +24,7 @@ class Invoice extends Model implements Auditable
         'cancelled',
         'status',
         'total_payment',
+        'fiscal_machine_id'
     ];
 
     protected $fillable = [
@@ -36,6 +37,7 @@ class Invoice extends Model implements Auditable
         'cancelled',
         'status',
         'total_payment',
+        'fiscal_machine_id'
     ];
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',

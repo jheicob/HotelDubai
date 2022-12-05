@@ -40,9 +40,13 @@
 
                     <login ></login>
 
+                    @foreach ($errors->all() as $item)
+                       <p class="text-danger bold">{{$item}}</p>
+                   @endforeach
                     <button type="submit" class="btn btn-primary btn-block">
                         {{ __('Login') }}
                     </button>
+
                 </form>
                 <div class="text-center">
                     <a class="d-block small" style="color:dark" href="{{ route('password.request') }}">Recuperar

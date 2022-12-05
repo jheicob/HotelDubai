@@ -6,7 +6,7 @@
                     <h3>Configuracion General</h3>
                 </div>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-5">
                         <hr class="border border-3 border-danger" />
                     </div>
@@ -38,7 +38,7 @@
                             >Código de ambiente para impresión</label
                         >
                     </div>
-                </div>
+                </div> -->
                 <div class="row">
                     <div class="col-5">
                         <hr class="border border-3 border-danger" />
@@ -81,7 +81,7 @@
                             >Tiempo de Aviso (HH:mm:ss)</label
                         >
                     </div>
-                    
+
                     <div class="form-floating mb-3 col-6 mx-auto">
                         <input
                             type="text"
@@ -99,10 +99,10 @@
                     </div>
 
                     <div class=" mb-3 col-6 mx-auto">
-                        <ColorPicker 
+                        <ColorPicker
                             id="color_warning_time"
                             v-model="config.color_warning_time"
-                            mode="solid" 
+                            mode="solid"
                             @colorChanged="getColorW"
 
                             />
@@ -114,15 +114,15 @@
                         </div>
                     </div>
                     <div class="mb-3 col-6 mx-auto">
-                        <ColorPicker 
-                            mode="solid" 
+                        <ColorPicker
+                            mode="solid"
                             @colorChanged="getColorC"
 
                             id="color_past_time"
-                            
+
                             v-model="config.color_past_time"
                             />
-                            
+
                             <label for="color_past_time" class="mx-3"
                             >Color Tiempo Pasado</label
                             >
@@ -131,7 +131,7 @@
                     </div>
                 </div>
 
-               
+
                 <hr class="border border-3 border-danger" />
                 <div class="row my-4">
                     <div class="col text-center">

@@ -38,7 +38,7 @@ class CreateController extends Controller
 
     public function report(Request $request)
     {
-        $pdf = new Mpdf();
+        $pdf = new Mpdf(['tempDir'=>storage_path('tempdir')]);
         if (!$request->date_start) {
             $request['date_start'] = Reception::min('date_out');
         }
@@ -119,7 +119,7 @@ class CreateController extends Controller
     }
 
     public function reportRoomType(Request $request){
-        $pdf = new Mpdf();
+        $pdf = new Mpdf(['tempDir'=>storage_path('tempdir')]);
         if (!$request->date_start) {
             $request['date_start'] = Reception::min('date_out');
         }
@@ -213,7 +213,7 @@ class CreateController extends Controller
 
 
     public function reportReception(Request $request){
-        $pdf = new Mpdf(['orientation' => 'L']);
+        $pdf = new Mpdf(['orientation' => 'L','tempDir'=>storage_path('tempdir')]);
         if (!$request->date_start) {
             $request['date_start'] = Reception::min('date_out');
         }

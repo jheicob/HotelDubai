@@ -58,7 +58,7 @@ class CreateController extends Controller
 
             if($client->invoiceNoPrint && count($request->reception_details) > 0) {
                 $invoice = $client->invoiceNoPrint;
-                $client->invoiceNoPrint->update(($request->only('total')));
+                $client->invoiceNoPrint->update(($request->only('total','fiscal_machine_id')));
             }else{
                 $invoice = Invoice::create($request->only([
                     'client_id',
@@ -143,8 +143,11 @@ class CreateController extends Controller
     {
         DB::beginTransaction();
         try {
+            Log::info('imprimientod');
             $igtf = $request->igtf == 'true' ? true : false;
             $isCancel = $request->isCancel == 'true' ? true : false;
+
+            Log::info($request->all());
             $client = $invoice->client;
             $client->append('full_name');
 

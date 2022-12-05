@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use Exception;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class LoginController extends Controller
@@ -51,7 +53,13 @@ class LoginController extends Controller
             return $response;
         }
 
-        session($request->only('estate_type_id'));
+        $role = Auth::user()->roles[0]->name;
+        if(($role == 'Recepcionista Cabaña' || $role == 'Recepcionista Edificio') && !$request->fiscal_machines){
+            Auth::logout();
+            return back()->withErrors(['caja'=>'Debe de Seleccionar una caja']);
+        }
+
+        session($request->only(['estate_type_id','fiscal_machines']));
 
         return $request->wantsJson()
                     ? new JsonResponse([], 204)

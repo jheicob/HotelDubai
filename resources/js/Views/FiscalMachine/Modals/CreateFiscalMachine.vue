@@ -41,7 +41,7 @@
                         </a>
                         <button :disabled="useHelper.desactiveButton" v-on:click.prevent="useStore.storeFiscalMachines"
                             class="btn btn-primary text-white btn-icon-split mb-4">
-                            <span class="text font-montserrat font-weight-bold">Crear Tipo Habitacion</span>
+                            <span class="text font-montserrat font-weight-bold">Crear Maquina Fiscal</span>
                         </button>
                     </div>
                 </div>
