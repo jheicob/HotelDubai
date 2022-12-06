@@ -2,7 +2,7 @@
     <div class="input-group mb-3">
         <label class="input-group-text" for="inputGroupSelect01">Caja</label>
         <select
-            :disabled="helper.permiss.fiscal_machine_id != ''"
+            :disabled="helper.caja_fiscal != ''"
             class="form-select" id="inputGroupSelect01"
             v-model="caja_fiscal"
             >
@@ -25,6 +25,8 @@ const { caja_fiscal } = storeToRefs(helper)
 
 onMounted(() => {
     fiscalStore.getFiscalMachine()
-    caja_fiscal.value = helper.permiss.fiscal_machine_id
+    if(helper.permiss.fiscal_machine_id){
+        caja_fiscal.value = helper.permiss.fiscal_machine_id
+    }
 })
 </script>

@@ -32,6 +32,9 @@ class CreateController extends Controller
         $this->service = $service;
     }
 
+    public function ventas(){
+        return view('Invoice.create');
+    }
     public function create(CreateRequest $request)
     {
         try {

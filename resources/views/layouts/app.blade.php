@@ -241,7 +241,12 @@
                     @endcan
 
                     @can('invoice.create')
-                        <create-invoice></create-invoice>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{route('invoice.ventas')}}" >
+                            <i class="fas fa-store"></i>
+                            <span>Punto Venta</span>
+                        </a>
+                    </li>
                     @endcan
 
                 </ul>

@@ -16,13 +16,15 @@ class IndexController extends Controller
  //       return ['view'];
     }
 
-    public function get()
+    public function get(Request $request)
     {
         try {
             $product = Product::with([
                     'inventory',
                     'category'
-                ]);
+                ])
+                ->filter($request)
+                ;
             if(isAdmin()){
                 $product = $product->withTrashed();
             }

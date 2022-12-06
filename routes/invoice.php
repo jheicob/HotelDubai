@@ -11,6 +11,9 @@ Route::group(
         'middleware'  => 'auth'
     ],
     function () {
+        Route::get('ventas', [App\Http\Controllers\Invoice\CreateController::class, 'ventas'])
+        ->name('invoice.ventas')
+        ->middleware('permission:invoice.create');
 
         Route::get('printFiscal/{invoice}', [App\Http\Controllers\Invoice\CreateController::class, 'printFiscal'])
             ->name('invoice.printFiscal')
@@ -39,11 +42,11 @@ Route::group(
         Route::get('report-X', [App\Http\Controllers\Invoice\CreateController::class, 'reportX'])
             ->name('invoice.report.x')
             ->middleware('permission:invoice.getPaginate');
- 
+
         Route::get('report-Z', [App\Http\Controllers\Invoice\CreateController::class, 'reportZ'])
             ->name('invoice.report.z')
             ->middleware('permission:invoice.getPaginate');
-/** routes para Product **/ 
+/** routes para Product **/
 
             Route::group(
             [
@@ -72,7 +75,7 @@ Route::group(
                     ->middleware('permission:product.getPaginate');
             }
         );
- 
+
     }
 );
 
