@@ -29,36 +29,28 @@
 					</div>
 					<div class="modal-body">
 						<label for="name" class="form-label">Tipo Habitacion</label>
-						<select
-							class="form-select"
-							aria-label="Default select example"
+                        <multiselect
 							v-model="form.room_type_id"
+							id="checkedPermissions"
+							:options="setRoomTypes"
+							:multiple="true"
+							label="name"
+							track-by="id"
 						>
-							<option selected value="">Seleccione Tipo Habitacion</option>
-							<option
-								v-for="keep in roomType"
-								:key="keep.id"
-								:value="keep.id"
-							>
-								{{ keep.attributes.name }}
-							</option>
-						</select>
+						</multiselect>
+
 
 						<label for="hour" class="form-label">Día</label>
-						<select
-							class="form-select"
-							aria-label="Default select example"
+                        <multiselect
 							v-model="form.day_week_id"
+							id="checkedPermissions"
+							:options="setDayWeeks"
+							:multiple="true"
+							label="name"
+							track-by="id"
 						>
-							<option selected value="">Seleccione Día</option>
-							<option
-								v-for="keep in dayWeek"
-								:key="keep.id"
-								:value="keep.id"
-							>
-								{{ keep.attributes.name }}
-							</option>
-						</select>
+						</multiselect>
+
                         <div class="row">
                             <div class="col">
                                 <label for="rate" class="form-label">Hora de Inicio</label>
@@ -113,14 +105,32 @@
 
 <script>
 	import axios from "axios";
+	import Multiselect from "vue-multiselect";
+
 	export default {
 		name: "PartialCostCreate",
-		components: {},
+		components: {
+            Multiselect,
+        },
 
 		created() {
 			this.getRoomType();
 			this.getDayWeek();
 		},
+        computed:{
+            setRoomTypes() {
+                return this.roomType.map(item =>({
+                    name:item.attributes.name,
+                    id: item.id
+                }))
+            },
+            setDayWeeks(){
+                return this.dayWeek.map(item =>({
+                    name:item.attributes.name,
+                    id: item.id
+                }))
+            }
+        },
 		data() {
 			return {
 				form: this.getClearFormObject(),
@@ -134,8 +144,13 @@
 			};
 		},
 		methods: {
+            setFields(field){
+                return field.map(item=>(item.id))
+            },
 			createPermission: function () {
 				var url = "/tarifas/day-templates/create";
+                this.form.day_week_id = this.setFields(this.form.day_week_id)
+                this.form.room_type_id = this.setFields(this.form.room_type_id)
 				axios
 					.post(url, this.form)
 					.then((response) => {
