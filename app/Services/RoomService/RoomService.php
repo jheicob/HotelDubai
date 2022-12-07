@@ -87,7 +87,7 @@ class RoomService
 
         if ($day_template != '') {
             if (!$this->bool_date) {
-                self::getPartialCostByRoomTypeAndPartial($day_template->room_type_id, $day_template->partial_rate_id);
+                self::getPartialCostByRoomTypeAndPartial($day_template->room_type_id, $day_template->partial_rate_id ?? 0);
             }
             return (int) $day_template->rate;
         }
@@ -111,7 +111,7 @@ class RoomService
         if ($day_template != '') {
             if(self::verifyHourOfRegister($day_template->hour_start, $day_template->hour_end)) {
                 if (!$this->bool_date) {
-                    self::getPartialCostByRoomTypeAndPartial($day_template->room_type_id, $day_template->partial_rate_id);
+                    self::getPartialCostByRoomTypeAndPartial($day_template->room_type_id, $day_template->partial_rate_id ?? 0);
                 }
                 return (int) $day_template->rate;
             }
@@ -132,7 +132,7 @@ class RoomService
             ->first();
         if ($date_template != '') {
             if(self::verifyHourOfRegister($date_template->hour_start, $date_template->hour_end)) {
-                self::getPartialCostByRoomTypeAndPartial($date_template->room_type_id, $date_template->partial_rate_id);
+                self::getPartialCostByRoomTypeAndPartial($date_template->room_type_id, $date_template->partial_rate_id ?? 0);
 
                 return (int) $date_template->rate;
             }
@@ -174,7 +174,7 @@ class RoomService
         if ($bool != '') {
             if (!$this->bool_date) {
 
-                self::getPartialCostByRoomTypeAndPartial($bool->room_type_id, $bool->partial_rate_id);
+                self::getPartialCostByRoomTypeAndPartial($bool->room_type_id, $bool->partial_rate_id ?? 0);
             }
             return (int) $bool->rate;
         }

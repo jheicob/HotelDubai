@@ -63,12 +63,19 @@ class CreateController extends Controller
                 $invoice = $client->invoiceNoPrint;
                 $client->invoiceNoPrint->update(($request->only('total','fiscal_machine_id')));
             }else{
-                $invoice = Invoice::create($request->only([
+                $data = $request->has('fiscal_machine_id') ? $request->only([
+                    'client_id',
+                    'total',
+                    'observation',
+                    'date',
+                    'fiscal_machine_id'
+                ]) : $request->only([
                     'client_id',
                     'total',
                     'observation',
                     'date'
-                ]));
+                ]);
+                $invoice = Invoice::create($data);
             }
 
             $invoice->identify = config('invoice.local') . '-' . $invoice->id;

@@ -195,8 +195,11 @@
         <a class="btn btn-danger text-white btn-icon-split mb-4" data-dismiss="modal" @click="clearForm">
             <span class="text font-montserrat font-weight-bold">Cancelar</span>
         </a>
-        <button :disabled="useHelper.desactiveButton" class="btn btn-primary text-white btn-icon-split mb-4"
-            @click="createInvoice" type="button">
+        <button
+            :disabled="disabledButton()"
+            class="btn btn-primary text-white btn-icon-split mb-4"
+            @click="createInvoice" type="button"
+            >
             <span class="text font-montserrat font-weight-bold">Facturar</span>
         </button>
     </div>
@@ -224,7 +227,13 @@ const store = InvoiceStore();
 const useHelper = HelperStore();
 const { caja_fiscal } = storeToRefs(useHelper)
 
+const disabledButton = () => {
 
+    if(useHelper.desactiveButton){
+        return true
+    }
+    return (!store.verifyEqualPaymentAndAcum || useHelper.caja_fiscal == '')
+}
 const changeProduct = () => {
 
     axios
@@ -239,25 +248,7 @@ const clearForm = () => {
     productInvoice.value = [];
     form.value.payments = [];
 };
-const showBodegonModal = () => {
-    click_in_bodegon.value = true;
-    ocuppy.getProducts();
 
-    form.value = {
-        reception_details: "",
-        client_id: '',
-        client: {
-            id: '',
-            document: '',
-            type_document_id: '',
-            first_name: '',
-            last_name: '',
-        },
-        reception_details: [],
-        payments: [],
-    }
-    $("#bodegon").modal("show");
-};
 const { products: productInvoice, form, payment } = storeToRefs(store);
 const { products: products_get, client_exist, type_documents, date, hour, product, click_in_bodegon } =
     storeToRefs(ocuppy);
@@ -274,6 +265,7 @@ const storeClient = () => {
         type_document_id: form.value.client.type_document_id,
         first_name: form.value.client.first_name,
         last_name: form.value.client.last_name,
+
     };
     axios
         .post("/client/create", data)
@@ -293,11 +285,12 @@ const createInvoice = () => {
 }
 
 const printInvoice = () => {
-    let url = "invoice/create";
+    let url = "/invoice/create";
     let data = {
         client_id: form.value.client_id,
         payments: form.value.payments,
-        products: productInvoice.value
+        products: productInvoice.value,
+        fiscal_machine_id: helper.caja_fiscal
     };
     axios
         .post(url, data)
@@ -340,7 +333,22 @@ onMounted(() => {
     caja_fiscal.value = props.fiscal_machine_id
 
     ocuppy.getTypeDocuments();
+    click_in_bodegon.value = true;
+    ocuppy.getProducts();
 
+    form.value = {
+        reception_details: "",
+        client_id: '',
+        client: {
+            id: '',
+            document: '',
+            type_document_id: '',
+            first_name: '',
+            last_name: '',
+        },
+        reception_details: [],
+        payments: [],
+    }
 });
 
 const showClient = ref(false)
