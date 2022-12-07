@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests\Tarifas\DayTemplate;
 
+use App\Http\Requests\ValidateRangeHourRequest;
+use App\Rules\ValidateRangeHourRule;
 use App\Traits\CustomResponseFormRequestTrait;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
@@ -28,14 +30,19 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'room_type_id' => 'required|array',
-            'room_type_id.*' => 'exists:room_types,id',
-            'day_week_id' => 'required|array',
-            'day_week_id.*' => 'exists:day_weeks,id',
             'rate' => 'required|numeric',
             'hour_start' => 'required',
             'hour_end' => 'required',
-            'init' => 'before:end'
+            'init' => 'before:end',
+            'room_type_id' => [
+                'required',
+                'array',
+                new ValidateRangeHourRule($this->day_week_id,$this->hour_start,$this->hour_end)
+            ],
+            'room_type_id.*' => 'exists:room_types,id',
+            'day_week_id' => 'required|array',
+            'day_week_id.*' => 'exists:day_weeks,id',
+
         ];
     }
 

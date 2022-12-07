@@ -1,12 +1,13 @@
 <template>
+    <ButtomComponent></ButtomComponent>
 	<form>
 		<!-- Modal -->
 		<div
 			class="modal fade"
-			id="exampleModal"
+			id="updateMasive"
 			tabindex="-1"
 			role="dialog"
-			aria-labelledby="exampleModalLabel"
+			aria-labelledby="updateMasive"
 			aria-hidden="true"
 		>
 			<div class="modal-dialog" role="document">
@@ -103,12 +104,14 @@
 	</form>
 </template>
 
-<script>
+<script >
 	import axios from "axios";
 	import Multiselect from "vue-multiselect";
-    import toastr from "toastr";
-    import "toastr/build/toastr.css";
+    import ButtomComponent from "@/components/ButtonComponent"
+    import {mapStores} from 'pinia'
+    import {HelperStore} from '@/HelperStore'
 
+    const helper = HelperStore()
 	export default {
 		name: "PartialCostCreate",
 		components: {
@@ -120,6 +123,7 @@
 			this.getDayWeek();
 		},
         computed:{
+            ...mapStores(helper),
             setRoomTypes() {
                 return this.roomType.map(item =>({
                     name:item.attributes.name,
@@ -143,21 +147,9 @@
 				dayWeek: [],
 				systemTime: [],
 				ShiftSystem: [],
-                errors: []
 			};
 		},
 		methods: {
-            getErrorRequest(err){
-                if (err.response?.status == 422) {
-                    this.errors = err.response.data.data.errors;
-                } else {
-                    this.errors = err;
-                }
-                for (let error in this.errors) {
-                    toastr.error(this.errors[error]);
-                }
-            },
-            getRoomType(){},
             setFields(field){
                 return field.map(item=>(item.id))
             },
@@ -173,12 +165,7 @@
 						$("#exampleModal").modal("hide");
 						this.$emit("GetCreatedPermission");
 					})
-                    .catch((error) => {
-                        this.getErrorRequest(error)
-						this.form = this.getClearFormObject();
-
-                    });
-
+					.catch((error) => this.helper.getErrorRequest(error));
 			},
 			getClearFormObject() {
 				return {
