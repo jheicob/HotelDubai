@@ -870,7 +870,7 @@ const activarBoton = () => {
         form_invoice.value.reception_details.push({
             id: null,
             partial_min: detail.relationships.partialRate.attributes.name,
-            rate: detail.attributes.rate,
+            rate: item.value.attributes.rate_current,
             quantity_partial: 1,
             observation: "",
             time_additional: 0,
