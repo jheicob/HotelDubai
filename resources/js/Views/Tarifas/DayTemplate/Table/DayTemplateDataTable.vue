@@ -16,6 +16,11 @@
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">
+                <div class="row">
+                <div class="col"></div>
+                    <div class="col">
+                            <UpdateMasive :items="keeps" @GetCreatedPermission="getKeeps"></UpdateMasive>
+                    </div>
 					<div class="col text-right">
 						<a
 							data-toggle="modal"
@@ -28,6 +33,7 @@
 								>Crear Plantilla Día</span
 							>
 						</a>
+                </div>
 					</div>
 					<table
 						class="table table-bordered"
@@ -114,13 +120,15 @@
 	import axios from "axios";
 	import CreatePermission from "../Modals/CreateDayTemplate.vue";
 	import UpdatePermission from "../Modals/UpdateDayTemplate.vue";
+import UpdateMasive from "../Modals/UpdateMasive.vue";
 
 	export default {
 		name: "DayTemplateDataTable",
 		components: {
-			CreatePermission,
-			UpdatePermission,
-		},
+    CreatePermission,
+    UpdatePermission,
+    UpdateMasive
+},
 		props: {
 			create: {
 				type: Number,

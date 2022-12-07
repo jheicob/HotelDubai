@@ -154,7 +154,9 @@ Route::group(
                 Route::get('', [App\Http\Controllers\Tarifas\DayTemplate\IndexController::class, 'index'])
                     ->name('day.templates.index')
                     ->middleware('permission:day.templates.index');
-
+                Route::put('masive-update', [App\Http\Controllers\Tarifas\DayTemplate\UpdateController::class, 'masiveUptade'])
+                    ->name('day.templates.updated')
+                    ->middleware('permission:day.templates.updated');
                 Route::post('create', [App\Http\Controllers\Tarifas\DayTemplate\CreateController::class, 'create'])
                     ->name('day.templates.create')
                     ->middleware('permission:day.templates.create');

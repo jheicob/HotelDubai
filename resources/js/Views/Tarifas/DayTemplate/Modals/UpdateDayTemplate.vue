@@ -113,6 +113,9 @@
 
 <script>
 	import axios from "axios";
+    import toastr from "toastr";
+    import "toastr/build/toastr.css";
+
 	export default {
 		name: "UpdateHourTemplate",
 		components: {},

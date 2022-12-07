@@ -1,5 +1,7 @@
 <template>
-    <ButtomComponent></ButtomComponent>
+    <ButtomComponent @click.prevent="openModal">
+        Actualizar Masivo
+    </ButtomComponent>
 	<form>
 		<!-- Modal -->
 		<div
@@ -17,7 +19,7 @@
 							class="modal-title title-page text-secondary"
 							id="exampleModalLabel"
 						>
-							Crear plantilla de Días
+							Actualización Masiva
 						</h5>
 						<a
 							type="button"
@@ -29,49 +31,17 @@
 						</a>
 					</div>
 					<div class="modal-body">
-						<label for="name" class="form-label">Tipo Habitacion</label>
+						<label for="name" class="form-label">Plantillas de dias</label>
                         <multiselect
 							v-model="form.room_type_id"
 							id="checkedPermissions"
-							:options="setRoomTypes"
+							:options="setItems"
 							:multiple="true"
 							label="name"
 							track-by="id"
 						>
 						</multiselect>
 
-
-						<label for="hour" class="form-label">Día</label>
-                        <multiselect
-							v-model="form.day_week_id"
-							id="checkedPermissions"
-							:options="setDayWeeks"
-							:multiple="true"
-							label="name"
-							track-by="id"
-						>
-						</multiselect>
-
-                        <div class="row">
-                            <div class="col">
-                                <label for="rate" class="form-label">Hora de Inicio</label>
-                                <input
-                                    class="form-control"
-                                    name="rate"
-                                    type="time"
-                                    v-model="form.hour_start"
-                                />
-                            </div>
-                            <div class="col">
-                                <label for="rate" class="form-label">Hora de Fin</label>
-                                <input
-                                    class="form-control"
-                                    name="rate"
-                                    type="time"
-                                    v-model="form.hour_end"
-                                />
-                            </div>
-                        </div>
 						<label for="rate" class="form-label">Tarifa</label>
 						<input
 							class="form-control"
@@ -94,7 +64,7 @@
 							class="btn btn-primary text-white btn-icon-split mb-4"
 						>
 							<span class="text font-montserrat font-weight-bold"
-								>Crear plantilla de Día</span
+								>Actualizar plantillas</span
 							>
 						</a>
 					</div>
@@ -108,14 +78,19 @@
 	import axios from "axios";
 	import Multiselect from "vue-multiselect";
     import ButtomComponent from "@/components/ButtonComponent"
-    import {mapStores} from 'pinia'
-    import {HelperStore} from '@/HelperStore'
-
-    const helper = HelperStore()
+    import toastr from "toastr";
+    import "toastr/build/toastr.css";
 	export default {
-		name: "PartialCostCreate",
+		name: "updateMasive",
 		components: {
             Multiselect,
+            ButtomComponent
+        },
+        props:{
+            items: {
+                type: Array,
+                required: true
+            }
         },
 
 		created() {
@@ -123,7 +98,12 @@
 			this.getDayWeek();
 		},
         computed:{
-            ...mapStores(helper),
+            setItems(){
+                return this.items.map((item) =>({
+                    name: `${item.relationships.roomType.attributes.name} - ${item.relationships.dayWeek.attributes.name} - (${item.attributes.hour_start}-${item.attributes.hour_end})`,
+                    id: item.id,
+                }));
+            },
             setRoomTypes() {
                 return this.roomType.map(item =>({
                     name:item.attributes.name,
@@ -146,26 +126,39 @@
 				roomType: [],
 				dayWeek: [],
 				systemTime: [],
+                errors: [],
 				ShiftSystem: [],
 			};
 		},
 		methods: {
+            openModal(){
+                $('#updateMasive').modal('show')
+            },
             setFields(field){
                 return field.map(item=>(item.id))
             },
+            getErrorRequest(err){
+                if (err.response?.status == 422) {
+                    this.errors = err.response.data.data.errors;
+                } else {
+                    this.errors = err;
+                }
+                for (let error in this.errors) {
+                    toastr.error(this.errors[error]);
+                }
+            },
 			createPermission: function () {
-				var url = "/tarifas/day-templates/create";
-                this.form.day_week_id = this.setFields(this.form.day_week_id)
-                this.form.room_type_id = this.setFields(this.form.room_type_id)
+				var url = "/tarifas/day-templates/masive-update";
+                this.form.day_template_id = this.setFields(this.form.room_type_id)
 				axios
-					.post(url, this.form)
+					.put(url, this.form)
 					.then((response) => {
 						this.errors = [];
 						this.form = this.getClearFormObject();
-						$("#exampleModal").modal("hide");
+						$("#updateMasive").modal("hide");
 						this.$emit("GetCreatedPermission");
 					})
-					.catch((error) => this.helper.getErrorRequest(error));
+					.catch((error) => this.getErrorRequest(error));
 			},
 			getClearFormObject() {
 				return {
