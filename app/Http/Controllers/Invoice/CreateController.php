@@ -75,6 +75,8 @@ class CreateController extends Controller
                     'observation',
                     'date'
                 ]);
+                Log::info('creando factura con datos');
+                Log::info($data);
                 $invoice = Invoice::create($data);
             }
 

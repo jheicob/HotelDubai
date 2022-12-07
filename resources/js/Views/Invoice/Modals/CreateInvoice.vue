@@ -290,7 +290,7 @@ const printInvoice = () => {
         client_id: form.value.client_id,
         payments: form.value.payments,
         products: productInvoice.value,
-        fiscal_machine_id: helper.caja_fiscal
+        fiscal_machine_id: useHelper.caja_fiscal
     };
     axios
         .post(url, data)
