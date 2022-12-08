@@ -60,6 +60,15 @@
             >
                 Punto de Venta
             </a>
+            <a
+                v-if="punto_venta"
+                id="client_report"
+                @click.prevent="store.openGraph"
+                class="dropdown-item text-dark"
+                href="#"
+            >
+                Grafico
+            </a>
         </div>
     </li>
     <FilterModalReport />

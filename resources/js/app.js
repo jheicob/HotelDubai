@@ -87,6 +87,7 @@ app.component("login", Login);
 app.component("reports", Report);
 app.component('fiscal-machine',FiscalMachine)
 app.component('product-category',ProductCategory)
+app.component('reporte-grafico',() => import('./Views/Reports/Grafico/GraficoView.vue'))
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

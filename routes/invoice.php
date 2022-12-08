@@ -5,12 +5,17 @@ use Illuminate\Support\Facades\Route;
 
 /** routes para Invoice **/
 
+
 Route::group(
     [
         'prefix'     => 'invoice',
         'middleware'  => 'auth'
     ],
     function () {
+        Route::get('report', [App\Http\Controllers\Invoice\UpdateController::class, 'report'])
+        ->name('punto_venta.report.graph')
+        ->middleware('permission:punto_venta.report.graph');
+
         Route::get('ventas', [App\Http\Controllers\Invoice\CreateController::class, 'ventas'])
         ->name('invoice.ventas')
         ->middleware('permission:invoice.create');

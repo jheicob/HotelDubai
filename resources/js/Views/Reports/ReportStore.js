@@ -90,9 +90,14 @@ export const ReportStore = defineStore("ReportStore",() => {
         }))
     }
 
+    const openGraph = () => {
+        window.location.href = "/report/graph";
+    }
+
     return {
         openModal,
         type_report,
+        openGraph,
         abrirReporte,
         getEstateTypes,
         url,
