@@ -54,6 +54,11 @@ class UpdateController extends Controller
         ->when(($request->date_start && $request->date_end),function(Builder $query) use ($request){
             $query->whereBetween(DB::raw('date_format(date, "%d-%m-%Y")'),[$request->date_start && $request->date_end]);
         })
+        ->when($request->estate_type_id, function(Builder $q,$estate){
+            $q->whereHas('fiscalMachine',function(Builder $q) use ($estate){
+                $q->whereIn('estate_type_id',$estate);
+            });
+        })
         ->orderBy('created_at', 'desc')
         ->with([
             'payments',

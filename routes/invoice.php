@@ -16,7 +16,7 @@ Route::group(
         ->middleware('permission:invoice.create');
 
         Route::get('report', [App\Http\Controllers\Invoice\UpdateController::class, 'report'])
-        ->name('invoice.ventas')
+        ->name('punto_venta.report')
         ->middleware('permission:punto_venta.report');
 
         Route::get('printFiscal/{invoice}', [App\Http\Controllers\Invoice\UpdateController::class, 'printFiscal'])

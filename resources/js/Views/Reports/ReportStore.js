@@ -44,6 +44,12 @@ export const ReportStore = defineStore("ReportStore",() => {
                 input_views.value.range_dates = true
                 input_views.value.estate_type_id = true
                 break;
+            case 'Punto Venta':
+                url.value = '/invoice/report?'
+                input_views.value.room_type_id = false
+                input_views.value.range_dates = true
+                input_views.value.estate_type_id = true
+                break;
             default:
                 breaK;
         }

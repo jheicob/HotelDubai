@@ -45,24 +45,29 @@
                 <td>
                     {{Carbon\Carbon::parse($invoice->date)->format('d/m/Y')}}
                 </td>
-                <td>
+                <td align='center'>
+
                     {{$invoice->client->full_name}}
                 </td>
                 <td>
                     {{$invoice->fiscalMachine->name}}
                 </td>
-                <td>
+                <td align='center'>
+
                     {{$invoice->fiscalMachine->estateType->name}}
                 </td>
-                <td>
+                <td align='center'>
+
                     {{$invoice->total}}
                 </td>
-                <td>
+                <td align='center'>
+
                     {{$invoice->payments
                         ->where('type','divisa')
                         ->sum('quantity')}}
                 </td>
-                <td>
+                <td align='center'>
+
                     {{ $invoice->payments
                         ->where('type','divisa')
                         ->count() > 0

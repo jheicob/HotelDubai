@@ -54,7 +54,7 @@
             <a
                 v-if="punto_venta"
                 id="client_report"
-                @click.prevent="store.openModal('Recepciones')"
+                @click.prevent="store.openModal('Punto Venta')"
                 class="dropdown-item text-dark"
                 href="#"
             >
