@@ -40,10 +40,15 @@ class UpdCreatePermiss extends Command
      */
     public function handle()
     {
-        $this->info('Creando/Actualizando permisos de maquina fiscal');
+        $this->info('Creando/Actualizando permisos ');
 
+        $role = $this->choice('Quieres asignarle este permiso a',[
+            'todos',
+            'Admin',
+        ]);
         $permiss_news = [
             'inventory',
+            'punto_venta.report',
             'FiscalMachines.index',
             'FiscalMachines.create',
             'FiscalMachines.delete',
@@ -58,19 +63,26 @@ class UpdCreatePermiss extends Command
             'ProductCategory.getPaginate',
             'ProductCategory.get',
         ];
+
         foreach($permiss_news as $new){
             if(!Permission::firstWhere('name',$new)){
                 Permission::create(['name'=>$new]);
             }
         }
-        unset($permiss_news[0]);
-        $this->info('Asignando permisos para el Testing y el Supervisor');
 
-        $roles = Role::all();
+        $this->info('Asignando permisos para: '. $role);
 
-        $roles->map(function($role) use ($permiss_news){
-            $role->givePermissionTo($permiss_news);
-        });
+        if($role == 'todos'){
+            $roles = Role::all();
+            $roles->map(function($role) use ($permiss_news){
+                $role->givePermissionTo($permiss_news);
+            });
+        }else{
+            $roles = Role::find(1);
+            $roles->givePermissionTo($permiss_news);
+
+        }
+
 
         $this->info('permisos terminados');
         return 0;

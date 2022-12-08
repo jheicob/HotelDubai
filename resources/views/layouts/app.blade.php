@@ -211,20 +211,20 @@
                                 @endcan
                                 @can('range.template.index')
                                     <a class="dropdown-item text-dark" href="{{ route('range.template.index') }}">Plantillas
-                                        por Rango</a>
+                                        Por Rango</a>
                                 @endcan
                                 @can('date.templates.index')
                                     <a class="dropdown-item text-dark" href="{{ route('date.templates.index') }}">Plantillas
-                                        Fechas</a>
+                                        Fechas Especiales</a>
                                 @endcan
                                 @can('day.templates.index')
                                     <a class="dropdown-item text-dark" href="{{ route('day.templates.index') }}">Plantillas
                                         Días</a>
                                 @endcan
-                                @can('hour.templates.index')
+                                {{-- @can('hour.templates.index')
                                     <a class="dropdown-item text-dark" href="{{ route('hour.templates.index') }}">Plantillas
                                         Horas</a>
-                                @endcan
+                                @endcan --}}
 
                             </div>
                             </div>
@@ -237,6 +237,8 @@
                             :room_type_report=" '{{Auth::user()->can('roomType.report')}}' == 1"
                             :room_report=" '{{Auth::user()->can('room.report')}}' == 1"
                             :reception_report=" '{{Auth::user()->can('reception.report')}}' == 1"
+                            :punto_venta=" '{{Auth::user()->can('punto_venta.report')}}' == 1"
+
                         ></reports>
                     @endcan
 

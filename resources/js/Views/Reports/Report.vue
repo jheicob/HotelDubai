@@ -51,6 +51,15 @@
             >
                 Recepciones
             </a>
+            <a
+                v-if="punto_venta"
+                id="client_report"
+                @click.prevent="store.openModal('Recepciones')"
+                class="dropdown-item text-dark"
+                href="#"
+            >
+                Punto de Venta
+            </a>
         </div>
     </li>
     <FilterModalReport />
@@ -80,6 +89,10 @@ const props = defineProps({
         type: Boolean,
         default: false,
     },
+    punto_venta:{
+        type: Boolean,
+        default: false,
+    }
 });
 
 onMounted(() => {

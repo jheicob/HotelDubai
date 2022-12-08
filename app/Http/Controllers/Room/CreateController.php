@@ -214,6 +214,7 @@ class CreateController extends Controller
 
     public function reportReception(Request $request){
         $pdf = new Mpdf(['orientation' => 'L','tempDir'=>storage_path('tempdir')]);
+
         if (!$request->date_start) {
             $request['date_start'] = Reception::min('date_out');
         }
