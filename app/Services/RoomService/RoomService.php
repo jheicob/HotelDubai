@@ -62,12 +62,14 @@ class RoomService
 
         $rate = $this->acum;
 
-        $rate = self::getRateByDay($this->dayName);
+        $rate = self::getRateByDate($this->date);
+
         if ($rate == 0) {
             $rate = self::getRateByRange();
         }
         if ($rate == 0) {
-            $rate = self::getRateByDate($this->date);
+            $rate = self::getRateByDay($this->dayName);
+            // $rate = self::getRateByDate($this->date);
         }
         if ($rate == 0) {
             $rate = self::getRateByHour();
@@ -194,9 +196,9 @@ class RoomService
     public function getPartialByConditionals()
     {
         $this->bool_date =false;
-        self::getRateByDay($this->dayName);
+        self::getRateByDate($this->date);
         if ($this->bool_date ) {
-            self::getRateByDate($this->date);
+            self::getRateByDay($this->dayName);
         }
 
         return $this->partial_min;

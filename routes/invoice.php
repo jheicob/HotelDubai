@@ -12,7 +12,11 @@ Route::group(
         'middleware'  => 'auth'
     ],
     function () {
-        Route::get('report', [App\Http\Controllers\Invoice\UpdateController::class, 'report'])
+        Route::get('report/graph', [App\Http\Controllers\Invoice\UpdateController::class, 'reportGraph'])
+        ->name('punto_venta.report.graph')
+        ->middleware('permission:punto_venta.report.graph');
+
+        Route::get('get-data-graph', [App\Http\Controllers\Invoice\UpdateController::class, 'getDataGraph'])
         ->name('punto_venta.report.graph')
         ->middleware('permission:punto_venta.report.graph');
 

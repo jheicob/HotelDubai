@@ -5,8 +5,13 @@ namespace App\Http\Controllers\Invoice;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Invoice\UpdateRequest;
+use App\Models\EstateType;
 use Illuminate\Support\Facades\DB;
 use App\Models\Invoice;
+use App\Models\PartialCost;
+use App\Models\Reception;
+use App\Models\Room;
+use App\Models\RoomType;
 use Illuminate\Database\Eloquent\Builder;
 use Mpdf\Mpdf;
 
@@ -87,6 +92,101 @@ class UpdateController extends Controller
         header('Content-Type: application/pdf');
         header("Content-Disposition: inline; filename='$nombre_archivo.pdf'");
         return $pdf->Output("$nombre_archivo.pdf", 'I');
+    }
+
+    public function reportGraph(Request $request) {
+        return view('Reports.Grafico');
+    }
+
+    public function getDataGraph(Request $request){
+        $data = [];
+        switch($request->option){
+            case 'RoomTypes':
+                $data = self::getRoomTypeData($request);
+                break;
+            case 'Rooms':
+                $data = self::getRoomData($request);
+                break;
+            case 'EstateTypes':
+                $data = self::getEstateTypeData($request);
+                break;
+            default:
+                break;
+        }
+        return $data;
+        return self::setDataGraph($data);
+    }
+
+    private function setDataGraph($data):array
+    {
+        $names = [];
+        $values = [];
+        foreach($data as $item){
+            $names[] = $item->name;
+            $values[] = $item->receptions_count;
+        }
+
+        return [
+            'names' => $names,
+            'values' => $values
+        ];
+    }
+
+    private function getEstateTypeData($request){
+        $receptions = EstateType::Select('name')
+                ->when($request->date_start && $request->date_out, function (Builder $q) use ($request){
+                        $q->where('receptions',function(Builder $q) use ($request){
+                            $q->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
+                                ->where('invoiced',1);
+                        });
+                })
+                ->when($request->estate_type_id, function (Builder $q,$estate_type_id){
+                    $q->where('id',$estate_type_id);
+                })
+                ->withCount('receptions')
+                ->get()
+                ;
+        return $receptions;
+    }
+
+    private function getRoomTypeData($request){
+        $roomTypes = PartialCost::Select([
+            'name' => RoomType::select('name')->whereColumn('partial_costs.room_type_id','room_types.id')
+        ])
+        ->when($request->date_start && $request->date_out, function (Builder $q) use ($request){
+                $q->where('receptions',function(Builder $q) use ($request){
+                    $q->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
+                        ->where('invoiced',1);
+                });
+        })
+        ->when($request->estate_type_id, function (Builder $q,$estate_type_id){
+            $q->whereHas('rooms',function(Builder $q) use ($estate_type_id){
+                $q->where('estate_type_id',$estate_type_id);
+            });
+        })
+        ->withCount('receptions')
+        // ->withSum('receptions_count')
+        ->groupBy('name','receptions_count')
+        ->get();
+        return $roomTypes;
+    }
+
+    private function getRoomData($request){
+        $rooms = Room::select('name')
+                    ->when($request->date_start && $request->date_out, function (Builder $q) use ($request){
+                        $q->where('receptions',function(Builder $q) use ($request){
+                            $q->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
+                                ->where('invoiced',1);
+                        });
+                })
+                ->when($request->estate_type_id, function (Builder $q,$estate_type_id){
+                    $q->where('estate_type_id',$estate_type_id);
+                })
+                ->withCount('receptions')
+                // ->withSum('receptions_count')
+                ->groupBy('name','receptions_count')
+                ->get();
+        return $rooms;
     }
 
 }

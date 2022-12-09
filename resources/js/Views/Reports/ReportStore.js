@@ -91,7 +91,7 @@ export const ReportStore = defineStore("ReportStore",() => {
     }
 
     const openGraph = () => {
-        window.location.href = "/report/graph";
+        window.location.href = "/invoice/report/graph";
     }
 
     return {

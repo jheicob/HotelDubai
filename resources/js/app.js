@@ -39,7 +39,7 @@ import Login from "./Views/Auth/Login.vue"
 import Report from "./Views/Reports/Report.vue"
 import FiscalMachine from "./Views/FiscalMachine/FiscalMachine.vue";
 import ProductCategory from "./Views/ProductCategory/ProductCategory.vue"
-
+import ReportGraph from './Views/Reports/Grafico/GraficoView.vue'
 const app = createApp({});
 app.use(createPinia());
 
@@ -87,7 +87,7 @@ app.component("login", Login);
 app.component("reports", Report);
 app.component('fiscal-machine',FiscalMachine)
 app.component('product-category',ProductCategory)
-app.component('reporte-grafico',() => import('./Views/Reports/Grafico/GraficoView.vue'))
+app.component('reporte-grafico',ReportGraph)
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

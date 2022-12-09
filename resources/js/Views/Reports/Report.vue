@@ -61,7 +61,7 @@
                 Punto de Venta
             </a>
             <a
-                v-if="punto_venta"
+                v-if="punto_venta_graph"
                 id="client_report"
                 @click.prevent="store.openGraph"
                 class="dropdown-item text-dark"
@@ -99,6 +99,10 @@ const props = defineProps({
         default: false,
     },
     punto_venta:{
+        type: Boolean,
+        default: false,
+    },
+    punto_venta_graph:{
         type: Boolean,
         default: false,
     }
