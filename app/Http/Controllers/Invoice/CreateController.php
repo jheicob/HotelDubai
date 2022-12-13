@@ -90,7 +90,7 @@ class CreateController extends Controller
                 self::storeProductsInInvoice($invoice, $request->products);
             }
             if($request->click_in_invoice){
-                $reception->update(['invoiced' => true]);
+                $reception->update(['invoiced' => true,'invoice_id' => $invoice->id]);
                 $invoice->update(['date' => $reception->date_out]);
                 $roomStatus = \App\Models\RoomStatus::firstWhere('name', 'Sucia');
                 $reception->room->update(['room_status_id' => $roomStatus->id]);

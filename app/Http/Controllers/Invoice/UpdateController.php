@@ -113,7 +113,7 @@ class UpdateController extends Controller
             default:
                 break;
         }
-        return $data;
+        // return $data;
         return self::setDataGraph($data);
     }
 
@@ -121,71 +121,169 @@ class UpdateController extends Controller
     {
         $names = [];
         $values = [];
+        $payments = [];
+
         foreach($data as $item){
-            $names[] = $item->name;
-            $values[] = $item->receptions_count;
+            $names[]    = $item->name;
+            $values[]   = $item->receptions_count;
+            $payments[] = $item->pago_divisa + $item->pago_bs;
         }
 
+        // falta hacer un filtro para que tome solo los invoiced = 1
         return [
             'names' => $names,
-            'values' => $values
+            'values' => $values,
+            'payments' => $payments
         ];
     }
 
     private function getEstateTypeData($request){
-        $receptions = EstateType::Select('name')
-                ->when($request->date_start && $request->date_out, function (Builder $q) use ($request){
-                        $q->where('receptions',function(Builder $q) use ($request){
+        $EstateType = EstateType::Select('id','name')
+                ->when($request->date_start && $request->date_end, function ( $q) use ($request){
+                        $q->whereHas('receptions',function($q) use ($request){
                             $q->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
                                 ->where('invoiced',1);
                         });
                 })
-                ->when($request->estate_type_id, function (Builder $q,$estate_type_id){
+                ->when($request->estate_type_id, function ( $q,$estate_type_id){
                     $q->where('id',$estate_type_id);
                 })
                 ->withCount('receptions')
                 ->get()
                 ;
-        return $receptions;
+        $EstateType->transform(function($item){
+            $invoices = Invoice::With('payments')
+                ->whereHas('reception',function( $q) use ($item){
+                    $q->whereHas('room', function( $q) use ($item){
+                        $q->where('estate_type_id',$item->id);
+                    });
+                })
+                ->get();
+
+            $invoices->transform(function($invoice){
+                $pago =[
+                    'divisa' => $invoice->payments->where('type','divisa')->sum('quantity'),
+                    'bs' => $invoice->payments->where('type','Bs')->sum('quantity'),
+                ];
+                $invoice['pago_divisa'] = $pago['divisa'];
+                $invoice['pago_bs'] = $pago['bs'];
+                return $invoice;
+            });
+
+            $pago_divisa = $invoices->sum('pago_divisa');
+            $pago_bs = $invoices->sum('pago_bs');
+
+            $item->pago_divisa = $pago_divisa;
+            $item->pago_bs = $pago_bs;
+            return $item;
+
+        });
+
+        return $EstateType;
     }
 
     private function getRoomTypeData($request){
-        $roomTypes = PartialCost::Select([
-            'name' => RoomType::select('name')->whereColumn('partial_costs.room_type_id','room_types.id')
-        ])
-        ->when($request->date_start && $request->date_out, function (Builder $q) use ($request){
-                $q->where('receptions',function(Builder $q) use ($request){
+        $roomTypes = RoomType::select('id','name')
+        ->when($request->date_start && $request->date_end, function ( $q) use ($request){
+                $q->where('receptions',function( $q) use ($request){
                     $q->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
                         ->where('invoiced',1);
                 });
         })
-        ->when($request->estate_type_id, function (Builder $q,$estate_type_id){
-            $q->whereHas('rooms',function(Builder $q) use ($estate_type_id){
+        ->when($request->estate_type_id, function ( $q,$estate_type_id){
+            $q->whereHas('rooms',function( $q) use ($estate_type_id){
                 $q->where('estate_type_id',$estate_type_id);
             });
         })
-        ->withCount('receptions')
-        // ->withSum('receptions_count')
-        ->groupBy('name','receptions_count')
+        ->with('rooms.receptions.invoice')
         ->get();
+
+        $roomTypes->transform(function($roomType){
+            $count_receptions = 0;
+            $receptions_keys = collect();
+            foreach($roomType->rooms as $room){
+                $count_receptions += $room->receptions->count();
+                // dd($room->receptions->keys());
+                foreach($room->receptions as $reception){
+
+                    if($reception){
+                        $receptions_keys[] = $reception->id;
+                    }
+                }
+            }
+            $invoices = Invoice::With('payments')
+            ->whereHas('reception',function( $q) use ($roomType,$receptions_keys){
+                // $q->whereHas('room', function(Builder $q) use ($roomType,$receptions_keys){
+                    $q->whereIn('id', $receptions_keys->toArray());
+                // });
+            })
+            ->get();
+
+            $invoices->transform(function($invoice){
+                $pago =[
+                    'divisa' => $invoice->payments->where('type','divisa')->sum('quantity'),
+                    'bs' => $invoice->payments->where('type','Bs')->sum('quantity'),
+                ];
+                $invoice['pago_divisa'] = $pago['divisa'];
+                $invoice['pago_bs'] = $pago['bs'];
+                return $invoice;
+            });
+
+            $pago_divisa = $invoices->sum('pago_divisa');
+            $pago_bs = $invoices->sum('pago_bs');
+
+            $roomType->pago_divisa = $pago_divisa;
+            $roomType->pago_bs = $pago_bs;
+            $roomType->receptions_count = $count_receptions;
+
+            return $roomType
+            ;
+
+        });
         return $roomTypes;
     }
 
     private function getRoomData($request){
-        $rooms = Room::select('name')
-                    ->when($request->date_start && $request->date_out, function (Builder $q) use ($request){
-                        $q->where('receptions',function(Builder $q) use ($request){
-                            $q->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
-                                ->where('invoiced',1);
-                        });
+        $rooms = Room::select('name','id')
+                ->when($request->date_start && $request->date_end, function ( $q) use ($request){
+                    $q->whereHas('receptions',function( $q) use ($request){
+                        $q->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
+                            ->where('invoiced',1);
+                    });
                 })
-                ->when($request->estate_type_id, function (Builder $q,$estate_type_id){
+                ->when($request->estate_type_id, function ( $q,$estate_type_id){
                     $q->where('estate_type_id',$estate_type_id);
                 })
                 ->withCount('receptions')
-                // ->withSum('receptions_count')
-                ->groupBy('name','receptions_count')
                 ->get();
+
+        dd($rooms);
+        $rooms->transform(function($item){
+            $invoices = Invoice::With('payments')
+                ->whereHas('reception',function( $q) use ($item){
+                    $q->whereHas('room', function( $q) use ($item){
+                        $q->where('id',$item->id);
+                    });
+                })
+                ->get();
+
+            $invoices->transform(function($invoice){
+                $pago =[
+                    'divisa' => $invoice->payments->where('type','divisa')->sum('quantity'),
+                    'bs' => $invoice->payments->where('type','Bs')->sum('quantity'),
+                ];
+                $invoice['pago_divisa'] = $pago['divisa'];
+                $invoice['pago_bs'] = $pago['bs'];
+                return $invoice;
+            });
+
+            $pago_divisa = $invoices->sum('pago_divisa');
+            $pago_bs = $invoices->sum('pago_bs');
+
+            $item->pago_divisa = $pago_divisa;
+            $item->pago_bs = $pago_bs;
+            return $item;
+        });
         return $rooms;
     }
 

@@ -65,4 +65,8 @@ class Invoice extends Model implements Auditable
     public function fiscalMachine(){
         return $this->belongsTo(FiscalMachine::class);
     }
+
+    public function reception(){
+        return $this->hasOne(Reception::class);
+    }
 }

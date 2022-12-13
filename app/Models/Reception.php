@@ -19,7 +19,8 @@ class Reception extends Model implements Auditable
         'date_in',
         'date_out',
         'invoiced',
-        'observation'
+        'observation',
+        'invoice_id'
     ];
 
     protected $auditInclude = [
@@ -28,7 +29,9 @@ class Reception extends Model implements Auditable
         'date_in',
         'date_out',
         'observation',
-        'invoiced'
+        'invoiced',
+        'invoice_id'
+
     ];
 
     public function getDateInAttribute($value){
@@ -62,6 +65,10 @@ class Reception extends Model implements Auditable
 
     public function companions(){
         return $this->hasMany(Companion::class);
+    }
+
+    public function invoice(){
+        return $this->belongsTo(Invoice::class);
     }
 
     public function invoiceDetail(){
