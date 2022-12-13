@@ -87,11 +87,34 @@ class UpdateController extends Controller
 
         ]);
         // return $html;
+        $nombre_archivo = 'Reporte-PuntoVenta';
+        return self::generateExcelOrPdf($html,$nombre_archivo,$request->type);
         $pdf->WriteHTML($html);
         $nombre_archivo = 'Reporte-Habitaciones';
         header('Content-Type: application/pdf');
         header("Content-Disposition: inline; filename='$nombre_archivo.pdf'");
         return $pdf->Output("$nombre_archivo.pdf", 'I');
+    }
+
+
+    private function  generateExcelOrPdf($html,$name,$type){
+        if($type == 'pdf'){
+            $pdf = new Mpdf(['tempDir'=>storage_path('tempdir')]);
+            $pdf->WriteHTML($html);
+            header('Content-Type: application/pdf');
+            header("Content-Disposition: inline; filename='$name.pdf'");
+            return $pdf->Output("$name.pdf", 'I');
+        }
+        if($type == 'excel'){
+            // $xsl = new Html();
+            // $spreadsheet = $xsl->loadFromString($html);
+            // $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header("Content-Disposition: attachment; filename=$name.xls");
+            return $html;
+
+        }
+
     }
 
     public function reportGraph(Request $request) {

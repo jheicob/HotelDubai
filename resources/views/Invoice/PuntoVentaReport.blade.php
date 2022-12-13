@@ -144,7 +144,11 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="5"></td>
+            <td colspan=""></td>
+            <td colspan=""></td>
+            <td colspan=""></td>
+            <td colspan=""></td>
+            <td colspan=""></td>
             <td align="center">{{$invoices->sum('total')}}</td>
             <td align="center">{{$sum['cant_divisa']}}</td>
             <td align="center">{{$sum['neto_divisa']}}</td>
