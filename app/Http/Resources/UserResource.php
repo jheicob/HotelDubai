@@ -19,11 +19,15 @@ class UserResource extends JsonResource
             'attributes' => [
                 'name'      => $this->resource->name,
                 'email'     => $this->resource->email,
+                'fiscal_machine_id' => $this->resource->fiscal_machine_id,
                 'deleted_at'     => $this->resource->deleted_at
             ],
             'relationships' => [
                 'roles' => $this->whenLoaded('roles', function() {
                     return RolResource::collection($this->resource->roles);
+                }),
+                'fiscalMachine' => $this->whenLoaded('fiscalMachine', function() {
+                    return RoomTypeResource::make($this->resource->fiscalMachine);
                 }),
             ],
         ];

@@ -48,6 +48,7 @@ class CreateController extends Controller
         $user->name        = $request->name;
         $user->email       = $request->email;
         $user->password    = bcrypt($request->password);
+        $user->fiscal_machine_id    = $request->fiscal_machine_id;
         $user->save();
 
         $user->roles()->sync($request->get('role_id'));

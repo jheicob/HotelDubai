@@ -36,6 +36,7 @@
 								<th>Nombre</th>
 								<th>Email</th>
 								<th>Rol</th>
+								<th>Máquina Fiscal</th>
 								<th>Accion</th>
 							</tr>
 						</thead>
@@ -45,6 +46,7 @@
 								<th>Nombre</th>
 								<th>Email</th>
 								<th>Rol</th>
+								<th>Máquina Fiscal</th>
 								<th>Accion</th>
 							</tr>
 						</tfoot>
@@ -61,6 +63,8 @@
 										{{ role.attributes.name }}
 									</span>
 								</td>
+								<td>{{ keep.relationships.fiscalMachine?.attributes.name ?? ''}}</td>
+
 								<td>
 									<i
 										v-on:click.prevent="store.UpdatedUser(keep)"
@@ -113,6 +117,7 @@
 	const pagination = store.pagination;
 	onMounted(() => {
 		store.getKeeps();
+        store.getFiscalMachines()
 	});
 </script>
 <style src="sweetalert2/dist/sweetalert2.css"></style>

@@ -20,7 +20,10 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            $users = User::with('roles.permissions');
+            $users = User::with([
+                'roles.permissions',
+                'fiscalMachine'
+            ]);
             if(isAdmin()){
                 $users = $users->withTrashed();
             }
@@ -52,7 +55,7 @@ class IndexController extends Controller
     public function getPaginate(Request $request)
     {
         try {
-            $users = User::with('roles.permissions')
+            $users = User::with(['roles.permissions','fiscalMachine'])
                 ->OrderBy('id', 'DESC')
                 ->withTrashed()
                 ->paginate($request->input('pag'));

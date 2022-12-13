@@ -26,6 +26,8 @@ export const UserStore = defineStore("UserStore", () => {
         name: null,
         email: null,
         password: null,
+        fiscal_machine_id:1,
+
         role_id: [],
     })
     const errors = ref([])
@@ -35,6 +37,7 @@ export const UserStore = defineStore("UserStore", () => {
             name: null,
             email: null,
             password: null,
+            fiscal_machine_id:1,
             role_id: [],
         };
     }
@@ -147,15 +150,28 @@ export const UserStore = defineStore("UserStore", () => {
         form.value.name = user.attributes.name;
         form.value.email = user.attributes.email;
         form.value.id = user.id;
+        form.value.fiscal_machine_id = user.relationships.fiscalMachine?.id ?? 1;
         form.value.role_id = user.relationships.roles.map(function (elt) {
             return { name: elt.attributes.name, id: elt.id };
         });
+    }
+
+    const fiscalMachines = ref([])
+    const getFiscalMachines = () => {
+
+        axios
+           .get("configuration/fiscal-machines")
+           .then(res => {
+               fiscalMachines.value = res.data.data;
+           })
     }
 
     return {
         permiss,
         keeps,
         form,
+        fiscalMachines,
+        getFiscalMachines,
         // errors,
         pagination,
         getKeeps,
