@@ -21,4 +21,12 @@ class EstateType extends Authenticatable implements Auditable
         'description',
         'name',
     ];
+
+    public function receptions(){
+        return $this->hasManyThrough(Reception::class,Room::class);
+    }
+
+    public function rooms(){
+        return $this->hasMany(Room::class);
+    }
 }

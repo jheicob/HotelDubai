@@ -26,11 +26,13 @@ class User extends Authenticatable implements Auditable
         'name',
         'email',
         'password',
+        'fiscal_machine_id'
     ];
 
     protected $auditInclude = [
         'name',
         'email',
+        'fiscal_machine_id',
         'password',
     ];
 
@@ -52,4 +54,8 @@ class User extends Authenticatable implements Auditable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function fiscalMachine(){
+        return $this->belongsTo(FiscalMachine::class,'fiscal_machine_id');
+    }
 }

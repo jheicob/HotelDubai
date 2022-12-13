@@ -68,6 +68,16 @@
 							track-by="id"
 						>
 						</multiselect>
+
+                        <label for="name" class="form-label">Maquina Fiscal</label>
+						<select v-model="store.form.fiscal_machine_id" class="form-select">
+                            <option v-for="item in store.fiscalMachines"
+                                :key="item.id"
+                                :value="item.id"
+                                >
+                                {{item.attributes.name}}
+                            </option>
+                        </select>
 					</div>
 					<div class="modal-footer">
 						<a

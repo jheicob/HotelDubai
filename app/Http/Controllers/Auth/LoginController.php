@@ -52,11 +52,12 @@ class LoginController extends Controller
         if ($response = $this->authenticated($request, $this->guard()->user())) {
             return $response;
         }
+        $request['fiscal_machines'] = Auth::user()->fiscal_machine_id;
 
         $role = Auth::user()->roles[0]->name;
         if(($role == 'Recepcionista Cabaña' || $role == 'Recepcionista Edificio') && !$request->fiscal_machines){
             Auth::logout();
-            return back()->withErrors(['caja'=>'Debe de Seleccionar una caja']);
+            return back()->withErrors(['caja'=>'El Usuario no tiene caja asignada']);
         }
 
         session($request->only(['estate_type_id','fiscal_machines']));

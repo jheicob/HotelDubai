@@ -24,7 +24,9 @@ class PartialCost extends Authenticatable implements Auditable
         "partial_rates_id",
         "rate",
     ];
-
+    public function receptions(){
+        return $this->hasManyThrough(Reception::class,Room::class);
+    }
 
     public function rooms(){
         return $this->hasMany(Room::class);

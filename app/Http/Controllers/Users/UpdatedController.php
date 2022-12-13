@@ -19,10 +19,11 @@ class UpdatedController extends Controller
             DB::beginTransaction();
             $taks = User::where('id', $id)->withTrashed()->first();
 
-            $taks->update([
-                'name'  => $request->name,
-                'email' => $request->email
-            ]);
+            $taks->update($request->only([
+                'name'  ,
+                'email' ,
+                'fiscal_machine_id'
+            ]));
 
             if ($request->password) {
                 $taks->update([

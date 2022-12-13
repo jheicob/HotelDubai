@@ -16,6 +16,7 @@ use App\Models\RoomType;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Mpdf\Mpdf;
+use PhpOffice\PhpSpreadsheet\Reader\Html;
 
 class CreateController extends Controller
 {
@@ -111,6 +112,8 @@ class CreateController extends Controller
 
         ]);
         // return $html;
+        $nombre_archivo = 'Reporte-Habitaciones';
+        return self::generateExcelOrPdf($html,$nombre_archivo,$request->type);
         $pdf->WriteHTML($html);
         $nombre_archivo = 'Reporte-Habitaciones';
         header('Content-Type: application/pdf');
@@ -119,7 +122,7 @@ class CreateController extends Controller
     }
 
     public function reportRoomType(Request $request){
-        $pdf = new Mpdf(['tempDir'=>storage_path('tempdir')]);
+
         if (!$request->date_start) {
             $request['date_start'] = Reception::min('date_out');
         }
@@ -204,11 +207,34 @@ class CreateController extends Controller
 
         ]);
         // return $html;
+        $nombre_archivo = 'Reporte-Tipo-Habitaciones';
+        return self::generateExcelOrPdf($html,$nombre_archivo,$request->type);
+
+        $pdf = new Mpdf(['tempDir'=>storage_path('tempdir')]);
         $pdf->WriteHTML($html);
-        $nombre_archivo = 'Reporte-Habitaciones';
         header('Content-Type: application/pdf');
         header("Content-Disposition: inline; filename='$nombre_archivo.pdf'");
         return $pdf->Output("$nombre_archivo.pdf", 'I');
+    }
+
+    private function  generateExcelOrPdf($html,$name,$type){
+        if($type == 'pdf'){
+            $pdf = new Mpdf(['tempDir'=>storage_path('tempdir')]);
+            $pdf->WriteHTML($html);
+            header('Content-Type: application/pdf');
+            header("Content-Disposition: inline; filename='$name.pdf'");
+            return $pdf->Output("$name.pdf", 'I');
+        }
+        if($type == 'excel'){
+            // $xsl = new Html();
+            // $spreadsheet = $xsl->loadFromString($html);
+            // $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xls');
+            header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            header("Content-Disposition: attachment; filename=$name.xls");
+            return $html;
+
+        }
+
     }
 
 
@@ -278,6 +304,9 @@ class CreateController extends Controller
 
         ]);
         // return $html;
+
+        $nombre_archivo = 'Reporte-Recepciones';
+        return self::generateExcelOrPdf($html,$nombre_archivo,$request->type);
         $pdf->WriteHTML($html);
         $nombre_archivo = 'Reporte-Habitaciones';
         header('Content-Type: application/pdf');

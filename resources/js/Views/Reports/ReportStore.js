@@ -1,6 +1,6 @@
 import axios from "axios";
 import { defineStore } from "pinia";
-import {ref} from "vue";
+import {ref,computed} from "vue";
 export const ReportStore = defineStore("ReportStore",() => {
     const type_report = ref('')
     const url = ref('')
@@ -8,7 +8,14 @@ export const ReportStore = defineStore("ReportStore",() => {
         room_type_id: [],
         estate_type_id: [],
         date_start: '',
-        date_end: ''
+        date_end: '',
+        type: 'pdf',
+        checkType: true,
+    })
+
+
+    const typeReport = computed(()=>{
+        return form.value.checkType ? 'PDF' : 'Excel'
     })
 
     const input_views = ref({
@@ -63,7 +70,7 @@ export const ReportStore = defineStore("ReportStore",() => {
         let estate_types = form.value.estate_type_id.map(item => {
             return `estate_type_id[]=${item.id}`
         })
-        let dates = `date_start=${form.value.date_start}&date_end=${form.value.date_end}`
+        let dates = `date_start=${form.value.date_start}&date_end=${form.value.date_end}&type=${typeReport.value.toLowerCase()}`
 
         let new_url = `${room_types}&${estate_types}&${dates}`
         window.open(url.value+new_url)
@@ -90,9 +97,14 @@ export const ReportStore = defineStore("ReportStore",() => {
         }))
     }
 
+    const openGraph = () => {
+        window.location.href = "/invoice/report/graph";
+    }
+
     return {
         openModal,
         type_report,
+        openGraph,
         abrirReporte,
         getEstateTypes,
         url,
@@ -100,6 +112,7 @@ export const ReportStore = defineStore("ReportStore",() => {
         setRoomTypes,
         form,
         input_views,
-        closeModal
+        closeModal,
+        typeReport,
     }
 });

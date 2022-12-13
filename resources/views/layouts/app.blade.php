@@ -238,6 +238,7 @@
                             :room_report=" '{{Auth::user()->can('room.report')}}' == 1"
                             :reception_report=" '{{Auth::user()->can('reception.report')}}' == 1"
                             :punto_venta=" '{{Auth::user()->can('punto_venta.report')}}' == 1"
+                            :punto_venta_graph=" '{{Auth::user()->can('punto_venta.report.graph')}}' == 1"
 
                         ></reports>
                     @endcan

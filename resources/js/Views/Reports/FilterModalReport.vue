@@ -46,6 +46,15 @@
                 </multiselect>
             </div>
         </div>
+        <div class="row mt-3" >
+            <div class="col-10"></div>
+            <div class="col-1">
+                <div class="form-check form-switch">
+                    <input v-model="store.form.checkType" class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">{{store.typeReport}}</label>
+                </div>
+            </div>
+        </div>
         <hr />
         <div class="fs-6 text">
             Nota: Si no seleccionas algún item no se tomará en cuenta al momento de hacer el filtro para generar el reporte

@@ -32,7 +32,7 @@
                 </option>
             </select>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="typeEstate">Caja</label>
             <select
                 id="fiscal_machines"
@@ -45,7 +45,7 @@
                     {{type.name}}
                 </option>
             </select>
-    </div>
+    </div> -->
     <div class="form-group">
         <div class="checkbox">
             <label style="color:dark">

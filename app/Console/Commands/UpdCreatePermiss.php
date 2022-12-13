@@ -49,6 +49,7 @@ class UpdCreatePermiss extends Command
         $permiss_news = [
             'inventory',
             'punto_venta.report',
+            'punto_venta.report.graph',
             'FiscalMachines.index',
             'FiscalMachines.create',
             'FiscalMachines.delete',
