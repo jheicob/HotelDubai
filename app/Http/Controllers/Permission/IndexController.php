@@ -19,12 +19,11 @@ class IndexController extends Controller
     public function get()
     {
         try {
-            if(isAdmin()){
-                $permissions = Permission::withTrashed()->get();
-            }else{
+
                 $permissions = Permission::all();
-            }
+
             return PermissionResource::collection($permissions);
+
         } catch (ValidationException $ex) {
             return response()->json([
                 'data' => [
@@ -33,6 +32,7 @@ class IndexController extends Controller
                 ]
             ], Response::HTTP_UNPROCESSABLE_ENTITY);
         } catch (\Exception $ex) {
+            return $ex;
             return response()->json([
                 'data' => [
                     'code'        => $ex->getCode(),
