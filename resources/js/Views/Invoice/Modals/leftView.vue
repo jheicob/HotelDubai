@@ -80,11 +80,10 @@
                     v-model="search"
                 />
             </div>
-        <h4 >Categorias</h4>
             <div class="row">
                 <div class="col">
                     <button
-                        class="btn btn-primary m-1"
+                        class="btn btn-success m-1"
                         type="button"
                         v-for="item,i in ListProductCategory"
                         @click="setButtonProducts(item)"
@@ -94,12 +93,10 @@
                     </button>
                 </div>
             </div>
-        <h4>Productos de {{nombreCategoria}}</h4>
-
             <div class="row">
                 <div class="col">
                     <button
-                        class="btn btn-primary m-1"
+                        class="btn btn-secondary m-1"
                         type="button"
                         v-for="item,i in buttonProducts"
                         :key="i"
@@ -172,7 +169,7 @@
 
         <div class="my-2"></div>
         <div class="col" v-show="showPayments">
-            <h3>Pagos</h3>
+            <!-- <h3>Pagos</h3> -->
         </div>
 
         <table class="table text-center" v-show="showPayments">

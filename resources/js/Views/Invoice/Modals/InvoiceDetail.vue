@@ -1,7 +1,7 @@
 <template>
     <div class="bg-gray p-2">
         <div class="row text-center">
-            <h5>Datos Del Cliente</h5>
+            <!-- <h5>Datos Del Cliente</h5> -->
         </div>
         <div class="row">
             <div class="col-2">
@@ -21,7 +21,7 @@
         </div>
         <div class="border border-bottom border-white my-1"></div>
         <div class="row text-center">
-            <h5>Productos</h5>
+            <!-- <h5>Productos</h5> -->
         </div>
         <div class="row">
             <div class="col-3 align-self-center">
@@ -70,7 +70,7 @@
         </div>
         <div class="row border border-top border-white">
             <div class="col text-right">
-                <h5>Total</h5>
+                <h6>Total</h6>
             </div>
             <div class="col">
                 {{ invoice.getAcumByProducts }}
@@ -78,7 +78,7 @@
         </div>
 
         <div class="row text-center">
-            <h5>Pagos</h5>
+            <!-- <h5>Pagos</h5> -->
         </div>
         <div class="row">
             <div class="col-3 align-self-center">
@@ -119,7 +119,7 @@
         </div>
         <div class="row border border-top border-white">
             <div class="col text-right">
-                <h5>Falta Pagar</h5>
+                <h6>Falta Pagar</h6>
             </div>
             <div class="col">
                 {{ invoice.getAcumByProducts - invoice.getAcumByPayments }}
