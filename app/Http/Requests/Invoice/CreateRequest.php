@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Invoice;
 
-use App\Rules\Invoice\VerifiedReceptionDetailOfClient;
 use App\Rules\Invoice\VerifiedTotalPayment;
 use App\Rules\verifiedSumTotalProducts;
 use App\Traits\CustomResponseFormRequestTrait;
@@ -52,7 +51,7 @@ class CreateRequest extends FormRequest
 
         ];
         if ($this->reception_details && count($this->reception_details) > 0) {
-            $data['total_payment'] = new VerifiedTotalPayment($this->client_id);
+            $data['total_payment'] = new VerifiedTotalPayment($this->client_id,$this->room_id);
         }
         if ($this->products && count($this->products) > 0) {
             $data['total_payment'] = new verifiedSumTotalProducts($this->products);

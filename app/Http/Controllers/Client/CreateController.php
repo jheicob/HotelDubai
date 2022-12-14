@@ -61,6 +61,7 @@ class CreateController extends Controller
             $client = Client::find($request->client_id);
             $room = Room::find($request->room_id);
             Log::info('as');
+
             if ($room->room_status_id != 2 && $room->receptionActive[0]->client_id != $client->id) {
                 throw new \Exception('La Habitación está ocupada');
             }
@@ -85,7 +86,7 @@ class CreateController extends Controller
             ]);
             Log::info('as5');
 
-            $reception = self::verifiedReceptionActive($client);
+            $reception = self::verifiedReceptionActive($client,$room);
             if ($reception) {
                 Log::info('v1');
 
@@ -134,13 +135,16 @@ class CreateController extends Controller
         try {
             DB::beginTransaction();
 
-            $reception = $client->receptionActive->first();
+            $reception = Reception::where([
+                ['client_id',$client->id],
+                ['room_id',$request->room_id]
+            ])->first();
 
             $reception->details->map(function ($detail) {
                 $detail->ticket->delete();
                 $detail->delete();
             });
-            $invoice = $client->invoiceNoPrint;
+            $invoice = $reception->invoice;
             $invoice->details->map(function ($detail) {
                 $detail->delete();
             });
@@ -160,13 +164,16 @@ class CreateController extends Controller
         }
     }
 
-    public function verifiedReceptionActive(Client $client)
+    public function verifiedReceptionActive(Client $client, Room $room)
     {
-
-        if (!$client->receptionActive->first()) {
+        $reception = Reception::where([
+            ['client_id',$client->id],
+            ['room_id',$room->id]
+        ])->first();
+        if (!$reception) {
             return false;
         }
-        return $client->receptionActive->first();
+        return $reception;
     }
 
     public function extendReception(Reception $reception, Request $request, int $quantity_total_hours): JsonResponse
@@ -256,7 +263,7 @@ class CreateController extends Controller
         $room->partial_cost_id = $rate->getPartialByConditionals();
 
         $reception = $room->receptionActive->first();
-        $invoice   = $reception->client->invoiceNoPrint;
+        $invoice   = $reception->invoice;
         $reception_detail = $reception->details()->orderBy('created_at', 'desc')->first();
 
         $type_payment = '';

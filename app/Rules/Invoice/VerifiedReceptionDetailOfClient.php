@@ -27,6 +27,7 @@ class VerifiedReceptionDetailOfClient implements Rule
      */
     public function passes($attribute, $value)
     {
+        return true;
         $detail = $this->client->receptionActive[0]->details->where('id', $value)->first();
 
         if(!$detail){

@@ -3,7 +3,9 @@
 namespace App\Rules\Invoice;
 
 use App\Models\Client;
+use App\Models\Reception;
 use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Support\Facades\Log;
 
 class VerifiedTotalPayment implements Rule
 {
@@ -13,9 +15,17 @@ class VerifiedTotalPayment implements Rule
      *
      * @return void
      */
-    public function __construct($client_id)
+    public function __construct($client_id,$room_id)
     {
-        $this->reception = Client::find($client_id)->receptionActive->first();
+        Log::warning($client_id);
+        Log::warning($room_id);
+
+        $this->reception = Reception::where([
+            ['client_id',$client_id],
+            ['room_id',$room_id]
+        ])->first();
+
+        Log::info($this->reception);
     }
 
     /**

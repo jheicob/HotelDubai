@@ -41,11 +41,15 @@ class CreateController extends Controller
             DB::beginTransaction();
             Log::info('creando factura');
             $client = Client::find($request->client_id);
-
+            $reception = false;
             $total_invoice = 0;
 
             if($request->reception_details && count($request->reception_details) > 0 ) {
-                $reception = $client->receptionActive->first();
+                $reception = Reception::where([
+                    ['client_id',$request->client_id],
+                    ['room_id',$request->room_id]
+                ])->first();
+
                 self::VerifiedAndUpdateAdditionalReceptionDetails($reception, $request->reception_details);
                 $total_invoice += $this->service->calculateTotalByReceptionDetails($reception);
             }
@@ -59,9 +63,9 @@ class CreateController extends Controller
                 'date'  => Carbon::now()->format('Y-m-d H:i:s')
             ]);
 
-            if($client->invoiceNoPrint && count($request->reception_details) > 0) {
-                $invoice = $client->invoiceNoPrint;
-                $client->invoiceNoPrint->update(($request->only('total','fiscal_machine_id')));
+            if($reception && $reception->invoice && count($request->reception_details) > 0) {
+                $invoice = $reception->invoice;
+                $invoice->update(($request->only('total','fiscal_machine_id')));
             }else{
                 $data = $request->has('fiscal_machine_id') ? $request->only([
                     'client_id',
@@ -84,6 +88,14 @@ class CreateController extends Controller
             $invoice->save();
 
             if($request->reception_details && count($request->reception_details) > 0) {
+                $reception = Reception::where([
+                    ['client_id',$request->client_id],
+                    ['room_id',$request->room_id]
+                ])->first();
+
+                $reception->invoice_id = $invoice->id;
+                $reception->save();
+
                 self::storeReceptionDetailsInInvoice($reception, $invoice);
             }
             if($request->products && count($request->products) > 0 ) {

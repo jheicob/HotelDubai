@@ -31,7 +31,7 @@ class AssignRoomRequest extends FormRequest
             'client_id' => [
                 'required',
                 'exists:clients,id',
-                new VerifiedReceptionAndRoom($this->room_id)
+                // new VerifiedReceptionAndRoom($this->room_id)
             ],
             'date_in' => 'required|date',
             'observation' => 'nullable|string',

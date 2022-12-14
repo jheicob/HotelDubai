@@ -27,6 +27,7 @@ class VerifiedReceptionAndRoom implements Rule
      */
     public function passes($attribute, $value)
     {
+        return true; // un cliente puede tener muchas habitaciones asignadas
         $client = Client::find($value);
 
         $reception = $client->receptionActive->first();

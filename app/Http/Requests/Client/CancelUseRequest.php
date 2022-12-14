@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Rules\Client\VerifiedRoleForCancelUseRoom;
 use App\Traits\CustomResponseFormRequestTrait;
+use Illuminate\Support\Facades\Log;
+
 class CancelUseRequest extends FormRequest
 {
     use CustomResponseFormRequestTrait;
@@ -27,14 +29,14 @@ class CancelUseRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => new VerifiedRoleForCancelUseRoom($this->client)
+            'user_id' => new VerifiedRoleForCancelUseRoom($this->client,$this->room_id)
         ];
     }
 
     public function prepareForValidation()
     {
         $this->merge([
-            'user_id' => Auth::user()->id
+            'user_id' => Auth::user()->id,
         ]);
     }
 }

@@ -19,7 +19,8 @@ export const receptionStore = defineStore('ReceptionStore',() => {
 
     async function cancelUse(item){
         let client_id = item.relationships.receptionActive.relationships.client.id
-        let url = 'client/'+client_id+'/cancel-use'
+        let room_id = item.id
+        let url = 'client/'+client_id+'/cancel-use?room_id='+room_id
         await helper.customRequest(url,'get');
         location.reload()
     }

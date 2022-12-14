@@ -2,6 +2,7 @@
 
 namespace App\Rules\Client;
 
+use App\Models\Reception;
 use App\Traits\Configurations\GeneralConfiguration;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
@@ -10,16 +11,19 @@ use Carbon\Carbon;
 class VerifiedRoleForCancelUseRoom implements Rule
 {
     use GeneralConfiguration;
+
     protected $client;
+    protected $room_id;
     protected $reception;
     /**
      * Create a new rule instance.
      *
      * @return void
      */
-    public function __construct($client)
+    public function __construct($client, $room_id)
     {
         $this->client = $client;
+        $this->room_id = $room_id;
     }
 
     /**
@@ -31,7 +35,10 @@ class VerifiedRoleForCancelUseRoom implements Rule
      */
     public function passes($attribute, $value)
     {
-        $this->reception = $this->client->receptionActive->first();
+        $this->reception = Reception::where([
+            ['room_id',$this->room_id],
+            ['client_id', $this->client->id]
+        ])->first();
 
         if ($this->reception == '') return false;
 

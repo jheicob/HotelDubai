@@ -142,6 +142,7 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
             let url = "invoice/create";
             let data = {
                 client_id: form.value.client_id,
+                room_id: item.value.id,
                 reception_details: form.value.reception_details,
                 payments: form.value.payments,
                 products: products.value,
