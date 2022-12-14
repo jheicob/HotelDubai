@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\ProductCategory;
 
+use App\Http\Resources\Product\ProductResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class ProductCategoryResource extends JsonResource
@@ -25,6 +26,10 @@ class ProductCategoryResource extends JsonResource
                 */
             ],
             'relationships' => [
+
+                'products' => $this->whenLoaded('products', function() {
+                    return ProductResource::collection($this->resource->products);
+                }),
                 /*
                     'relation' => $this->whenLoaded('relation', function() {
                         return relationResource::make($this->resource->relation);

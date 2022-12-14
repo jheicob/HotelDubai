@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\ProductCategory;
 use App\Http\Resources\ProductCategory\ProductCategoryResource;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
@@ -16,15 +17,21 @@ class IndexController extends Controller
         // return ['view'];
     }
 
-    public function get()
+    public function get(Request $request)
     {
         try {
+            $productcategory = ProductCategory::with('products')
+                ->when($request->slash_code,function(Builder $q,$slash_code){
+                    $q->whereHas('products', function(Builder $q) use ($slash_code){
+                        $q->where('slash_code',$slash_code);
+                    });
+                });
+            ;
             if(isAdmin()){
-                $productcategory = ProductCategory::withTrashed()->get();
-            }else{
-                $productcategory = ProductCategory::all();
-
+                $productcategory = $productcategory->withTrashed();
             }
+
+            $productcategory = $productcategory->get();
 
             return ProductCategoryResource::collection($productcategory);
         } catch (\Exception $e) {

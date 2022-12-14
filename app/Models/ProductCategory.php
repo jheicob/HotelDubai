@@ -18,4 +18,8 @@ class ProductCategory extends Model implements Auditable
         'name',
         'description'
     ];
+
+    public function products(){
+        return $this->hasMany(Product::class);
+    }
 }
