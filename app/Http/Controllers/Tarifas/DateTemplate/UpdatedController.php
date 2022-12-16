@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Tarifas\DateTemplate;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RangeTemplateUpdateMasiveRequest;
 use App\Http\Requests\Tarifas\DateTemplate\UpdateRequest;
 use App\Models\DateTemplate;
 use Illuminate\Http\Request;
@@ -27,5 +28,26 @@ class UpdatedController extends Controller
             DB::rollBack();
             return custom_response_exception($e,__('errors.server.title'),500);
         }
+    }
+
+    public function masiveUptade(RangeTemplateUpdateMasiveRequest $request){
+        try {
+            DB::beginTransaction();
+
+            $dayTemplate = DateTemplate::find($request->day_template_id);
+
+            $dayTemplate->map(function($item) use ($request){
+                $item->update($request->only('rate'));
+            });
+
+            DB::commit();
+
+            return custom_response_sucessfull('updated successfull');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return custom_response_exception($e,__('errors.server.title'),500);
+        }
+
     }
 }

@@ -16,8 +16,13 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <div class="col text-right">
-                        <a
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col">
+                            <UpdateMasive :items="keeps" @GetCreatedPermission="getKeeps"></UpdateMasive>
+                        </div>
+                        <div class="col text-right">
+                            <a
                             data-toggle="modal"
                             v-on:click.prevent="CreatePermission()"
                             v-if="create"
@@ -28,7 +33,9 @@
                                 >Crear Plantilla Fechas</span
                             >
                         </a>
+                        </div>
                     </div>
+
                     <table
                         class="table table-bordered"
                         id="dataTable"
@@ -116,12 +123,14 @@
 import axios from "axios";
 import CreatePermission from "../Modals/CreateDateTemplate.vue";
 import UpdatePermission from "../Modals/UpdateDateTemplate.vue";
+import UpdateMasive from "../Modals/UpdateMasive.vue";
 
 export default {
     name: "DateTemplateDataTable",
     components: {
         CreatePermission,
         UpdatePermission,
+        UpdateMasive
     },
     props: {
         create: {

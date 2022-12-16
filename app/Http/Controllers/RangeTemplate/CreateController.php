@@ -15,7 +15,16 @@ class CreateController extends Controller
         try {
             DB::beginTransaction();
 
-            $rangetemplate = RangeTemplate::create($request->all());
+            foreach($request->room_type_id as $room_type){
+                $data = $request->only([
+                'partial_rate_id',
+                'date_start',
+                'date_end',
+                'rate',]);
+
+                $rangetemplate = RangeTemplate::create(array_merge($data,['room_type_id'=>$room_type]));
+
+            }
 
             DB::commit();
 

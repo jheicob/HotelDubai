@@ -1,14 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Tarifas\DateTemplate;
+namespace App\Http\Requests;
 
-use App\Traits\CustomResponseFormRequestTrait;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateRequest extends FormRequest
+class RangeTemplateUpdateMasiveRequest extends FormRequest
 {
-    use CustomResponseFormRequestTrait;
-
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -27,10 +24,9 @@ class CreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'room_type_id' => 'required|array',
-            'room_type_id.*' => 'required|exists:room_types,id',
-            'date'         => 'required|date_format:d/m',
-            'rate'         => 'required|numeric',
+            'day_template_id' => 'required|array',
+            'day_template_id.*'      => 'exists:range_templates,id',
+            'rate' => 'required|numeric'
         ];
     }
 }

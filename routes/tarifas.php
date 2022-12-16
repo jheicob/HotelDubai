@@ -93,6 +93,10 @@ Route::group(
                     ->name('date.templates.index')
                     ->middleware('permission:date.templates.index');
 
+                Route::put('masive-update',[App\Http\Controllers\Tarifas\DateTemplate\UpdatedController::class, 'masiveUptade'])
+                    ->name('range.templates.updated-masive')
+                    ->middleware('permission:range.template.updated');
+
                 Route::post('create', [App\Http\Controllers\Tarifas\DateTemplate\CreateController::class, 'create'])
                     ->name('date.templates.create')
                     ->middleware('permission:date.templates.create');
@@ -188,6 +192,10 @@ Route::group(
                 Route::get('', [App\Http\Controllers\RangeTemplate\IndexController::class, 'index'])
                     ->name('range.template.index')
                     ->middleware('permission:range.template.index');
+
+                Route::put('masive-update', [App\Http\Controllers\RangeTemplate\UpdateController::class, 'masiveUptade'])
+                    ->name('range.templates.updated-masive')
+                    ->middleware('permission:range.template.updated');
 
                 Route::post('create', [App\Http\Controllers\RangeTemplate\CreateController::class, 'create'])
                     ->name('range.template.create')

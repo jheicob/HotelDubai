@@ -28,25 +28,16 @@
                         </a>
                     </div>
                     <div class="modal-body">
-                        <label for="name" class="form-label"
-                            >Tipo Habitacion</label
-                        >
-                        <select
-                            class="form-select"
-                            aria-label="Default select example"
-                            v-model="form.room_type_id"
-                        >
-                            <option selected value="">
-                                Seleccione Tipo Habitacion
-                            </option>
-                            <option
-                                v-for="keep in roomType"
-                                :key="keep.id"
-                                :value="keep.id"
-                            >
-                                {{ keep.attributes.name }}
-                            </option>
-                        </select>
+                        <label for="name" class="form-label">Tipo Habitacion</label>
+                        <multiselect
+							v-model="form.room_type_id"
+							id="checkedPermissions"
+							:options="setRoomTypes"
+							:multiple="true"
+							label="name"
+							track-by="id"
+						>
+						</multiselect>
 
                         <label for="date" class="form-label">Fecha</label>
                         <input
@@ -130,11 +121,23 @@
 
 <script>
 import axios from "axios";
+	import Multiselect from "vue-multiselect";
 import { dateFormat } from "./helper";
 import dayjs from 'dayjs'
 export default {
     name: "CreateDateTemplate",
-    components: {},
+    components: {Multiselect},
+    computed:{
+            setRoomTypes() {
+                return this.roomType.map(item =>({
+                    name:item.attributes.name,
+                    id: item.id
+                }))
+            },
+            getRoomTypes() {
+                return this.form.room_type_id.map(item => item.id)
+            }
+        },
     mounted() {
         this.getRoomType();
         this.getPartial();
@@ -165,6 +168,7 @@ export default {
         createPermission() {
             var url = "/tarifas/date-templates/create";
             this.form.date = dayjs(this.form.date).format('DD/MM')
+            this.form.room_type_id = this.getRoomTypes
             axios
                 .post(url, this.form)
                 .then((response) => {

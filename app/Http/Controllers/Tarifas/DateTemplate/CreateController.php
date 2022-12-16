@@ -23,7 +23,10 @@ class CreateController extends Controller
         DB::beginTransaction();
         try {
 
-            $this->model::create($request->all());
+            foreach($request->room_type_id as $room_type){
+                $data = $request->except('room_type_id');
+                $this->model::create(array_merge($data,['room_type_id' => $room_type]));
+            }
 
             DB::commit();
 
