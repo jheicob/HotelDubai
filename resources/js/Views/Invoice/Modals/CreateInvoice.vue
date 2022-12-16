@@ -3,6 +3,17 @@
         <h5 class="modal-title title-page text-secondary" id="exampleModalLabel">
             Punto Venta
         </h5>
+        <div class="">
+            <buton class="btn btn-primary" @click="showElement('Client')">
+                Cliente
+            </buton>
+            <buton class="btn btn-primary mx-2" @click="showElement('Product')">
+                Productos
+            </buton>
+            <buton class="btn btn-primary" @click="showElement('Payment')">
+                Pagos
+            </buton>
+        </div>
     </div>
     <div class="modal-body">
         <div class="row">
@@ -15,30 +26,41 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a class="btn btn-danger text-white btn-icon-split mb-4" data-dismiss="modal" @click="clearForm">
+        <a class="btn btn-danger text-white btn-icon-split mb-4 my-auto" data-dismiss="modal" @click="clearForm">
             <span class="text font-montserrat font-weight-bold">Cancelar</span>
         </a>
-        <button :disabled="disabledButton()" class="btn btn-primary text-white btn-icon-split mb-4"
+        <button :disabled="disabledButton()" class="my-auto btn btn-primary text-white btn-icon-split mb-4"
             @click="createInvoice" type="button">
             <span class="text font-montserrat font-weight-bold">Facturar</span>
         </button>
+            <SelectCaja class="col-2 my-auto"></SelectCaja>
     </div>
 </template>
 <script setup>
 import InvoiceDetail from './InvoiceDetail.vue';
 import LeftView from './leftView.vue';
-import { onMounted,ref } from "vue";
 import { InvoiceStore } from "../InvoiceStore";
 import { HelperStore } from "@/HelperStore";
 import { ocuppyRoomStore } from "../../Room/Modals/OcuppyRoomStore";
 import { storeToRefs } from "pinia";
-import Multiselect from "vue-multiselect";
+import {LeftViewStore} from './LeftViewStore.js'
 import SelectCaja from "../../Room/Modals/SelectCaja.vue";
 
 const ocuppy = ocuppyRoomStore();
 const store = InvoiceStore();
 const useHelper = HelperStore();
 const { caja_fiscal } = storeToRefs(useHelper)
+
+
+const leftView =  LeftViewStore()
+
+const {
+    showClient,
+    showProducs,
+    showPayments,
+} = storeToRefs(leftView)
+
+const {showElement} = leftView
 
 const { products: productInvoice, form, payment } = storeToRefs(store);
 const { products: products_get, client_exist, type_documents, date, hour, product, click_in_bodegon } =

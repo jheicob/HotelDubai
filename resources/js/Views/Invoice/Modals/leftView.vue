@@ -5,17 +5,7 @@
         </h5>
     </div> -->
     <!-- <div class="modal-body"> -->
-        <div class="">
-            <buton class="btn btn-primary" @click="showElement('Client')">
-                Cliente
-            </buton>
-            <buton class="btn btn-primary mx-2" @click="showElement('Product')">
-                Productos
-            </buton>
-            <buton class="btn btn-primary" @click="showElement('Payment')">
-                Pagos
-            </buton>
-        </div>
+
         <div v-show="showClient">
             <div class="row">
                 <div class="col-4">
@@ -83,23 +73,26 @@
             <div class="row">
                 <div class="col">
                     <button
-                        class="btn btn-success m-1"
+                        class="btn m-1 "
                         type="button"
                         v-for="item,i in ListProductCategory"
-                        @click="setButtonProducts(item)"
+                        :class="'btn-'+colors[i]"
+                        @click="setButtonProducts(item,i)"
                         :key="i"
                     >
                     {{item.attributes.name}}
                     </button>
                 </div>
             </div>
+            <hr class="border border-danger border-2 opacity-50">
             <div class="row">
                 <div class="col">
                     <button
-                        class="btn btn-secondary m-1"
+                        class="btn m-1"
                         type="button"
                         v-for="item,i in buttonProducts"
                         :key="i"
+                        :class="colorProduct"
                         @click="addProductInInvoice(item)"
                     >
                     {{item.attributes.name}}
@@ -108,64 +101,7 @@
             </div>
         </div>
 
-        <table class="table text-center" v-show="false">
-            <thead>
-                <tr>
-                    <th>Producto</th>
-                    <th>Descripcion</th>
-                    <th class="col-2">Cantidad</th>
-                    <th>Precio</th>
-                    <th>SubTotal</th>
-                    <th>Accion</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="(item, i) in store.products" :key="i">
-                    <td>{{ item.name }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.price }}</td>
-                    <td>
-                        {{ item.price * item.quantity }}
-                    </td>
-                    <td>
-                        <i class="fas fa-minus" style="cursor: pointer" @click="store.deleteProduct(i)">
-                        </i>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <multiselect id="checkedPermissions" v-model="product" :options="ocuppy.products" label="name"
-                            track-by="id">
-                        </multiselect>
-                    </td>
-                    <td>
-                        {{ product.description }}
-                    </td>
-                    <td>
-                        <input type="number" min="0" class="form-control" v-model="product.quantity" />
-                    </td>
-                    <td>
-                        {{ product.price }}
-                    </td>
-                    <td>
-                        {{ product.quantity * product.price }}
-                    </td>
-                    <td colspan="5">
-                        <i class="fas fa-plus" style="cursor: pointer" @click="addProductInInvoice">
-                        </i>
-                    </td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th colspan="5">Total</th>
-                    <th>
-                        {{ store.getAcumByProducts }}
-                    </th>
-                </tr>
-            </tfoot>
-        </table>
+
 
         <div class="my-2"></div>
         <div class="col" v-show="showPayments">
@@ -220,9 +156,9 @@
                 </tr>
             </tbody>
         </table>
-        <div class="justify-content-end mt-3 row">
+        <!-- <div class="justify-content-end mt-3 row">
             <SelectCaja class="col-3"></SelectCaja>
-        </div>
+        </div> -->
     <!-- </div> -->
     <!-- <div class="modal-footer">
         <a class="btn btn-danger text-white btn-icon-split mb-4" data-dismiss="modal" @click="clearForm">
@@ -239,7 +175,7 @@
 </template>
 
 <script setup>
-import { onMounted,ref } from "vue";
+import { onMounted,ref,computed } from "vue";
 import { InvoiceStore } from "../InvoiceStore";
 import { HelperStore } from "@/HelperStore";
 import { ocuppyRoomStore } from "../../Room/Modals/OcuppyRoomStore";
@@ -247,6 +183,7 @@ import { storeToRefs } from "pinia";
 import Multiselect from "vue-multiselect";
 import SelectCaja from "../../Room/Modals/SelectCaja.vue";
 import axios from "axios";
+import {LeftViewStore} from './LeftViewStore.js'
 
 const props = defineProps({
     fiscal_machine_id: {
@@ -287,6 +224,13 @@ const { products: productInvoice, form, payment } = storeToRefs(store);
 const { products: products_get, client_exist, type_documents, date, hour, product, click_in_bodegon } =
     storeToRefs(ocuppy);
 
+const cantArticulos = computed(()=>{
+    let acum = 0;
+    productInvoice.value.forEach((product)=>{
+        acum += product.quantity
+    })
+    return acum;
+})
 const addProductInInvoice = (item = null) => {
     if(item){
         product.value = {
@@ -300,7 +244,15 @@ const addProductInInvoice = (item = null) => {
         }
         product.value.quantity = 1
     }
-    productInvoice.value.push(ocuppy.product);
+    let bool = productInvoice.value.find(prod => prod.id == item.id)
+    console.log('producto', bool)
+    if(!bool){
+        console.log('if')
+
+        productInvoice.value.push(ocuppy.product);
+    }else{
+        productInvoice.value.find(prod => prod.id == item.id).quantity ++;
+    }
     ocuppy.clearProduct();
     payment.value.quantity = store.getAcumByProducts - store.getAcumByPayments;
 };
@@ -397,30 +349,16 @@ onMounted(() => {
     }
 });
 
-const showClient = ref(false)
-const showProducs = ref(false)
-const showPayments = ref(false)
+const leftView =  LeftViewStore()
 
-const showElement = (name) => {
-    switch(name){
-        case 'Product':
-            showClient.value   = false
-            showProducs.value  = !showProducs.value;
-            showPayments.value = false;
-            break;
-        case 'Payment':
-            showPayments.value  = !showPayments.value
-            showProducs.value  = false;
-            showClient.value  = false;
-            break;
-        case 'Client':
-            showClient.value  = !showClient.value
-            showProducs.value  = false;
-            showPayments.value  = false;
-            break;
-    }
+const {
+    showClient,
+    showProducs,
+    showPayments,
+    colorProduct
+} = storeToRefs(leftView)
 
-}
+const {showElement,colors} = leftView
 
 const productCategory = ref('')
 const ListProductCategory = ref([])
@@ -432,6 +370,7 @@ const getProductCategories = () =>{
         .then(res => {
             ListProductCategory.value = res.data.data
             buttonProducts.value = ListProductCategory.value[0].relationships.products
+            colorProduct.value = `btn-${colors[0]}`
             nombreCategoria.value = ListProductCategory.value[0].attributes.name
         })
         .catch(err => useHelper.getErrorRequest(err))
@@ -439,7 +378,8 @@ const getProductCategories = () =>{
 
 const buttonProducts = ref([])
 const nombreCategoria = ref('')
-const setButtonProducts = (item) => {
+const setButtonProducts = (item,i) => {
+    colorProduct.value = `btn-${colors[i]}`
     nombreCategoria.value = item.attributes.name
 
     buttonProducts.value = item.relationships.products

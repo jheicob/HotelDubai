@@ -75,6 +75,12 @@
             <div class="col">
                 {{ invoice.getAcumByProducts }}
             </div>
+            <div class="col text-right">
+                <h6>Articulos</h6>
+            </div>
+            <div class="col">
+                {{ leftView.cantArticulos }}
+            </div>
         </div>
 
         <div class="row text-center">
@@ -132,7 +138,9 @@
 import { ref, computed } from "vue"
 import { InvoiceStore } from "../InvoiceStore";
 import { storeToRefs } from "pinia";
+import { LeftViewStore } from "./LeftViewStore";
 
+const leftView = LeftViewStore()
 const invoice = InvoiceStore()
 const { products,payment } = storeToRefs(invoice)
 
