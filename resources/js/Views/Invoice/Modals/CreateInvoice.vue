@@ -17,7 +17,7 @@
     </div>
     <div class="modal-body">
         <div class="row">
-            <div class="col-7 ">
+            <div class="col-8 ">
                 <LeftView :fiscal_machine_id="fiscal_machine_id"></LeftView>
             </div>
             <div class="col">
