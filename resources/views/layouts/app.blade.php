@@ -106,6 +106,15 @@
                             </a>
                         </li>
                     @endcan
+                    @can('room.index')
+                    <li class="nav-item" onmouseover="showElement('reservation')" onmouseout="hideElement('reservation')">
+                            <a class="nav-link" href="{{ route('room.index') }}">
+                                <i class="fas fa-calendar-alt"></i>
+                                <span id='reservation-text' name="icon-reservation" class="custom-menu-item">
+                                    Reservación</span>
+                            </a>
+                        </li>
+                    @endcan
                     @can('invoice.index')
                     <li class="nav-item" onmouseover="showElement('invoice')" onmouseout="hideElement('invoice')">
                             <a class="nav-link" href="{{ route('invoice.index') }}">
