@@ -36,6 +36,11 @@
         .ml-r-6 {
             margin-left: 6rem
         }
+
+        .custom-menu-item{
+            display: none
+        }
+
     </style>
 </head>
 
@@ -82,36 +87,41 @@
                         </div>
                     --}}
                     @can('users.index')
-                        <li class="nav-item">
+                        <li class="nav-item" onmouseover="showElement('user')" onmouseout="hideElement('user')">
                             <a class="nav-link" href="{{ route('users.index') }}">
                                 <i class="fas fa-users"></i>
-                                <span>Usuarios</span>
+                                <span id='user-text' name="icon-user" class="custom-menu-item">
+                                    Usuarios
+                                </span>
                             </a>
                         </li>
                     @endcan
 
                     @can('room.index')
-                        <li class="nav-item">
+                    <li class="nav-item" onmouseover="showElement('room')" onmouseout="hideElement('room')">
                             <a class="nav-link" href="{{ route('room.index') }}">
                                 <i class="fas fa-tags"></i>
-                                <span>Habitaciones</span>
+                                <span id='room-text' name="icon-room" class="custom-menu-item">
+                                    Habitaciones</span>
                             </a>
                         </li>
                     @endcan
                     @can('invoice.index')
-                        <li class="nav-item">
+                    <li class="nav-item" onmouseover="showElement('invoice')" onmouseout="hideElement('invoice')">
                             <a class="nav-link" href="{{ route('invoice.index') }}">
-                                <i class="fas fa-tags"></i>
-                                <span>Facturas</span>
+                                <i class="fas fa-file-invoice-dollar"></i>
+                                <span id='invoice-text' name="icon-invoice" class="custom-menu-item">
+                                    Facturas</span>
                             </a>
                         </li>
                     @endcan
                     @can('product.index')
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown" onmouseover="showElement('inventory')" onmouseout="hideElement('inventory')">
                         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fas fa-boxes"></i>
-                            <span>Inventario</span>
+                            <span id='inventory-text' name="icon-inventory" class="custom-menu-item">
+                                Inventario</span>
                         </a>
                         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                             @can('configuration.index')
@@ -127,11 +137,12 @@
                 @endcan
 
                     @can('seguridad')
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" onmouseover="showElement('segurity')" onmouseout="hideElement('segurity')">
                             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-user-lock"></i>
-                                <span>Seguridad</span>
+                                <span id='segurity-text' name="icon-segurity" class="custom-menu-item">
+                                    Seguridad</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                                 @can('roles.index')
@@ -149,11 +160,12 @@
 
 
                     @can('configuracion')
-                        <li class="nav-item dropdown">
+                        <li class="nav-item dropdown" onmouseover="showElement('config')" onmouseout="hideElement('config')">
                             <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-cogs"></i>
-                                <span>Configuracion</span>
+                                <span id='config-text' name="icon-config" class="custom-menu-item">
+                                    Configuracion</span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="pagesDropdown">
                                 @can('configuration.index')
@@ -244,10 +256,11 @@
                     @endcan
 
                     @can('invoice.create')
-                    <li class="nav-item">
+                    <li class="nav-item" onmouseover="showElement('sale_point')" onmouseout="hideElement('sale_point')">
                         <a class="nav-link" href="{{route('invoice.ventas')}}" >
                             <i class="fas fa-store"></i>
-                            <span>Punto Venta</span>
+                            <span id='sale_point-text' name="icon-sale_point" class="custom-menu-item">
+                                Punto Venta</span>
                         </a>
                     </li>
                     @endcan
@@ -349,6 +362,14 @@
 
     {{-- <script src="https://js.pusher.com/7.2/pusher.min.js"></script> --}}
     <script>
+
+const showElement = (element) => {
+    $(`#${element}-text`).removeClass('custom-menu-item')
+}
+
+const hideElement = (element) => {
+    $(`#${element}-text`).addClass('custom-menu-item')
+}
         // Enable pusher logging - don't include this in production
 
         // Pusher.logToConsole = true;
