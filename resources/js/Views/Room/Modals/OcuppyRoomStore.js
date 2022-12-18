@@ -18,7 +18,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
     const client_exist = ref(false);
     const type_documents = ref([]);
     const client = ref({});
-    const date = ref(moment().format("YYYY-MM-DD"));
+    const date = ref(moment().format("YYYY-MM-DD HH:mm"));
     const hour = ref(moment().format("HH:mm"));
     const click_in_invoice = ref(false);
     const reception_update = ref(false);
@@ -83,7 +83,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
     };
 
     const setDate = computed(() => {
-        return `${date.value} ${hour.value}`;
+        return `${date.value}`;
     });
 
     const getClient = () => {
@@ -124,7 +124,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
         let data = {
             client_id: form.value.client_id,
             room_id: item.value.id,
-            date_in: form.value.date_in,
+            date_in: dayjs(date.value).format('YYYY-MM-DD HH:MM'),
             observation: form.value.observation,
             quantity_partial: form.value.quantity_partial,
             ticket_op: form.value.ticket_op,

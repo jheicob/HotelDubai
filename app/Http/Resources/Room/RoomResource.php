@@ -40,7 +40,7 @@ class RoomResource extends JsonResource
                     return RoomTypeResource::make($this->resource->estateType);
                 }),
                 'receptionActive' => $this->whenLoaded('receptionActive', function () {
-                    if ($this->resource->receptionActive->first()) {
+                    if ($this->resource->receptionActive->first() && ($this->resource->room_status_id == 5 || $this->resource->room_status_id == 4) ){
                         return ReceptionResource::make($this->resource->receptionActive->first());
                     }
                     return null;

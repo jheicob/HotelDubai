@@ -44,6 +44,11 @@ class RoomStatuseSeeder extends Seeder
                 'description' => 'Ocupada',
                 'color' => '{"css": "background-color:rgba(218,83,79,1)", "mode": "solid", "color": {"a": 1, "b": 79, "g": 83, "r": 218}}'
             ],
+            [
+                'name' => 'Reservada',
+                'description' => 'Reservada',
+                'color' => '{"css": "background-color:rgba(118,183,79,1)", "mode": "solid", "color": {"a": 1, "b": 79, "g": 183, "r": 118}}'
+            ],
         ], ['name'], ['description', 'color']);
     }
 }

@@ -68,12 +68,10 @@ class CreateController extends Controller
 
             $partial_rate = $room->partialCost->partialRate;
             $partial_rate->append('number_hour');
-            Log::info('as1');
 
             $room_service = (new RoomService($room));
-            Log::info('a2');
             $rate = $room_service->getRateByConditionals();
-            Log::info('as3');
+
             $partialCost_new = $room_service->getPartialByConditionals();
             $partial_rate_new = \App\Models\PartialCost::find($partialCost_new)->partialRate->name;
 
@@ -84,16 +82,13 @@ class CreateController extends Controller
                 'partial_min' => $partial_rate_new,
                 'rate' => $rate,
             ]);
-            Log::info('as5');
 
             $reception = self::verifiedReceptionActive($client,$room);
             if ($reception) {
-                Log::info('v1');
 
                 return self::extendReception($reception, $request, $quantity_total_hours);
             }
 
-            Log::info('z1');
 
             $reception = $client->receptions()->create($request->only([
                 'room_id',
@@ -104,7 +99,6 @@ class CreateController extends Controller
             if (count($request->companions) > 0) {
                 self::storeCompanions($reception, $request->companions);
             }
-            Log::info('z2');
 
             $reception_detail = $reception->details()->create($request->only([
                 'partial_min',
@@ -118,10 +112,20 @@ class CreateController extends Controller
                 'observation' => $request->ticket_op
             ]);
             // $status = $request->date_in > Carbon::now() ? 'Reservada' : 'Ocupada';
-            $roomStatus = RoomStatus::firstWhere('name', 'Ocupada');
-            $room->update([
-                'room_status_id' => $roomStatus->id,
-            ]);
+            $date_in_parse = Carbon::parse($request->date_in)->format('d-m-Y H:i');
+            $now_add_minute =Carbon::now()->addMinute()->format('d-m-Y H:i');
+            Log::info($request->all());
+            Log::info($date_in_parse);
+            Log::info($now_add_minute);
+
+            if( $now_add_minute >= $date_in_parse ){
+                $roomStatus = RoomStatus::firstWhere('name', 'Ocupada');
+                $room->update([
+                    'room_status_id' => $roomStatus->id,
+                ]);
+            }else{
+                $reception->update(['reservation'=>1]);
+            }
             DB::commit();
             return custom_response_sucessfull('created successfull', 200);
         } catch (\Exception $e) {
@@ -343,44 +347,12 @@ class CreateController extends Controller
                 ]);
             }
             $room_origin = Room::find($request->room_origin);
-
-            $reception_origin = $room_origin->receptionActive->first();
-            // if($reception_origin->details->count() > 1){
-            //     throw new \Exception('Esta habitación ya tiene varias recepciones, debe cancelar o facturar y abrir una nueva');
-            // }
-
-            $request['quantity_partial'] = $reception_origin->details[$reception_origin->details->count() - 1]->quantity_partial;
-            $request['date_in'] = $reception_origin->date_in;
             $room_destiny = Room::find($request->room_destiny);
-            $partial_rate = $room_destiny->partialCost->partialRate;
-
-            $partial_rate->append('number_hour');
-
-            $room_service = (new RoomService($room_destiny));
-            $rate = $room_service->getRateByConditionals();
-            $partialCost_new = $room_service->getPartialByConditionals();
-            $partial_rate_new = \App\Models\PartialCost::find($partialCost_new)->partialRate->name;
-
-            $quantity_total_hours = $request->quantity_partial * $partial_rate->number_hour;
-
-            $new_info = [
-                'room_id' => $room_destiny->id,
-                'date_out' => Carbon::parse($request->date_in)->addHours($quantity_total_hours),
-
-            ];
 
             $reception = $room_origin->receptionActive->first();
-            $reception->update($new_info);
-            $reception_detail = $reception->details->first();
-            $reception_detail->update([
-                'partial_min' => $partial_rate_new,
-                'rate' => $rate
-            ]);
+            $reception->update(['room_id'=> $room_destiny->id]);
 
-            $reception_detail->ticket()->create([
-                'observation' => $request->observation
-            ]);
-            $roomStatus = RoomStatus::firstWhere('name', 'Ocupada');
+            $roomStatus = RoomStatus::firstWhere('name', $room_origin->roomStatus->name);
 
             $room_origin->update([
                 'room_status_id' => $roomStatus_origin->id,

@@ -279,16 +279,16 @@
 											<div class="row">
 												<div class="col">
 													<label class="form-label"
-														>Fecha de Entrada</label
+														>Fecha y Hora de Entrada</label
 													>
 													<input
 														v-model="date"
-														type="date"
+														type="datetime-local"
 														class="form-control"
 														:disabled="!client_exist"
 													/>
 												</div>
-												<div class="col">
+												<!-- <div class="col">
 													<label class="form-label"
 														>Hora de Entrada</label
 													>
@@ -298,7 +298,7 @@
 														class="form-control"
 														:disabled="!client_exist"
 													/>
-												</div>
+												</div> -->
 											</div>
 											<div class="row">
 												<div class="col-8" v-if="false">

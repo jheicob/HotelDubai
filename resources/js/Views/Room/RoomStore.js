@@ -302,7 +302,8 @@ export const RoomStore = defineStore("roomStore", () => {
         }
         if (
             room.relationships.roomStatus.id != 2 &&
-            room.relationships.roomStatus.id != 4
+            room.relationships.roomStatus.id != 4 &&
+            room.relationships.roomStatus.id != 5
         ) {
             return;
         }
