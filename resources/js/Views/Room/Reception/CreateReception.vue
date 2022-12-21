@@ -357,7 +357,7 @@
 													</select>
 												</div>
 											</div>
-                                            <div class="row col-4 mx-auto my-3">
+                                            <div class="row col-5 mx-auto my-3">
                                                 <CompanionsVue />
                                             </div>
 											<div>
@@ -418,7 +418,7 @@
 						<button
 							:disabled="desactiveButton"
 							v-on:click.prevent="asignarHab()"
-							class="btn btn-primary text-white btn-icon-split col-2"
+							class="btn btn-primary text-white btn-icon-split col-3"
 						>
 							<span class="text font-montserrat font-weight-bold">{{
 								store.updated_reception

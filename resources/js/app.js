@@ -5,6 +5,7 @@
  */
 require("./bootstrap");
 //import "./bootstrap";
+// import './fullCalendar'
 
 import { createApp } from "vue";
 import { createPinia } from "pinia";
@@ -41,6 +42,7 @@ import FiscalMachine from "./Views/FiscalMachine/FiscalMachine.vue";
 import ProductCategory from "./Views/ProductCategory/ProductCategory.vue"
 import ReportGraph from './Views/Reports/Grafico/GraficoView.vue'
 import Datepicker from '@vuepic/vue-datepicker';
+import Reservation from './Views/Room/Reservation.vue'
 import '@vuepic/vue-datepicker/dist/main.css'
 
 const app = createApp({});
@@ -91,7 +93,8 @@ app.component("permissions", permissions)
    .component('fiscal-machine',FiscalMachine)
    .component('product-category',ProductCategory)
    .component('reporte-grafico',ReportGraph)
-   .component('Datepicker', Datepicker);
+   .component('Datepicker', Datepicker)
+   .component('reservation', Reservation);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

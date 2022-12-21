@@ -42,6 +42,8 @@
         }
 
     </style>
+
+    @yield('css')
 </head>
 
 <body id="page-top">
@@ -108,7 +110,7 @@
                     @endcan
                     @can('room.index')
                     <li class="nav-item" onmouseover="showElement('reservation')" onmouseout="hideElement('reservation')">
-                            <a class="nav-link" href="{{ route('room.index') }}">
+                            <a class="nav-link" href="{{ route('room.calendar-reservation') }}">
                                 <i class="fas fa-calendar-alt"></i>
                                 <span id='reservation-text' name="icon-reservation" class="custom-menu-item">
                                     Reservación</span>
@@ -427,6 +429,8 @@ const hideElement = (element) => {
         //     $('#app2').append(getN())
         // });
     </script>
+
+    @yield('scripts')
 </body>
 
 </html>

@@ -12,6 +12,14 @@ Route::group(
     ],
     function () {
 
+        Route::get('calendar-reservation', [App\Http\Controllers\Room\IndexController::class, 'calendarReservation'])
+        ->name('room.calendar-reservation')
+        ->middleware('permission:room.index');
+
+        Route::get('get-reservation/calendar-reservation', [App\Http\Controllers\Room\IndexController::class, 'getReservations'])
+        ->name('room.calendar-reservation')
+        ->middleware('permission:room.index');
+
         Route::get('', [App\Http\Controllers\Room\IndexController::class, 'index'])
             ->name('room.index')
             ->middleware('permission:room.index');
