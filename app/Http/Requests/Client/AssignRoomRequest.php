@@ -5,6 +5,7 @@ namespace App\Http\Requests\Client;
 use App\Rules\Client\VerifiedReceptionAndRoom;
 use App\Rules\VerifyReservation;
 use App\Traits\CustomResponseFormRequestTrait;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AssignRoomRequest extends FormRequest
@@ -34,7 +35,7 @@ class AssignRoomRequest extends FormRequest
                 'exists:clients,id',
                 // new VerifiedReceptionAndRoom($this->room_id)
             ],
-            'date_in' => 'required|date_format:Y-m-d H:i',
+            'date_in' => 'required|date_format:Y-m-d H:i|after_or_equal:'. Carbon::now()->format('Y-m-d H:i'),
             'observation' => 'nullable|string',
             'quantity_partial' => 'required|numeric',
         ];

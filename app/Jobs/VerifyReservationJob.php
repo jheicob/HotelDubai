@@ -38,7 +38,7 @@ class VerifyReservationJob implements ShouldQueue
         $now = Carbon::now();
         Log::info('Fecha completa:'.$now->format('d-m-Y H:i:s'));
 
-        $receptions = Reception::where('date_in','<=',$now)
+        $receptions = Reception::where('date_in','<=',$now->format('Y-m-d H:i:s'))
                         ->where('invoiced',0)
                         ->where('reservation',1)
                         ->with('room')
