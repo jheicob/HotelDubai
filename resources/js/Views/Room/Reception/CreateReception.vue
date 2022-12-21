@@ -382,7 +382,7 @@
 						</div>
 					</div>
 					<!-- /.table-responsive -->
-					<div class="row justify-content-between mx-5">
+					<div class="row justify-content-between mx-5" v-if="showButtons">
 						<button
 							class="btn btn-info col-1"
 							@click.prevent="store.show = false"
@@ -804,6 +804,13 @@
     import {CompanionStore} from "./CompanionsStore"
     import { ExtraGuestStore } from "../../ExtraGuest/ExtraGuestStore";
 import SelectCaja from "../Modals/SelectCaja.vue";
+
+defineProps({
+    showButtons:{
+        type: Boolean,
+        default:true
+    }
+})
 
 const activarBoton = () => {
     if(!click_in_invoice.value){

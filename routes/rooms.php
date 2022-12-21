@@ -17,7 +17,11 @@ Route::group(
         ->middleware('permission:room.index');
 
         Route::get('get-reservation/calendar-reservation', [App\Http\Controllers\Room\IndexController::class, 'getReservations'])
-        ->name('room.calendar-reservation')
+        ->name('room.get-calendar-reservation')
+        ->middleware('permission:room.index');
+
+        Route::delete('cancel-reservation/{reception}', [App\Http\Controllers\Room\ReservationController::class, 'cancelarReservacion'])
+        ->name('room.cancel-reservation')
         ->middleware('permission:room.index');
 
         Route::get('', [App\Http\Controllers\Room\IndexController::class, 'index'])
