@@ -10,9 +10,7 @@
             <buton class="btn btn-primary mx-2" @click="showElement('Product')">
                 Productos
             </buton>
-            <buton class="btn btn-primary" @click="showElement('Payment')">
-                Pagos
-            </buton>
+
         </div>
     </div>
     <div class="modal-body">
@@ -25,15 +23,78 @@
             </div>
         </div>
     </div>
+    <ModalComponent id-modal="paymentModal" title size="lg" footer>
+        <InvoiceDetail></InvoiceDetail>
+
+
+        <template #title>
+            <h3>Pagos</h3>
+        </template>
+
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th>Tipo de Pago</th>
+                    <th>Método de Pago</th>
+                    <th>Monto</th>
+                    <th>Observacion</th>
+                    <th>Accion</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>
+                        <select class="form-select" v-model="store.payment.type">
+                            <option value="Bs">Bs</option>
+                            <option value="divisa">
+                                Divisa
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-select" v-model="store.payment.method">
+                            <option value="tarjeta">
+                                Tarjeta
+                            </option>
+                            <option value="efectivo">
+                                Efectivo
+                            </option>
+                            <option value="digital">
+                                Digital
+                            </option>
+                        </select>
+                    </td>
+                    <td>
+                        <input type="number" class="form-control" v-model="store.payment.quantity" />
+                    </td>
+                    <td>
+                        <input class="form-control" v-model="store.payment.description" />
+                    </td>
+
+                    <td colspan="5">
+                        <i class="fas fa-plus" style="cursor: pointer" @click="store.addPayment">
+                        </i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <template #footer>
+                    <button :disabled="disabledButton()" class="my-auto btn btn-primary text-white btn-icon-split mb-4"
+                        @click="createInvoice" type="button">
+                        <span class="text font-montserrat font-weight-bold">Facturar</span>
+                    </button>
+                <SelectCaja class="col-3 my-auto"></SelectCaja>
+        </template>
+    </ModalComponent>
     <div class="modal-footer">
         <a class="btn btn-danger text-white btn-icon-split mb-4 my-auto" data-dismiss="modal" @click="clearForm">
             <span class="text font-montserrat font-weight-bold">Cancelar</span>
         </a>
-        <button :disabled="disabledButton()" class="my-auto btn btn-primary text-white btn-icon-split mb-4"
-            @click="createInvoice" type="button">
-            <span class="text font-montserrat font-weight-bold">Facturar</span>
-        </button>
-            <SelectCaja class="col-2 my-auto"></SelectCaja>
+        <buton class="btn btn-primary" @click="openPaymentModal()">
+            Pagar
+        </buton>
     </div>
 </template>
 <script setup>
@@ -43,8 +104,9 @@ import { InvoiceStore } from "../InvoiceStore";
 import { HelperStore } from "@/HelperStore";
 import { ocuppyRoomStore } from "../../Room/Modals/OcuppyRoomStore";
 import { storeToRefs } from "pinia";
-import {LeftViewStore} from './LeftViewStore.js'
+import { LeftViewStore } from './LeftViewStore.js'
 import SelectCaja from "../../Room/Modals/SelectCaja.vue";
+import ModalComponent from '../../../components/ModalComponent.vue';
 
 const ocuppy = ocuppyRoomStore();
 const store = InvoiceStore();
@@ -52,7 +114,7 @@ const useHelper = HelperStore();
 const { caja_fiscal } = storeToRefs(useHelper)
 
 
-const leftView =  LeftViewStore()
+const leftView = LeftViewStore()
 
 const {
     showClient,
@@ -60,7 +122,7 @@ const {
     showPayments,
 } = storeToRefs(leftView)
 
-const {showElement} = leftView
+const { showElement } = leftView
 
 const { products: productInvoice, form, payment } = storeToRefs(store);
 const { products: products_get, client_exist, type_documents, date, hour, product, click_in_bodegon } =
@@ -69,10 +131,10 @@ const { products: products_get, client_exist, type_documents, date, hour, produc
 const disabledButton = () => {
 
 
-if(useHelper.desactiveButton){
-    return true
-}
-return (!store.verifyEqualPaymentAndAcum || useHelper.caja_fiscal == '')
+    if (useHelper.desactiveButton) {
+        return true
+    }
+    return (!store.verifyEqualPaymentAndAcum || useHelper.caja_fiscal == '')
 }
 const props = defineProps({
     fiscal_machine_id: {
@@ -117,7 +179,7 @@ const printInvoice = () => {
         payments: form.value.payments,
         products: productInvoice.value,
         fiscal_machine_id: useHelper.caja_fiscal,
-        reception_details:[]
+        reception_details: []
     };
     axios
         .post(url, data)
@@ -129,4 +191,8 @@ const printInvoice = () => {
         })
         .catch((err) => useHelper.getErrorRequest(err));
 };
+
+const openPaymentModal = () => {
+    $('#paymentModal').modal('show');
+}
 </script>
