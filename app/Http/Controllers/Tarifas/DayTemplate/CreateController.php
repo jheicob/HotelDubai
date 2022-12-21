@@ -25,6 +25,7 @@ class CreateController extends Controller
                         'room_type_id' => $room_type_id,
                         'day_week_id'  => $day_week_id,
                         'rate'         => $request->rate,
+                        'partial_rate_id' => $request->partial_rate_id,
                         'hour_start'   => $request->hour_start,
                         'hour_end'     => $request->hour_end,
                     ]);

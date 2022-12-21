@@ -51,6 +51,7 @@
                                 <th>Hora Inicio</th>
                                 <th>Hora Finl</th>
                                 <th>Tarifa</th>
+                                <th>Estado</th>
                                 <th>Accion</th>
                             </tr>
                         </thead>
@@ -63,6 +64,8 @@
                                 <th>Hora Inicio</th>
                                 <th>Hora Finl</th>
                                 <th>Tarifa</th>
+                                <th>Estado</th>
+
                                 <th>Accion</th>
                             </tr>
                         </tfoot>
@@ -80,6 +83,8 @@
                                 <td>{{ keep.attributes.hour_start }}</td>
                                 <td>{{ keep.attributes.hour_end}}</td>
                                 <td>{{ keep.attributes.rate }}</td>
+                                <td class="fw-bold " :class="keep.attributes.deleted_at ?'text-danger':'text-success'">{{keep.attributes.deleted_at ? 'Inactivo' : 'Activo'}}</td>
+
                                 <td>
                                     <i
                                         v-on:click.prevent="

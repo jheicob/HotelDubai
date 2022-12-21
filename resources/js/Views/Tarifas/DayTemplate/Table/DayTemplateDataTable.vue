@@ -38,6 +38,8 @@
                                 <th>Hora Inicio</th>
                                 <th>Hora Fin</th>
                                 <th>Tarifa</th>
+                                <th>Parcial</th>
+                                <th>Estado</th>
                                 <th>Accion</th>
                             </tr>
                         </thead>
@@ -49,6 +51,8 @@
                                 <th>Hora Inicio</th>
                                 <th>Hora Fin</th>
                                 <th>Tarifa</th>
+                                <th>Parcial</th>
+                                <th>Estado</th>
                                 <th>Accion</th>
                             </tr>
                         </tfoot>
@@ -70,6 +74,11 @@
                                 <td>
                                     {{ keep.attributes.rate }}
                                 </td>
+                                <td>
+                                    {{ keep.relationships.partialRate?.attributes.name  ?? ''}}
+                                </td>
+                                <td class="fw-bold " :class="keep.attributes.deleted_at ?'text-danger':'text-success'">{{keep.attributes.deleted_at ? 'Inactivo' : 'Activo'}}</td>
+
                                 <td>
                                     <i v-on:click.prevent="UpdatedPermission(keep)" v-if="updated"
                                         class="ico fas fa-edit fa-lg text-secondary" style="cursor: pointer"
