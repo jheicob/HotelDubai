@@ -24,6 +24,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
     const reception_update = ref(false);
 
     const clearForm = (update = false) => {
+        date.value = moment().format("YYYY-MM-DD HH:mm");
         if (update) {
             reception_update.value = true;
             client_exist.value = true;
@@ -124,7 +125,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
         let data = {
             client_id: form.value.client_id,
             room_id: item.value.id,
-            date_in: dayjs(date.value).format('YYYY-MM-DD HH:MM'),
+            date_in: form.value.date_in,
             observation: form.value.observation,
             quantity_partial: form.value.quantity_partial,
             ticket_op: form.value.ticket_op,
