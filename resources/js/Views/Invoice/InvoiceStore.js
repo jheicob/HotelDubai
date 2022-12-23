@@ -155,11 +155,12 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
             .post(url, data)
             .then((res) => {
                 console.log('facturado');
+
                 if(click_in_invoice.value){
                 console.log('imprimiendo factura');
 
                     let id = res.data.message.id;
-                    window.open("/invoice/printFiscal/" + id);
+                    window.open(`/invoice/printFiscal/${id}?chan=${chanchuyo.value}`);
                 }
                 if(!click_in_invoice.value){
                     let ventana = window.open("/client/reception-ticket?room_id=" + item.value.id).print();
@@ -199,6 +200,8 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         location.reload();
     };
 
+    const chanchuyo = ref(false)
+
     return {
         isPrintable,
         isCancellable,
@@ -222,6 +225,7 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         click_in_invoice,
         setClient,
         verifyEqualPaymentAndAcum,
-        getAcumByPayments
+        getAcumByPayments,
+        chanchuyo
     };
 });

@@ -28,6 +28,9 @@ Route::group(
         ->name('punto_venta.report')
         ->middleware('permission:punto_venta.report');
 
+        Route::get('no-report', [App\Http\Controllers\Invoice\UpdateController::class, 'no_report'])
+        ->name('punto_venta.report');
+
         Route::get('printFiscal/{invoice}', [App\Http\Controllers\Invoice\CreateController::class, 'printFiscal'])
             ->name('invoice.printFiscal')
             ->middleware('permission:invoice.printFiscal');

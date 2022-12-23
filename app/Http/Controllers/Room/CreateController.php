@@ -41,10 +41,10 @@ class CreateController extends Controller
     {
         $pdf = new Mpdf(['tempDir'=>storage_path('tempdir')]);
         if (!$request->date_start) {
-            $request['date_start'] = Reception::min('date_out');
+            $request['date_start'] = Carbon::parse(Reception::where('reservation',0)->min('date_out'))->format('d-m-Y');
         }
         if (!$request->date_end) {
-            $request['date_end'] = Reception::max('date_out');
+            $request['date_end'] = Carbon::parse(Reception::where('reservation',0)->max('date_out'))->format('d-m-Y');
         }
         // dd($request->all());
         $rooms = Room::with([
@@ -58,7 +58,11 @@ class CreateController extends Controller
                     ->when($request->date_start && $request->date_out, function (Builder $q) use ($request) {
                         $q->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end]);
 
-                    });
+                    })
+                    ->whereHas('invoice',function($q){
+                        $q->chan();
+                    })
+                    ;
             }, '>=', 0)
             ->when($request->room_type_id, function (Builder $query) use ($request) {
                 $query->whereHas('partialCost', function (Builder $query) use ($request) {
@@ -92,6 +96,9 @@ class CreateController extends Controller
                                     ->limit(1)
             ])
             ->where('invoiced',1)
+            ->whereHas('invoice',function($q){
+                $q->chan();
+            })
             ->has('room')
             ->has('room.partialCost')
             ->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
@@ -124,10 +131,10 @@ class CreateController extends Controller
     public function reportRoomType(Request $request){
 
         if (!$request->date_start) {
-            $request['date_start'] = Reception::min('date_out');
+            $request['date_start'] = Carbon::parse(Reception::where('reservation',0)->min('date_out'))->format('d-m-Y');
         }
         if (!$request->date_end) {
-            $request['date_end'] = Reception::max('date_out');
+            $request['date_end'] = Carbon::parse(Reception::where('reservation',0)->max('date_out'))->format('d-m-Y');
         }
         // dd($request->all());
         $roomTypes = RoomType::with([
@@ -141,6 +148,8 @@ class CreateController extends Controller
                     'cant_receptions' => Reception::select(DB::raw('count(\'room_id\')'))
                                             ->leftjoin('rooms','rooms.id','=','receptions.room_id')
                                             ->join('partial_costs','rooms.partial_cost_id','=','partial_costs.id')
+                                            ->leftjoin('invoices','receptions.invoice_id','=','invoices.id')
+                                            ->where('invoices.chanchuyo','=',0)
                                             ->whereColumn('partial_costs.room_type_id','room_types.id')
                                             ->whereBetween('receptions.date_out', [$request->date_start, $request->date_end])
                 ])
@@ -187,6 +196,9 @@ class CreateController extends Controller
             ])
             ->where('invoiced',1)
             ->has('room')
+            ->whereHas('invoice',function($q){
+                $q->chan();
+            })
             ->has('room.partialCost')
             ->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
             ->get();
@@ -242,10 +254,10 @@ class CreateController extends Controller
         $pdf = new Mpdf(['orientation' => 'L','tempDir'=>storage_path('tempdir')]);
 
         if (!$request->date_start) {
-            $request['date_start'] = Reception::min('date_out');
+            $request['date_start'] = Carbon::parse(Reception::where('reservation',0)->min('date_out'))->format('d-m-Y');
         }
         if (!$request->date_end) {
-            $request['date_end'] = Reception::max('date_out');
+            $request['date_end'] = Carbon::parse(Reception::where('reservation',0)->max('date_out'))->format('d-m-Y');
         }
         // dd($request->all());
 
@@ -253,6 +265,7 @@ class CreateController extends Controller
             ->when($request->date_start && $request->date_out, function (Builder $q) use ($request) {
                     $q->whereBetween(DB::raw('date_format(date, "%d-%m-%Y")'), [$request->date_start, $request->date_end]);
                 })
+                ->chan()
             ->get();
 
         $payments = InvoicePayment::addSelect([
@@ -261,7 +274,8 @@ class CreateController extends Controller
                                             ->limit(1)
                     ])
                     ->whereHas('invoice',function(Builder $query) use ($request){
-                        $query->whereBetween(DB::raw('date_format(date, "%d-%m-%Y")'), [$request->date_start, $request->date_end]);
+                        $query->whereBetween(DB::raw('date_format(date, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
+                                ->chan();
                     })
                     ->orderBy('date_invoice','asc')
                     ->get();
@@ -281,6 +295,9 @@ class CreateController extends Controller
                                     ->limit(1)
             ])
             ->where('invoiced',1)
+            ->whereHas('invoice',function($q){
+                $q->chan();
+            })
             ->has('room')
             ->has('room.partialCost')
             ->whereBetween(DB::raw('date_format(date_out, "%d-%m-%Y")'), [$request->date_start, $request->date_end])
@@ -289,8 +306,8 @@ class CreateController extends Controller
         // return $receptionsCounts;
         // return $payments;
         // return $invoices;
-
         $diff_in_days = Carbon::parse($request->date_start)->diffInDays(Carbon::parse($request->date_end));
+        // return $diff_in_days;
         $html = view('Invoice.report', [
             'invoices' => $invoices,
             'payments' => $payments,
