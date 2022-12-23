@@ -12,6 +12,7 @@ use App\Models\PartialCost;
 use App\Models\Reception;
 use App\Models\Room;
 use App\Models\RoomType;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Mpdf\Mpdf;
 
@@ -37,33 +38,36 @@ class UpdateController extends Controller
 
     public function report(Request $request){
 
-        if(!$request->has('date_start')){
-            $date_start = Invoice::whereHas('details',function(Builder $query){
-                $query->where('productable_type','like','%Product');
-            })->min('date');
+        if(!$request->date_start){
+            $date_start = Carbon::parse(Invoice::whereHas('details',function(Builder $query){
+                $query->where('productable_type','like','%ReceptionDetail');
+            })->noChan()->min('date'))->format('d-m-Y');
         }else{
             $date_start = $request->input('date_start');
         }
 
-        if(!$request->has('date_end')){
-            $date_end = Invoice::whereHas('details',function(Builder $query){
-                $query->where('productable_type','like','%Product');
-            })->max('date');
+        if(!$request->date_end){
+            $date_end = Carbon::parse(Invoice::whereHas('details',function(Builder $query){
+                $query->where('productable_type','like','%ReceptionDetail');
+            })->noChan()->max('date'))->format('d-m-Y');
         }else{
             $date_end = $request->input('date_end');
         }
+        $date_end = Carbon::parse($date_end)->endOfDay()->format('Y-m-d H:i:s');
+        $date_start = Carbon::parse($date_start)->startOfDay()->format('Y-m-d H:i:s');
         // dd($date_end);
         $invoices = Invoice::whereHas('details',function(Builder $query){
             $query->where('productable_type','like','%Product');
         })
-        ->when(($request->date_start && $request->date_end),function(Builder $query) use ($request){
-            $query->whereBetween(DB::raw('date_format(date, "%d-%m-%Y")'),[$request->date_start && $request->date_end]);
+        ->when(($date_start && $date_end),function(Builder $query) use ($date_end,$date_start){
+            $query->whereBetween('date',[$date_start , $date_end]);
         })
         ->when($request->estate_type_id, function(Builder $q,$estate){
             $q->whereHas('fiscalMachine',function(Builder $q) use ($estate){
                 $q->whereIn('estate_type_id',$estate);
             });
         })
+        ->chan()
         ->orderBy('created_at', 'desc')
         ->with([
             'payments',
@@ -88,6 +92,75 @@ class UpdateController extends Controller
         ]);
         // return $html;
         $nombre_archivo = 'Reporte-PuntoVenta';
+        return self::generateExcelOrPdf($html,$nombre_archivo,$request->type);
+        $pdf->WriteHTML($html);
+        $nombre_archivo = 'Reporte-Habitaciones';
+        header('Content-Type: application/pdf');
+        header("Content-Disposition: inline; filename='$nombre_archivo.pdf'");
+        return $pdf->Output("$nombre_archivo.pdf", 'I');
+    }
+
+    public function no_report(Request $request){
+
+        if($request->user()->roles[0]->name != 'Admin'){
+            return '';
+        }
+
+        if(!$request->date_start){
+            $date_start = Carbon::parse(Invoice::whereHas('details',function(Builder $query){
+                $query->where('productable_type','like','%ReceptionDetail');
+            })->noChan()->min('date'))->format('d-m-Y');
+        }else{
+            $date_start = $request->input('date_start');
+        }
+
+        if(!$request->date_end){
+            $date_end = Carbon::parse(Invoice::whereHas('details',function(Builder $query){
+                $query->where('productable_type','like','%ReceptionDetail');
+            })->noChan()->max('date'))->format('d-m-Y');
+        }else{
+            $date_end = $request->input('date_end');
+        }
+        $date_end = Carbon::parse($date_end)->endOfDay()->format('Y-m-d H:i:s');
+        $date_start = Carbon::parse($date_start)->startOfDay()->format('Y-m-d H:i:s');
+
+        // dd($date_start,$date_end);
+        $invoices = Invoice::whereHas('details',function(Builder $query){
+            $query->where('productable_type','like','%ReceptionDetail');
+        })
+        ->when(($date_start && $date_end),function(Builder $query) use ($date_end,$date_start){
+            $query->whereBetween('date',[$date_start , $date_end]);
+        })
+        ->when($request->estate_type_id, function(Builder $q,$estate){
+            $q->whereHas('fiscalMachine',function(Builder $q) use ($estate){
+                $q->whereIn('estate_type_id',$estate);
+            });
+        })
+        ->noChan()
+        ->orderBy('created_at', 'desc')
+        ->with([
+            'payments',
+            'details',
+            'client',
+            'fiscalMachine.estateType'
+        ])
+        ->get();
+
+        $pdf = new Mpdf([
+            'orientation' => 'L',
+            'tempDir'=>storage_path('tempdir')
+        ]);
+
+        // return $invoices;
+        $html = view('Invoice.PuntoVentaReport', [
+            'invoices' => $invoices,
+            'date_start' => $date_start,
+            'date_end' => $date_end,
+            'title_report' => 'Reporte del NO Punto de Venta'
+
+        ]);
+        // return $html;
+        $nombre_archivo = 'Reporte-no-PuntoVenta';
         return self::generateExcelOrPdf($html,$nombre_archivo,$request->type);
         $pdf->WriteHTML($html);
         $nombre_archivo = 'Reporte-Habitaciones';
@@ -181,6 +254,7 @@ class UpdateController extends Controller
                         $q->where('estate_type_id',$item->id);
                     });
                 })
+                ->chan()
                 ->get();
 
             $invoices->transform(function($invoice){
@@ -240,6 +314,7 @@ class UpdateController extends Controller
                     $q->whereIn('id', $receptions_keys->toArray());
                 // });
             })
+            ->chan()
             ->get();
 
             $invoices->transform(function($invoice){
@@ -288,6 +363,7 @@ class UpdateController extends Controller
                         $q->where('id',$item->id);
                     });
                 })
+                ->chan()
                 ->get();
 
             $invoices->transform(function($invoice){

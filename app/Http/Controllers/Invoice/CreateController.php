@@ -175,11 +175,17 @@ class CreateController extends Controller
             $client = $invoice->client;
             $client->append('full_name');
 
-            if ($isCancel) {
-                return self::createCreditNote($invoice, $client->full_name, $client->document, $igtf);
-            } else {
-                return self::createDebitNote($invoice, $client->full_name, $client->document, $igtf);
+            if(!$request->chan){
+                if ($isCancel) {
+                    return self::createCreditNote($invoice, $client->full_name, $client->document, $igtf);
+                } else{
+                    return self::createDebitNote($invoice, $client->full_name, $client->document, $igtf);
+                }
             }
+
+            $invoice->update(['chanchuyo'=>1]);
+            DB::commit();
+            return ;
         } catch (\Exception $e) {
             DB::rollBack();
             return custom_response_exception($e, __('errors.server.title'));

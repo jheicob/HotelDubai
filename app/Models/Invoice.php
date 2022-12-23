@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -35,6 +36,7 @@ class Invoice extends Model implements Auditable
         'num_fiscal',
         'date_fiscal',
         'cancelled',
+        'chanchuyo',
         'status',
         'total_payment',
         'fiscal_machine_id'
@@ -68,5 +70,13 @@ class Invoice extends Model implements Auditable
 
     public function reception(){
         return $this->hasOne(Reception::class);
+    }
+
+    public function scopeChan(Builder $q){
+        return $q->where('chanchuyo',0);
+    }
+
+    public function scopeNoChan(Builder $q){
+        return $q->where('chanchuyo',1);
     }
 }

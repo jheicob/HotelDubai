@@ -763,6 +763,10 @@
 							</div>
 						</div>
 						<div class="modal-footer">
+                            <div v-if="helper.permiss.role == 'Admin'" class="col">
+                                <!-- <label>¿Sin Facturar?</label> -->
+                                <input class="form-check-input" type="checkbox" v-model="invoice.chanchuyo"/>
+                            </div>
 							<a
 								class="btn btn-danger text-white btn-icon-split mb-4"
 								data-dismiss="modal"
