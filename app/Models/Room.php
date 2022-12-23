@@ -107,7 +107,11 @@ class Room extends Model implements Auditable
 
     public function receptionActive()
     {
-        return $this->receptions()->where('invoiced', false);
+        return $this->hasMany(Reception::class)
+                    ->where('invoiced', false)
+                    ->where('reservation',0)
+                    ->orderBy('id','desc')
+                    ;
     }
 
     public function scopeIsCamarero(Builder $query)

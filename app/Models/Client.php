@@ -93,14 +93,20 @@ class Client extends Model implements Auditable
     }
 
     public function invoiceNoPrint() {
-        return $this->hasOne(Invoice::class)
-                    ->where('status','Sin Imprimir');
+        return $this
+                    ->hasOne(Invoice::class)
+                    ->where('status','Sin Imprimir')
+                    ->orderBy('id','desc')
+                    ;
     }
 
     public function receptionActive()
     {
         return $this->hasMany(Reception::class)
-            ->where('invoiced', false);
+            ->where('invoiced', false)
+            ->where('reservation',0)
+            ->orderBy('id','desc')
+            ;
     }
 
     public function getFullNameAttribute()
@@ -110,6 +116,9 @@ class Client extends Model implements Auditable
 
     public function receptionClosed(){
         return $this->hasMany(Reception::class)
-                    ->where('invoiced',1);
+                    ->where('invoiced',1)
+                    ->where('reservation',0);
+
+                    ;
     }
 }

@@ -184,6 +184,8 @@ class CreateController extends Controller
             }
 
             $invoice->update(['chanchuyo'=>1]);
+            $invoice->update(['status' => 'Impreso']);
+
             DB::commit();
             return ;
         } catch (\Exception $e) {
