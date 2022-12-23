@@ -93,7 +93,8 @@ class Room extends Model implements Auditable
                 'quantity_partial',
                 'time_additional',
                 'price_additional',
-                'invoiced'
+                'invoiced',
+
             ])
             ->wherePivot('invoiced', false);
     }

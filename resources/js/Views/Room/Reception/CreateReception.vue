@@ -279,16 +279,16 @@
 											<div class="row">
 												<div class="col">
 													<label class="form-label"
-														>Fecha de Entrada</label
+														>Fecha y Hora de Entrada</label
 													>
 													<input
 														v-model="date"
-														type="date"
+														type="datetime-local"
 														class="form-control"
 														:disabled="!client_exist"
 													/>
 												</div>
-												<div class="col">
+												<!-- <div class="col">
 													<label class="form-label"
 														>Hora de Entrada</label
 													>
@@ -298,7 +298,7 @@
 														class="form-control"
 														:disabled="!client_exist"
 													/>
-												</div>
+												</div> -->
 											</div>
 											<div class="row">
 												<div class="col-8" v-if="false">
@@ -357,7 +357,7 @@
 													</select>
 												</div>
 											</div>
-                                            <div class="row col-4 mx-auto my-3">
+                                            <div class="row col-5 mx-auto my-3">
                                                 <CompanionsVue />
                                             </div>
 											<div>
@@ -382,7 +382,7 @@
 						</div>
 					</div>
 					<!-- /.table-responsive -->
-					<div class="row justify-content-between mx-5">
+					<div class="row justify-content-between mx-5" v-if="showButtons">
 						<button
 							class="btn btn-info col-1"
 							@click.prevent="store.show = false"
@@ -418,7 +418,7 @@
 						<button
 							:disabled="desactiveButton"
 							v-on:click.prevent="asignarHab()"
-							class="btn btn-primary text-white btn-icon-split col-2"
+							class="btn btn-primary text-white btn-icon-split col-3"
 						>
 							<span class="text font-montserrat font-weight-bold">{{
 								store.updated_reception
@@ -808,6 +808,13 @@
     import {CompanionStore} from "./CompanionsStore"
     import { ExtraGuestStore } from "../../ExtraGuest/ExtraGuestStore";
 import SelectCaja from "../Modals/SelectCaja.vue";
+
+defineProps({
+    showButtons:{
+        type: Boolean,
+        default:true
+    }
+})
 
 const activarBoton = () => {
     if(!click_in_invoice.value){

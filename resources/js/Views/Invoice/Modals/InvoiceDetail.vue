@@ -125,9 +125,9 @@
         </div>
         <div class="row border border-top border-white">
             <div class="col text-right">
-                <h6>Falta Pagar</h6>
+                <h6 class="fw-bold">Falta Pagar</h6>
             </div>
-            <div class="col">
+            <div class="col fw-bold">
                 {{ invoice.getAcumByProducts - invoice.getAcumByPayments }}
             </div>
         </div>

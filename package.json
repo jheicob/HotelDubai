@@ -29,6 +29,12 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
+        "@fullcalendar/core": "^6.0.1",
+        "@fullcalendar/daygrid": "^6.0.1",
+        "@fullcalendar/interaction": "^6.0.0",
+        "@fullcalendar/list": "^6.0.1",
+        "@fullcalendar/timegrid": "^6.0.1",
+        "@fullcalendar/vue3": "^6.0.0",
         "@mcistudio/vue-colorpicker": "^2.0.0",
         "@vitejs/plugin-vue": "^3.1.2",
         "@vuepic/vue-datepicker": "^3.6.3",

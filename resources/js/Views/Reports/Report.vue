@@ -1,5 +1,5 @@
 <template>
-    <li class="nav-item dropdown">
+    <li class="nav-item dropdown" onmouseover="showElement('report')" onmouseout="hideElement('report')">
         <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -10,7 +10,8 @@
             aria-expanded="false"
         >
             <i class="fas fa-clipboard-list"></i>
-            <span>Reportes</span>
+            <span id='report-text' name="icon-report" class="custom-menu-item">
+Reportes</span>
         </a>
 
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">

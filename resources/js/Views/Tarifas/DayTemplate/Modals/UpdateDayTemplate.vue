@@ -86,6 +86,22 @@
 							type="number"
 							v-model="form.rate"
 						/>
+
+                        <label for="name" class="form-label">Parciales Mínimos</label>
+						<select
+							class="form-select"
+							aria-label="Default select example"
+							v-model="form.partial_rate_id"
+						>
+							<option selected value="">Seleccione Parcial</option>
+							<option
+								v-for="keep in partialRates"
+								:key="keep.id"
+								:value="keep.id"
+							>
+								{{ keep.attributes.name }}
+							</option>
+						</select>
 					</div>
 					<div class="modal-footer">
 						<a
@@ -130,10 +146,22 @@
 				roomType: [],
 				dayWeek: [],
 				systemTime: [],
+				partialRates: [],
 				ShiftSystem: [],
 			};
 		},
 		methods: {
+            getPartial() {
+				let url = "/configuracion/partial-rates/get";
+				axios
+					.get(url)
+					.then((response) => {
+						this.partialRates = response.data.data;
+					})
+					.catch((error) => {
+						console.log(error);
+					});
+			},
 			createPermission: function () {
 				var url = "/tarifas/day-templates/" + this.form.id;
 				axios
@@ -153,8 +181,11 @@
 				this.form.rate = permission.attributes.rate;
 				this.form.hour_start = permission.attributes.hour_start;
 				this.form.hour_end = permission.attributes.hour_end;
+				this.form.partial_rate_id = permission.relationships.partialRates?.id ?? '';
 				this.getRoomType();
 				this.getDayWeek();
+			    this.getPartial();
+
 			},
 
 			getRoomType: function () {

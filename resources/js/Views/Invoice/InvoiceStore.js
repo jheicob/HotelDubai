@@ -139,7 +139,7 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
     const printInvoice = () => {
         console.log('preparando factura');
 
-            let url = "invoice/create";
+            let url = "/invoice/create";
             let data = {
                 client_id: form.value.client_id,
                 room_id: item.value.id,
