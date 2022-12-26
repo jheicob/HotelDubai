@@ -30,7 +30,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
             client_exist.value = true;
             date.value = moment(
                 update.relationships.receptionActive.attributes.date_out
-            ).format("YYYY-MM-DD");
+            ).format("YYYY-MM-DD HH:mm");
             hour.value = moment(
                 update.relationships.receptionActive.attributes.date_out
             ).format("HH:mm");
@@ -64,7 +64,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
                 ticket_op: "Tarjeta",
             };
         } else {
-            _;
+
             form.value = {
                 client_id: null,
                 document: "",

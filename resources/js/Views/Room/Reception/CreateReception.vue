@@ -763,7 +763,7 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-                            <div v-if="helper.permiss.role == 'Admin'" class="col">
+                            <div v-if="verifChan()" class="col">
                                 <!-- <label>¿Sin Facturar?</label> -->
                                 <input class="form-check-input" type="checkbox" v-model="invoice.chanchuyo"/>
                             </div>
@@ -816,6 +816,11 @@ defineProps({
     }
 })
 
+const verifChan = () => {
+    let verify_rol = helper.permiss.role == 'Admin' || helper.permiss.role == 'Supervisor'
+    return verify_rol && click_in_invoice.value
+}
+
 const activarBoton = () => {
     if(!click_in_invoice.value){
         return !invoice.verifyEqualPaymentAndAcum
@@ -831,7 +836,7 @@ const activarBoton = () => {
 
     const getPayment = () => {
         form_invoice.value.payments = []
-        let payment_invoice = item.value.relationships.receptionActive.relationships.client.relationships.invoiceNoPrint.relationships.payments;
+        let payment_invoice = item.value.relationships.receptionActive.relationships.invoice.relationships.payments;
         countPayment.value = payment_invoice.length;
 
         payment_invoice.map(payment_i => {
@@ -849,6 +854,7 @@ const activarBoton = () => {
 	const asignarHab = () => {
         click_in_bodegon.value= false
 		ocuppy.getProducts();
+
         if(item.value.relationships.receptionActive){
             setProducts()
         }
@@ -856,7 +862,7 @@ const activarBoton = () => {
 		//    console.log("aqui");
 
 		form_invoice.value.reception_details = [];
-
+        form_invoice.value.payments = [];
 		if (item.value.relationships.receptionActive) {
             getPayment()
 			let details = item.value
@@ -974,7 +980,7 @@ const activarBoton = () => {
 	};
 
     const setProducts = () => {
-        let details_invoice = item.value.relationships.receptionActive.relationships.client.relationships.invoiceNoPrint.relationships.details;
+        let details_invoice = item.value.relationships.receptionActive.relationships.invoice.relationships.details;
 
         products.value = []
         let det = [];

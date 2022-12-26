@@ -73,6 +73,10 @@ class Reception extends Model implements Auditable
         return $this->belongsTo(Invoice::class);
     }
 
+    public function invoiceNoPrint(){
+        return $this->belongsTo(Invoice::class);
+    }
+
     public function invoiceDetail(){
         return $this->hasOneThrough(InvoiceDetail::class,ReceptionDetail::class,'reception_id','productable_id')
                     ->where('productable_type','App\\Models\\ReceptionDetail')

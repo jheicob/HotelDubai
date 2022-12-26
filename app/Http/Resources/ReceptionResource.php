@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Http\Resources\Client\ClientResource;
+use App\Http\Resources\Invoice\InvoiceResource;
 use App\Http\Resources\Room\RoomResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,11 +23,15 @@ class ReceptionResource extends JsonResource
                 'date_in' => $this->resource->date_in,
                 'date_out' => $this->resource->date_out,
                 'invoiced' => $this->resource->invoiced,
+                'invoice_id' => $this->resource->invoice_id,
                 'observation' => $this->resource->observation,
             ],
             'relationships' => [
                 'client' => $this->whenLoaded('client', function() {
                     return ClientResource::make($this->resource->client);
+                }),
+                'invoice' => $this->whenLoaded('invoice', function() {
+                    return InvoiceResource::make($this->resource->invoice);
                 }),
                 'room' => $this->whenLoaded('room', function() {
                     return RoomResource::make($this->resource->room);
