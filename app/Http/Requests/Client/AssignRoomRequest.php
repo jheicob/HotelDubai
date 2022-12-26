@@ -35,7 +35,7 @@ class AssignRoomRequest extends FormRequest
                 'exists:clients,id',
                 new VerifiedReceptionAndRoom($this->room_id)
             ],
-            'date_in' => 'required|date_format:Y-m-d H:i|after_or_equal:'. Carbon::now()->format('Y-m-d H:i'),
+            'date_in' => 'required|date_format:Y-m-d H:i|after_or_equal:'. Carbon::now()->subMinutes(10)->format('Y-m-d H:i'),
             'observation' => 'nullable|string',
             'quantity_partial' => 'required|numeric',
         ];
