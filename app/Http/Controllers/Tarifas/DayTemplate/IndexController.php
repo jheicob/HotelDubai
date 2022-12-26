@@ -22,11 +22,7 @@ class IndexController extends Controller
                 'roomType',
                 'dayWeek',
                 'partialRate'
-            ]);
-            if(isAdmin()){
-                $daytemplate = $daytemplate->withTrashed();
-            }
-            $daytemplate = $daytemplate->get();
+            ])->withTrashed()->get();
 
             return DayTemplateResource::collection($daytemplate);
         } catch (\Exception $e) {

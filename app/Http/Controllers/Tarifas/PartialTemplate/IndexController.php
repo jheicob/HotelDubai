@@ -20,11 +20,7 @@ class IndexController extends Controller
         try {
             $permissions = PartialTemplate::with([
                 'roomType','partialRate','dayWeek','systemTime','shiftSystem','partialRate'
-                ]);
-            if(isAdmin()){
-                $permissions = $permissions->withTrashed();
-            }
-            $permissions = $permissions->get();
+                ])->withTrashed()->get();
             return PartialTemplateResource::collection($permissions);
         } catch (ValidationException $ex) {
             return response()->json(

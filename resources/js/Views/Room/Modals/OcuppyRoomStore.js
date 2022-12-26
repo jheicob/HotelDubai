@@ -122,6 +122,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
     const { show } = storeToRefs(reception);
 
     const assigRoom = () => {
+        form.value.date_in = dayjs(date.value).format('YYYYY-MM-DD HH:MM');
         let data = {
             client_id: form.value.client_id,
             room_id: item.value.id,

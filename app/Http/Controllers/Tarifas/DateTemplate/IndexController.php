@@ -23,11 +23,7 @@ class IndexController extends Controller
             $dateTemplate = DateTemplate::with([
                 'roomType',
                 'partialRate'
-                            ]);
-            if(isAdmin()){
-                $dateTemplate = $dateTemplate->withTrashed();
-            }
-            $dateTemplate = $dateTemplate->get();
+                            ])->withTrashed()->get();
 
             return DateTemplateResource::collection($dateTemplate);
         } catch (\Exception $e) {

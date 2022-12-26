@@ -20,11 +20,7 @@ class IndexController extends Controller
         try {
             $hourtemplate = HourTemplate::with([
                 'roomType','partialRate','shiftSystem'
-                ]);
-            if(isAdmin()){
-                $hourtemplate = $hourtemplate->withTrashed();
-            }
-            $hourtemplate = $hourtemplate->get();
+                ])->withTrashed()->get();
             return HourTemplateResource::collection($hourtemplate);
         } catch (\Exception $e) {
             return custom_response_exception($e,__('errors.server.title'),500);

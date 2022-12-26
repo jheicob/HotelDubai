@@ -175,7 +175,7 @@ class CreateController extends Controller
             $client = $invoice->client;
             $client->append('full_name');
 
-            if(!$request->chan){
+            if($request->chan == 'false'){
                 if ($isCancel) {
                     return self::createCreditNote($invoice, $client->full_name, $client->document, $igtf);
                 } else{
