@@ -51,7 +51,7 @@ class CreateRequest extends FormRequest
 
         ];
         if ($this->reception_details && count($this->reception_details) > 0) {
-            $data['total_payment'] = new VerifiedTotalPayment($this->client_id,$this->room_id);
+            $data['total_payment'] = new VerifiedTotalPayment($this->reception_id);
         }
         if ($this->products && count($this->products) > 0) {
             $data['total_payment'] = new verifiedSumTotalProducts($this->products);

@@ -45,10 +45,7 @@ class CreateController extends Controller
             $total_invoice = 0;
 
             if($request->reception_details && count($request->reception_details) > 0 ) {
-                $reception = Reception::where([
-                    ['client_id',$request->client_id],
-                    ['room_id',$request->room_id]
-                ])->first();
+                $reception = Reception::find($request->reception_id);
 
                 self::VerifiedAndUpdateAdditionalReceptionDetails($reception, $request->reception_details);
                 $total_invoice += $this->service->calculateTotalByReceptionDetails($reception);
@@ -88,10 +85,8 @@ class CreateController extends Controller
             $invoice->save();
 
             if($request->reception_details && count($request->reception_details) > 0) {
-                $reception = Reception::where([
-                    ['client_id',$request->client_id],
-                    ['room_id',$request->room_id]
-                ])->first();
+                $reception = Reception::find($request->reception_id);
+
 
                 $reception->invoice_id = $invoice->id;
                 $reception->save();

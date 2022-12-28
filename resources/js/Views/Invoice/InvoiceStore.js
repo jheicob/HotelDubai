@@ -147,7 +147,8 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
                 payments: form.value.payments,
                 products: products.value,
                 click_in_invoice : click_in_invoice.value,
-                fiscal_machine_id: helper.caja_fiscal
+                fiscal_machine_id: helper.caja_fiscal,
+                reception_id: reception_id
             };
         console.log('data factura',data);
 

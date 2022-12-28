@@ -15,18 +15,12 @@ class VerifiedTotalPayment implements Rule
      *
      * @return void
      */
-    public function __construct($client_id,$room_id)
+    public function __construct($reception_id)
     {
-        Log::warning($client_id);
-        Log::warning($room_id);
 
-        $this->reception = Reception::where([
-            ['client_id',$client_id],
-            ['room_id',$room_id],
-            ['reservation',0],
-            ['invoiced',0]
-        ])->first();
+        $this->reception = Reception::find($reception_id);
 
+        Log::info('reception----');
         Log::info($this->reception);
     }
 
