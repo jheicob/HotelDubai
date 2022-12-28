@@ -39,7 +39,8 @@ class VerifyReservationJob implements ShouldQueue
         Log::info('Fecha completa:'.$now->format('d-m-Y H:i:s'));
 
         $receptions = Reception::where('date_in','<=',$now->format('Y-m-d H:i:s'))
-                        ->where('invoiced',0)
+                        ->where('date_out','>=',Carbon::now()->endOfDay()->format('Y-m-d H:i:s'))
+                        // ->where('invoiced',0)
                         ->where('reservation',1)
                         ->with('room')
                         ->whereHas('room', function(Builder $query){

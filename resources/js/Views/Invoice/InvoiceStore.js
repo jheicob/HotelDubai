@@ -136,7 +136,7 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
         form.value.client_id = client_id;
 
     }
-    const printInvoice = () => {
+    const printInvoice = (reception_id = null) => {
         console.log('preparando factura');
 
             let url = "/invoice/create";
@@ -163,7 +163,7 @@ export const InvoiceStore = defineStore("InvoiceStore", () => {
                     window.open(`/invoice/printFiscal/${id}?chan=${chanchuyo.value}`);
                 }
                 if(!click_in_invoice.value){
-                    let ventana = window.open("/client/reception-ticket?room_id=" + item.value.id).print();
+                    let ventana = window.open("/client/reception-ticket?room_id=" + item.value.id+"&reception_id="+reception_id).print();
                 }
 
                 show.value = false;

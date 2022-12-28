@@ -127,7 +127,10 @@ class CreateController extends Controller
                 $reception->update(['reservation'=>1]);
             }
             DB::commit();
-            return custom_response_sucessfull('created successfull', 200);
+            return custom_response_sucessfull([
+                'message' =>'created successfull',
+                'reception_id' => $reception->id,
+            ], 200);
         } catch (\Exception $e) {
             DB::rollBack();
             return custom_response_exception($e, __('errors.server.title'), 500);
@@ -172,7 +175,9 @@ class CreateController extends Controller
     {
         $reception = Reception::where([
             ['client_id',$client->id],
-            ['room_id',$room->id]
+            ['room_id',$room->id],
+            ['reservation',0],
+            ['invoiced',0]
         ])->first();
         if (!$reception) {
             return false;
@@ -266,7 +271,7 @@ class CreateController extends Controller
         $room->rate_current = $rate->getRateByConditionals();
         $room->partial_cost_id = $rate->getPartialByConditionals();
 
-        $reception = $room->receptionActive->first();
+        $reception = Reception::find($request->reception_id);
         $invoice   = $reception->invoice;
         $reception_detail = $reception->details()->orderBy('created_at', 'desc')->first();
 

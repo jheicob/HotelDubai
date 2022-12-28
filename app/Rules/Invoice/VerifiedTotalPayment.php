@@ -22,7 +22,9 @@ class VerifiedTotalPayment implements Rule
 
         $this->reception = Reception::where([
             ['client_id',$client_id],
-            ['room_id',$room_id]
+            ['room_id',$room_id],
+            ['reservation',0],
+            ['invoiced',0]
         ])->first();
 
         Log::info($this->reception);
@@ -42,6 +44,9 @@ class VerifiedTotalPayment implements Rule
         foreach ($this->reception->details as $detail) {
             $acum += ($detail->rate * $detail->quantity_partial);
         }
+
+        Log::info('acum del pago total:'.$acum);
+        Log::info('acum del pago:'.$value);
 
         if ($acum > $value) return false;
 

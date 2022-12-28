@@ -18,20 +18,20 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
     const client_exist = ref(false);
     const type_documents = ref([]);
     const client = ref({});
-    const date = ref(moment().format("YYYY-MM-DD HH:mm"));
-    const hour = ref(moment().format("HH:mm"));
+    const date = ref(dayjs().format("YYYY-MM-DD HH:mm"));
+    const hour = ref(dayjs().format("HH:mm"));
     const click_in_invoice = ref(false);
     const reception_update = ref(false);
 
     const clearForm = (update = false) => {
-        date.value = moment().format("YYYY-MM-DD HH:mm");
+        date.value = dayjs().format("YYYY-MM-DD HH:mm");
         if (update) {
             reception_update.value = true;
             client_exist.value = true;
-            date.value = moment(
+            date.value = dayjs(
                 update.relationships.receptionActive.attributes.date_out
             ).format("YYYY-MM-DD HH:mm");
-            hour.value = moment(
+            hour.value = dayjs(
                 update.relationships.receptionActive.attributes.date_out
             ).format("HH:mm");
 
@@ -121,8 +121,11 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
 
     const { show } = storeToRefs(reception);
 
+    const getDate = computed(()=>{
+        return dayjs(date.value).format('YYYY-MM-DD HH:mm')
+    })
     const assigRoom = () => {
-        form.value.date_in = dayjs(date.value).format('YYYYY-MM-DD HH:MM');
+        form.value.date_in = getDate.value;
         let data = {
             client_id: form.value.client_id,
             room_id: item.value.id,
@@ -142,7 +145,7 @@ export const ocuppyRoomStore = defineStore("ocuppyRoomStore", () => {
                 invoice.setClient(form.value.client_id)
                 show.value = false;
                 if(!click_in_invoice.value){
-                    invoice.printInvoice()
+                    invoice.printInvoice(response.data.message.reception_id)
                     // let ventana = window.open("/client/reception-ticket?room_id=" + item.value.id).print();
                 }
 
@@ -284,6 +287,7 @@ const setProduct = (id) => {
         getTypeDocuments,
         type_documents,
         click_in_invoice,
-        click_in_bodegon
+        click_in_bodegon,
+        getDate
     };
 });

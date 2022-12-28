@@ -65,7 +65,11 @@ class IndexController extends Controller
 
     public function getReservations(){
         $receptions = Reception::with('room.partialCost.roomType','client')
-                                ->where('date_in','>=',Carbon::now()->startOfDay()->format('Y-m-d H:i:s'))
+                                ->where([
+                                    ['date_in','<=',Carbon::now()->startOfDay()->format('Y-m-d H:i:s')],
+                                    ['date_out','>=',Carbon::now()->endOfDay()->format('Y-m-d H:i:s')]
+                                ])
+                                ->orWhere('date_in','>=',Carbon::now()->startOfDay()->format('Y-m-d H:i:s'))
                                 ->where('reservation',1)
                                 ->get();
 
