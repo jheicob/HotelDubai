@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\FixedBugReservationAndInvoice;
 use App\Jobs\VerifyReservationJob;
 use App\Models\Reception;
 use Carbon\Carbon;
@@ -34,6 +35,14 @@ class Kernel extends ConsoleKernel
                 });
             })
             ->get();
+
+            return $receptions->count() > 0;
+        });
+
+        $schedule->job(new FixedBugReservationAndInvoice)->everyMinute()->when(function(){
+            // $now = Carbon::now();
+
+            $receptions = Reception::whereNull('invoice_id')->get();
 
             return $receptions->count() > 0;
         });
