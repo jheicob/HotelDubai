@@ -905,7 +905,7 @@ const activarBoton = () => {
 
             form_invoice.value.client_id = item.value.relationships.receptionActive.relationships.client.id
 
-            return invoice.printInvoice()
+            return invoice.printInvoice(item.value.relationships.receptionActive.id)
         }
         console.log('asign')
 
